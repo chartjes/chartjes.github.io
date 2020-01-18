@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Yes, I Do Some Javascript Programming As Well &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>Yes, I Do Some Javascript Programming As Well <small>post</small></h2>
+            <h3>June 10th, 2008</h3>
+        </header>
+        <div>
+            <p>(before I get into this I wanted to let people know that I will be going to <a href="http://www.zendcon.com/ZendCon08/public/content/home">ZendCon</a> to give my deployment talk.  I might be looking for a place to crash for a second night, so let me know if you're going and can hook me up)</p>
+
+<p>
+For a <a href="http://sportso.com">work project</a> I had to add in some Ajax functionality for a scoreboard feature, where users will enter scores for periods / quarters / innings and then the total score has to update automatically on the screen before the user wishes to save that scoring document.  So with some help from one of my online <a href="http://marcgrabanski.com/">javascript ninja associates</a> and Google searches, I got it all figured out, and thought I would share.
+</p>
+
+<p>
+Here's a snapshot of the interface in question:
+<img src="http://chrishartjes.com/sportso-scoreboard.png" alt="Sportso scoreboard interface" / width=532 height=183  />
+</p>
+
+<p>
+The first thing I did was apply the same class name to the away "innings" and home "innings" form fields, so that $().serialize would be able to pull up all those fields.  That way, it wouldn't matter how many "inning" fields there might be.  The tricky thing I found out was that I need to wrap my $('.homePeriods').change() call in it's own function() call so that it would actually be loaded when the page was loaded as well.  I had no idea I needed to do that, and thanks to Marc for pointing it out.  If there is a better method, let me know.
+<br />
+~~~
+// Method used to automatically update total fields
+// when editing individual periods
+$(function(){ 
+    $('.homePeriods').change(function(){
+        var params = $('.homePeriods').serialize();
+        var pArray = params.split('&');
+        var homeTotal = 0;
+
+        for (var i=0; i < pArray.length; i++) {
+            var temp = pArray[i].split('=');
+            var homePeriod = temp[1];
+            // Cast value to an integer with this little hack
+            homePeriod = homePeriod - 0;
+            homeTotal += homePeriod;
+        }
+
+        $('#homeScoreTotal').replaceWith('<td class="period" id="homeScoreTotal"><input type="text" name="homeScoreTotal" value="' + homeTotal + '" maxlength="2" size="2" id="htotal" />');
+    });
+
+    $('.awayPeriods').change(function(){
+        var params = $('.awayPeriods').serialize();
+        var pArray = params.split('&');
+        var awayTotal = 0;
+
+        for (var i=0; i < pArray.length; i++) {
+            var temp = pArray[i].split('=');
+            var awayPeriod = temp[1];
+            awayPeriod = awayPeriod - 0;
+            awayTotal += awayPeriod;
+        }
+
+        $('#awayScoreTotal').replaceWith('<td class="period" id="awayScoreTotal"><input type="text" name="awayScoreTotal" value="' + awayTotal + '" maxlength="2" size="2" id="vtotal" />');
+    });
+});
+~~~
+</p>
+
+<p>
+So, here's a small movie showing that in action.
+<br />
+<br />
+[flv:http://www.archive.org/download/SportsoDynamicScoreboard/sportso-scoreboard.flv 533 400]
+</p>
+
+<p>I hope this helps out other people looking to add similar functionality to their site.</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2008/06/13/accuracy-in-baseball-simulations/" title="Accuracy In Baseball Simulations"><span class="title">Accuracy In Baseball Simulations</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2008/05/30/never-stop-learning-2/" title="Never Stop Learning"><span class="title">Never Stop Learning</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

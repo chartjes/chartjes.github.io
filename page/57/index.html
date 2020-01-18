@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Home &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta name="robots" content="noindex, follow">
+                <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2><a href="/2009/11/05/next-gen-work-projects/">Next-Gen Work Projects</a></h2>
+        </header>
+        <div>
+            <p>We are contemplating the next generation of our <a href="http://www.xmlteam.com/feedfetcher.php">XML feed processing applicatioin</a> and discussing what technologies we want to use.  Personally, I was pushing for <a href="http://twistedmatrix.com">Twisted</a> because of it's support for concurrency and, well, it's Python.  The main dev on the project (it is currently a Perl application) likes Java, as does our sysadmin (who also updated some existing infrastructure to use Java).  At one time I thought that we could replace some existing Ruby code in our system with some <a href="http://www.jython.org/">Jython</a> code, but like many things I have not been able to free up the time to work on it.
+</p>
+
+<p>Since we seemed determined to use Java, I decided to see if I could pique the Java boyz interests and suggested that we take a look at <a href="http://www.scala-lang.org/">Scala</a>.  It's terse, totally object-oriented and has full interoperability with Java itself.  Which, hopefully, means that some of the libraries available for Java that would be of use to our project could be used within Scala as well.
+</p>
+
+<p>
+See, I'm stuck between a rock and a hard place here:  I'd love to be involved in this project because Scala seems cool, and I've never done any work with Java before.  But will I ever get the chance, being the main web-app guy at work now?  *sigh*
+</p>
+
+<p>
+I guess I could always go into stealth mode and see if I could whip together a quick prototype using Twisted, just to see if it could connect to our systems and pull down documents.  Hrm...HRM....MUAHAHAHAHAHAHAHAHAHAH.  Time to see if all the comments people made in my Twisted (web) vs. Tornado post are true, and that Twisted is a viable option for pulling in XML documents and parsing them so they fit into a relational database, like our existing product.  It could also be a good excuse to stretch out the use of <a href="http://exist.sourceforge.net">eXist</a> and store documents in that.
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2009/11/04/dont-get-too-cute-with-your-refactoring/">Don&#039;t Get Too Cute With Your Refactoring</a></h2>
+        </header>
+        <div>
+            <p>For those who follow me on Twitter, I'm pretty sure it was obvious I was having a very rough day today.  I'm in the process of making some pretty invasive changes to an application and work, and I approached it with much trepidation because of an extreme lack of tests.  I managed to get part one of these changes done, and refactored some stuff to get away from constantly passing parameters around like messages.  Instead I decided to place these values inside class variables.  Chortling to myself at how much better it was than passing the same values around all the time, I wrote some unit tests and all systems were green.  Awesome.</p>
+
+<p>
+Then I noticed the application itself didn't work properly now.  "How can this be, o seasoned veteran of 12+ years of web application experience?!?!" I can hear you saying.  Alas, forgive me for I have committed the sin of being too cute with my refactoring.
+</p>
+
+<p>
+Well, actually, the problem is that I did not write enough tests to cover the code I was refactoring and simply <a href="http://en.wikipedia.org/wiki/Cowboy_coding">cowboy coded</a> my way through it today to get it to work.  Well, it's *sort* of working and there are many refactorings still to do.  But for sure I have to step back and examine my test coverage to make sure I am testing EVERYTHING I'm fixing.  The mistakes I made were SO obvious once I took the time to trace what I call the "call flow", which is tracking what gets executed and in what order.  If I had written tests for everything I encountered in this "call flow" I think I would've been a lot better off, instead of yelling obscenities targeted at myself while trying to figure it out.
+</p>
+
+<p>
+Looking back at my choices in refactoring, well, I could've gone either way:  passing messages around in the form of parameters is a pretty safe way of doing things, but I'm determined to cut things down to the least amount of code possible while still achieving the desired results.  I'm not talking about non-intuitive code hacks, or using trinary expressions whenever possible.  If I'm using objects, I might as well use class variables to store values that need to persist throughout the request. 
+</p>
+
+<p>
+So when I fire up <a href="http://www.vim.org">the one-true editor</a> tomorrow morning to keep going, I will say to myself out loud "don't get too cute with your refactoring, Chris.".  Oh yeah, and I'll make sure to write my tests as I go along.
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2009/11/03/why-i-love-stack-overflow/">Why I Love Stack Overflow</a></h2>
+        </header>
+        <div>
+            <p>One of the sites I find myself visiting more and more often is <a href="http://stackoverflow.com">Stack Overflow</a>.  The idea is so simple:  create a web site where people can ask questions and then allow other users to answer them.  Stack Overflow has spawned some other sites (most notably <a href="http://serverfault.com">Server Fault</a>, which helps sysadmins answer tougher questions) but I find it's origins much more interesting.
+</p>
+
+<p>
+If I remember correctly, <a href="http://www.codinghorror.com/blog/">Jeff Atwood</a> and <a href="http://www.joelonsoftware.com/">Joel Spolsky</a> started up Stackoverflow to provide a freely-available alternative to Experts Exchange.  I have lost track of the number of times I was searching for an answer on the web, only to be led to Experts Exchange and their requirement that you pay for access to an answer.  Jeff and Joel weren't having *any* of that, and thus Stackoverflow was born.  I'm sure it doesn't hurt that they have figured out how to make money off the site (they've started doing <a href="http://jobs.stackoverflow.com">job listings</a>, but it doesn't cost someone like *me* anything to make use of this amazing resource.
+</p>
+
+<p>
+For example, this week I'm doing a refactoring of an application to rework many URL's to now include a publisher key along with a league key.  I discovered I needed to add a new field to a database table as part of the process, and long with that I also needed a migration script to go with it.  I didn't want to write a one-off script, so I started googling around to find an answer to the question "how to do a Postgres update script with multiple sub-selects".  After digging around for a while I suddenly realized I should ask an expert.  So off I went to Stack Overflow and asked for some help.  Then I went off to try a new sushi place in town for lunch.
+</p>
+
+<p>By the time I came back <a href="http://stackoverflow.com/questions/1668721/updating-records-in-postgres-using-nested-sub-selects">I had my answer</a>.  A well-thought-out, correct answer.  I tested it, worked just fine and I added it to the list of migration scripts for the upcoming code push when these changes go live.
+</p>
+
+<p>
+I cannot recommend enough that you check out Stack Overflow next time you have a programming-related question that needs answering.  Also, be a good contributor and see if you can't help out some other users of the site by providing them with an answer for *their* question.  No, DIE IN A FIRE is not an appropriate response.
+</p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/56">Newer Posts</a><br />
+        <a href="/page/58">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

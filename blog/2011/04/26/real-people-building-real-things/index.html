@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>PHP Community Conference 2011 -- Real People Building Real Things &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>PHP Community Conference 2011 -- Real People Building Real Things <small>post</small></h2>
+            <h3>April 26th, 2011</h3>
+        </header>
+        <div>
+            <p>I had the awesome opportunity to (assist with and) attend the 2011
+<a href="http://www.phpcon.org">PHP Community Conference</a> in Nashville on
+April 21-22, 2011. I had been hoping to speak, but when I started
+with with Ben Ramsey at Moontoast, it became a lot easier to attend
+the conference while spending a few days meeting and working with
+my new colleagues. Being a good co-worker, I manned the
+registration table along with
+<a href="http://twitter.com/jmccree">Jefferson McCree Jones</a> and helped out
+as much as I could. Lucky for me I was on the same level as the
+tops being given "upstairs" and got to see a wide variety of
+outstanding talks. Add in the awesome post-talk activities and the
+great conversations I had with old friends and new ones, I cannot
+imagine a better time at a technical conference. I even had the fun
+experience of getting an apology for past behaviour from someone I
+would never have expected.</p>
+
+<p>The theme of this conference seemed to be "share with us something
+you did", which is a great concept. I think you could also have
+called it "Real people building real things". Part of the reason
+you want to talk to people when you're at a conference is to find
+out what sort of stuff they have been working on. As cool as some
+technical talks are, they get boosted to another level if there is
+tangible evidence to back up what they are talking about. I just
+kept shaking my head at the "war stories" told to me about crazy
+situations. I don't think I will ever forget
+<a href="http://twitter.com/brianlmoon">Brian Moon</a> tell me about the time
+one of their humongous DB servers went down due to a faulty
+controller card, and keeping the site up by sending content to
+people via IM. Check out Brian's
+<a href="http://brian.moonspot.net/php-frameworks">thoughts on PHP frameworks</a>.</p>
+
+<p>I go to conferences to LEARN THINGS. Sure, it's awesome to meet new
+people and keep renewing older friendships (my career management
+skills always take leaps and bounds every time I talk to
+<a href="http://paul-m-jones.com/">Paul Jones</a> but I feel like the day I
+stop learning stuff is the day I should get out of programming and
+consider a career change. Every talk, from Rasmus' keynote advising
+us to pay attention to the performance of our applications to Terry
+Chay's closing talk about how frameworks are becoming so
+commoditized that deployment environments like
+<a href="http://orchestra.io">Orchestra</a> are optimizing things to make
+deploying applications built with specific frameworks.</p>
+
+<p>The PHP environment is such a weird one compared to other languages
+out there. Made for the web, optimized for rapid development, it is
+really like no other. The only parallel I see today is Javascript.
+Projects like Node.js are trying to make Javascript more viable
+outside of the cozy sandbox of the browser, but running PHP on the
+server outside the cozy sandbox of the web server usually isn't a
+good idea. Where is the ecosystem of performance-related tools like
+APC, <a href="https://github.com/facebook/xhprof">XHProf</a> and Memcached in
+the Ruby and Python worlds? Maybe I'm running in different circles,
+but I haven't see blog posts of people using tools to profile their
+Rails apps to look for bottlenecks and poorly-performing code. I'd
+be interested in seeing some of them, especially for Python and
+Django apps as I get further and further into my Django
+experiences.</p>
+
+<p>Hate PHP all you want for it's ease of use (which irritates those
+developers who want to be snobs) and internal function parameter
+inconsistencies, but what cannot be denied is the focus of those
+developers towards the top of the community on performance-related
+issues. These days I think it is less and less possible to promote
+the idea that developer happiness counts for more than application
+performance, and I think that despite all the hate out there for
+it, PHP still is at the head of the pack in terms of how easy it is
+to create high-performance applications using lightweight
+frameworks and libraries. This is the concept that I kept hearing
+throughout the conference. Pay attention to the size of your code!
+Profile your application to find out where things are really slow!
+Consider all the tools in other languages available to you!</p>
+
+<p>The web is where PHP started, and the web is where it will stay. I
+used to feel guilty when I started fooling around with Rails and
+more recently Python. Those tools have their place too, with
+awesome communities surrounding them. Again, it seems the focus for
+PHP is to add in tools that help you create the leanest, tightest,
+fastest web applications that you can. Sure, Facebook has created
+HipHop to turn PHP into C++ executables because they are facing
+issues that boggle the mind. Sure, frustrated programmers who had a
+hard time navigating the spaghetti tendencies of PHP and Java found
+Rails more to their liking, soothing their desire for hiding
+complexity behind the DSL of a great framework. Sure, I find
+calmness and zen in the whitespace-driven simplicity of Python and
+the ability of Django to let you quickly create a site backed with
+a powerful and easily-extended admin area.</p>
+
+<p>That doesn't mean you can't find real people building real things
+using PHP. I'm one of those people, and you can be too.</p>
+
+<p>(PS -- I was totally brain-dead for not mentioning the awesome job
+the folks at <a href="http://openevent.tv">OpenEvent</a> did in livecasting
+some of the talks at the event. I think there is a great need for
+high-quality recording of talks at conferences and I wish them luck
+going forwards convincing others that they should be an essential
+part of any future conferences)</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2011/05/02/testing-web-services/" title="Testing Web Services in Zend Framework 1.x"><span class="title">Testing Web Services in Zend Framework 1.x</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2011/04/11/book-review-epwzf/" title="Book Review -- Easy PHP Websites with the Zend Framework"><span class="title">Book Review -- Easy PHP Websites with the Zend Framework</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

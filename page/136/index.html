@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Home &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta name="robots" content="noindex, follow">
+                <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2><a href="/2006/11/10/zend_service_audioscrobbler-update-2/">Zend_Service_Audioscrobbler Update</a></h2>
+        </header>
+        <div>
+            <p>
+Work has been moving a lot slower on this than I would have liked for a number of reasons, mostly family related as my wife's return to the working world has meant a good portion of the time I used to devote to my various side projects is now devoted to doing things like making lunches for my daughter and helping to prepare dinner for the next day.  So I don't have the time I used to.
+</p>
+
+<p>
+Any how, in a <href ="https://www.littlehart.net/atthekeyboard/2006/09/28/zend_service_audioscrobbler-update/">previous posting I had talked about how the work on my Last.fm/Audioscrobbler plugin had been going.  I've come a long way since then, and only have one more major category of functions to write the unit tests and accompanying code (notice that it's tests first, code second in true agile fashion).  After a bunch of suggestions, I've reworked the code and I think I've made it really simple for me to add new functionality.  Here's what I'm talking about:
+</href></p>
+
+<pre><code>    /**
+    *
+    * Private method that queries REST service and returns SimpleXML response set
+    * @param string $service name of Audioscrobbler service file we're accessing
+    * @param string $params parameters that we send to the service if needded
+    * @return SimpleXML result set
+    */
+    private function getInfo($service, $params = NULL)
+    {
+        $service = (string) $service;
+        $params = (string) $params;
+
+        try {   
+            $request = $this-&gt;_rest-&gt;restGet($service, $params);
+
+            if ($request-&gt;isSuccessful()) {
+                $response = simplexml_load_string($request-&gt;getBody());
+                return $response;
+            } else {
+                if ($request-&gt;getBody() == 'No such path') {
+                    throw new Zend_Service_Exception('Could not find: ' . $dir);
+                } else if ($request-&gt;getBody() == 'No user exists with this name.') {
+                    throw new Zend_Service_Exception('No user exists with this name.');
+                } else {
+                    throw new Zend_Service_Exception('The REST service ' . $service . ' returned the following status code: ' . $request-&gt;getStatus());
+                }
+            }
+        }
+        catch (Zend_Service_Exception $e) {
+            throw ($e);
+        }
+    }
+</code></pre>
+
+<p>
+That bit of code is what does all the heavy lifting for me. It uses the Zend_Service_Rest component to talk to Audioscrobbler's web services, and returns the results as a SimpleXML object.  Nice and simple.  A perfect example of what Zend Framework is trying to accomplish.
+</p>
+
+<p>
+So, how do I query the web service?  I think an example of one of my unit tests will show you again how simple I've tried to make it.
+</p>
+
+<pre><code>&lt;?php
+
+/**
+ * @package    Zend_Service_Audioscrobbler
+ * @subpackage UnitTests
+ */
+
+/**
+ * Zend_Service_Audioscrobbler
+ */
+require_once 'Zend/Service/Audioscrobbler.php';
+
+/**
+ * PHPUnit test case
+ */
+require_once 'PHPUnit/Framework/TestCase.php';
+
+/**
+ * @package    Zend_Service_Audioscrobbler
+ * @subpackage UnitTests
+ */
+class Zend_Service_Audioscrobbler_TagDataTest extends PHPUnit_Framework_TestCase
+{
+    public function testGetTopTags()
+    {
+        try {
+            $as = new Zend_Service_Audioscrobbler();
+            $response = $as-&gt;tagGetTopTags();
+            $this-&gt;assertNotNull($response-&gt;tag);
+        } catch (Exception $e ) {
+                $this-&gt;fail("Exception: [" . $e-&gt;getMessage() . "] thrown by test");
+        }
+    }
+
+    public function testGetTopArtists()
+    {
+         try {
+                $as = new Zend_Service_Audioscrobbler();
+                $as-&gt;set('tag', 'Rock');
+                $response = $as-&gt;tagGetTopArtists();
+                $this-&gt;assertNotNull($response-&gt;artist);
+                $this-&gt;assertEquals($response['tag'], strtolower($as-&gt;get('tag')));
+            } catch (Exception $e ) {
+                    $this-&gt;fail("Exception: [" . $e-&gt;getMessage() . "] thrown by test");
+            }       
+    }
+
+    public function testGetTopTracks() 
+    {
+        try {
+            $as = new Zend_Service_Audioscrobbler();
+            $as-&gt;set('tag', 'Rock');
+            $response = $as-&gt;tagGetTopTracks();
+            $this-&gt;assertNotNull($response-&gt;track);
+            $this-&gt;assertNotNull($response-&gt;artist);
+            $this-&gt;assertEquals($response['tag'], strtolower($as-&gt;get('tag')));
+        } catch (Exception $e) {
+            $this-&gt;fail("Exception: [" . $e-&gt;getMessage() . "] thrown by test");
+        }
+    }
+
+}
+
+?&gt;
+</code></pre>
+
+<p>
+I can't stress enough that I've really come around to the idea of that simple is always better, and if you want people to actually use what you've written you need to make it easy to use.  I hope to get the unit tests all done in the next week, and then write up some documentation on how to use the component.  After that, I'll send something to the fw-general mailing list announcing the fruits of my labours and people should take a look at the component.
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2006/11/08/the-constant-battle-that-goes-on-in-my-head/">The Constant Battle That Goes On In My Head</a></h2>
+        </header>
+        <div>
+            <p>
+As I start working on my <a href=http://www.rallyhat.com>super secret project</a> (in true Web 3.14159 style you can't tell anything about it from the domain name) I have to make a decision on what technology to use.  In my case, it's a battle between <a href=http://www.php.net>PHP</a> and <a href=http://www.rubyonrails.com>Ruby on Rails</a>.
+</p>
+
+<p>
+So what do I do here?  My PHP skills are more advanced than my Rails skills, but I feel like I could easily pick up what I need to know in Rails because, well, programming knowledge of web-based languages is really transferable.  But this project is supposed to be fun at the same time.  I could build it in PHP, but that's not really much of a challenge.  So I'm going to build it in Rails because I'll learn something new by building this application.  In the end, it's all about learning for me.  I've built a simple blog with Rails before, so it will be interesting for me to see if Rails lives up to the "productivity boost" that I (and others) have been claiming.
+</p>
+
+<p>
+I also think I need to go and buy the revised version of the Agile Software Development for Rails book.  Never hurts to have some dead-tree information about Rails.
+</p>
+
+<p>
+So what is the site about?  Can't tell you quite yet.  I'll be finding some hosting and putting up a splash page shortly.  I happen to think that it will be a very interesting application, and one that will generate a lot of fun for the people who choose to use it.
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2006/11/02/php-community-card-deck/">PHP Community Card Deck</a></h2>
+        </header>
+        <div>
+            <p>
+A while back Cal Evans (editor of <a href="http://devzone.zend.com">Zend Developer Zone</a>) sent me an email asking me to send him a picture of myself for a community project that he thought would be fun.  Being a huge egomaniac, I sent him probably the best picture of myself my wife has ever taken with our digital camera.  The result?  <a href="http://www.flickr.com/photos/calevans/sets/72157594355906012/">PHP Community Playing Cards</a> deck.  I'll be getting a copy of the deck in the mail from Cal.  I'm the <a href="http://www.flickr.com/photos/calevans/286001179/in/set-72157594355906012/">8 of Diamonds</a> in the deck.
+</p>
+
+<p>
+I'll be sure to play Go Fish with my oldest daughter when I get my copy.
+</p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/135">Newer Posts</a><br />
+        <a href="/page/137">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

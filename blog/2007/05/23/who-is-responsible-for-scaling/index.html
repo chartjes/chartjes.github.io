@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Who Is Responsible For Scaling? &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>Who Is Responsible For Scaling? <small>post</small></h2>
+            <h3>May 23rd, 2007</h3>
+        </header>
+        <div>
+            <p>I question I see a lot on the <a href="http://cakephp.org">CakePHP</a> mailing list is "can CakePHP scale?".  Now, other than this being an incredibly general statement it got me to thinking about scalability.  In many ways the issue is like security: developers expect security to be "built into the application" when time and time again it has been pointed out that security is the responsibility of the developer, not the language itself.  If you don't make sure to filter your input and escape your output, well, who's fault is that really?  Yes, I know there are cool things like the filter extension for PHP and that many frameworks have helpers that can automagically filter your input.  But that's still code written by someone else that HAS TO BE USED.</p>
+
+<p>
+So, what does this have to do with scaling?  Well, let's look at it from several different perspectives.  At the language level, it has been proven that PHP's shared-nothing tendencies mean that it is suited to what I call horizontal scaling, where you add more web servers running PHP on them.  No need for a central chokepoint means you can scale by simply adding more servers.  It's really that simple.</p>
+
+<p>
+Now, once you start adding in shared resources (like a database or centralized session storage) the problem ceases to be PHP's and becomes the problem of the developer.  Why? Because now you have to write your application (or components of your application) with these shared resources in mind.  You're now involving resources OTHER than PHP in the equation as well.  Say you have a centralized database and multiple application servers.  Is the ratio of reads to writes high enough that response time to the database server will be low enough to not impact application performance?  If you use replication, is replication lag going to kill you?  All these questions are beyond the scope of PHP.</p>
+
+<p>
+During my talk at php|tek I got asked if I thought that adding a framework to your code meant unnecessary overhead.  Unfortunately, the answer is "it depends, but I try not to worry about it".  The reason for this wishy-washy answer is that I find that when you start using a framework, you can stop using custom code for low-level things and instead use whatever the framework is using (like DB access or form creation helpers).  You gain in speed because, well, you don't have to write those things, you just have to learn how to use them.  The trade-off is developer speed vs. application speed, but there are things you can to increase application speed:  output caching, opcode caching, data partitioning, server tweaking.  Again, all those things are not done in PHP-land.
+</p>
+
+<p>So, looking at the above I think it's pretty obvious that scaling is not the responsibility of PHP (or a framework in this case) but the responsibility of the developer.  When you are building an application, you need to be mindful of the actual design so that when the time comes you will be able to scale horizontally by adding more servers or you can scale vertically (moving functionality around to different levels of your application) with minimal headaches.  Having been through this on an adult dating site, I can say without a doubt that trying to scale your application after the fact just doesn't work.  Do your homework, understand the problem, and don't ask if a framework can scale.  Ask yourself if you know how to build a scalable application in the first place.
+</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2007/05/25/screencast-interactive-console-for-cakephp/" title="Screencast: Interactive Console for CakePHP"><span class="title">Screencast: Interactive Console for CakePHP</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2007/05/17/live-from-phptek/" title="Live from php|tek!"><span class="title">Live from php|tek!</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

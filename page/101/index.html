@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Home &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta name="robots" content="noindex, follow">
+                <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2><a href="/2007/12/04/how-many-times-has-this-happened-to-you/">How Many Times Has This Happened To You?</a></h2>
+        </header>
+        <div>
+            <p>
+I had recently upgraded to a new laptop (white MacBook) and had just gotten stuff setup up the way I liked.  So I continued doing development work for my latest work-related project and it was time to push the changes up to the staging server.  Oh wait, I hadn't installed Capistrano yet.  So I installed that and found, oooh, we moved up to version 2.1.  Cool!  Progress is good.</p>
+
+<p>
+So I go to deploy and WTF!?!??! It won't work!??!  No error messages except to say the remote command failed.  I dig around on google.  The amount of documentation available for Capistrano 2.0 (or 2.1 for that matter) makes CakePHP's slowly-growing documentation look like Wikipedia.  God damn it, why would you release something that breaks so many things and then don't tell people WHY it won't work.  Maybe I'm doing something wrong, but I'll be damned if I can figure out what it is.
+</p>
+
+<p>
+So, on to the backup plan.  <a href="http://phing.info/trac/">Phing</a>, despite it's use of XML which I am not huge fan of in terms of it's use as a configuration file, but at least it's PHP and there is lots of documentation on how to use it.  Now, where did I put <a href="http://domain51.com">Travis Swicegood's</a> e-mail address...
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2007/11/30/more-xml-db-fun/">More XML-DB Fun!</a></h2>
+        </header>
+        <div>
+            <p>
+We had a nice corporate retreat last week, an opportunity for all the members of <a href="http://www.xmlteam.com">XMLTeam</a> to get together (and in some cases meet face-to-face for the first time) and discuss what's going on and figure out priorities over the next 12 months.  If you're expecting some company secrets here, you'll be disappointed. :)</p>
+
+<p>
+One of the things that got bandied around was whether or not we would continue using <a href="http://exist.sourceforge.net/">eXist</a> to store the XML documents that the application is using or go with a <a href="http://xtoss.org">database-driven solution</a>.  So, my partner on this project was tasked with figuring out how to update existing elements and attributes in this documents using eXist only.</p>
+
+<p>
+How can I put this?  Oh, I know:  traversing through large complicated XML documents to find one element that you need to update when the location could be in multiple places sucks!  Part of the reason for this may be my lack of XPath foo within PHP itself.  Besides, if eXist can handle this for us then why shouldn't we leverage this?  I liken it to being able to do an UPDATE statement in a database.  I don't do a SELECT where I grab the whole data set, then drill down through the data looking for one specific row.  You do an update with the proper key.  So, Paul (that's the co-worker) got to work figuring out for me while I refactored code to be ready for it.  He got one script working (yay!) so I hacked away and got a very simple one to work today.  Here it is (with some info changed to protect the status of the project:
+[code]
+xquery version "1.0";
+declare namespace sportsml="http://iptc.org/std/SportsML/2006-10-18/";
+declare namespace xts="http://www.xmlteam.com";
+declare namespace request="http://exist-db.org/xquery/request";
+declare namespace xmldb="http://exist-db.org/xquery/xmldb";
+declare namespace util="http://exist-db.org/xquery/util";
+
+declare variable $league := request:get-parameter("league", "");
+declare variable $league-name := request:get-parameter("league-name", "");
+declare variable $team-key := request:get-parameter("team-key", "");
+declare variable $colors := request:get-parameter("colors", "");
+declare variable $location := request:get-parameter("location", "");
+declare variable $name := request:get-parameter("name", "");
+declare variable $nickname := request:get-parameter("nickname", "");
+declare variable $abbreviation := request:get-parameter("abbreviation", "");
+
+declare variable $league-doc := concat('/db/', $league, '/dynamic-resource-file/', $league, '.xml');
+
+<dummy>
+{
+if (doc($league-doc)/sports-content/statistic/group//team-metadata/@team-key=$team-key) then
+
+for $team-metadata in doc($league-doc)/sports-content/statistic/group//team-metadata[@team-key=$team-key]
+return
+update replace $team-metadata with
+<team -metadata>
+{attribute team-key {$team-key}}
+{attribute colors {$colors}}
+<name>
+{attribute first {$location}}
+{attribute full {$name}}
+{attribute nickname {$nickname}}
+{attribute abbreviation {$abbreviation}}
+</name>
+<affiliation>
+{attribute membership-type {"league"}}
+{attribute membership-key {$league}}
+{attribute membership-name {$league-name}}
+</affiliation>
+</team>
+
+else
+
+return
+} 
+</dummy>
+[/code]</p>
+
+<p>
+So, this sits in eXist, which is running on top of <a href="tomcat.apache.org">Tomcat</a> and I send the data in by POST-ing to the script.  I was all set to start using cURL for this task but a quick search on the net found <a href="http://netevil.org/blog/2006/nov/http-post-from-php-without-curl">this blog posting by Wez Furlong</a> showing how to use streams to do what most people automatically associate with having to use cURL for.  I liked it so much I went and refactored some other code that was using cURL to use that stuff instead.  It's always nice to find out that something you've been doing can still be done, but with fewer lines of code and *still* be elegant.
+</p>
+
+<p>
+I'm off to look closer at streams in PHP 5 and see what other hidden treats are there...
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2007/11/28/want-to-write-php-code-in-bermuda/">Want To Write PHP Code in Bermuda?</a></h2>
+        </header>
+        <div>
+            <p>I get emails all the time from recruiters, and I usually politely respond that I'm not interested since I'm usually pretty happy with the job I have.  I recently got one from Jason Squires at <a href="http://www.squiresresources.com">Squires Resources</a> that I thought I should share with my readers.  Please be advised that I am not receiving any sort of compensation from Squires Resources in exchange for putting this information up here.  I just thought people should be aware of the kind of cool opportunities that are out there.
+<blockquote>
+Technical Solutions Specialist - Development
+A unique opportunity awaits in sunny, sub-tropical Bermuda!
+ 
+On behalf of a premier ISP/Communications company in Bermuda we are seeking an experienced and motivated Developer who would be interested in relocating to join their dynamic team.
+ 
+The successful candidate will be involved in:
+- Applications design, Online (live web) and offline (supporting)applications development applications development, and Recurring HTML content.
+- Working with engineering in evaluating requirements and developing plan for project resolution.
+- Coordinating with Engineering on quality and design changes.
+- Providing technical support to internal resources on internal systems.
+- Providing superior customer service either on site or over telephone.
+ 
+Requirements
+- Degree/Diploma in Computer Science or equivalent work experience.
+- Must have: Excellent PHP skills including Object Oriented Design
+- Excellent knowledge of web development technologies such as XHTML, CSS, XML, Web Services, SSL, OOD, AJAX, ASP.NET.
+- In depth knowledge of SQL, PL/SQL language
+- Zend Certified Engineer would be a strong asset but not required
+ 
+Our client offers a competitive compensation and benefits package (with only 4.75% tax!) along with the opportunity to live and work in beautiful Bermuda.   Due to the relocation involved, candidates should be highly mobile and adaptable, with outside interests that correspond to Bermuda's idyllic and unique living environment. 
+ 
+For more information or to explore this unique position, please contact Jason Squires, Squires Resources Inc.  705.725.7660 ext 23 or jason@squiresresources.com      
+ 
+Thousands of professionals are enjoying unique careers and exceptional lifestyles in Bermuda and the Caribbean...  Please visit us online at www.squiresresources.com to find out how you can join them!
+</blockquote></p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/100">Newer Posts</a><br />
+        <a href="/page/102">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

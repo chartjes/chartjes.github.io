@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Zend_Application and Zend_Acl &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>Zend_Application and Zend_Acl <small>post</small></h2>
+            <h3>August 16th, 2010</h3>
+        </header>
+        <div>
+            <p>One of the more frustrating things about using Zend Framework is that for pretty much any topic, there is always at least 2 ways to accomplish a particular task.   For a beginner with the framework, this is a humungous barrier to overcome.  When I try to implement something, my first question is no longer "how will I do this" but "where the hell should I put this code?".  In my case, the problem I was attempting to solve was "how do I implement ACL for one module in my application?".
+</p>
+
+<p>
+I'm using:
+<ol>
+<li>Zend Framework 1.10.5</li>
+<li>...and Zend_Application</li>
+<li>...and building functionality out using modules</li>
+</ol>
+</p>
+
+<p>
+So off I go <a href="http://duckduckgo.com">duck hunting</a> and find lots of samples on how to do it.  Except none of them fit how my application is currently built.  Plugins?  Front controllers?  Placing code in preDispatch?  Yikes, this will take some time to sift through all the available info and come up with a solution custom-tailored to my application's structure.
+</p>
+
+<p>
+I ended up using info from <a href="http://stackoverflow.com/questions/2046608/practical-zend-acl-zend-auth-implementation-and-best-practices">here</a> and <a href="http://devzone.zend.com/article/3510-Zend_Acl-and-MVC-Integration-Part-II-Advanced-Use">here</a> to form my solution.  The first step was to create a plugin to hold all the info about my ACL's and roles. 
+~~~
+
+< ?php
+
+class Xmlteam_Football_Acl extends Zend_Acl
+{
+    protected static $_instance;
+
+    protected function __construct()
+    {
+        $this->addRole(new Zend_Acl_Role('guest'));
+        $this->addRole(new Zend_Acl_Role('admin'));
+        $this->addRole(new Zend_Acl_Role('normal', 'guest'));
+        $this->addRole(new Zend_Acl_Role('photoadmin', 'guest'));
+        $this->addRole(new Zend_Acl_Role('captain', 'normal'));
+
+        $moduleResource = new Zend_Acl_Resource('football');
+        $this->add($moduleResource)
+            ->add(new Zend_Acl_Resource('football:help'), $moduleResource)
+            ->add(new Zend_Acl_Resource('football:messages'), $moduleResource)
+            ->add(new Zend_Acl_Resource('football:photos'), $moduleResource)
+            ->add(new Zend_Acl_Resource('football:standings'), $moduleResource)
+            ->add(new Zend_Acl_Resource('football:stats'), $moduleResource)
+            ->add(new Zend_Acl_Resource('football:team'), $moduleResource)
+            ->add(new Zend_Acl_Resource('football:transactions'), $moduleResource);
+
+        $this->allow(null, 'football:help');
+        $this->allow(null, 'football:messages');
+        $this->allow(null, 'football:photos', 'view');
+        $this->allow(array('admin', 'photoadmin'), 'football:photos', array('delete', 'manage')); 
+        $this->allow(null, 'football:standings');
+        $this->allow(null, 'football:stats');
+        $this->allow(null, 'football:team');
+        $this->allow(null, 'football:transactions', array('closed', 'league'));
+        $this->allow('captain', 'football:transactions', 'request');
+        $this->allow(array('captain', 'normal'), 'football:transactions', 'index');
+
+        return $this;
+    }
+
+    public static function getInstance()
+    {
+        if (self::$_instance === null) {
+            self::$_instance = new self();
+        }
+
+        return self::$_instance;
+    }
+}
+~~~
+Then, I needed a way to actually call this plugin and do something with the results.  I was using a base controller for the 'football' module for my application, and after messing around, I figured out that the code interacting with my ACL plugin needed to go in the init() method of the controller:
+~~~
+ // Now, let's hook up some ACL lovin'
+ $acl = Xmlteam_Football_Acl::getInstance();
+ $resource = 'football:' . $this->_request->controller;
+
+ if ($acl->has($resource) && !$acl->isAllowed($this->userInfo['role'], $resource, $this->_request->action)) {
+       $this->_flashMessenger->addMessage('You do not have the proper access level to view that page');
+       $this->_redirect('/football/' . $this->league . '/standings');
+ }
+~~~
+This used to be a lot more crufty, but I slowly whittled away at the code until it has what I think is the simplest implementation.
+</p>
+
+<p>
+Oh, I almost forgot.  Here are the tests I wrote for it.  I bet you thought I forgot to write tests, didn't you. ;)
+~~~
+class FootballAclTest extends PHPUnit_Framework_TestCase 
+{
+
+    public function setUp()
+    {
+        $this->bootstrap = new Zend_Application(
+            'testing',
+            APPLICATION_PATH . '/configs/application.ini'
+        );
+        parent::setUp();
+        $this->_acl = Xmlteam_Football_Acl::getInstance();
+    }
+
+    public function tearDown()
+    {
+        parent::tearDown();
+    }
+
+    public function testTransactions()
+    {
+        $resource = 'football:transactions';
+        $this->assertTrue($this->_acl->has($resource), 'football:transactions resource exists');
+        $this->assertTrue($this->_acl->isAllowed('captain', $resource, 'request'), 'Team captains can request transactions');
+        $this->assertFalse($this->_acl->isAllowed('normal', $resource, 'request'), 'Normal team users cannot request transactions');
+        $this->assertTrue($this->_acl->isAllowed(null, $resource, 'league'), 'Anyone can view league transactions');
+    }
+
+    public function testPhotos()
+    {
+        $resource = 'football:photos';
+        $this->assertTrue($this->_acl->has($resource));
+        $this->assertTrue($this->_acl->isAllowed(null, $resource, 'view'), 'Anyone can view photos');
+        $this->assertTrue($this->_acl->isAllowed('admin', $resource, 'manage'), 'Admin can manage photos');
+        $this->assertTrue($this->_acl->isAllowed('photoadmin', $resource, 'manage'), 'Photoadmin can manage photos');
+        $this->assertFalse($this->_acl->isAllowed('captain', $resource, 'manage'), 'Captains cannot manage photos');
+        $this->assertFalse($this->_acl->isAllowed('normal', $resource, 'manage'), 'Normal users cannot manage photos');
+        $this->assertFalse($this->_acl->isAllowed('guest', $resource, 'manage'), 'Guests cannot manage photos');
+    }
+}
+~~~</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2010/09/07/twitter-asks-continuous-integration-landscape-for-php-developers/" title="Twitter Asks:  Continuous Integration Landscape for PHP Developers"><span class="title">Twitter Asks:  Continuous Integration Landscape for PHP Developers</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2010/07/29/snakes-and-elephants-playing-nice-together-phpunit-and-py-test-with-hudson/" title="Snakes and Elephants Playing Nice Together: PHPUnit and py.test with Hudson"><span class="title">Snakes and Elephants Playing Nice Together: PHPUnit and py.test with Hudson</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

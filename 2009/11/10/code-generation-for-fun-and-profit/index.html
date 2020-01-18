@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Code Generation For Fun And Profit &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2>Code Generation For Fun And Profit <small>post</small></h2>
+        </header>
+        <div>
+            <p><i>(Note, I almost forgot to post about this today as part of my November blogging challenge)</i></p>
+
+<p>
+I have a serious programmer man-crush on <a href="http://gilesbowkett.blogspot.com/">Giles Bowkett</a>.  I don't always agree with him, but when he talks about programming he never fails to make me stop and think.  Just like <a href="http://slash7.com">Amy Hoy</a> when she talks about design.  In a blog post he mentioned what he considers <a href="http://www.amazon.com/Code-Generation-Action-Jack-Herrington/dp/1930110979/ref=sr_1_1?ie=UTF8&s=books&qid=1257909776&sr=8-1">the best book that programmers have never read</a>.  I've taken a look at the sample chapters that are available from the publisher.  I was very impressed.  Then I watched the talk that Giles gave about <a href="http://mtnwestrubyconf2008.confreaks.com/03bowkett.html">code generation and why you should be aware of it.</a>
+</p>
+
+<p>
+I've probably had more experience with code generation than most programmers, being an early proponent and user of CakePHP's "bake" system (even writing my own test shell for it, which I'm sure was abandoned and not used by anyone else).  When I tell people about what you could do with 'bake', a lot of times I got blank stares.  They didn't understand why I was so excited by it.  That's okay, sometimes I get excited about things that other people could care less about.
+</p>
+
+<p>
+But you read things like "to generate these 1050 files by hand would take 3 man-years on the project, and we could create a generator to do it in 2 man-months", well, if that doesn't pique your interest then I think you're in programming for the money, not for the challenge of solving problems.
+</p>
+
+<p>
+Which is why I think I need to set aside some time at work to examine a tool that I hope I can lean heavily on for upcoming PHP projects, <a href="http://framework.zend.com/manual/en/zend.tool.framework.html">Zend_Tool_Framework</a>.  If I'm right, and Zend_Tool_Framework is nice and tight and generates code that was of as high quality as "bake" did, then it will help speed up development.
+</p>
+
+<p>
+Rails leans very heavily on code generation to provide it with the structure that it has, which in  term allows you to get down to the job of solving the problem you are faced with, instead of creating code from scratch.  A well-written code generator can save you immense amounts of time.  I do not see much evidence of a culture of code generation in PHP, but the Rails people *get* it.  
+</p>
+
+<p>
+So, do the following:
+<ul>
+<li>Watch Giles' presentation.  He is smart AND funny</li>
+<li>Either buy "Code Generation In Action" or at least <a href="http://www.manning.com/herrington/">check out the sample chapters you can download</a></li>
+<li>Buy me a copy of this book.  It's on my Amazon.com <a href="http://www.amazon.com/wishlist/2ZNT96VNHBEQ2/ref=reg_hu-wl_goto-registry?_encoding=UTF8&sort=date-added">wishlist!</a></li>
+</ul>
+</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/2009/11/11/on-remembrance-day-remember-both-sides/" title="On Remembrance Day, remember both sides"><span class="title">On Remembrance Day, remember both sides</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/2009/11/09/why-i-dont-want-to-use-tools-written-for-php-4/" title="Why I Don&#039;t Want To Use Tools Written For PHP 4"><span class="title">Why I Don&#039;t Want To Use Tools Written For PHP 4</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+
+
+
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

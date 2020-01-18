@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My framework is more MVC than *your* framework! &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>My framework is more MVC than *your* framework! <small>post</small></h2>
+            <h3>March 6th, 2008</h3>
+        </header>
+        <div>
+            <p>
+I like to check out the <a href="http://reddit.com/r/programming">programming section on Reddit</a> on a regular basis because it usually contains some interesting links.  Yesterday I came across a link that discussed the fallout surround a presentation at phplondon08 where <a href="http://pookey.co.uk/blog/index.php?url=archives/43-phplondon08-the-crazy-guy-mail.html">panelists on a discussion of frameworks got heckled</a> but some guy claiming to be an expert on what a real MVC framework is.</p>
+
+<blockquote>
+All major Rails clone PHP frameworks that exist on the market today are a complete and utter failure. All of them call themselves MVC frameworks and none of them implement actual MVC. In fact, some of the worst ones merely resemble MVC, and have no right whatsoever to be called frameworks. Whatever benefits of sexy ORMs and flexible build systems and scaffolding and other secondary tools these frameworks have are nullified by the fact that using them results in architectural chaos which is no better than your usual spaghetti code. This is because the people who wrote Rails didn't bother to understand MVC, and the PHP amateurs who were excited about the idea of getting done more in less time blindly tried to clone Rails into PHP and in so doing not only replicated the stupidity of Rails into PHP but also multiplied it by their own incompetence and PHP's shortcomings as a language and a platform.
+</blockquote>
+
+<p>
+No, tell us how you really feel about it.
+</p>
+
+<p>
+Anyhow, this guy apparently works for the <a href="http://agavi.org">Agavi</a> project, a (wait for it) MVC framework written in PHP as an "evangelist".  Well, he certainly talks like you would expect an evangelist too.
+</p>
+
+<p>
+The comments for that post are really interesting too, as people take their usual swipes at PHP, and CakePHP, and the Symfony guys come out in droves to talk up Symfony, and on and on it goes.  Sadly, this is not a unique occurance on the web.
+</p>
+
+<p>
+So, back to the topic of the post.  Is this guy right?  Is *nobody* except Agavi doing it right on the PHP side of things?  I took a peek at their documentation.  Lots of statements about what a framework should and shouldn't do.  
+</p>
+
+<p>
+<em>(Author's note 03/10/08: removed code example as, well, it's not really relevant to the discussion, other than making me giggle about mixing business logic with presentation logic)</em>
+</p>
+
+<p>
+Digging through the documentation some more, it's quite dry.  Short and sweet, not a lot of tips on building an Agavi app from scratch.  Again, to be fair, that might not be the point of the documentation.  But it's approach is very, *very* different from the "Rails way" that CakePHP has been following.  Before you flame, there is nothing wrong with the "Rails way" because, if nothing else, it has forced developers to crank their skills up a notch and actually *think* about what they are building.
+</p>
+
+<p>
+I knew one of the original developers of <a href="http://www.mojavi.org">Mojavi</a> (of which Agavi is a fork) and he was a really smart guy (Hi Shawn!). My early forays into framework use was with Mojavi, when trying to convince a previous employer that we needed to rewrite this monster PHP application with Mojavi so we could get things like a private branding version of the site done a lot easier.
+</p>
+
+<p>When I compare this to Cake, they are as different as night and day.  Agavi (and Mojavi) are heavily configuration-oriented (XML *everywhere* for config files), while Cake uses conventions to try and speed things up.  But the real truth is this:  they are both trying to separate your business logic and your presentation logic to make things easier for the poor saps who have to build these applications.
+</p>
+
+<p>
+Our lovely heckler has missed the forest for the trees, as far as I'm concerned.  It's like complaining that you can't call it a forest because the trees aren't growing straight up and down, but tend to branch out in different directions.  They're still trees, right?
+</p>
+
+<p>Frameworks are designed to try and help you to get things done faster *and* to organize your code in a much more consistent manner.  Cake uses the <a href="http://en.wikipedia.org/wiki/Model-view-controller">Model-view-controller design pattern</a>, and I think that the quote below makes it clear that Cake is doing it the right way:
+<blockquote>
+Model-view-controller (MVC) is an architectural pattern, which at the same time is also a Multitier architecture, used in software engineering. In complex computer applications that present a large amount of data to the user, a developer often wishes to separate data (model) and user interface (view) concerns, so that changes to the user interface will not affect data handling, and that the data can be reorganized without changing the user interface. The model-view-controller solves this problem by decoupling data access and business logic from data presentation and user interaction, by introducing an intermediate component: the controller.
+</blockquote>
+If you are trying to tell me that CakePHP does not follow that practice, then I am calling you a fucking idiot who is more interested in pedantic minutiae than understanding that there is more than one way to implement MVC.
+</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2008/03/12/darn-spammers-got-to-me/" title="Darn Spammers Got To Me!"><span class="title">Darn Spammers Got To Me!</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2008/03/04/custom-cakephp-12-pagination-queries/" title="Custom CakePHP 1.2 Pagination Queries"><span class="title">Custom CakePHP 1.2 Pagination Queries</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

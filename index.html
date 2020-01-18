@@ -1,4 +1,658 @@
+<!DOCTYPE html>
 <html>
-	<p>Hello world again</p>
-	</p>
+    <head lang="en">
+        <title>Home &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta name="robots" content="noindex, follow">
+                <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2><a href="/2019/12/02/opencfp-engineering-diary-adding-doctrine/">OpenCFP Engineering Diary -- Adding Doctrine</a></h2>
+        </header>
+        <div>
+            <h2 id="tl%3Bdr---adding-support-to-an-existing-symfony-3.4-application-for-doctrine">TL;DR - Adding support to an existing Symfony 3.4 application for Doctrine</h2>
+
+<p>(If you like the work I do on OpenCFP, please consider sponsoring me at
+<a href="https://github.com/sponsors/chartjes/">https://github.com/sponsors/chartjes/</a>)</p>
+
+<p>Part of the medium-term planning for <a href="https://github.com/opencfp/opencfp">OpenCFP</a> is
+to refactor the application to stop using <a href="https://cartalyst.com/manual/sentinel/">Sentinel</a>
+as the authentication and ACL choice and start using the <a href="https://symfony.com/doc/current/security.html">Symfony Scurity</a>
+component.</p>
+
+<p>When OpenCFP was first built it was a more standalone solution and I picked Sentinel's
+predecessor, Sentry. As it got deprecated, we moved to Sentinel and along the way we
+added in some code to make <a href="https://laravel.com/docs/5.8/eloquent">Eloquent</a> easier to
+use within the app. When switching to be more Symfony-based, Doctrine is the ORM that
+needs to be used. So I have a refactoring process that looks like this:</p>
+
+<ul>
+<li>Get Doctrine and it's dependencies into the project</li>
+<li>Refactor everything <em>except</em> our auth stuff to use Doctrine</li>
+<li>Refactor our authentication and authorization code to use Symfony Security</li>
+<li>Remove Sentinel and all it's dependencies</li>
+</ul>
+
+<p>I had not used Doctrine in many many years so a lot of things have changed. Given
+all the trouble I had, I figured I was not alone so it makes sense to document
+the changes and additions I made.</p>
+
+<p>As with most work I do on OpenCFP, this was a journey of discovering things I needed to
+know that I did not know.</p>
+
+<h2 id="packages">Packages</h2>
+
+<p>Following the directions for <a href="https://symfony.com/doc/3.4/doctrine.html">Symfony 3.4</a> I
+installed my dependencies:</p>
+
+<pre><code class="bash">composer require doctrine/orm
+composer require doctrine/doctrine-bundle
+composer require doctrine/doctrine-cache-bundle
+</code></pre>
+
+<p>Right now, <code>composer show</code> says I have the following Doctrine-related packages installed now</p>
+
+<pre><code class="bash">doctrine/annotations                v1.8.0  
+doctrine/cache                      1.9.1   
+doctrine/collections                1.6.4   
+doctrine/common                     v2.11.0 
+doctrine/data-fixtures              1.4.0   
+doctrine/dbal                       v2.10.0 
+doctrine/doctrine-bundle            1.12.2  
+doctrine/doctrine-cache-bundle      1.4.0   
+doctrine/doctrine-fixtures-bundle   3.3.0   
+doctrine/event-manager              1.1.0   
+doctrine/inflector                  1.3.1   
+doctrine/instantiator               1.3.0   
+doctrine/lexer                      1.2.0   
+doctrine/orm                        v2.7.0  
+doctrine/persistence                1.2.0   
+doctrine/reflection                 v1.0.0  
+symfony/doctrine-bridge             v3.4.35 
+</code></pre>
+
+<p>I may have installed some of these packages manually, but who knows.</p>
+
+<h2 id="enable-doctrine-in-the-application">Enable Doctrine in the application</h2>
+
+<p>The first sign I had no idea what I was doing was when I could not see
+any of the Doctrine-related commands when I used <code>bin/console</code>. After
+moaning on Twitter and asking some questions on Stack Overflow, I realized
+it would not automatically find it. so I added a line to my <code>Kernel.php</code>
+file so that the bundle would be available.</p>
+
+<pre><code class="php">    public function registerBundles()
+    {
+        $bundles = [
+            new FrameworkBundle(),
+            new SensioFrameworkExtraBundle(),
+            new MonologBundle(),
+            new TwigBundle(),
+            new SwiftmailerBundle(),
+            new WouterJEloquentBundle(),
+            new OneupFlysystemBundle(),
+            new DoctrineBundle(),
+        ];
+
+        if ($this-&gt;getEnvironment() !== Environment::TYPE_PRODUCTION) {
+            $bundles[] = new DebugBundle();
+        }
+
+        if ($this-&gt;getEnvironment() === Environment::TYPE_DEVELOPMENT) {
+            $bundles[] = new WebServerBundle();
+            $bundles[] = new WebProfilerBundle();
+        }
+
+        return $bundles;
+    }
+</code></pre>
+
+<h2 id="making-repositories-available-as-a-service">Making repositories available as a service</h2>
+
+<p>I had to update my `resources/config/services/services.yml' file with the following
+new section to allow the app to find and inject all the repository files I was going
+to create:</p>
+
+<pre><code class="yaml"> OpenCFP\Domain\Repository\:
+    public: true
+    resource: '%kernel.project_dir%/src/Domain/Repository/*'
+</code></pre>
+
+<h2 id="configuration-files">Configuration Files</h2>
+
+<p>To make Doctrine see the database connections, I had to modify the
+following files:</p>
+
+<pre><code class="bash">resources/config/config_development.yml
+resources/config/config_testing.yml
+resources/config/config_production.yml
+</code></pre>
+
+<p>adding in the following details (determined through trial-and-error and online searches for help)</p>
+
+<pre><code class="yaml">doctrine:
+  dbal:
+    url: mysql://root:@127.0.0.1:3306/cfp
+    default_table_options:
+      charset: utm8mb4
+      collate: utg8mb4_unicode_ci
+  orm:
+    auto_mapping: true
+    auto_generate_proxy_classes: true
+    mappings:
+      OpenCFP\Domain\Entity:
+        type: annotation
+        dir: "%kernel.root_dir%/../src/Domain/Entity"
+        prefix: OpenCFP\Domain\Entity
+</code></pre>
+
+<p>Early on I had my integration test suite failing to even run because it was complaining it
+could not find the new repository I had created:</p>
+
+<pre><code class="php">&lt;?php
+
+declare(strict_types=1);
+
+/**
+ * Copyright (c) 2013-2019 OpenCFP
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
+ *
+ * @see https://github.com/opencfp/opencfp
+ */
+
+namespace OpenCFP\Domain\Repository;
+
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
+use OpenCFP\Domain\Entity\Airport;
+
+final class AirportRepository
+{
+    /**
+     * @var EntityRepository
+     */
+    private $repository;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this-&gt;repository = $entityManager-&gt;getRepository(Airport::class);
+    }
+
+    public function withCode(string $code): ?Airport
+    {
+        $airport = $this-&gt;repository-&gt;findOneByCode($code);
+
+        if ($airport !== null) {
+            return $airport;
+        }
+
+        return null;
+    }
+}
+
+</code></pre>
+
+<p>Here's the entity I created to go with it</p>
+
+<pre><code class="php">&lt;?php
+
+declare(strict_types=1);
+
+/**
+ * Copyright (c) 2013-2019 OpenCFP
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
+ *
+ * @see https://github.com/opencfp/opencfp
+ */
+
+namespace OpenCFP\Domain\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="airports")
+ */
+final class Airport
+{
+    /**
+     * @ORM\Column(type="string", length=3)
+     * @ORM\Id
+     */
+    private $code;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $country;
+
+    /**
+     * @return mixed
+     */
+    public function getCode()
+    {
+        return $this-&gt;code;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this-&gt;name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCountry()
+    {
+        return $this-&gt;country;
+    }
+}
+</code></pre>
+
+<p>The issue turned out to be I needed to set <code>auto_generate_proxy_classes</code> to be <code>true</code>. The
+error messages from the application itself were not helpful (complaining it could not inject
+the <code>EntityManagerInterface</code> my code was using). Anyway, once I figured that out my integration
+test suite passed. Now I could go and modify my code to use the new repository instead of the
+Eloquent model.</p>
+
+<p>Here's a summary of the steps I took to update the action that uses airport details</p>
+
+<ul>
+<li>removed references to the <code>AirportInformationDatabase</code> object that was used to access the list of airports and codes</li>
+<li>added in the use of the new <code>AirportRepository</code> object</li>
+<li>updated the constructor for the action to accept <code>AirportRepository</code> as a parameter via the magic of autowiring dependencies</li>
+<li>updated the code to use the new repository (and fix a code smell involving an exception being caught but never reacted to)</li>
+</ul>
+
+<p>So now my tests pass and I have a way to add more Doctrine entities and repositories going forward.</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2019/05/15/getting-things-done-while-remote/">Mocking a function with different return values in Python</a></h2>
+        </header>
+        <div>
+            <p>For the first half of 2019 I was borrowed by the Performance Team
+at Mozilla and asked to help them implement a way to measure the
+performance of various browsers on Android platforms. This has
+involved me getting familiar with several tools and environments
+that I had not touched before:</p>
+
+<ul>
+<li>Mozilla's tooling for use with <a href="https://hg.mozilla.org/mozilla-central">mozilla-central</a></li>
+<li>Rooting Android devices for testing purposes</li>
+<li><a href="https://developer.android.com/studio/">Android Studio</a> and it's device emulation tools</li>
+<li>Executing and parsing shell commands</li>
+</ul>
+
+<p>Of course, I am using <a href="https://docs.pytest.org/en/latest/">pytest</a> as well to make sure
+that I had thought about testing scenarios and giving whomever
+supports this code once I am back at my previous role a chance
+to figure out what is going on.</p>
+
+<p>One of the testing scenarios I came up with was handing the fact that I
+had designed the code to have a fallback mode in case the
+shell command I was using did not work on that particular
+device. Some code reviews from other developers revealed
+some differences in how the <a href="https://www.unixtutorial.org/commands/top"><code>top</code> command</a>
+works on different phones.</p>
+
+<p>So, drawing  on my own experiences with using test
+doubles in PHP, I asked myself "how can I create
+a mock that has different return values?". In
+pytest this functionality is called <code>side_effect</code>.</p>
+
+<p>So, here is some of the code in question that I needed
+to test:</p>
+
+<pre><code class="python">try:
+    cpuinfo = raptor.device.shell_output("top -O %CPU -n 1").split("\n")
+    raptor.device._verbose = verbose
+    for line in cpuinfo:
+    data = line.split()
+            if data[-1] == app_name:
+                cpu_usage = data[3]
+except Exception:
+    cpuinfo = raptor.device.shell_output("dumpsys cpuinfo | grep %s" % app_name).split("\n")
+    for line in cpuinfo:
+        data = line.split()
+        cpu_usage = data[0].strip('%')
+</code></pre>
+
+<p>I wrapped the first call in a try-catch construct because
+an exception is thrown if anything is up with that <code>top</code>
+call. If that call doesn't work, I then want to use that
+<code>dumpsys</code> call.</p>
+
+<p>In the test itself, I would need the <code>shell_output</code> call
+to first throw an exception (as expected for the scenario)
+and then return some output that I can then parse and use.</p>
+
+<p>In the PHP world, most test doubling tools allow you to
+create a mock and have it return different values on
+consecutive calls. Pytest is no different, but it took
+me a while to figure out the correct search terms to find
+the functionality I wanted.</p>
+
+<p>So, here is how I did it:</p>
+
+<pre><code class="python">def test_usage_with_fallback():
+    with mock.patch('mozdevice.adb.ADBDevice') as device:
+        with mock.patch('raptor.raptor.RaptorControlServer') as control_server:
+            '''
+            First we have to return an error for 'top'
+            Then we return what we would get for 'dumpsys'
+            '''
+            device.shell_output.side_effect = [
+                OSError('top failed, move on'),
+                ' 34% 14781/org.mozilla.geckoview_example: 26% user + 7.5% kernel'
+            ]
+            device._verbose = True
+
+            # Create a control server
+            control_server.cpu_test = True
+            control_server.test_name = 'cpuunittest'
+            control_server.device = device
+            control_server.app_name = 'org.mozilla.geckoview_example'
+            raptor = Raptor('geckoview', 'org.mozilla.geckoview_example', cpu_test=True)
+            raptor.device = device
+            raptor.config['cpu_test'] = True
+            raptor.control_server = control_server
+
+            # Verify the response contains our expected CPU % of 34
+            cpuinfo_data = {
+                u'type': u'cpu',
+                u'test': u'usage_with_fallback',
+                u'unit': u'%',
+                u'values': {
+                    u'browser_cpu_usage': '34'
+                }
+            }
+            cpu.generate_android_cpu_profile(
+                raptor,
+                "usage_with_fallback")
+            control_server.submit_supporting_data.assert_called_once_with(cpuinfo_data)
+</code></pre>
+
+<p>Let me break down what I did (as always, I am open to
+suggestions on better ways to write this test).</p>
+
+<p>The first double is for a class that communicates with the
+Android device. Then the next double I needed was for the
+"control server", which is what is used to control the
+browser and execute tests.</p>
+
+<p>My first "side effect" is to generate an error so it
+triggers the first condition of the scenario that
+'top should not work'. The second "side effect" is
+the response I am expecting to get from the shell
+command in my fallback area of the code.</p>
+
+<p>Then I continue with the "arrange" part of the <a href="http://wiki.c2.com/?ArrangeActAssert">Arrange-Act-Assert</a>
+testing pattern I like to use -- I configure my
+"control server" to be the way I want it.</p>
+
+<p>I finish up with creating what I expect the data
+that is to be submitted to our internal systems
+looks like.</p>
+
+<p>I execute the code I am testing (the "act" part)
+and then use a <a href="https://github.com/testdouble/contributing-tests/wiki/spy">spy</a>
+to make sure the control server would have submitted
+the data I was expecting to have been generated.</p>
+
+<p>The ability to have a method return different values
+is powerful in the context of writing tests for code
+that has conditional behaviour. I hope you find this
+example useful!</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2019/05/15/python-mocking-function-with-different-return-values/">Mocking a function with different return values in Python</a></h2>
+        </header>
+        <div>
+            <p>For the first half of 2019 I was borrowed by the Performance Team
+at Mozilla and asked to help them implement a way to measure the
+performance of various browsers on Android platforms. This has
+involved me getting familiar with several tools and environments
+that I had not touched before:</p>
+
+<ul>
+<li>Mozilla's tooling for use with <a href="https://hg.mozilla.org/mozilla-central">mozilla-central</a></li>
+<li>Rooting Android devices for testing purposes</li>
+<li><a href="https://developer.android.com/studio/">Android Studio</a> and it's device emulation tools</li>
+<li>Executing and parsing shell commands</li>
+</ul>
+
+<p>Of course, I am using <a href="https://docs.pytest.org/en/latest/">pytest</a> as well to make sure
+that I had thought about testing scenarios and giving whomever
+supports this code once I am back at my previous role a chance
+to figure out what is going on.</p>
+
+<p>One of the testing scenarios I came up with was handing the fact that I
+had designed the code to have a fallback mode in case the
+shell command I was using did not work on that particular
+device. Some code reviews from other developers revealed
+some differences in how the <a href="https://www.unixtutorial.org/commands/top"><code>top</code> command</a>
+works on different phones.</p>
+
+<p>So, drawing  on my own experiences with using test
+doubles in PHP, I asked myself "how can I create
+a mock that has different return values?". In
+pytest this functionality is called <code>side_effect</code>.</p>
+
+<p>So, here is some of the code in question that I needed
+to test:</p>
+
+<pre><code class="python">try:
+    cpuinfo = raptor.device.shell_output("top -O %CPU -n 1").split("\n")
+    raptor.device._verbose = verbose
+    for line in cpuinfo:
+    data = line.split()
+            if data[-1] == app_name:
+                cpu_usage = data[3]
+except Exception:
+    cpuinfo = raptor.device.shell_output("dumpsys cpuinfo | grep %s" % app_name).split("\n")
+    for line in cpuinfo:
+        data = line.split()
+        cpu_usage = data[0].strip('%')
+</code></pre>
+
+<p>I wrapped the first call in a try-catch construct because
+an exception is thrown if anything is up with that <code>top</code>
+call. If that call doesn't work, I then want to use that
+<code>dumpsys</code> call.</p>
+
+<p>In the test itself, I would need the <code>shell_output</code> call
+to first throw an exception (as expected for the scenario)
+and then return some output that I can then parse and use.</p>
+
+<p>In the PHP world, most test doubling tools allow you to
+create a mock and have it return different values on
+consecutive calls. Pytest is no different, but it took
+me a while to figure out the correct search terms to find
+the functionality I wanted.</p>
+
+<p>So, here is how I did it:</p>
+
+<pre><code class="python">def test_usage_with_fallback():
+    with mock.patch('mozdevice.adb.ADBDevice') as device:
+        with mock.patch('raptor.raptor.RaptorControlServer') as control_server:
+            '''
+            First we have to return an error for 'top'
+            Then we return what we would get for 'dumpsys'
+            '''
+            device.shell_output.side_effect = [
+                OSError('top failed, move on'),
+                ' 34% 14781/org.mozilla.geckoview_example: 26% user + 7.5% kernel'
+            ]
+            device._verbose = True
+
+            # Create a control server
+            control_server.cpu_test = True
+            control_server.test_name = 'cpuunittest'
+            control_server.device = device
+            control_server.app_name = 'org.mozilla.geckoview_example'
+            raptor = Raptor('geckoview', 'org.mozilla.geckoview_example', cpu_test=True)
+            raptor.device = device
+            raptor.config['cpu_test'] = True
+            raptor.control_server = control_server
+
+            # Verify the response contains our expected CPU % of 34
+            cpuinfo_data = {
+                u'type': u'cpu',
+                u'test': u'usage_with_fallback',
+                u'unit': u'%',
+                u'values': {
+                    u'browser_cpu_usage': '34'
+                }
+            }
+            cpu.generate_android_cpu_profile(
+                raptor,
+                "usage_with_fallback")
+            control_server.submit_supporting_data.assert_called_once_with(cpuinfo_data)
+</code></pre>
+
+<p>Let me break down what I did (as always, I am open to
+suggestions on better ways to write this test).</p>
+
+<p>The first double is for a class that communicates with the
+Android device. Then the next double I needed was for the
+"control server", which is what is used to control the
+browser and execute tests.</p>
+
+<p>My first "side effect" is to generate an error so it
+triggers the first condition of the scenario that
+'top should not work'. The second "side effect" is
+the response I am expecting to get from the shell
+command in my fallback area of the code.</p>
+
+<p>Then I continue with the "arrange" part of the <a href="http://wiki.c2.com/?ArrangeActAssert">Arrange-Act-Assert</a>
+testing pattern I like to use -- I configure my
+"control server" to be the way I want it.</p>
+
+<p>I finish up with creating what I expect the data
+that is to be submitted to our internal systems
+looks like.</p>
+
+<p>I execute the code I am testing (the "act" part)
+and then use a <a href="https://github.com/testdouble/contributing-tests/wiki/spy">spy</a>
+to make sure the control server would have submitted
+the data I was expecting to have been generated.</p>
+
+<p>The ability to have a method return different values
+is powerful in the context of writing tests for code
+that has conditional behaviour. I hope you find this
+example useful!</p>
+
+        </div>
+            </article>
+    <nav>
+        <br />
+        <a href="/page/2">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
 </html>

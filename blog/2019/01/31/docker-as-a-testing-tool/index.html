@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Docker as a testing tool &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>Docker as a testing tool <small>post</small></h2>
+            <h3>January 31st, 2019</h3>
+        </header>
+        <div>
+            <p>Yes, <a href="https://docker.com">Docker</a> can be used as a tool to help
+you out with some testing problems. Let me show an example of
+how it makes some load testing easier.</p>
+
+<p>One of the projects I support at <a href="https://mozilla.com">Mozilla</a> is
+the push notification service that we run. Among the tests that
+I do for them is a load test using an <a href="https://github.com/mozilla-services/autopush-loadtester">internal tool</a> 
+that the developers of the service created. It is a <a href="https://twistedmatrix.com/trac/">Twisted</a> application that runs using <a href="https://pypy.org">PyPy</a>.</p>
+
+<p>No, I do not know why they made those choices. Further more, it
+doesn't matter because I have to use it so I roll with the weirdness.</p>
+
+<p>Installing it locally on my MacBook Pro was straightforward --
+the docs even cover expected weirdness with some support libraries.
+But now that I have switched over to using Windows at work I
+ran into some difficulties getting all the dependencies installed
+in <a href="https://docs.microsoft.com/en-us/windows/wsl/about">Windows Subsystem for Linux</a>.</p>
+
+<p>In fact, one of the developers uses Windows...and told me of
+the experience he had at failing to get it to work. "I just use
+VMWare Player and an Ubuntu VM".</p>
+
+<p>I tried to get that working...and ran into a bunch of issues
+where I had to disable something called "Windows Defender Credential Guard". Which bugged me because I like to keep security mechanisms in place
+normally. I followed instructions FROM MICROSOFT on how to do it
+and VMWare Player still wouldn't run. Kept giving me the same
+error.</p>
+
+<p>Okay, on to plan B -- Docker.</p>
+
+<p>The first question was "how do I make this work?". I theorized
+I needed to do something like this:</p>
+
+<ul>
+<li>find a base container of Ubuntu 18</li>
+<li>get inside a running version of that image</li>
+<li>install all the required dependencies</li>
+<li>verify that the load testing tool works</li>
+<li>make a copy of that container</li>
+<li>push that copy up to Docker hub for teammates to use</li>
+</ul>
+
+<p>Some searching revealed that I could get a running Ubuntu
+container and connect with it:</p>
+
+<pre><code>docker run --rm --it ubuntu
+</code></pre>
+
+<p>This downloaded the image and gave me access to it via
+a <a href="https://www.gnu.org/software/bash/">Bash</a> shell.</p>
+
+<p>With that shell, I started installing all the packages
+I would need to install the load testing tool, including
+adding the package repository for PyPy so I could install
+it with the package manager.</p>
+
+<p>Once I got all the dependencies installed, I made sure that
+the tests could run. I even found out that there was a bug
+in the documenation. ;)</p>
+
+<p>With a Docker image that had a working installation of the
+load testing tool, the next step turned out to be more
+straight forward than I had thought.</p>
+
+<p>The Docker feature I needed was called snapshots. Here is
+what I did.</p>
+
+<p>With the Docker container still running, I opened up
+another shell (in this case I am using <a href="https://docs.microsoft.com/en-us/powershell/">Powershell</a>) and used the command <code>docker ps</code>
+to get the name that had been assigned by Docker to my
+running container.</p>
+
+<p>With that name I used the following command to save
+a version of that container:</p>
+
+<pre><code>docker commit name_of_container ubuntu:ap-loadtester 
+</code></pre>
+
+<p>Then I tagged the container so I can push up to Docker
+hub under my account:</p>
+
+<pre><code>docker tag ubuntu:ap-loadtester chartjes/ap-loadtester
+</code></pre>
+
+<p>Last, I pushed it up to Doker hub</p>
+
+<pre><code>docker push chartjes/ap-loadtester
+</code></pre>
+
+<p>So now I have:</p>
+
+<ul>
+<li>an Ubuntu container I can share</li>
+<li>that has all the dependencies installed</li>
+<li>can be used by teammates to load test the push service</li>
+</ul>
+
+<p>Again, I emphasize that a tester with some programming
+experience can create some really useful testing tools
+by leveraging the same tools and environments used to
+build whatever you are testing.</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2019/03/17/zend-expressive-doctrine-configuration/" title="Watch Me Get Grumpy -- Zend Expressive Doctrine Configuration"><span class="title">Watch Me Get Grumpy -- Zend Expressive Doctrine Configuration</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2019/01/16/test-like-a-grumpyprogrammer-part-2/" title="Learn To Test Like A Grumpy Programmer - Part 2"><span class="title">Learn To Test Like A Grumpy Programmer - Part 2</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

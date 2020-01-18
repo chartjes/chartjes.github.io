@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Home &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta name="robots" content="noindex, follow">
+                <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2><a href="/2009/06/12/the-upcoming-scalable-datastore-singularity/">The Upcoming Scalable Datastore Singularity</a></h2>
+        </header>
+        <div>
+            <p>I talked about this briefly on Twitter but I am wondering if we are at the edge of an upcoming "singularity" for technologies dealing with really large data sets.  Things like <a href="http://couchdb.apache.org">CouchDB</a>, <a href="http://tokyocabinet.sourceforge.net/">Tokyo Cabinet</a>, <a href="http://incubator.apache.org/cassandra/">Cassandra</a> and some other non-RDBM's datastores that I'm sure I'm forgetting about are starting to filter down from the experimental level to the usable-by-developers-like-me level.  We all dream of working on a project that has to deal with highly scalable data sources, because that means the project has been an awesome success.</p>
+
+<p>
+I just wonder if use of these types of technology for a site that you have no idea whether or not it will be wildly successful is a case of premature optimization.  I mean, it's cool that I can use CouchDB for a little side project that is more an exercise in learning CouchDB and Python.  But could I use something like this at work?
+</p>
+
+<p>(Warning, this is where I start talking about some of the things I do at <a href="http://www.xmlteam.com">my day job</a>.) Our systems accepts tens of thousands of XML documents per day from different sources, and then a lot of them get translated from source XML into <a href="http://en.wikipedia.org/wiki/SportsML">SportsML</a>.  Now, granted, some of these things are updates of previous information, but we still have to process them.  One of our products queries our servers, pulls down the SportsML documents and then parses them to stick the results in a RDBMS.  Customers can then build their own products on top of this system, writing SQL to pull out the info they want.
+</p>
+
+<p>
+But what if instead of parsing them, we drop them into a document datastore?  I've been using <a href="http://exist.sourceforge.net">eXist</a> for a work-related project and after some initial struggles (mostly learning to use <a href="http://www.w3.org/TR/xquery/">XQuery 1.0</a>) it's the perfect datastore for a project where you need to deal with XML.</p>
+
+<p>
+I work on a web service front-end for all these stats, which we both give to our customers (it's open-sourced under the GPL) to run themselves *and* use it internally (eating our own dog food!).  I've often wondered if we switched to using eXist as the back-end instead of a more traditional RDBMS, would our customers be able to handle it?  Finding a developer who knows SQL or a DBA who can tweak the queries is probably easier than finding someone who is familiar with XQuery / Xpath and eXist.</p>
+
+<p>So while switching to something like eXist would make sense on a certain level (skips the intermediate step of parsing the XML, we have in-house knowledge of writing XQuery scripts to pull data out) it definitely does not make sense for us from a customer support perspective.  Definitely a research project for when the company makes enough money to hire some minions for me to boss around.
+</p>
+
+<p>
+Maybe I'm wrong, but much like the <a href="http://en.wikipedia.org/wiki/Magic_8-Ball">Magic 8-ball</a> says: all signs point to yes.  Non-RDBMS datastores are getting right up into our faces, and it's only a matter of time before a high-profile project uses one of these and then everyone jumps on board.  Keep your eyes open and read up what you can about these things.  You never know when you might get the opportunity to use one in a serious way.
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2009/06/05/a-simple-couchdb-datasource/">A Simple CouchDB Datasource</a></h2>
+        </header>
+        <div>
+            <p>
+Yes, my waffling continues.  But this time it is NOT with respect to what editor to use, as <a href="http://www.vim.org">the one true editor</a> has been configured in such a way to make my life easier.  I have a personal project that I have been waffling about building in Python (first as a Django app, now maybe as a web2py app) or in CakePHP, since I would probably be most productive building out something quickly using it.
+</p>
+
+<p>
+Since I'm in a CakePHP phase right now, I decided to start building out some of the components I would need to make the side project work.  One of those components is the use of <a href="http://couchdb.apache.org">CouchDB</a> as the database.  Since non-relational databases are all the hawtness right now (and <a href="http://twitter.com/janl">Jan Lehnardt</a> is such an awesome guy) I decided the best way to learn it's use is to store search results by users to my site (no hints on what I'm doing).  I figured the best way to do this was to create a CouchDB datasource, add it to my application, and then create models that would use the datasource.  
+</p>
+
+<p>
+While I suggest that you visit the CouchDB website for more info on what it is and how to use it, here's a quick summary:  CouchDB is a non-relational datastore that you communicate with using views written in Javascript, and it returns any records that match your view as JSON-formatted data.  Very simple when you think of it, but also very powerful.
+</p>
+
+<p>
+I must emphasize that the code is very raw and not fully tested.  Written using PHP 5.2.9 and Cake 1.2.bleeding.edge. First, the data source:
+~~~
+< ?php
+
+/**
+ * Datasource for connecting to CouchDB
+ *
+ * @author Chris Hartjes
+ */
+class CouchDbSource extends DataSource {
+    public $description = 'CouchDB Data Source';
+    public $host = 'localhost';
+    public $port = 5984;
+    public $error_number = null;
+    public $error_message = null;
+    public $headers = null;
+    public $body = null;
+
+    public function __construct($config) {
+        parent::__construct($config);   
+
+        if (!empty($this->config['host'])) {
+            $this->host = $this->config['host'];    
+        }
+
+        if (!empty($this->config['port'])) {
+            $this->post = $this->config['port'];
+        }
+    }
+
+    public function fullTableName() {
+        return false;
+    }
+    
+    /**
+     * Method that sends data to the CouchDB server
+     *
+     * @param $method string GET, POST, PUT or DELETE
+     * @param $url string URL you are trying to send to
+     * @param $post_data string optional data to be posted
+     * @return string
+     */
+    public function send($method, $url, $post_data = NULL) {
+        $s = fsockopen($this->host, $this->port, $this->error_number, $this->error_message);
+
+        if (!$s) {
+            return false;
+        }
+
+        $request = "{$method} {$url} HTTP/1.0\r\nHost: {$this->host}\r\n";
+
+        if ($post_data) {
+            $request .= "Content-Length: " . strlen($post_data) . "\r\n\r\n";   
+            $request .= "{$post_data}\r\n";
+        } else {
+            $request .= "\r\n"; 
+        }
+
+        fwrite($s, $request);
+
+        $response = "";
+
+        while (!feof($s)) {
+            $response .= fgets($s); 
+        }
+
+        list($this->headers, $this->body) = explode("\r\n\r\n", $response);
+
+        return $this->body;
+    }
+}
+?>
+~~~
+I warned you that it was very simple.
+</p>
+
+<p>
+So, if you want to use the datasource, the first thing to do is add an entry to your APP/config/database.php file with all the pertinent configuration info:
+~~~
+< ?php
+class DATABASE_CONFIG {
+
+    var $couchdb = array(
+        'datasource' => 'couchdb',
+        'host' => 'localhost',
+        'port' => 5984
+    );
+}
+?>
+~~~
+<br />
+CouchDB by default runs on port 5984, but like most flexible applications it lets you change that port if you need to.  That's really all the configuration info you'll need.
+</p>
+
+<p>
+So next up is configuring a model to use it. 
+~~~
+< ?php
+
+class Search extends AppModel {
+    public $name = 'Search';
+    public $useDbConfig = 'couchdb';    
+    public $useTable = null;
+
+    public function send($method, $url, $post_data = NULL) {
+        return $this->getDataSource()->send($method, $url, $post_data); 
+    }
+}
+
+?>
+~~~
+Thanks to <a href="http://twitter.com/jperras">Joel Perras</a> for helping me dig through the CakePHP internals in order to figure out the best way to get my model to speak to the datasource.  And pointing out my stupid mistake that caused CakePHP's automodel magic to bite me in the ass.
+</p>
+
+<p>
+So how do you actually use this thing.  Here's an example of asking CouchDB to give you a listing of all documents available on the server:
+~~~
+APP/controllers/searches_controller.php
+< ?php
+
+class SearchesController extends AppController {
+    public function show_all() {
+        $this->layout = 'ajax';
+        $response = $this->Search->send('GET', '/searches/_all_docs');
+        $this->set(compact('response'));
+    }
+}
+
+?>
+
+APP/views/searches/show_all.ctp
+
+< ?= $response ?>
+~~~
+</p>
+
+<p>
+In my case, the view spit out a nice string that looked like this:
+~~~
+{"total_rows":1,"offset":0,"rows":[ {"id":"e2ffaae4df81b66c3d8386b75be71aa3","key":"e2ffaae4df81b66c3d8386b75be71aa3","value":{"rev":"1-71594714"}} ]}
+~~~
+</p>
+
+<p>
+So there you have it.  If you want to do more work with this datasource, I suggest you take a look at <a href="http://wiki.apache.org/couchdb/Getting_started_with_PHP">this link on the CouchDB wiki</a> about using PHP with CakePHP.   It could use some work to add in convenience methods for adding, deleting and finding specific records but it's a good start I think.
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2009/05/26/book-now-available-on-amazon/">Book Now Available On Amazon!</a></h2>
+        </header>
+        <div>
+            <p>I received an email this evening that you can now purchase my book through Amazon.com's Marketplace!  Awesome news. Check out the link <a href="http://tinyurl.com/p5o79u">http://tinyurl.com/p5o79u</a> and be sure to add your feedback to the page if you've bought a copy.</p>
+
+<p>(Edit: hrm, link doesn't show up on front page but shows up if you click on the link to this posting...)</p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/63">Newer Posts</a><br />
+        <a href="/page/65">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

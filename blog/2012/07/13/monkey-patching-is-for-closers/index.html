@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Monkey-patching is for closers &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>Monkey-patching is for closers <small>post</small></h2>
+            <h3>July 13th, 2012</h3>
+        </header>
+        <div>
+            <p>My co-worker <a href="http://jtreminio.com">Juan Treminio</a> brought to my attention this interesting
+blog post by someone advocating <a href="http://antecedent.github.com/a-time-and-place-for-monkey-patching.html">monkey-patching strtotime in order to test his code</a>.</p>
+
+<p>For those not familiar with the term, first I suggest you go read what <a href="https://en.wikipedia.org/wiki/Monkey_patch">Wikipedia says about it</a>
+and then try and understand why it is, in 99.999% of cases, a practice best left to 
+real experts at dynamic languages that allow redefinition of methods at run time.
+And definitely a terrible practice to recommend for testing purposes.</p>
+
+<p>The use of monkey-patching is extremely prevalent in the Ruby community and
+also to a certain extent in Python usage. I'm not going to go into length
+about their use of it except to say that it seems quite common and I think
+most developers are using it as a shortcut to counter what might be poor
+code architecture decisions. Perhaps some Rubyists could provide me with
+some good examples of why it is so popular amongst them. I don't hate
+Ruby, let's be extremely clear about that.</p>
+
+<p>So, our blog post author submits some code that needs testing:</p>
+
+<pre><code>function deleteOldPosts()
+{
+    $threshold = strtotime("-1 year");
+    # Fetch all posts older than $threshold from the database
+    $oldPosts = Post::findAll(["timestamp" =&gt; ["&lt;" =&gt; $threshold]]);
+    foreach ($oldPosts as $oldPost) {
+        $oldPost-&gt;delete();
+    }
+}
+</code></pre>
+
+<p>Quite correctly he points out that this code would be difficult to test...so he
+then goes on to explain that using <a href="http://php.net/manual/en/book.runkit.php">runkit</a> to
+monkey-patch strtotime and what is this I don't even...</p>
+
+<p>I will start of by showing a subtle set of refactorings that would make this 
+code testable, and then explode into a rant afterwards.</p>
+
+<p>First, the threshold should be injected.</p>
+
+<pre><code>function deleteOldPosts($threshold)
+{
+    # Fetch all posts older than $threshold from the database
+    $oldPosts = Post::findAll(["timestamp" =&gt; ["&lt;" =&gt; $threshold]]);
+    foreach ($oldPosts as $oldPost) {
+        $oldPost-&gt;delete();
+    }
+}
+</code></pre>
+
+<p>Second, you replace the static method call with an object instantiation
+and a normal method call.</p>
+
+<pre><code>function deleteOldPosts($threshold)
+{
+    # Fetch all posts older than $threshold from the database
+    $post = new Post();
+    $oldPosts = $post-&gt;findAll(["timestamp" =&gt; ["&lt;" =&gt; $threshold]]);
+    foreach ($oldPosts as $oldPost) {
+        $oldPost-&gt;delete();
+    }
+}
+</code></pre>
+
+<p>Third, you inject your Post object into your function.</p>
+
+<pre><code>function deleteOldPosts(Post $post, $threshold)
+{
+    $oldPosts = $post-&gt;findAll(["timestamp" =&gt; ["&lt;" =&gt; $threshold]]);
+    foreach ($oldPosts as $oldPost) {
+        $oldPost-&gt;delete();
+    }
+}
+</code></pre>
+
+<p>No runkit. No monkey-patching. No justification for doing stuff like this
+instead of the correct, long, hard, difficult slog through a legacy code base
+to do things the right way this time instead of compounding the problem.</p>
+
+<p>The other day on Twitter I commented that I felt that any blogger who does
+a post that contains code in ANY programming language needs to understand
+a few things:</p>
+
+<ul>
+<li>your code might be wrong</li>
+<li>your approach might be wrong</li>
+<li>people will take your advice as being canonical or idiomatic</li>
+</ul>
+
+<p>I am all for people sharing knowledge that they have gained. Hell, it's 
+how I've made my entire career. But don't go advocating solutions to
+problems when there are much more straight-forward solutions available.</p>
+
+<p>The issue with that original method isn't that you need to monkey-patch
+strtotime(). The issue is the coding decisions that led you to think that
+monkey-patching ANYTHING was the way to do it.</p>
+
+<p>There are no shortcuts to testing things. It's extra work during development 
+to save you extra work at deployment. Unless you start off a project doing
+TDD, you will have to refactor your code to make it work. Do not pretend
+otherwise, and do not advocate the use of something that should only be
+used in specific, well-understood circumstances as a shortcut for testing
+your code without modifying it.</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2012/07/27/php-application-testing-bootcamp/" title="PHP Application Testing Bootcamp"><span class="title">PHP Application Testing Bootcamp</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2012/06/20/yummy-sauce-on-my-behat/" title="Yummy sauce on my Behat"><span class="title">Yummy sauce on my Behat</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

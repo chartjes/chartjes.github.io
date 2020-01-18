@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Home &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta name="robots" content="noindex, follow">
+                <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2><a href="/2009/07/07/multiple-form-defaults-using-jquery/">Multiple Form Defaults Using jQuery</a></h2>
+        </header>
+        <div>
+            <p>At <a href="http://www.xmlteam.com">work</a>, one of the projects I work on is an <a href="http://www.sportsstandards.org/sd/sportscaster">open source web service front end</a> for our Perl-based main application.  It has a front-end for it that uses Javascript to dynamically build a query to the web service.  I didn't write it, but I think it's kind of neat.  One of the things I was asked to do was create some code that allow users to define a series of default values for the (/me goes to count) 7 different forms that are in the front-end.  There had been some pre-existing code, but I decided it needed to be refactored to be a lot more simpler than the previous system.  After all, I was not writing this code for myself but for our clients.  They would definitely not be as familiar with the system as I would be, so simple is always better.
+</p>
+
+<p>
+So, the trick was to figure out what pieces I was going to use to build this.  Since I am a <a href="http://jquery.com">jQuery</a> fan, I started searching for plugins to make it all work nice.  My research dug up the perfect tool: the <a href="http://www.keyframesandcode.com/resources/javascript/jQuery/demos/populate-demo.html">jQuery Form Population</a> plugin.  I know you'll follow the link and read it, but as a quick summary it is a plugin for allowing you to populate values in a form on the client side, meaning in Javascript, instead of the server side, which in this case would be everyone's favourite online whipping-boy PHP.</p>
+
+<p>
+Once I played around with the plugin (and actually read the documentation) I realized that the simple solution I wanted was at hand.  Let me show you what I did:
+~~~
+function clearAllDefaults() {
+    $('#searchDocumentsForm').clearForm();
+    $('#searchDocumentsForm').populate(
+        {
+            'revision-control':'all',
+            'priorities':'all',
+            'content-returned':'metadata-only',
+            'rendering-engine':'xslt',
+            'query-debug':'false',
+            'gateway-theme':'default',
+            'stylesheet':''
+            }, 
+        {'reset-form':false, 'identifier':'name'}
+        );
+
+    $('#getDocumentsForm').clearForm();
+    $('#getDocumentsForm').populate(
+        {
+            'rendering-engine':'xslt',
+            'query-debug':'false',
+            'gateway-theme':'default',
+            'stylesheet':''
+            }, 
+        {'reset-form':false, 'identifier':'name'}
+        );
+
+    $('#searchEventsForm').clearForm();
+    $('#searchEventsForm').populate(
+        {
+            'date-offset':0,
+            'date-offset-span':1,
+            'date-offset-midnight':1600,
+            'sort-order':'asc',
+            'content-returned':'metadata-and-scores',
+            'rendering-engine':'xslt',
+            'query-debug':'false',
+            'gateway-theme':'default',
+            'stylesheet':''
+            }, 
+        {'reset-form':false, 'identifier':'name'}
+        );
+
+    $('#getEventsForm').clearForm();
+    $('#getEventsForm').populate(
+        {
+            'content-returned':'metadata-and-scores',
+            'rendering-engine':'xslt',
+            'query-debug':'false',
+            'gateway-theme':'default',
+            'stylesheet':''
+            }, 
+        {'reset-form':false, 'identifier':'name'}
+        );
+}
+
+function setDefaults(defaultId) {
+    for (var formId in defaults[defaultId]) {
+        $('#' + formId).populate(defaults[defaultId][formId], {'reset-form':false, 'identifier':'name'});
+    }   
+}
+
+function outputDefaultChoices() {
+    document.write('<table width="200"><tr valign="top"><td width="100" nowrap><b>Default Selections:</b></td>');
+    document.write('<td nowrap><input type="radio" name="defaultSet" value="none" checked onChange="clearAllDefaults();"/> none<br />');
+    
+    for (var myDefault in defaults) {
+        document.write('<input type="radio" name="defaultSet" value="' + myDefault + '" onChange="clearAllDefaults();setDefaults(\'' + myDefault + '\');"/> ' + myDefault + '<br />');
+    }
+
+    document.write('</td></tr></table>');
+}
+~~~
+This is load-defaults.js.  It contains functions that I want to use to set the defaults.  I think it's pretty self-explanatory.  I would like a less-ugly way of implementing what I did in outputDefaultChoices(), so let me know if there is a better way.  
+</p>
+
+<p>
+Up at the top of that code is where we are setting a bunch of defaults for when the form front-end is initially loaded.  The populate plugin accepts JSON containing not only the key-value pairs of form field name and value respectively, but also accepts a bunch of very useful options.  'reset-form':false tells the plugin to not simple reset the form when populating (we might not want to overwrite some existing values). 'identifier':'name' is a cool feature of the plugin that allows you to specify *how* you want the plugin to figure out how to map the field names you sent it already to the form itself.  Default is 'id' but much of the existing form did not have id fields for the form fields, so I figured it was less work for me to make the plugin figure it out. ;)
+</p>
+
+<pre><code>/**
+ * In order to create a set of defaults, you simply have to create
+ * a JSON array of options in the following format
+ *
+ * defaults[&lt;set name&gt;] = {'&lt;formid&gt;':{&lt;json pairs of fields and values&gt;}}
+ * 
+ * defaults['favorites'] = {'searchDocumentsForm':{'team-keys':'l.mlb.com-t.18', 'fixture-keys':'general-news', 'date-window':'2400'}};
+ * 
+ * Adding in defaults for multiple forms is easy.  Here's an example
+ * of setting the team-keys in both the searchDocuments and searchEvents forms
+ *
+ * defaults['multiple'] = {
+ *  'searchDocumentsForm':{'team-keys':'l.mlb.com-t.17'},
+ *  'searchEventsForm':{'team-keys':'l.mlb.com-t.17'}
+ * }
+ */
+
+var defaults = new Array();
+
+defaults['favorites'] = {
+        'searchDocumentsForm':{
+            'league-keys':'l.mlb.com', 
+            'fixture-keys':'general-news', 
+            'date-window':'2400',
+            'publisher-keys':'sportsnetwork.com',
+            'max-result-count':'5',
+            'revision-control':'all',
+            'priorities':'all',
+            'content-returned':'metadata-only',
+            'rendering-engine':'xslt',
+            'query-debug':'false',
+            'gateway-theme':'default',
+            'stylesheet':''
+            },
+
+        'getDocumentsForm':{
+            'doc-ids':'xt.9569941-recap', 
+            'rendering-engine':'xslt',
+            'query-debug':'false',
+            'gateway-theme':'default',
+            'stylesheet':''
+            },
+
+        'searchEventsForm':{
+            'league-keys':'l.mlb.com', 
+            'publisher-keys':'sportsnetwork.com',
+            'max-result-count':'200',
+            'date-offset':0,
+            'date-offset-span':1,
+            'date-offset-midnight':1600,
+            'sort-order':'asc',
+            'content-returned':'metadata-and-scores',
+            'rendering-engine':'mvc-view',
+            'query-debug':'false',
+            'gateway-theme':'default',
+            'stylesheet':'events'
+            },
+
+        'getEventsForm':{
+            'event-keys':'l.mlb.com-2009-e.24850',
+            'publisher-keys':'sportsnetwork.com',
+            'content-returned':'metadata-and-scores',
+            'rendering-engine':'mvc-view',
+            'query-debug':'false',
+            'gateway-theme':'default',
+            'stylesheet':'events'
+            }
+        };
+
+defaults['team-news'] = {
+        'searchDocumentsForm':{
+            'team-keys':'l.mlb.com-t.18', 
+            'fixture-keys':'general-news,post-event-coverage,pre-event-coverage', 
+            'date-window':'9600',
+            'publisher-keys':'sportsnetwork.com',
+            'max-result-count':'5',
+            'revision-control':'latest-only',
+            'priorities':'all',
+            'content-returned':'metadata-only',
+            'rendering-engine':'xslt',
+            'query-debug':'false',
+            'gateway-theme':'default',
+            'stylesheet':'sportsml2html-listing'
+            }
+        };
+
+defaults['standings'] = {
+        'searchDocumentsForm':{
+            'league-keys':'l.mlb.com', 
+            'fixture-keys':'standings-by-division', 
+            'date-window':4800,
+            'max-result-count':1,
+            'revision-control':'all',
+            'priorities':'all',
+            'content-returned':'all-content',
+            'rendering-engine':'xslt',
+            'query-debug':'false',
+            'gateway-theme':'default',
+            'stylesheet':'sportsmlt'
+            }
+        };
+</code></pre>
+
+<p>
+This is the sample configuration file that we distribute with the application to show people how to use it.  Look, I even provided instructions at the top on how to use it!
+</p>
+
+<p>
+Anyway, if you've been looking for a way to create multiple sets of defaults for your forms, switchable with the click of a button, I hope this code is useful to you.
+</p>
+
+<p></json></formid></set></p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2009/07/01/brittle-web-services/">Brittle Web Services</a></h2>
+        </header>
+        <div>
+            <p>Happy Canada Day to all my Canadian friends and readers!</p>
+
+<p>
+For a project at work I've been working a lot with web services, creating a new one and tweaking an existing one.  That work got me to thinking that not only can you have brittle code, but you can have brittle web services as well.  Things like:
+<ul>
+<li>Dependencies on 3rd-party tools that might force you to send parameters in a certain order (I'm looking at *you*, XSLT tools)</li>
+<li>Non-intuitive parameters</li>
+<li>Misleading error responses</li>
+<li>Poor permission schemes that allow you to access data you shouldn't</li>
+</ul>
+I could go on and on, but a lot of the things that make web services "brittle" are the same things that make regular code "brittle" as well.  C'mon people, it's not so hard!
+</p>
+
+<p>
+I've worked very hard to adhere to a set of standards when building these web services:
+<ul>
+<li>All services must be authenticated against using login and password</li>
+<li>You pass in a parameter indicating how you want the response back (in this case XML, HTML made pretty using XSLT, or JSON</li>
+<li>Standardized the parameters being passed in across all internal web services</li>
+<li>Cache everything you can using read-through caching strategies.  I would've loved to use write-through caching but it's just not possible at this time.</li>
+</ul>
+</p>
+
+<p>The main reason for all this pedantry is for maintenance reasons.  When (not if) I go back to work on it, I want to know that I will not have to remember any weird exceptions made in the code in the pursuit of Getting Things Done, Damnit.  When you're the only developer working on it, it's easy to fall into the trap of the quick fix or the non-intuitive block of code.  
+</p>
+
+<p>
+Share your tips for building solid web services with me in the comments.
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2009/06/19/do-androids-dream-of-googlephones/">Do Androids Dream Of Googlephones?</a></h2>
+        </header>
+        <div>
+            <p>I talked briefly on Twitter about me getting a new phone to replace my beat-up Blackberry.  Instead of a new iPhone 3GS, I decided to get the HTC Dream, more commonly known as the G-1 to my American readers.  My carrier is Rogers Wireless, so no switching required *or* extending of my term.  I had to talk to the right people in customer support, but I got it for the same price that someone who was just signing up for 3 years would get it.</p>
+
+<p>
+So why one of those and not an iPhone.  Well, reason number one is that I tend to be a contrarian at times.  Everyone has an iPhone, not many people have an Android phone.  That makes me a unique little snowflake, and sometimes we all need to feel like that.  Secondly, I have noticed a very disturbing trend with the whole acceptance process for the App store.  Some really arbitrary decisions, conflicting decisions.  Not that I want to be a phone app maker but the idea that I could make an app exactly the way I want, and have it rejected for very flimsy reasons sort of irks me.  I should ask <a href="http://mtabini.blogspot.com/">Marco Tabini</a> for a more inside look at the whole iPhone-app-building process.</p>
+
+<p>
+I'm not sure what the Android app development process is like though. But it appears to be a little bit more entrepreneurial that Apple's "we are the gatekeepers of the app world" routine.  Not that I blame Apple in the least, as it is their right to do it that way.
+</p>
+
+<p>
+Now, as much as this might irk some of my friends but the fact that Android runs Java means that I will start getting some experience with stuff that runs on the JVM.  In my tinkering with Python I've looked at <a href="http://www.jython.org/">Jython</a>, and I have seen that you can get Jython running on an Android phone.  Definitely something to look into.
+</p>
+
+<p>
+Now, the phone itself.  It has a slide-out keyboard, so no need for me to monkey around with any on-screen keyboards.  Having used the Blackberry for a while, I'm used to the thumbtapping needed to type text messages.  Oddly enough, the HTC Magic, which has no keyboard, was the same price.  I find the keyboard just fine for me, but I have heard others complaining about the keyboard.  YMMV.
+</p>
+
+<p>
+Apps on the phone are pretty decent, once you learn how to navigate your way through the menu system, and how to put apps into the background so I can run other ones. I know there's complaints about how you can run apps in the background on the iPhone, but Apple lets their own apps run in the background.  Really, a minor detail.
+</p>
+
+<p>
+The games I've played are good and addictive (Abduction is so simple to learn but difficult to beat at the higher levels) and some of the various apps I've tried out have been easy to use as well.  Twitdroid and the Meebo client are just slick and easy to use.
+</p>
+
+<p>
+My only gripe is that I cannot *buy* any apps through the <a href="http://www.android.com/market/">Android Market</a> because, according to some digging around on Google, <a href="http://www.google.com/support/androidmarket/bin/answer.py?hl=en&answer=138294">Google won't let people in Canada buy apps</a>.  Again more of an annoyance.
+</p>
+
+<p>
+So far I'm impressed with the phone and look forward to getting some time to fool around with maybe writing a simple app, or seeing about getting Jython up and running on it.
+</p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/62">Newer Posts</a><br />
+        <a href="/page/64">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

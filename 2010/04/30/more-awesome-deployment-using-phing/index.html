@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>More Awesome Deployment Using Phing &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2>More Awesome Deployment Using Phing <small>post</small></h2>
+        </header>
+        <div>
+            <p>In a previous blog post I showed some very basic techniques for using Phing for doing deployment.  As with any good deployment process, once you let people know that there is a flexible deployment tool other people start asking you to new things.</p>
+
+<p>
+"Hey Chris, can you set things up so that whenever someone runs one of those deployment scripts, we send an email to our support mailbox of all the files that were pushed up since the last deploy?"  After pausing for a minute to figure out how I would do it (the quick answer was "no idea") I said "Sure, I'll see what I can do."
+</p>
+
+<p>
+So I stood in front of my whiteboard and proceeded to sketch out an idea of how I would want to do such a thing.  Luckily I could cheat and look at how Capistrano did it.  Because the way that they do it makes so much sense, so I duplicated it quick-and-dirty style.  A big thanks goes out to my friend <a href="http://www.derekmartin.ca/">Derek</a> for pointing me in the right direction.
+</p>
+
+<p>
+So, the way to make this happen is as follows:
+<ol>
+<li>Read in a file inside your current deployment that contains the date of your last deployment</li>
+<li>Check your code out of your version control system into <app ROOT>/releases/<date format></date></app></li>
+<li>Symlink <app ROOT>/releases/<date format> to <app ROOT>/current</app></date></app></li>
+<li>Write a file into <app ROOT>/current that contains the date of the last deploy.
+</app></li></ol>
+</p>
+
+<p>Here's what it looks like as a Phing script</p>
+
+<pre><code>&lt;?xml version="1.0"?&gt;                                                                               
+&lt;project name="build" default="main"&gt;
+    &lt;property name="exportdir"  value="/var/www/app" /&gt;
+    &lt;property name="svnpath" value="/usr/bin/svn" /&gt;
+    &lt;property name="repo" value="svn+ssh://path/to/repo" /&gt;
+    &lt;tstamp&gt;
+        &lt;format property="build.time" pattern="%Y%m%d%H%I%S" /&gt;
+        &lt;format property="newdeploy.date" pattern="%Y-%m-%d %H:%I:%S" /&gt;
+    &lt;/tstamp&gt;
+    &lt;property file="${exportdir}/current/deploy.properties" /&gt;
+    &lt;target name="main" depends="svnexport"&gt;
+        &lt;exec command="rm -f ${exportdir}/current" escape="false" /&gt;
+        &lt;exec command="ln -s ${exportdir}/releases/${build.time} ${exportdir}/current" escape="false" /&gt;
+        &lt;exec command="chmod -R 777 ${exportdir}/current/tmp" escape="false" /&gt;
+        &lt;exec command="chown -R scriptkiddie:company ${exportdir}/current" escape="false" /&gt;
+        &lt;exec command="chmod -R ug+rw ${exportdir}/current" escape="false" /&gt;
+        &lt;exec command="echo 'deploy.date=${newdeploy.date}' &gt;&gt; ${exportdir}/current/deploy.properties" /&gt;
+        &lt;exec command="svn log -r '{${deploy.date}}':'{${newdeploy.date}}' ${repo} | mail -s 'Deployment Of FizzBuzz in production' support@fizzbuzz" /&gt;
+    &lt;/exec&gt;&lt;/target&gt;
+    &lt;target name="svnexport"&gt;
+        &lt;svnexport svnpath="${svnpath}"
+            username="${username}"
+            password="${password}"
+            nocache="true"
+            repositoryurl="${repo}"
+            todir="${exportdir}/releases/${build.time}"/&gt;
+    &lt;/target&gt;
+&lt;/project&gt;
+</code></pre>
+
+<p>The key was figuring out the best way to send SVN log information via email.  Leave it to the UNIX way of piping output to provide with the best solution totally within Phing.
+</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/2010/05/17/off-to-tek-x/" title="Off to TEK-X"><span class="title">Off to TEK-X</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/2010/04/14/you-asked-for-it-chris-awesome-but-short-guide-to-deployment-using-phing/" title="You Asked For It:  Chris&#039; Awesome But Short Guide To Deployment Using Phing"><span class="title">You Asked For It:  Chris&#039; Awesome But Short Guide To Deployment Using Phing</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+
+
+
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

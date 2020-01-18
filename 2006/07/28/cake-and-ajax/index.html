@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Cake and AJAX &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2>Cake and AJAX <small>post</small></h2>
+        </header>
+        <div>
+            <p>Success!  I did manage to get the sortable grid working for the stats reporting system.  It was my first real example of creating an AJAX component for a work project.  It took me quite a while to figure some of the trickier things out.  I did use <a href=http://www.crackajax.net/grid.php>this excellent tutorial</a> to show me a basic example of implementing a sortable grid backed by data pulled from a SQL database.  After that, I found Graham Bird's excellent tutorial on <a href=http://grahambird.co.uk/cake/tutorials/ajax.php>creating an AJAX sortable task list with Cake</a></p>
+
+<p>Now, what I did was a little more complicated because not only did I have to sort by the header columns in the table, I also had date ranges selected via a form <em>and</em> categories selectable via a form to take into consideration.</p>
+
+<p>I can say this:  the AJAX helper functions for CakePHP are just fantastic and spared me from having to figure out all this stuff on my own.  I did have to create some stuff by hand in order to build the following little snipper:</p>
+
+<p>body onLoad = "new Ajax.Updater('hiddenDIV','/verticalscope_stats/reports/getusers/site_name/99', {asynchronous:true, evalScripts:true, requestHeaders:['X-Update', 'hiddenDIV']}) }, false);"</p>
+
+<p>Yikes.  Not the kind of stuff I want to be building by hand if I can avoid it.  Now, the Cake AJAX helpers use scriptaculous and prototype as the base for their actions.  I found a post in the wiki for Cake complaining about the large size of those two helper libraries, and they do have a point.</p>
+
+<p>The post also turned me on to <a href="http://jquery.com">jQuery</a> , which describes itself as "... a Javascript library that takes this motto to heart: Writing Javascript code should be fun. jQuery acheives this goal by taking common, repetitive, tasks, stripping out all the unnecessary markup, and leaving them short, smart and understandable."</p>
+
+<p>I have an idea to try and see if I can take a stab at creating my own Cake helper that uses jQuery instead of the awesome-but-quite-large scriptaculous+prototype combo for the AJAX stuff.</p>
+
+<p>I plan on creating a tutorial on the stuff I did (specifically for implementing a sortable grid in CakePHP) in the next week or so.  It would be nice to share all the stuff I did. :)</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/2006/08/02/phpworks-isnt-that-far-off/" title="php|works Isn&#039;t That Far Off..."><span class="title">php|works Isn&#039;t That Far Off...</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/2006/07/26/quick-hits/" title="Quick Hits"><span class="title">Quick Hits</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+
+
+
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

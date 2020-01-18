@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>What Thrashed Around In Chris&#039; Brain This Past Weekend &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2>What Thrashed Around In Chris&#039; Brain This Past Weekend <small>post</small></h2>
+        </header>
+        <div>
+            <p>(The blog experiment continues: 1 post every weekday in November and I think I only skipped one, but made up for it with a Saturday post)</p>
+
+<p>
+<i>Node.js is something I want to use, but I do not know what for</i><br />
+For those who don't know, <a href="http://nodejs.org/">Node</a> is a "toolkit for writing extremely high performance non-blocking event driven network servers in JavaScript".  In other words, it's for writing server-side Javascript with an emphasis on providing concurrency.  Damn you Tim Bray, I cannot avoid seeing concurrency everywhere since you started your <a href="http://www.tbray.org/ongoing/When/200x/2009/09/27/Concur-dot-next">Concur.next</a> series on your blog.  It fascinates me, and I don't even do any kind of work where I need to worry about concurrency.  Not yet anyway.
+</p>
+
+<p>
+Simon Wilson (someone I follow from the Django community) has a great article explaining why <a href="http://simonwillison.net/2009/Nov/23/node/">Node.js is genuinely exciting</a> to him, and my old CakePHP landsmann Felix shows <a href="http://debuggable.com/posts/streaming-file-uploads-with-node-js:4ac094b2-b6c8-4a7f-bd07-28accbdd56cb">how to handling streaming file uploads in node.js</a>.  Like so many new technologies, Node.js starts out as a solution looking for a problem but as I become more familiar with concurrency it all becomes a little clearer.
+</p>
+
+<p>
+<i>While <a href='http://www.vim/org">Vim</a> is awesome, don't put up with any crap from it</i><br />
+I had been experiencing a problem with Vim.  Well, two problems.  The first big one was weird behaviour involving the <a href="http://www.vim.org/scripts/script.php?script_id=1849">AutoClose</a> plugin.  It would spit out brackets and quotes at the weirdest time, and I found myself doing a lot of unnecessary keystrokes (and toggling in and out of insert mode) to get things done.  So I deleted it.  Enough of that crap.  Same goes with my attempts to use the <a href="http://www.vim.org/scripts/script.php?script_id=69">Project plugin</a>.  I just could not get it to work properly.  DELETED.
+</p>
+
+<p>
+Vim's ability to be ultracustomizable ALSO makes it easy to dump stuff when you no longer what to use it.  Heck, I even see some stuff in my .vimrc that I am not using any more.  Mappings I did to accomplish some specific tasks.  Those were deleted too.
+</p>
+
+<p>
+<i>Understanding the concept of callbacks opens your mind to all sorts of possibilities</i><br />
+While callbacks are related to my use of Javascript (jQuery uses them to great success) I also find myself digging into the <a href="http://docs.djangoproject.com/en/dev/topics/signals/">documentation in Django on signals</a>, which are callbacks by another name:  functionality that is executed when certain events happen.</p>
+
+<p>Django uses them all over the place, and CakePHP uses them as well.  When I look at the CodeIgniter code that powers <a href="http://www.sportso.com">Sportso</a>, I often ruminate about what programming techniques or design patterns could help me reduce the amount of code that has actually been written.  CodeIgniter doesn't really support callbacks except in the form of allowing you to define custom functions for validation purposes.  It's a start I get.  I wonder what the code would look like if I could define more code that is triggered when specific events happen?  Any time I find myself typing the same block of code over and over again, it is only natural that I seek to reduce how often I need to do it.  
+</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/2009/11/24/the-definition-of-open-source/" title="The Definition of Open Source"><span class="title">The Definition of Open Source</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/2009/11/20/cleaning-up-the-dev-environment/" title="Cleaning Up The Dev Environment"><span class="title">Cleaning Up The Dev Environment</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+
+
+
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

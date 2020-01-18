@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Home &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta name="robots" content="noindex, follow">
+                <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2><a href="/2007/02/07/bips-and-boops/">Bips and Boops</a></h2>
+        </header>
+        <div>
+            <p>This time next week I will be trying to flag down a taxi at the airport in Toronto, having come back from the <a href="http://vancouver.php.net">Vancouver PHP Conference 2007</a>.  I'm looking forward to giving my "What Can PHP Learn From Ruby on Rails" talk because I'll be doing a screencast of my talk.  However, I'm struggling with trying to decide what to do with it.
+</p>
+
+<p>
+If I give it away, then the people who see me in person are getting ripped off.  If I charge for it, the question then becomes how much to charge?  $5?  $10.  One model I've been thinking of trying is that if 20 people by the screencast I will give it away for free after that point.  We shall see what ends up happening.
+</p>
+
+<p>
+Over on the CakePHP mailing list, someone asked a question about how to build a model without accessing a database.  I pointed out that it can be done, and that there were examples.  Then, I got schooled by <a href="http://cake.insertdesignhere.com/">nate</a>...
+
+
+<blockquote>I definitely wasn't agreeing with you, but I wasn't really making fun
+of you either.  I'll give you a hint: there's a reason why we have a
+base DataSource class, which is extended by DboSource, which talks to
+the database on behalf of a model.  Felix's Google Analytics model is
+actually a pretty poor example.  Not because Felix is a bad coder or
+anything (quite the contrary), but because up till now, there are a
+few things that people really haven't clearly understood (or perhaps,
+there are a few things we haven't made clear for people).  Basically
+what I'm trying to say is that you should never have to extend Model
+in that way.  Models are designed to *model* data, not handle the
+details of accessing it.</blockquote>
+Ouch
+</p>
+
+<p>But Nate did have a good point.  I didn't fully understand how the Model was built up in CakePHP because, well, I never really had to before.  I think when I build my first CakePHP 1.2x site I'll dig into the internals a little more.
+</p>
+
+<p>
+Now, I've noticed a few blog postings about <a href="http://dev.mysql.com/downloads/connector/php-mysqlnd/">mysqlnd</a>, a native MySQL driver for PHP 6 (for now) and beyond.  As an aside, I should try installing PHP 6 somewhere just to see how they are progressing.  Anyhow, back to mysqlnd.  Why is this significant? There are, in my mind, two things why you should know about it.
+</p>
+
+<p>Firstly, mysqlnd is designed to take advantage of PHP's own infrastructure.  I imagine this means that you can expect better performance from this library as opposed to the old libmysql or the newer libmysqli.  I understand it's aimed at PHP 6 for the time being, due to some of the work being done with Unicode in PHP 6.  There is talk of backporting it to PHP 5, or even PHP 4 (something to do with streams meaning you could backport) but it's aimed squarely at PHP 6 for now.</p>
+
+<p>
+The second big reason is that it will provide a library for PHP to talk to MySQL databases that has a license that is more compatible with PHP.  In fact, it will be released under the PHP license.  MySQL has an exception for allowing libmysql to be integrated with <a href="http://www.mysql.com/company/legal/licensing/foss-exception.html">FLOSS</a> projects, of which PHP is one.  Having a native driver that doesn't require an exception to use can only be a good thing.
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2007/02/02/have-i-become-a-grumpy-old-programmer/">Have I Become A Grumpy Old Programmer?</a></h2>
+        </header>
+        <div>
+            <p>My long-suffering wife often tells me to "stop being grumpy".  What she calls grumpy I call annoyed, but perhaps she does have a point.  As a member of several mailing lists for open-source projects, I find myself getting grumpy over the type of questions that I see asked.  It started me to wonder if I've become a grumpy old programmer.  What causes me to age prematurely and transform into a Grumpy Old Programmer?  Questions on mailing lists, that's what.</p>
+
+<p>Oh, not just any question mind you.  There are lots of good questions being asked.  Questions about how is the best way to do something, or how to take a particular component in an unexpected direction.  Those are good questions, because they make you think about how you are doing things.  But then there are the other questions.  The questions that you often wonder if the person asking the question is a <a href="http://en.wikipedia.org/wiki/Troll_%28Internet%29">troll</a>.  Questions where you wonder if the person asking the question had ever heard of a search engine.  Questions where you wonder if the person asking the question has even bothered to read the documentation for the area they are asking a question about.</p>
+
+<p>Now at this point I can imagine people labeling me as a snob or elitist or some other derogatory label that implies I think I am smarter than everyone else.  I am smart enough to realize that there are plenty of people smarter than me.  I benefit from the tools they've created every day.  So please, no name-calling.  Ask anyone who knows me and I think one of the last labels they would apply to me is 'snob' or 'elitist'.  'Grumpy', maybe.  Anyway, back on topic.</p>
+
+<p>
+I understand that many people are just beginning out as programmers.  I was once one of those people, and I spent (and still do spend) lots of time using search engines to find answers to my questions.   When I ask a question on a mailing list, I try to have done all sorts of research that led me to the point where I couldn't find the answer without asking directly on the mailing list.  That's pretty acceptable behaviour, wouldn't you think?</p>
+
+<p>
+Now I'm not interested in pointing fingers or providing examples.  That would be picking on people who might not have a concept of what could be called "mailing list etiquette".  If I had to guess, I'd say once a month the administrators of the <a href="http://cakephp.org">CakePHP</a> mailing list have to remind someone who is causing problems to be quiet and abide by the rules (unspoken or otherwise) of the list.  So, in the interest of providing some helpful tips for getting the most out a highly-technical mailing list, here are some pointers:</p>
+
+<p>
+<li>There is a proper way to <a href="http://www.chiark.greenend.org.uk/~sgtatham/bugs.html">report bugs</a></li>
+<li>Asking people to provide you with fully-written solutions to your problem is not only rude, but shows that you aren't willing to learn anything yourself.  The mailing list is not a substitute for a consultant</li>
+<li>Please do some work <a href="http://www.catb.org/~esr/faqs/smart-questions.html#before">before you ask your question</a></li>
+<li>Don't assume <a href="http://www.catb.org/~esr/faqs/smart-questions.html#urgent">everyone thinks your problem is as important as you do</a></li>
+<li>Provide as much info as you can:  code samples, good descriptions of the problem, things you have tried as solutions.  The more you give, the more you can get back</li>
+<li>People are providing answers because they want to help, not because they are trying to make you look stupid.  People do a good enough job of making themselves look stupid (me included) without needing extra help</li>
+<ul>
+</ul></p>
+
+<p>
+Failing to do any combination of things listed above is very likely to turn me into a Grumpy Old Programmer when I read your question.  However, I'm not off the hook yet.  There is the <a href="http://www.catb.org/~esr/faqs/smart-questions.html#id274601">proper way to answer questions</a> as well.  I generally try to provide helpful answers if I know something about the problem, but I prefer to send the harsher messages (variations on <a href="http://www.catb.org/~esr/faqs/smart-questions.html#rtfm">RTFM and STFW</a>) via private email.</p>
+
+<p>I hope the stuff in this post helps people looking for help on a mailing list get more out of their questions.  In the meantime, look for me on the CakePHP mailing list and call me out if you see me not following my own advice...</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2007/01/30/wordpress-21-and-mint/">WordPress 2.1 and Mint</a></h2>
+        </header>
+        <div>
+            <p>I recently decided to ditch using Google Analytics for my stats tracking and installed <a href="http://www.haveamint.com">Mint</a> as my website stats tracking module.  I'm really liking it, and it's easily worth the $30 you have to pay for it.  C'mon, don't be cheap and steal everything, okay?</p>
+
+<p>
+Mint has a really cool plugin architecture that they call <a href="http://haveamint.com/peppermill/">Pepper</a>, and you can grab all sorts of cool addons.  I saw one called <a href="http://haveamint.com/peppermill/pepper/11/bird_feeder/">Bird Feeder Pepper</a>, which can track what's going on with your various feeds.  Now, the installation is fairly easy but there was a weird bug that was appearing, where a check to see if you are running a licensed copy of Mint kept getting triggered when I tried to access my feeds via a feed alias.  The solution?  An ugly hack, if you ask me.  To implement Bird Feeder Pepper and use the seeds (track individual items in your feed), there's a snippet of PHP code you have to insert in the various PHP files WordPress uses: wp-rss.php, wp-rss2.php, wp-atom.php and wp-rdf.php.  Place this snippet AFTER the line in the PHP file that executes a 'header' command and BEFORE the code that outputs the beginnings of the XML.  Here's an example:
+~~~
+header('Content-type: text/xml; charset=' . get_option('blog_charset'), true);
+$more = 1;
+
+// BEGIN CODE TO IMPLEMENT BIRD FEEDER PEPPER SEEDS
+global $Mint;
+define('BIRDFEED', 'Articles (RSS)');
+include($_SERVER['DOCUMENT_ROOT'].'/feeder/index.php');
+// END CODE TO IMPLEMENT BIRD FEEDER PEPPER SEEDS
+?>
+<?php echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>'; ?>
+~~~
+</p>
+
+<p>
+Hope that helps anyone else who was struggling to get Bird Feeder Pepper working with WordPress 2.1.</p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/126">Newer Posts</a><br />
+        <a href="/page/128">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

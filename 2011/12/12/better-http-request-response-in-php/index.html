@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Better HTTP Request/Response in PHP &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2>Better HTTP Request/Response in PHP <small>post</small></h2>
+        </header>
+        <div>
+            <p>I just started up a podcast called <a href="http://devhell.info">Developer Hell</a> with
+my fellow piss-and-moan-driven-development practitioner <a href="http://funkatron.com">Ed Finkler</a>
+. It basically consists of Ed and I sitting down and just having an open and
+unedited discussion about whatever programming-related topic we feel like
+rambling on and on about. Our first episode covered the always-riveting
+topic of <a href="http://devhell.info/post/2011-12-10/what-we-hate-about-php/">"What We Hate About PHP"</a>.</p>
+
+<p>Now even though it is just us complaining about stuff in PHP that we don't
+like, regardless of the true merits of our complaints, it sparked a discussion
+on Twitter about just what should be done to make handling PUT and DELETE
+requests better in PHP.</p>
+
+<p>$&#95;POST and $&#95;GET are workhorses of the PHP world, used in any application
+that accepts web requests from somewhere. Sometimes accessing them is wrapped
+inside objects or filtered out using the filter() extension of even <a href="https://github.com/funkatron/inspekt">Inspekt</a>
+but I think this illustrates the problem.</p>
+
+<p><a href="http://twitter.com/lxt">Laura Thompson</a> made the suggestion that PHP should
+look to port the concept of the Request object that Python uses over to PHP.
+As a cryptopythonista I think that is an excellent idea. <a href="http://twitter.com./auroraeosrose">Elizabeth Smith</a>
+did ask for some constructive ideas on solving this problem. While my C skills
+are non-existent, I thought I'd delve a bit into more higher-level thoughts
+about this.</p>
+
+<p>I think the fact that we have $&#95;POST and $&#95;GET lulls some of us into the
+false sense that we should have $&#95;PUT and $&#95;DELETE objects, since that
+would map to the commonly-desired set of HTTP verbs that REST likes to use.
+But what should be inside those things, or should we be moving towards a more
+Pythonesque solution where a Request object, as part of core or via a only-really-for-the-brave-
+PECL extension?</p>
+
+<p>What I'm really after is for an easy way to detect that a PUT or DELETE
+request has been made. Existing solutions for these are not pretty and (
+in my opinion) non-intuitive. With my thoughts that PHP is quickly turning
+into a tool used for web service API end points that don't require insane
+levels of concurrency, the idea that there is no native support for figuring
+out if you're been given a PUT or DELETE request is disheartening.</p>
+
+<p>The <a href="http://www.php.net/http">PECL HTTP extension</a> is a step in the correct
+direction, but it too has some rough edges and would require a lot of
+polishing before it could be moved into the core where it really belongs.</p>
+
+<p>Again, what I'm looking for is an easy way for PHP to be able to know what
+type of request it is dealing with so I can make my PHP applications more
+aware of what it being asked of them. It seems that pretty much every
+framework implements their own Request/Response objects, so that should be an
+indication that this kind of code abstraction is a desired core PHP feature.</p>
+
+<p>Share your thoughts with me in the comments.</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/2011/12/30/the-year-of-the-struggle/" title="The Year of the Struggle"><span class="title">The Year of the Struggle</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/2011/12/05/war-room-driven-deployment/" title="War-room Driven Deployment"><span class="title">War-room Driven Deployment</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+
+
+
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

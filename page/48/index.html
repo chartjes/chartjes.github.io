@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Home &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta name="robots" content="noindex, follow">
+                <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2><a href="/2010/03/02/people-who-make-me-feel-stupid-antirez/">People Who Make Me Feel Stupid: Antirez</a></h2>
+        </header>
+        <div>
+            <p>This is the second of a five-part series where I highlight some developers who are doing work or espousing practices that make me feel stupid and realize where I need to push my skills towards.  Today's source of inspiration:  the man know by many online as <a href="http://antirez.com/">Antirez</a>, Italian software developer Salvatore Sanfilippo.</p>
+
+<p>Antirez is the driving force behind <a href="http://code.google.com/p/redis/">Redis</a>, which is described as "an advanced key-value store" where it holds your dataset in memory at all times but writes them out to disk in a couple of different ways depending on your choices (either from time-to-time or all the time to an append log, depending on what level of consistency you need from the data).
+</p>
+
+<p>When I first started watching the whole <a href="http://en.wikipedia.org/wiki/NoSQL">NoSQL</a> movement, I remember seeing Redis in there as an option there.  However, I didn't know much about Redis until I noticed that my friend <a href="http://twitter.com/jperras">Joel Perras</a> was following this guy with an awesome mop of hair in his Twitter avatar and a cool nickname.  When I also saw he was the creator of Redis I knew this was a guy I had to follow and see what he was up to.
+</p>
+
+<p>
+I won't go into the whole rationale behind the NoSQL movement, but what makes me feel stupid is not just the *way* Antirez has chose to implement his key-value storage solution, but the man himself.  He is one really smart dude.
+</p>
+
+<p>
+First of all, he might be the most prolific hacker I've seen out there who actually lets people know what he's been up to.  His Twitter stream is full of comments about stuff he's been working on in Redis, some of which I understand and some of which goes right over my head (especially the <a href="http://antirez.com/post/redis-virtual-memory-story.html">stuff about the Virtual Memory work he's done with Redis</a> just shows me what I missed by not taking computer science courses.  Too busy teaching myself the new and shiny I guess.
+</p>
+
+<p>
+Second, he spits out this volume of information in English.  Which is NOT his first language.  I couldn't imagine translating technical terms into my second fairly proficient language (which is German, and I understand it spoken way better than I speak it, read it or write it).  I have a hard enough time understanding technical terms written in English, never mind translating them in my head from another language.
+</p>
+
+<p>
+So back to Redis now.  So not only is it a high-performance key-value store, using memory (the fastest storage medium) to store your data, but it also suited for use in a master-slave replication setup (claiming very fast replication speeds, and given the torturous bench marks I have seen Antirez talk about on twitter and his blog, I believe him) but can also do something that a lot of post-relational data stores (perhaps that's a better name than NoSQL) can't do:  unions (am I correct in assuming that is the equivalent of JOINS from the SQL world?), set intersections, comparisons between sets, and even generating sorted results.  I could see using Redis as the data store for the web front end of the corporate fantasy draft application at work.  I'm using a lot of key-value pairs in it, so a hybrid approach would probably work the best if I were to try it.
+</p>
+
+<p>
+I mean, when you read that Virtual Memory post how can you *not* feel stupid for failing to see why Redis needs such a thing:  if you are storing everything in memory (remember, disk is the new tape) then you need your use of that memory to be as advantageous as possible and not rely on the operating system to do it for you.  For Redis, you want to keep as much memory available for your data so Antirez felt that he needed to find a way to free up the memory being used by the least-frequently accessed data.  A hard problem to solve for sure, but reading about what he did is just so inspiring.  As a bonus, you also learn some computer science skills along the way.  I felt the same way when I listened to a lecture about building virtual machines for Ruby:  awed and wondering if they teach that sort of stuff in computer science courses.
+</p>
+
+<p>While Redis might not be a solution I ever use at work (I am trying to keep our stack from adding too many new components just because I feel like playing with them) it's worth the lost hours reading Antirez' blog to understand all that goes on behind the scenes to make a cool piece of technology usable outside some very narrow scenarios.
+</p>
+
+<p>So, in the end, why did Antirez make me feel stupid?  <b>It was because he made me realize that you could take a simple idea (the key-value store) and add all sorts of very desirable features onto it without compromising it's main goal</b>.
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2010/03/01/people-who-make-me-feel-stupid-geoffrey-grosenbach/">People Who Make Me Feel Stupid: Geoffrey Grosenbach</a></h2>
+        </header>
+        <div>
+            <p>For this upcoming week I am going to be doing 5 blog posts about developers who have been doing work that makes me feel stupid as a developer.  The main reason for this is a week spent on introspection as to not only how I am building applications for my employer but also how I build things on the side.  To be blunt, I'm not happy.  This is not to say that the work isn't interesting (building out corporate fantasy sports draft web front-ends and also plans for our next-gen fantasy gaming platform) but rather that my method of choosing what pieces I glue together have been missing the mark.
+</p>
+
+<p>Some of this is due to my desire to always push myself to learn new things, so sometimes the joy of discovery tramples the ability to get things done as quickly as I would like.  So I've been looking around at how other people have been solving problems in an attempt to discover blind spots I've developed.  The first person I found that made me say out loud "boy, does this guy make me feel stupid" during this process is <a href="http://geoffreygrosenbach.com/">Geoffrey Grosenbach.</a>
+</p>
+
+<p>
+About 5 years ago I was looking to get into the Ruby on Rails world.  I had bought the <a href="http://pragprog.com/titles/ruby/programming-ruby">Pick Axe Book</a> and the 1st edition of <a href="http://pragprog.com/titles/rails1/agile-web-development-with-rails-1st-edition">the Rails book</a>.  Through my online digging I discovered the <a href="http://podcast.rubyonrails.org/">Ruby on Rails podcast</a>, run at the time by the previously-mentioned Geoffrey Grosenbach.  It was all cool and interesting, and he seemed to have a knack for asking the right kind of questions.  Either that or he was really good at the editing. ;)
+</p>
+
+<p>
+Alas, things didn't work out.  I built a Rails site, but it had some problems due to my n00bishness with the framework and the language.  Let's just say I wasn't using Ruby best practices.  The final nail in the coffin for my Ruby aspirations was when I turned down a Rails gig to instead take a telecommuting PHP gig (life choices dictated that one) and I drifted off into other things.  But I kept an eye on what Geoffrey was doing anyway and was happy to see him find success with Peepcode along the way.
+</p>
+
+<p>
+Then I came across an awesome blog post from him where he talked about <a href="http://blog.peepcode.com/tutorials/2010/about-this-blog">how he builds the Peepcode Blog</a>.  I read it and was totally blown away, and totally humbled by the simplicity of what he has done.  Rather than simply do some link bait and show you everything he used, you can go and look at it
+</p>
+
+<p>
+He explained that his goal was to produce an "art blog" for Peepcode, where every blog post would have it's own unique look to it.  In order to do this, he had to think about what goes into building something like this:
+<ul>
+<li>A CSS grid layout system, because it's really too hard to always come up with your own unique layouts.  A grid makes it easier to make interesting content I think.</li>
+<li>A very simple application framework for spitting out static images and HTML. (This was the lightbulb-went-on thing for me, as a blog that does not have comments can be totally static)</li>
+<li>A modified version of an existing lightweight blogging engine to fit his needs.</li>
+<li>Storing blog content in flatfiles on the system.  Again, without dynamic content why bother with the overhead of storing posts in a database (says the guy using WordPress, one of the favourite targets of criticism by PHP developers who like their code clean and modular)</li>
+<li>The use of a markup language to reduce the actual HTML he had to write</li>
+<li>The use of a CSS framework to again reduce the need to write actual CSS</li>
+<li>A sprinkling of Javascript to add unique features to each page</li>
+</ul>
+</p>
+
+<p>I've read that blog post at least a dozen times now, and still marvel at how frickin' obvious it was to do things the way he did.  It's also obvious that he put a lot of thought into what he needed and the best way to couple things together to make it happen.</p>
+
+<p>
+Compare his methods to my current set of decisions as to the various tools to build a web front end for a corporate draft
+<ul>
+<li>A glue framework with lots of components that can be legitimately accused of starting to become bloated</li>
+<li>Use of an ORM to spare me from writing SQL to pull in dynamic sports data</li>
+<li>Table-driven HTML layouts from the previous generation of the application</li>
+</ul>
+When you start to factor in the time to actually learn not only the framework itself (and also heavily relying on a particular module of it to give me the MVC features I wanted) but the ORM itself, I wonder if it was the right decision.
+</p>
+
+<p>
+Because if I were to break it down in a similar fashion to how the Peepcode blog was built, I'd say I need the following
+<ul>
+<li>lightweight scripting language front-end (in this case PHP because that's what all our other client-facing applications use)</li>
+<li>a component to handle dynamic routing of requests, although I could really use web server rewrite rules instead of making the front-end code figure it out.  My mod_rewrite skills have gotten a little better in the last year or so.</li>
+<li>An RDBMs because the source data is in a database already, and so few NoSQL solutions allow you to do the kind of grouping and aggregate math functions I need to do that MySQL can handle for me.</li>
+<li>An authentication component.  I've written enough of these to know it's easier to use someone else's that just works</li>
+<li>An access control component.  I've written enough of these to know it's easier to use someone else's that just works too.</li>
+<li>Grid-based CSS framework for layouts so we can use as few tables as possible.</li>
+<li>An easy-to-use Javascript library to take care of everything else that I cannot do in the scripting language or via CSS.</li>
+</ul>
+</p>
+
+<p>
+Man, I'm starting to think that <a href="http://toys.lerdorf.com/archives/38-The-no-framework-PHP-MVC-framework.html">Rasmus was right</a> with apologies to my friend <a href="http://twitter.com/chiggsy">Kevin Beckford</a>.  Kevin is of the opinion that main reason to use a framework to build something is because unless you will be the only one ever to write and maintain that application, the rules and structure that a framework gives are essential to help your fellow coders stay on track.  It's like having a common language that you both speak, and easy access to a dictionary (the documentation for that framework).
+</p>
+
+<p>
+In my case, I am using PHP + Zend_Framework + Zend_Application + Zend_Auth + Zend_Acl + Doctrine + MySQL (plus Python on the server to do some data munging)  to build this thing out.  Luckily, no Javascript needed at this point.  So what could I strip out to build it the way I put it above?  We could end up with PHP + Apache rewrite rules + Zend_Auth + Zend_Acl + MySQL + Python, with Blueprint CSS thrown in to help me with the layouts.  Not a *whole* lot of difference from before.
+</p>
+
+<p>
+But of course, I was able to quickly build out admin functionality for the front end due to the ability to map out relationships between tables and having Doctrine pull in all that data and return it to me in a ready-to-go package for easy display.  Also, to be realistic, we are too far into the project to rip all that stuff out and quickly refactor it.  I mean, how do I justify stripping out Doctrine and writing all the "query, process and stick into variables" code now?  It's a delicate dance, and it's obvious those decisions need to be made before you start, not when you're experiencing some mild <a href="http://en.wikipedia.org/wiki/Buyer%27s_remorse">Buyer's Remorse</a>.
+</p>
+
+<p>So, in the end, why did Geoffrey Grosenbach make me feel stupid?  <b>It was because he made me realized that I have a tendency to what to overengineer things a bit, wrapping them in framework solutions when perhaps the more direct route is to couple existing modules together to have a more flexible solution</b>.
+</p>
+
+<p>
+But I have at least considered that the tools I was using were going to make it easier to build out the behind-the-scenes stuff.  Sure, I could write all the SQL code myself (I've finally understood the power of joins), but once I've learned how Doctrine does things it becomes super simple to build on the existing work.  
+</p>
+
+<p>
+Look at the Peepcode blog setup shows that he was using a bunch of tools already in widespread use in the Ruby and Rails communities.  There are not many equivalences for that stuff in the PHP world (HAML and SASS only have incomplete implementations for use with PHP as far as I can tell) but the approach he used is the one to really think about.  I mean, what would this blog look like if I decided to go the minimalist route, but with tools that I am more comfortable with?  Could I do it with <a href="http://werkzeug.pocoo.org/">Werkzeug</a> + a simple blog engine + <a href="http://en.wikipedia.org/wiki/Textile_(markup_language)">Textile</a> + <a href="http://www.blueprintcss.org/">Blueprint CSS</a> + jQuery?  I have no spare time as it is, what would this type of project do to me?
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2010/02/19/where-in-chris-reads-the-documentation-and-does-not-find-the-answer/">Where In Chris Reads The Documentation...and Does Not Find The Answer</a></h2>
+        </header>
+        <div>
+            <p>If you follow me on Twitter you've seen me pissing and moaning about not being able to figure stuff out as I build out my first <a href="http://framework.zend.com">Zend Framework</a> project in a LONG time.  3 years to be exact.  I had two things that I wanted to add to the project:  (1) a new custom controller to base some other controllers off of and (2) create custom routes for it.  Sounds simple, right?
+</p>
+
+<p>
+I have stared into the belly of the beast that is the Zend Framework documentation and have discovered the following truth:  there always seems to be two ways to do something.  For someone just starting out learning a framework (never mind their actual level of experience with PHP itself) this is not a good thing.  For example, let's look at creating a new base controller to extend controllers off of.  Via twitter I found the following ways:
+<ul>
+<li>no, don't do that, use custom action helpers</li>
+<li>sure, just put it somewhere and use autoloading to find it</li>
+</ul>
+</p>
+
+<p>
+So I proceeded to start digging around and figure things out.  Hrm, an action helper is not what I need, so let's create that new base controller.  Oh, you mean you can have more than one way to lay out your project, even if you are using Zend_Application?  How come it's not finding the new controller even though I put it in a common place.  Why won't this work?!?  DAMNIT, I AM GOING TO QUIT PROGRAMMING AND RUN A DADDY DAY CARE OUT OF MY HOME.
+</p>
+
+<p>Fortunately the custom routing thing was easier to figure out.   Hey, here's an example of adding code to your bootstrap.  Oh wait, I'm using Zend_Application so things are different.  WTF, I am overriding my existing routes and everything is broken?!?  You can put this stuff in XML?!?!  But I am using the .ini format....  Nice, <a href="http://weierophinney.net/matthew/">MWOP</a> pointed me in the right direction.  Good thing he's on twitter.
+</p>
+
+<p>
+Look, I've talked about this before.  It's awesome to have lots of documentation.  The Zend Framework documentation is awesome...but seems to only have 80% of the solutions I was looking for.  Digging around using Google just seemed to point me at the same 80%-complete documentation.
+</p>
+
+<p>
+Writing documentation is a thankless task, so do not interpret my comments as a slam against those who are contributing.  I work best when I see FULL examples on how to do something, and then I can "extend and embrace" that to produce the customized solutions I always end up needing.  My complaints are solely my own, which is why I usually blog the solutions when I come up them.  I certainly cannot be the only one having problems sifting through the documentation.
+</p>
+
+<p>
+As someone who had invested a lot of time in another framework, I am painfully aware of how much you take for granted when using a familiar tool, and then try to help people solve a problem.  My own experiences have ranged from "you are most definitely doing it wrong" to "I've never done it that way, and I can see how that will work".
+</p>
+
+<p>
+Special thanks to @weierophinney, @elazar and @andriesss for their actual help and offers of help as I stumble around using Zend Framework.
+</p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/47">Newer Posts</a><br />
+        <a href="/page/49">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

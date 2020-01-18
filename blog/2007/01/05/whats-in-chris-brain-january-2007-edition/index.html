@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>What&#039;s In Chris&#039; Brain -- January 2007 Edition &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>What&#039;s In Chris&#039; Brain -- January 2007 Edition <small>post</small></h2>
+            <h3>January 5th, 2007</h3>
+        </header>
+        <div>
+            <p>My work week has been spent rebuilding stats that were supposed to be collected by my reporting application.  I was missing a month's worth of data.  Why?  Turns out that a bug fix I made actually introduced a new bug, and was causing silent failures.  Something about me not setting the proper PDO attribute to buffer queries.  My testing didn't reveal the bug, so the first thing I did was change the tests and bingo! it revealed the bug. Silly Chris.  Luckily, I had created a tool a while back to allow me to fix the stats for a specific day, so with a list of dates for which data was missing I set about collecting the data.  Unfortunately, it takes between 5 and 10 minutes per day to hit our 30+ sites that we are collecting data from (probably due to huge record sets and improper indexes) so that meant a minimum of 150 minutes of continuous data grabbing.  Of course, it took longer because I kept testing things, and was tweaking the stats reporting software code (I found out about the magical BETWEEN function in MySQL to use when looking for records in a date range) so it basically took me all week to retrieve the data, make changes to the reporting application and test everything.  Phew.</p>
+
+<p>Now, back to what is in Chris' Brain for January 2007
+<ul>
+<li>I'm working on the article for <a href=http://hades.phparch.com/artemis/main/>A/R/T, which is <a href="http://phparch.com">php|architect's</a> online article repository.  First draft is done, just waiting to find out from Marco who to send it to and if they like it.</li>
+<li>Finished phase one of my work on Mustique Island, a side project I had been doing some PHP work on.  The work isn't online yet but it was interesting to do:  search engine for villas-for-rent on a private island in the Caribbean.  I got to flex my Ajax skills a little with some forms that refreshed without refreshing the page, etc.  Good practice for rallyhat</li>
+<li>Thinking about how to modify my presentation for my talk in February.  Have to mix it up a bit, make sure what's in there is still relevant.  Things do change fast, and my work with <a href="http://www.cakephp.org">CakePHP</a> should probably be worked into the presentation as well.</li>
+<li>Continue pestering <a href="http://derekmartin.ca">Derek</a> to do his fair share of the work on Zend_Service_Audioscrobbler and write the documentation that we are missing.</li>
+<li>Start working on the outline for that Ruby training course (I hope I haven't gotten in over my head)</li>
+<li>See if I can't have a working beta of <a href="rallyhat.com">Rallyhat</a> to show people by the end of the month</li>
+</ul>
+</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2007/01/10/how-has-ruby-on-rails-made-me-a-better-programmer/" title="How Has Ruby on Rails Made Me A Better Programmer"><span class="title">How Has Ruby on Rails Made Me A Better Programmer</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2007/01/03/rallyhatcom-now-live/" title="Rallyhat.com -- Now live!"><span class="title">Rallyhat.com -- Now live!</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

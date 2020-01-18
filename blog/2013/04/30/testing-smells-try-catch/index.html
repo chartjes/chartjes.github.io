@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Testing Smells - try/catch &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>Testing Smells - try/catch <small>post</small></h2>
+            <h3>April 30th, 2013</h3>
+        </header>
+        <div>
+            <p>As part of a project to migrate the PHP code at <a href="http://synacor.com">work</a>
+from PHP 5.2 to PHP 5.4, I'm using our extensive test suite to look for instances
+where something that changed between the versions of PHP that we are using
+has caused some unexpected behaviour.</p>
+
+<p>In one of our code bases, I found some tests that are exhibiting a test smell
+through their use of a try / catch block in the test itself.</p>
+
+<p>Here's a totally-contrived example:</p>
+
+<pre><code>    &lt;?php
+    public function testThatExceptionIsThrown()
+    {
+        // Use a helper to give us a ready-to-go parser
+        $parseHelper = $this-&gt;getHelper('parseHelper');
+
+        /**
+         * If we pass a string as the first parameter to parseGrumpyRambling
+         * instead of an array, we should get an exception generated because
+         * we are using a type hint
+         */
+        try {
+            $weirdCanadianWords = '';
+            $phrase = "No doot aboot it, we're gonna win at hockey!";
+            $parsedText = $parseHelper-&gt;parseGrumpyRambling(
+                $weirdCanadianWords,
+                $phrase
+            );
+            $this-&gt;fail();
+        } catch (Exception $e) {
+            $this-&gt;assertContains(
+                'must be of the type array, string given',
+                $e-&gt;getMessage()
+            );
+        }
+    }
+</code></pre>
+
+<p>Okay, so why does this test offend me so much?</p>
+
+<p>First, I am of the opinion that writing a test to check to make sure you are
+enforcing type hinting for your class method parameters is probably not a
+good use of your time. I mean, what potential problem are you catching?</p>
+
+<p>Consider the following:</p>
+
+<ul>
+<li>you likely have access to info about what type of value each parameter
+is expected to be</li>
+<li>you are probably much better off filtering for parameter type before you
+even call that method</li>
+</ul>
+
+<p>I can say with confidence that a test like this is returning very little
+value for the effort.</p>
+
+<p>Second, putting any logic inside your unit tests is a great way to end
+up with unexpected results. Need an "if" statement? Write two tests
+for that condition. Need a switch / case? Again, one test per case is a
+much better way to logically divide things up.</p>
+
+<p>The worst thing about using try / catch is that <em>PHPUnit gives you two built-in
+methods to not ever have to use it</em>. I've had people say to me "but Chris,
+if you use try / catch you get much better control over determining where
+in the process to test that the exception was thrown." I don't buy it, and
+I will try and explain why.</p>
+
+<p>If you are using docblocks on your tests (which you should) it is super easy
+to indicate what exception you are expecting to be thrown.</p>
+
+<pre><code>    &lt;?php
+    /**
+     * @expectedException Exception
+     * @expectedExceptionMessage must be of the type array 
+     */
+    public function testThatExceptionIsThrown()
+    {
+        // Use a helper to give us a ready-to-go parser
+        $parseHelper = $this-&gt;getHelper('parseHelper');
+
+        /**
+         * If we pass a string as the first parameter to parseGrumpyRambling
+         * instead of an array, we should get an exception generated because
+         * we are using a type hint
+         */
+        $weirdCanadianWords = '';
+        $phrase = "No doot aboot it, we're gonna win at hockey!";
+        $parsedText = $parseHelper-&gt;parseGrumpyRambling(
+            $weirdCanadianWords,
+            $phrase
+        );
+    }
+</code></pre>
+
+<p>Now we have a much cleaner-looking test with no conditional logic inside it.</p>
+
+<p>You can also choose to use a built in PHPUnit method to set what exception
+you are expecting.</p>
+
+<pre><code>    &lt;?php
+    public function testThatExceptionIsThrown()
+    {
+        $this-&gt;setExpectedException(
+            'Exception',
+            'must be of the type array'
+        );
+
+        // Use a helper to give us a ready-to-go parser
+        $parseHelper = $this-&gt;getHelper('parseHelper');
+
+        /**
+         * If we pass a string as the first parameter to parseGrumpyRambling
+         * instead of an array, we should get an exception generated because
+         * we are using a type hint
+         */
+        $weirdCanadianWords = '';
+        $phrase = "No doot aboot it, we're gonna win at hockey!";
+        $parsedText = $parseHelper-&gt;parseGrumpyRambling(
+            $weirdCanadianWords,
+            $phrase
+        );
+    }
+</code></pre>
+
+<p>Again, a much cleaner-looking test with no conditional logic in sight.</p>
+
+<p>On Twitter Brian Fenton shared a <a href="http://www.brianfenton.us/2011/09/bad-practice-setting-expected.html">blog post</a>
+he wrote back in 2011 that disagrees with me. In it he very briefly talks about
+why you should use try / catch in your tests, but I feel like he is contradicting
+himself when he talks about why.</p>
+
+<p>Basically, Brian is concerned about how @expectedException and <em>setExpectedException()</em>
+can be triggered by other errors in your tests (including other exceptions
+being unexpectedly triggered. He feels that by using try / catch you have
+much better control over when and where you wish to trigger an exception.</p>
+
+<p>To quote Brain's post:</p>
+
+<blockquote>
+  <p>"The basic idea here is that the most specific test is best, because
+  you have the least likelihood of a false negative or a test error slipping
+  through the cracks."</p>
+</blockquote>
+
+<p>If you are making sure that every test is the most specific test that you
+can write, then you NEVER have to worry about whether or not some other
+code under test is throwing an exception or other error that is messing up
+the current test.</p>
+
+<p>Using try-catch because you want to not miss errors that might occur before
+you deliberately throw an exception is a sign that you are doing too much
+in that test.</p>
+
+<p>A test failure is a test failure, no matter what caused it. The harder you
+work to make sure that a test is actually testing the most specific thing
+possible, the less likely you have to worry about the things that Brian
+feels require him to use try / catch.</p>
+
+<p>This is the same reason I don't like seeing tests like this:</p>
+
+<ul>
+<li>do Task A</li>
+<li>do an assertion on the results of Task A</li>
+<li>do Task B</li>
+<li>do an assertion on the results of Task B</li>
+</ul>
+
+<p>Those are really two separate tests, so split them up. In fact, you could 
+write two tests that look like this:</p>
+
+<ul>
+<li>do Task A</li>
+<li><p>do an assertion on results of Task A</p></li>
+<li><p>do Task A</p></li>
+<li>do Task B</li>
+<li>do an assertion on the results of Task B</li>
+</ul>
+
+<p>That second test doesn't need to re-assert that Task A did it's job because
+Task A was already covered in the previous test.</p>
+
+<p>Test smells, testing anti-patterns, whatever you want to call them, do exist
+and many programmers are often unaware of the consequences of those decisions
+are.</p>
+
+<p>Keep your tests small, keep them very specific, and don't use conditional
+logic in your tests. I have yet to see a specific example where the use
+of conditional logic did anything except reduce the amount of lines of
+code a grumpy developer didn't want to type.</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2013/09/27/test-listeners/" title="Testing Listeners"><span class="title">Testing Listeners</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2013/03/30/grumpy-culture/" title="The Grumpy Programmer&#039;s Guide To Software Company Culture"><span class="title">The Grumpy Programmer&#039;s Guide To Software Company Culture</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

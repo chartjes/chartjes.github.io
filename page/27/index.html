@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Home &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta name="robots" content="noindex, follow">
+                <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2><a href="/2012/02/03/how-not-to-suck-at-php/">How Not To Suck At PHP</a></h2>
+        </header>
+        <div>
+            <p>Since I hadn't blogged for a bit I thought I would ask my Twitter peeps what
+they might want to hear my rant about. One of the more interesting suggestions
+I got was from <a href="https://twitter.com/tnorthcutt">Travis Northcutt</a> who said
+the following:</p>
+
+<blockquote>
+  <p>"Got it. I have no formal CS background, but I'm trying to learn enough
+  to build (something). I know enough PHP to kind of, sort of get by
+  but am trying to solidify my foundation. So if I'm being selfish, write
+  a post to someone in my position who wants to not suck at building stuff."</p>
+</blockquote>
+
+<p>This is actually a great question. Although the self-centered answer is
+to start off by buying my <a href="http://grumpy-testing.com">book</a>, that isn't
+really the question that is being asked.</p>
+
+<p>I thought about this question for a while and have some thoughts on what it
+really means to know how to not suck at building things using PHP. In my
+never even remotely humble opinion I think the key is to understand what
+PHP is really good at.</p>
+
+<p>I have spoken at length about my opinion that PHP won the web war because
+it was so tightly coupled with HTML and very early on had support to run
+with Apache via mod&#95;php. However the world has changed, and the web war
+itself has changed. I think I can say with a smirk that the web war is now
+an asymmetrical one, where the expectations of behaviour by users is totally
+different.</p>
+
+<p>But PHP is still in a really good position because of its true nature:
+PHP is glue. It's glue that binds things together in 
+a way to quickly produce HTML output. There is a reason the LAMP stack (with
+PHP as the "P") was so successful: if you had to get data out of a database
+and onto an HTML page there was no easier way.</p>
+
+<p>One of the trends that I see in PHP is that the frameworks that sit on top
+of PHP are starting to ask for influence over the development and direction
+of PHP itself. I have mixed feelings about this. On the one hand, it is
+good that people push for newer features in their chosen programming 
+language. I think the PHP core is not necessarily against these suggestions
+but they move at different pace than the framework people. But my other 
+concern is that we don't end up with a framework driving the language.</p>
+
+<p>When you think of Ruby, unless you are in denial or a really old Ruby hacker,
+you think of Rails. Without Rails Ruby does not get the push that it did
+and continues to get. It's a good language but it would've languished in 
+obscurity if not for DHH.</p>
+
+<p>So what does this have to do with not sucking at building stuff in PHP? I 
+think it's important to understand that you can build cool stuff without
+relying on a framework. Heresy, I know. But if you keep thinking of PHP
+as glue it totally makes sense. How many applications are REALLY just PHP?
+They are <em>really</em> web server + data source + Javascript + CSS + HTML. Think 
+about that for a minute. PHP is the glue that binds all that together.</p>
+
+<p>The danger for people like Travis who are starting out with PHP is that they
+will get caught up with a mindset that a framework is the solution to their
+problems. It is <em>one</em> solution to the problem of building a web application,
+but failing to understand how to write PHP that behaves like glue will lead
+to a lot of problems later. Because when the time comes for you to do something
+that the framework did not anticipate you will be fucked. And you will be 
+incorrect when you blame the framework.</p>
+
+<p>So my advice to Travis is that he should worry about learning to use PHP like
+glue and correctly identify the problems he is trying to solve NOW instead of
+worrying about the problems he might have to solve later. There will be time to
+fix your problems. Some of those will be solved by using tools that are not
+written in PHP, but PHP can still glue them together. NoSQL data sources.
+Distributed workers. Queuing systems. Real-time document searching capabilities.
+These are all things that are NOT written in PHP but it is extremely likely
+that someone has written a library in PHP that can talk to them.</p>
+
+<p>Hope that helps you Travis!</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2012/01/17/phpunit-aborted-fix/">PHPUnit aborted fix</a></h2>
+        </header>
+        <div>
+            <p>A while back I ran into a problem on a server where PHPUnit kept <a href="http://stackoverflow.com/questions/3065563/phpunit-reporting-aborted-no-matter-what-tests-are-run/8898712">reporting
+"aborted" no matter what tests were run</a>. 
+That was a pretty annoying bug. I never did find out what the problem was
+as I moved onto other problems and chalked that error up to some undiagnosed
+weirdness on that particular server.</p>
+
+<p>From time to time I would get asked on Twitter if I had ever solved the 
+problem. My answer was always "no, and if <em>you</em> do solve it please let
+met know how you fixed it." Today, my friends, was the day.</p>
+
+<p>![](/images/phpunit-bug.png %)</p>
+
+<p>Kudos to <a href="https://twitter.com/demiankatz">Damian Katz</a> for coming up with a
+solution. Without digging deeper into it, I would imagine that you could
+alter the phpunit.xml file (if you are using one in your setup) to automatically
+use the -dzend.enable&#95;gc=0 option every time you run a test.</p>
+
+<p>How did he figure it out? He tracked down <a href="https://bugs.php.net/bug.php?id=53976">this bug</a> that
+seemed to be displaying the exact behaviour that I had reported way back when.
+It seems odd that garbage collection would cause this problem, but perhaps it
+was a perfect storm of lots of small tests causing over-active garbage collection
+which in turn causes the PHP interpreter to abort whatever it is running.</p>
+
+<p>This is another case where I would love someone with knowledge of PHP internals
+to try and explain why it is happening.</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2012/01/16/codemash-2012-review/">CodeMash 2012 Review</a></h2>
+        </header>
+        <div>
+            <p>Last week I attended <a href="http://codemash.org">CodeMash 2012</a> as a speaker and
+gave my talk on <a href="http://www.slideshare.net/chartjes/building-testable-php-applications">building testable PHP applications</a> (don't forget to buy the <a href="http://grumpy-testing.com">book</a> that the talk inspired). Held in Sandusky, Ohio in the
+cold of January it is an interesting conference. Unlike most conferences that
+I attend, it is multi-disciplinary. There were talks on .NET, Java, Ruby, Python,
+and two lonely talks about PHP.</p>
+
+<p>For me, this is somewhat uncomfortable. It is only natural that people who use
+certain tools tend to flock together at a conference. I joked that where were
+only 3.7 PHP developers (with someone stating that the 0.3 part is part of someone
+that I cut off for not writing tests) but the fact was that unless you knew
+members of multiple communities you were going to have to be content to feel
+a little excluded.</p>
+
+<p>Anyway, I did have a really good time hanging out with my friends and making
+some new ones. It's a really good idea to talk to as many people as you can,
+even they are not using the same tools you are using. You can gain some
+perspective.</p>
+
+<p>Let's go over the talks I attended and my thoughts on them.</p>
+
+<h1 id="it%27s-the-little-things-brad-colbow">It's the Little Things (Brad Colbow)</h1>
+
+<p><a href="https://twitter.com/bradcolbow">Brad</a> is a freelance graphic designer from the Cleveland area. He also does
+an online comic called <a href="http://bradcolbow.com/archive/">The Brads</a> so, as expected,
+his presentation was full of all sorts of awesome visuals. Also, I thought
+that <em>I</em> talked fast, this guy made me look like one of the Ents from Lord of The
+Rings.</p>
+
+<p>The main take-away I got from his talk was that it never hurts to pay attention
+to the little things. I realized that this holds true from both an UI/UX perspective
+and in your code. A bunch of bad little things always turn out into one huge
+bad thing.</p>
+
+<p>His slides describing the blog posting he made about <a href="http://bradcolbow.com/archive/view/the_brads_why_drm_doesnt_work/?p=205">how crazy it was to check out an audio book from his local library</a> were awesome.</p>
+
+<h1 id="vagrant%3A-virtualized-environments-made-simple-matt-stine">Vagrant: Virtualized Environments Made Simple (Matt Stine)</h1>
+
+<p><a href="https://twitter.com/mstine">Matt</a> took what he said was normally a 3 hour
+tutorial and crammed it into a very informative 1 hour talk. It did help
+that I had been considering the use of Vagrant anyway, but I got a better
+picture of more practical uses of Vagrant. I did not know about <a href="http://www.ducea.com/2011/08/15/building-vagrant-boxes-with-veewee/">veewee</a>
+as a tool to help you create your own Vagrant boxes.</p>
+
+<p>This is of interest because I had a hankering to play around with an <a href="http://www.archlinux.org/">Arch Linux</a>
+VM but found the existing base boxes out there, well, not working with the
+version of Virtualbox I had installed. I think veewee will let me pursue
+that further.</p>
+
+<h1 id="breaking-the-sound-barrier-with-node.js-on-windows-and-azure-glenn-block">Breaking the Sound Barrier with Node.js on Windows and Azure (Glenn Block)</h1>
+
+<p>While sitting in this talk I took a picture and tweeted about how it was time
+to make myself "personally uncomfortable" by sitting in a talk involving a
+technology that I don't use running on a platform I don't use. What I was hoping
+to find out was some more basic information on Node.js and why it is such a 
+big deal.</p>
+
+<p>To be perfectly honest, the more I see Node.js the more I start to understand
+the allure of it. What really bothers me is that so many people are gambling
+their applications on a tool that hasn't even reached 1.0 yet. I understand
+the power of how Node.js gets things done. Evented + concurrency + JS is a platform that
+has lots of appeal to people who maybe haven't done that sort of work before.
+Not that I'm including myself in the group that "gets it" but at this point
+in time I'm still on the "I will use Twisted/Tornado if I need to create event-driven,
+high-concurrency web servers."</p>
+
+<p>Maybe when Node.js gets to 1.0 I will think differently.</p>
+
+<p>Azure itself didn't really thrill me that much, but I do see the advantage of
+that environment to people who have already made a large investment on the 
+server side in Microsoft. What is really admirable is that they are making
+some great contributions back to the open source community. The SDK for running
+Node.js on Windows is open source, and I must give them credit for that.</p>
+
+<h1 id="code-kata-and-analysis-jim-weirich">Code Kata and Analysis (Jim Weirich)</h1>
+
+<p>This was a talk that I went into expecting to be surrounding by Ruby hipsterism.
+After all, this is the guy who created <a href="http://rake.rubyforge.org/">Rake</a> and works
+for a well-known <a href="http://edgecase.com/">Ruby consultancy</a>. Once I saw him I
+knew I was in for a treat. Older guy. White hair. Unix-style beard. Runs emacs.</p>
+
+<p>I was not disappointed.</p>
+
+<p>A code kata is a programming exercise that serves a few purposes. You do it
+in order to learn how to implement common algorithms in different languages
+and learn how to solve the easy problems by habit, with the goal of then 
+freeing up your mind to solve hard problems.</p>
+
+<p>The code kata this time was to create an arabic number to Roman numerals
+converter. The language of choice was Ruby (no big surprise there) and I
+was even happier to see that it was a test-driven kata using <a href="http://rspec.info/">Rspec</a>.</p>
+
+<p>This brings me around to a topic that makes me super uncomfortable. It seems 
+to me that testing has become an integral part of the Ruby and Python ecosystems.
+It does not appear to be common at all in the PHP and .NET communities. I care
+about this sort of stuff so it does pain me to see such opposition in the form
+of apathy and excuses amongst PHP programmers. I wish I could surround myself
+with developers who feel like I do about the value of automated testing in
+delivering solid applications. Maybe in the next life.</p>
+
+<p>It was also good to see someone walk you through the whole TDD practice <em>and</em>
+refactor stuff after getting a particular set of tests working. In the end
+we had two great examples of code: an easy-to-understand converter and tests
+that are easy to understand.</p>
+
+<h1 id="dealing-with-information-overload-scott-hanselman">Dealing with Information Overload (Scott Hanselman)</h1>
+
+<p>One of the more dynamic speakers I saw, <a href="https://twitter.com/shanselman">Scott</a> gave
+a talk to a packed room on tips for dealing with information overload. From him
+I learned some new techniques I'm going to be phasing in:</p>
+
+<ul>
+<li>No reading email until noon, and then "office hours" from a certain time onwards when
+anyone can speak to you</li>
+<li><a href="http://www.instapaper.com/">Instapaper</a> is awesome because I can flag things to read later <em>and</em> get them
+delivered to my Kindle on Friday afternoons for some after-dinner reading</li>
+<li><a href="http://www.ifttt.com/">If this, then that</a> is an extremely interesting tool
+that can be used to trigger events that help you delegate things into the future</li>
+<li>The <a href="http://www.pomodorotechnique.com/">Pomodoro Technique</a> is a very useful
+tool to help with short-term focus. Cut out the distractions and concentrate
+for 25 minutes. Even I think I can do that.</li>
+<li>Keep your email responses very short (he reccomends <a href="http://five.sentenc.es/">Five Sentences</a>) and
+instead write a longer response to that issue and post it somewhere others can
+find it, whether it is a company wiki or on your own blog. That way, next time
+someone asks you that same question you can point them there</li>
+</ul>
+
+<p>Excellent talk full of lots of excellent ideas. I knew it was gonna be awesome
+when he put <a href="http://www.funnyordie.com/videos/e685c7e4ff/literal-video-total-eclipse-of-the-heart">this video up</a>
+to entertain us before his talk.</p>
+
+<h1 id="a-few-of-my-favorite-python-things-mike-pirnat">A Few of My Favorite [Python] Things (Mike Pirnat)</h1>
+
+<p><a href="http://www.twitter.com/mpirnat">Mike</a> is a long-time Python programmer who
+shared with us a "series of lightning talks crammed into one presentation".
+While I have some basic Python knowledge I did see a bunch of really interesting
+libraries and other tools that I did not know about. He covered so much, so fast
+that I was glad he was going to post a link to the slides on his blog.</p>
+
+<p>It also reminded me how, coming from the PHP world, languages like Ruby and Python
+really are more terse. You might not think it matters (or even hate significant
+whitespace) but for some people the elegance that can be found in Ruby and
+Python code often makes it easier for others to understand what you are doing.
+I know that I <em>feel</em> like I'm doing more with less when I write Python code.</p>
+
+<p>Then I gave my <a href="http://www.slideshare.net/chartjes/building-testable-php-applications">own talk</a>.
+I was disappointed that I actually ran out of time(!) for it. In the scheme of
+things, 90 slides is about 20 too many for a talk on as dense a topic as unit
+testing tools, strategies for writing code, and complementary tools to make the
+whole thing easier.</p>
+
+<p>I have identified abotu 20 slides that I think I could chop out and turn into
+2 slides of the "and if you're interested in some tools that I think are
+helpful" type.</p>
+
+<p>I had a good time (including hanging out at the Kalahari's water park with my
+kids) at CodeMash 2012 and hope to go back for CodeMash 2013.</p>
+
+<h1 id="why-so-little-php%3F">Why so little PHP?</h1>
+
+<p>I was asked about why I felt that there were so few talks about PHP and what
+could be done to make it better. Well, when only 7 people even submit PHP
+ideas I think there is a problem of visibility.</p>
+
+<p>Given that this conference covers a wide variety of technologies I think it
+is safe to say that there was quite a bit of overlap. 31 .NET talks? Really?
+There is nothing wrong with .NET but do you <em>really</em> want to exclude an entire
+sector of the web programming world at your conference?</p>
+
+<p>Also, there is the issue of speaker reimbursement I know that the official
+policy of CodeMash is "we cannot guarantee speaker reimbursement". That's cool
+but that will also stop talented people who are not willing to travel from
+where they are to the Cleveland airport and then hitch a ride to the Kalahari.
+Maybe in the PHP world we have gotten spoiled by those who run conferences 
+since they tend to cover a significant portion of the costs a speaker might
+incur to get there.</p>
+
+<p>There is no easy answer to how to get more PHP people to submit talks and to
+attend the conference in general. It probably also doesn't help that the 
+conference sold 1200 tickets in 20 minutes, making it that much harder to
+get a ticket.</p>
+
+<p>I'd love for more PHP folks to come to this conference and get their horizons
+expanded with a glimpse at what other communities, just as full of energetic
+people but with different focusses, are doing.</p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/26">Newer Posts</a><br />
+        <a href="/page/28">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

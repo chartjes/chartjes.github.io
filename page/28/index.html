@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Home &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta name="robots" content="noindex, follow">
+                <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2><a href="/2012/01/05/better-remote-code-development/">Better Remote Code Development</a></h2>
+        </header>
+        <div>
+            <p>I am struggling to find a better way to handle a new paradigm in development.
+At <a href="http://moontoast.com">Moontoast</a> all our servers are up on EC2, which
+includes the two dev servers (one for each project) that I use every day.</p>
+
+<p>I've been playing around with <a href="http://www.sublimetext.com">Sublime Text</a>  (because of the awesome vim bindings)
+and was thinking about why do I always have to be logged into the remote
+server to do my work. Normally I connect using SSH, then attach to my <a href="http://tmux.sourceforge.net">tmux</a>
+session and then fire up vim.</p>
+
+<p>This is okay but it lacks a certain elegance in it's approach. As a result
+I end up using things like <a href="http://dropbox.com">Dropbox</a> to synchronize my
+.vimrc file so I get a consistent experience across environments. That's ok
+for now, although I'm having some weirdness due to vim 7.2 vs. vim 7.3 issues
+in one of those environments.</p>
+
+<p>I also need to be able to use git to commit changes, create and merge branches, etc.
+I need to be connected to the server to make that happen. But that is starting
+to feel like a limitation to me.</p>
+
+<p>What I'm chafing against is having to deal with multiple environments all the time
+to get my work done. I want to use ONE editor, tweaked out exactly the way I want
+to edit code in multiple locations. I want to use ONE tool for handling git work
+in multiple locations.</p>
+
+<p>Any thoughts on how to achieve what I want? There are occasions when I do need to
+connect to a server (say to tail a log while testing a Gearman job) but damnit
+it's the second decade of the 21st century. This should be a SOLVABLE problem.</p>
+
+<p>So for now I'm trying out SublimeText2 as my main editor and started using Transmit
+(sorry Expandrive but I am finding Transmit to be a lot more responsive) so the
+missing piece if for me to be able to commit code changes on a remote server
+WITHOUT being logged into that remote server.</p>
+
+<p>In a perfect world I am using virtual machines for my dev work, but I haven't convinced
+our awesome sysadmin to put in the time necessary to make it happen for me.</p>
+
+<p>Let me know potential solutions for my desired setup.</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2012/01/03/grumpy-testing/">The Grumpy Programmer&#039;s Guide To Building Testable PHP Applications</a></h2>
+        </header>
+        <div>
+            <p>After the middling success of my first <a href="https://www.littlehart.net/book">programming book</a>
+I had been thinking about writing another book. When the end of October rolled
+around and <a href="https://en.wikipedia.org/wiki/National_Novel_Writing_Month">National Novel Writing Month</a>
+was about to happen I decided to take the plunge and write something.</p>
+
+<p>It didn't turn out to be The Great Canadian Novel but I did collect my thoughts on
+what goes into building PHP applications in such a way that they are easily
+testable. I called it "The Grumpy Programmer's Guide To Building Testable PHP Applications".</p>
+
+<p>When I wrote my first book I did everything in <a href="http://www.apple.com/iwork/pages/">Pages</a> but
+that was before the rise of e-readers. This time I wanted to offer my book in
+PDF, epub and mobi formats. So I started up using <a href="http://www.methods.co.nz/asciidoc/">AsciiDoc</a>
+since I felt it gave me the most options for converting the text into other formats
+with a little bit of programming work. I created a Makefile (old school, baby!)
+that took the text and turned it into a PDF.</p>
+
+<p>I had thought about doing the book directly in <a href="http://docbook.org/">Docbook</a> as
+it provided the best way for conversion purposes, but I found all the XML to
+be getting in the way of, you know, actually writing the thing. Plain text
+with a little bit of mark-up seemed to be the best fit for my brain.</p>
+
+<p>As my self-imposed deadline got closer I felt like I was in for a lot of late
+nights fiddling around with layouts to get things to an acceptable level. Lucky
+for me an alternative came along.</p>
+
+<p>I follow Reg Braithwaite (better known as @raganwald) and saw that he had a new
+ebook out called <a href="http://leanpub.com/shippingsoftware">"What I've Learned From Failure"</a> which he published with some
+help from <a href="http://leanpub.com">Leanpub</a>. The system looked awesome: write your
+book in Markdown (which I already use for this blog) and then it would create
+ebooks in PDF/epub/mobi for you, handling all the distribution and payment
+collection for you. Holy fuck, this is what I wanted.</p>
+
+<p>So I took the plunge and signed up for an account. I started tweaking my text
+to use the Markdown-specific formats the system requires and little by little
+the book is being massaged into it's new shape.</p>
+
+<p>I've gotten some great feedback from my technical reviewers and will be
+incorporating those changes into the book as soon as I've converted it over
+to the Leanpub structure. I'm giving a talk on the topic the book covers at
+<a href="http://codemash.org">Codemash 2012</a> and will launch the book while I'm
+there, offering those who attend my talk a discount as a way of thanking
+them for travelling to the shores of Lake Erie in the middle of winter.</p>
+
+<p>So please visit the <a href="http://leanpub.com/grumpy-testing">home of my book online</a>
+and until the book is published feel free to add your name to the mailing list.
+As soon as it's available you will be notified. I'm still tweaking the pricing
+so feel free to suggest to me how much you'd be willing to pay for such a beast.
+It will probably come in between 40 and 50 pages in length.</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2011/12/30/the-year-of-the-struggle/">The Year of the Struggle</a></h2>
+        </header>
+        <div>
+            <p>For those who know me outside of the context of my ranty tweets and 
+occasionally-lucid blog posts you will know that I am an avid simulation
+baseball game player. I'm about to start my 15th season in my current
+league and it has taught me a great many lessons about myself and the importance
+of having a set of skills that turn independent bits into a cohesive team.</p>
+
+<p>(If you care the league uses a game that it creates itself using freely-available
+data from <a href="http://retrosheet.org">Retrosheet</a> and if you've ever come across
+<a href="http://www.strat-o-matic.com/products/baseball">Strat-O-Matic-Baseball</a> you might
+have an idea of how game-play works)</p>
+
+<p>I've had middling success in that league: some really crappy seasons where I
+clearly did not know what I was doing along with making the playoffs 3 years
+out of 4 complete with a trip to our league champsionship series. Many times
+I've had teams where the skills of the players (who are merely statistical
+representations within the confines of the game rules) simply aren't a good
+fit.</p>
+
+<p>If you have lots of power, a good bullpen, but guys who don't get on-base
+you will find yourself winning by a lot or losing by a lot because
+power comes and goes. If you have great pitching but a bad offense (similar
+to what I have for our upcoming 2012 season) then you will find yourself
+in many close games but you will probably lose more of them than you win
+because your offense will be unable to come through when needed.</p>
+
+<p>I've also learned that I am a decent field manager (in terms of playing the
+games and understanding strategies), lousy at evaluating hitters in our
+draft (my past 4 first-round picks have been hitters who have been injured
+and/or underachieved), great at evaluating pitchers, and very impatient
+in the trade market when trying to improve my team.</p>
+
+<p>I went through a terrible season last year due to a combination of bad luck
+and impatience in making trades to keep a fringe playoff contender in the
+playoff hunt in 2010, then crashing to lose almost 120 games in 2011. 
+So I struggle to find ways to build a better team, and better identify the
+combination of skills I need for my team to achieve success.</p>
+
+<p>So what does all this have to do with programming? I feel that my current
+set of skills are a terrible match for today's programming environment and
+it's making me feel a set of emotions I thought I ditched when I left high
+school: jealousy, fear, angst and regret.</p>
+
+<p>I've always prided myself in thinking that I have spotted trends in programming
+before everyone else. I first saw the value of frameworks in 2003-2004. About
+the same time I discovered SimpleTest and thought that it would be a very
+valuable tool. It's almost 2012 and I still feel the same way, but I feel like
+the programming community I belong to still doesn't give a shit.</p>
+
+<p>In February of this year I jumped on an opportunity to work with some people 
+I respect in the PHP community and joined Moontoast. It had been a while
+since I had done the startup thing and thought it would be a good change for
+me. At my previous employer I had to do everything myself for my projects and
+I looked at Moontoast as an opportunity to work with a team again.</p>
+
+<p>Instead I struggled. Struggled to cope with two applications written using 
+heavily-modified versions of two frameworks. Struggled to understand the 
+business that relied on these applications. Struggled with the idea that
+the things I felt really, REALLY mattered simply don't matter to the
+business as a whole. It's not a lie when I say it hurt. Hurt a lot to miss
+deadlines and let down team members. Hurt a lot to struggle to make things
+like automated testing and simpler product development FUCKING WORK and not
+achieve anything. Struggled while wondering if I was getting honest feedback
+from fellow employees who might not want to really say what they feel because
+they are not an asshole like I often am.</p>
+
+<p>On top of that, I felt like the volume of tweets and blog posts I cranked
+out achieved nothing that I could hang my hat on and make my ego stop 
+screaming at me in my head. I still care immensely about best practices,
+automation, and building applications that can be easily tested. All too often
+I feel like I am the only one who wants it so bad I pound my fists on my
+desk like a little boy having a fucking temper tantrum.</p>
+
+<p>The feedback loop I want just isn't there any more. Perhaps my troll-like
+existence in my home office is wearing me down and making it more difficult
+for me to actually get along with people. My ego is getting in the way of
+success in a team setting and I am struggling to find a way to figure out
+how to change things for the better.</p>
+
+<p>PHP is the tool I've been using pretty much non-stop since 1998. It won the
+web battle. It really did. But things are changing and expectations are 
+changing amongst the next wave of programmers. Elegance in code matters.
+Ability to support concurrency at the code level matters. Perhaps it shouldn't
+but it does. I think of all the investment I've made in PHP and I find myself
+constantly asking the question "did you do the right thing?"</p>
+
+<p>I have found that the PHP community is very supportive of me and my ideas, so
+I'm probably not as terrible a person as I make myself out to be. But the PHP
+community as a whole really seems to think that much of the stuff I consider
+to be important is just a waste of time, getting in the way of getting things
+done so you can go home after work.</p>
+
+<p>The crowd I follow online is a self-selecting one. Most of them care about
+the same things (except there are those who disagree with me on the importance
+of automated testing as a critical part of development) but what about those
+who aren't there? How many of them give a shit about clear, concise code? How
+many of them have actually created an application for their employer that
+had a complete testing suite (in 14 years I've been able to do that ONCE)
+for it? How many of them have automated their deployments as a result of
+a merge of code in their version control system?</p>
+
+<p>It's more likely that I am being selfish and demanding recognition for the
+things I've done and don't really deserve that recognition. I joke with
+my wife that I am a "big deal on the Internet" and #internetfamous on Twitter,
+but am I really? Or am I just loud and repeat myself over and over again. 
+Am I just being tolerated or are there people for whom my thoughts are
+resonating and they are going out and kicking ass in a way I have been unable
+to?</p>
+
+<p>Maybe this old saying is true: those who can, do, and those who can't, teach.</p>
+
+<p>2011 was the year of the struggle for me. I don't want 2012 to be like that
+but I am not sure how because I'm scared that I'm becoming useless and 
+irrelevant and that the things I am passionate about have no place in the
+modern PHP community, the only one I've ever really been a part of.</p>
+
+<p>Hope you have a good 2012. I'll be here, struggling.</p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/27">Newer Posts</a><br />
+        <a href="/page/29">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

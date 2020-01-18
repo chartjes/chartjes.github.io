@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Tracking Test Cases &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2>Tracking Test Cases <small>post</small></h2>
+        </header>
+        <div>
+            <p>Having done unit tests for so long, there is a tendency to forget that when you
+start doing QA work you need to make sure your test cases are recorded somewhere
+so they can be found by others later. The test code you write is always there
+in the unit test! Hopefully it makes sense to others.</p>
+
+<p>Since I do a QA role, I'm not touching anyone else's unit tests. I end up using
+a combination of automation (always in Python and mostly with <a href="http://docs.pytest.org/en/latest">pytest</a>) and manual testing. Things like API
+contract tests (did they add new fields to their API without telling me?!?) or
+scripts written by developers to verify things like "are the cryptographic
+signatures for this data still correct".</p>
+
+<p>At Mozilla we use <a href="https://www.bugzilla.org/">Bugzilla</a> to track pretty much
+everything that we do. Pretty much all of my testing happens when one of the
+projects I do QA work for is ready to do a new release. A "bug" is created, I
+am assigned to it as the QA contact and away we go with the process to get code
+approved by QA for deployment to production.</p>
+
+<p>For example, here's me running some scripts and reporting the results along
+with a question:</p>
+
+<p><img src="https://grumpy-learning.s3.amazonaws.com/e6gv86j8.png" alt="QA feedback" /></p>
+
+<p>(Turns out I can only run that xml-verifier script in our staging environment)</p>
+
+<p>We use <a href="https://pypi.python.org/pypi/virtualenv">virtualenv</a> a lot to create small sandboxed environments to run our tests in, and the developers on the <a href="https://github.com/Kinto">Kinto Project</a> have been very good at creating small little
+tools for me to use to help with testing things.</p>
+
+<p>So not only did I have to test that all the signatures remain the same, I also
+needed to do some manual testing to ensure the admin UI they created works
+as expected.</p>
+
+<p>We are starting to use <a href="http://www.gurock.com/testrail/">TestRail</a> to track
+our software test cases. One of the goals is to use it's API and make calls to
+it as part of test runs -- we're in the early stages, but that is something
+I am working on this upcoming week.</p>
+
+<p>Here's an example of me outlining the manual process of adding some fonts to
+the collection that <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Developer_guide/Build_Instructions/Simple_Firefox_for_Android_build">Fennec</a> uses.</p>
+
+<p><img src="https://grumpy-learning.s3.amazonaws.com/L8psH5O2.png" alt="Test cases for Kinto Writer" /></p>
+
+<p>Later in the same "bug" about deploying Kinto, I added my notes on doing the
+manual testing for uploading fonts.</p>
+
+<p><img src="https://grumpy-learning.s3.amazonaws.com/PUzu7ofc.png" alt="Manual testing passed" /></p>
+
+<p>Python + Pytest + Virtualenv + Bugzilla + TestRails == my tools for testing.</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/2016/11/07/true-north-php-is-done/" title="True North PHP Is Done"><span class="title">True North PHP Is Done</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/2016/03/29/choosers-not-losers/" title="We&#039;re choosers, not losers"><span class="title">We&#039;re choosers, not losers</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+
+
+
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

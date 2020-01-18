@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bips and Boops &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>Bips and Boops <small>post</small></h2>
+            <h3>February 7th, 2007</h3>
+        </header>
+        <div>
+            <p>This time next week I will be trying to flag down a taxi at the airport in Toronto, having come back from the <a href="http://vancouver.php.net">Vancouver PHP Conference 2007</a>.  I'm looking forward to giving my "What Can PHP Learn From Ruby on Rails" talk because I'll be doing a screencast of my talk.  However, I'm struggling with trying to decide what to do with it.
+</p>
+
+<p>
+If I give it away, then the people who see me in person are getting ripped off.  If I charge for it, the question then becomes how much to charge?  $5?  $10.  One model I've been thinking of trying is that if 20 people by the screencast I will give it away for free after that point.  We shall see what ends up happening.
+</p>
+
+<p>
+Over on the CakePHP mailing list, someone asked a question about how to build a model without accessing a database.  I pointed out that it can be done, and that there were examples.  Then, I got schooled by <a href="http://cake.insertdesignhere.com/">nate</a>...
+
+
+<blockquote>I definitely wasn't agreeing with you, but I wasn't really making fun
+of you either.  I'll give you a hint: there's a reason why we have a
+base DataSource class, which is extended by DboSource, which talks to
+the database on behalf of a model.  Felix's Google Analytics model is
+actually a pretty poor example.  Not because Felix is a bad coder or
+anything (quite the contrary), but because up till now, there are a
+few things that people really haven't clearly understood (or perhaps,
+there are a few things we haven't made clear for people).  Basically
+what I'm trying to say is that you should never have to extend Model
+in that way.  Models are designed to *model* data, not handle the
+details of accessing it.</blockquote>
+Ouch
+</p>
+
+<p>But Nate did have a good point.  I didn't fully understand how the Model was built up in CakePHP because, well, I never really had to before.  I think when I build my first CakePHP 1.2x site I'll dig into the internals a little more.
+</p>
+
+<p>
+Now, I've noticed a few blog postings about <a href="http://dev.mysql.com/downloads/connector/php-mysqlnd/">mysqlnd</a>, a native MySQL driver for PHP 6 (for now) and beyond.  As an aside, I should try installing PHP 6 somewhere just to see how they are progressing.  Anyhow, back to mysqlnd.  Why is this significant? There are, in my mind, two things why you should know about it.
+</p>
+
+<p>Firstly, mysqlnd is designed to take advantage of PHP's own infrastructure.  I imagine this means that you can expect better performance from this library as opposed to the old libmysql or the newer libmysqli.  I understand it's aimed at PHP 6 for the time being, due to some of the work being done with Unicode in PHP 6.  There is talk of backporting it to PHP 5, or even PHP 4 (something to do with streams meaning you could backport) but it's aimed squarely at PHP 6 for now.</p>
+
+<p>
+The second big reason is that it will provide a library for PHP to talk to MySQL databases that has a license that is more compatible with PHP.  In fact, it will be released under the PHP license.  MySQL has an exception for allowing libmysql to be integrated with <a href="http://www.mysql.com/company/legal/licensing/foss-exception.html">FLOSS</a> projects, of which PHP is one.  Having a native driver that doesn't require an exception to use can only be a good thing.
+</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2007/02/07/verticalscope-is-hiring-php-developers/" title="VerticalScope is hiring PHP developers"><span class="title">VerticalScope is hiring PHP developers</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2007/02/02/have-i-become-a-grumpy-old-programmer/" title="Have I Become A Grumpy Old Programmer?"><span class="title">Have I Become A Grumpy Old Programmer?</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

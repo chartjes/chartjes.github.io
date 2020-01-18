@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Home &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta name="robots" content="noindex, follow">
+                <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2><a href="/2006/11/24/adventures-with-jquery/">Adventures with jQuery</a></h2>
+        </header>
+        <div>
+            <p>Man, I never realized that I could actually learn to enjoy Javascript.  It looks just like PHP or even <em>gasp</em> Ruby code to me at times. :)</p>
+
+<p>For my <a target="_blank" href="http://www.mustique-island.com">current paid side project</a> I've been using <a target="_blank" href="http://www.jquery.com">jQuery</a> to do some cool transformational effects.  On the page that shows the details for a villa, there's a little section, sort of a sidebar, that has things like the number of rooms, price, etc.  Visitors are then allowed to share the information by sending an email.</p>
+
+<p>So, being a guy who always wants to learn I said "Hell, lemme whip up some Ajax goodness so that we don't have to do any page refreshes."  Then I said "How the hell do I do that with jQuery any way."  Long story short,  I got it to work.  I'm finally getting the hang of this stuff.  How easy was it?  Lemme show you:</p>
+
+<p>First, I put all the different divs that will be displayed into the main page. Perhaps this is sloppy, but I'm just a beginner at this.  I then went to the style sheet for that particular page and added in:</p>
+
+<pre><code>#email {
+    display: none;
+}
+
+#email_thankyou {
+    display: none;
+}
+</code></pre>
+
+<p>That made sure those two divs wouldn't show up until I turned them on.? Then, I created an href of the style <a xhref="javascript: foo();"> in a successful effort to avoid having the page scroll up to the top when they click on the link.? Then, we added in the following jQuery magic:</p>
+
+<pre><code><br />function shareVilla() {
+
+$("#details").hide("fast");
+
+$("#email").fadeIn("slow"));
+
+}
+
+</code></pre>
+
+<p>Man, I love helper functions that actually read like English.</p>
+
+<p>So then I made sure to hack an existing form validation script to then use some Ajax and post the data to an external PHP script that will send the email.? Here's what I added in, again in jQuery style:</p>
+
+<pre><code><br />$.post("foo.php",
+{ send_to: document.res_form.send_to.value,
+email: document.res_form.email.value,
+from: document.res_form.from.value,
+your_email_address: document.res_form.your_email_address.value,
+textarea: document.res_form.textarea.value,
+villa_description: document.res_form.villa_description.value,
+villa_url: document.res_form.villa_url.value},
+function(){
+$("#email").hide("fast");
+$("#email_thanks").fadeIn("slow");
+});
+
+</code></pre>
+
+<p>Again, I find that code to be very readable which means I can actually go back to it later and figure out what it was doing. So, it works:? content fades in and out, data gets posted to an external script, so all that's left is to test to make sure that the emails actually do get sent out.</p>
+
+<p>A tip of my hat to John Resig for creating a great, compact Javascript library.? Steal from the best, I always say.</a></p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2006/11/22/learning-from-ruby-on-rails-published/">Learning from Ruby on Rails published</a></h2>
+        </header>
+        <div>
+            <p>My latest magazine article for <a target="_blank" href="http://www.phparch.com">php|architect magazine</a> entitled "Learning from Ruby on Rails" was published today.  You can think of it as a companion to my talk I gave at php|works back in September.  One thing I will have to do is see how much of the article was edited.  I worried that I rambled and that it would deviate too much from my talk.</p>
+
+<p>Anyhow, I encourage you to read it and send me your feedback.</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2006/11/21/catfish-redux/">Catfish Redux</a></h2>
+        </header>
+        <div>
+            <p>Well, the first version of the catfish didn't go well.? Lots of errors in IE and other flakiness.? Back to the drawing board and now we have a second version that shows some promise.? I went back to basics, grabbing the example from SitePoint because I was having a brain-disconnect on the other example that was using the Prototype library.</p>
+
+<p>Instead, I seized another opportunity to learn something and decided to use <a href="http://www.jquery.com">jQuery</a>, a really cool lightweight Javascript library (based on moofx I think).? Right now I'm using it to do a nice fade-in for the graphic but we can expand it to cover other things depending on the demands of the site.</p>
+
+<p>I'll also being using jQuery for a <a href="http://www.mustique-island.com">really cool consulting job I'm doing</a> that requires some Ajaxian goodness.</p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/133">Newer Posts</a><br />
+        <a href="/page/135">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

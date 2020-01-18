@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Home &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta name="robots" content="noindex, follow">
+                <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2><a href="/2012/03/27/metatesting-understanding-mock-objects/">Metatesting: Understanding Mock Objects</a></h2>
+        </header>
+        <div>
+            <p>One of the things that I have learned to quickly appreciate about working at
+<a href="http://kaplanprofessional.com">Kaplan Professional</a> is the very large suite
+of unit and integration tests. I believe there are 2000+ tests, and although
+there has been a dip in code coverage, it is still impressive to see coverage
+levels for most things in the 65%+ range. We'll get it back up to where it
+belongs in no time.</p>
+
+<p>With such an extensive array of tests, I have received an education in what
+it really means to write unit tests for live, production-ready code that really
+takes unit testing seriously. I think that the biggest problem that most
+developers face when getting into Test Driven Development is not understanding
+of how to efficiently use mock objects.</p>
+
+<p>If you are really writing your unit tests the way you should, each test is
+focusing on testing one bit of functionality in isolation, which means that
+you will be heavily relying on mock objects to make things work. I've come
+up with an example scenario that I hope goes a long way to explaining how
+to effectively use mock objects.</p>
+
+<p>In these examples I am using PHPUnit's <a href="http://www.phpunit.de/manual/3.0/en/mock-objects.html">built-in support</a>
+for mock objects. At Kaplan our testing engineer told me that he had tried to use
+<a href="https://github.com/padraic/mockery">Mockery</a> but there were problems getting
+it to play nicely with the dependency injection container that is in use (it's
+a customized version of <a href="http://pimple.sensiolabs.org">Pimple</a>). Can't argue
+with that. Not until I experiment with Mockery myself to see if it gains us
+anything instead of using what comes with PHPUnit.</p>
+
+<p>So here is our scenario: we have a class called Alpha, that contains a method
+called munge(). We wish to test that method in a unit test. So what does
+this class look like?</p>
+
+<pre><code>&lt;?php
+
+class Alpha
+{
+    // Omit code showing constructor...
+
+    public function munge(Foo $foo, Bar $bar)
+    {
+        $fooDetails = $foo-&gt;getDetails();
+        $fooId = $foo-&gt;getId();
+
+        $barStartDate = $bar-&gt;getStartDate();
+        $barEndDate = $bar-&gt;getEndDate();
+
+        $source = "{$fooId}|{$fooDetails}|{$barStartDate}|{$barEndDate}";
+
+        return md5('rocksalt' . $source);
+    }
+}
+</code></pre>
+
+<p>My grumpy tester's eye looks at that and immediately says "we will need to 
+mock those Foo and Bar objects to make this test work." First we need to look
+at the Foo object</p>
+
+<pre><code>&lt;?php
+class Foo 
+{
+    // Omit code showing how we construct a Foo object
+
+    public function getId()
+    {
+        return $this-&gt;_id;
+    }
+
+    public function getDetails()
+    {
+        $tree = $this-&gt;_tree;
+        $branch = $this-&gt;_branch;
+
+        return $tree . '-&gt;' . $branch;
+    }
+}
+</code></pre>
+
+<p>So it looks like this class represents one "Foo" object in the system. I omitted
+the constructor as it's not really important to the lesson I'm trying to teach
+here. Let's assume we have a way to generate a Foo object via some sort of
+mapper.</p>
+
+<p>Our Alpha->munge() method expects to be passed in a Foo object and to retrieve
+info via getDetails() and getId() calls. Let's start our test and mock that up.</p>
+
+<pre><code>&lt;?php
+class Test extends PHPUnit_Framework_TestCase
+{
+
+    public function testAlphaMunge()
+    {
+        $mockFoo = $this-&gt;getMockBuilder('Foo')
+            -&gt;disableOriginalConstructor()
+            -&gt;getMock();
+        $mockFoo-&gt;expects($this-&gt;atLeastOnce())
+            -&gt;method('getDetails')
+            -&gt;will($this-&gt;returnValue('1-&gt;2'));
+        $mockFoo-&gt;expects($this-&gt;atLeastOnce())
+            -&gt;method('getId')
+            -&gt;will($this-&gt;returnValue('1'));
+
+        // More test fun to come
+    }
+}
+</code></pre>
+
+<p>When you build a mock for use in your test, you generally have to do two things:</p>
+
+<ul>
+<li>create a mock of the object itself</li>
+<li>tell it what to do when specific methods are called</li>
+</ul>
+
+<p>What I've done here is pretty standard EXCEPT for the use of that disableOriginalConstructor()
+method. Why is it used? Well, sometimes when you are creating a mock of an object
+it will often have a constructor that accepts parameters. I'm not testing to see
+if we can create the object, I merely am trying to simulate some of the methods
+of that object.</p>
+
+<p>Once I've created the mock of the object, I then tell it what
+to do when I make certain method calls. Clearly I've just pulled some 
+arbitrary values out of my ass for this example, but usually you can figure
+out what some reasonable return values are supposed to be by, you know, actually
+looking at the code you are mocking.</p>
+
+<p>So what does our Bar object look like?</p>
+
+<pre><code>&lt;?php
+class Bar
+{
+    // Same drill, no need to show constructor details
+
+    public function getStartDate()
+    {
+        return $this-&gt;_startDate;
+    }
+
+    public function getEndDate()
+    {
+        return $this-&gt;_endDate;
+    }
+}
+</code></pre>
+
+<p>Time to add a mock Bar to our test</p>
+
+<pre><code>&lt;?php
+class Test extends PHPUnit_Framework_TestCase
+{
+    public function testAlphaMunge()
+    {
+        $mockFoo = $this-&gt;getMockBuilder('Foo')
+            -&gt;disableOriginalConstructor()
+            -&gt;getMock();
+        $mockFoo-&gt;expects($this-&gt;atLeastOnce())
+            -&gt;method('getDetails')
+            -&gt;will($this-&gt;returnValue('1-&gt;2'));
+        $mockFoo-&gt;expects($this-&gt;atLeastOnce())
+            -&gt;method('getId')
+            -&gt;will($this-&gt;returnValue('1'));
+
+        $mockBar = $this-&gt;getMockBuilder('Bar')
+            -&gt;disableOriginalConstructor()
+            -&gt;getMock();
+        $mockBar-&gt;expects($this-&gt;atLeastOnce())
+            -&gt;method('getStartDate')
+            -&gt;will($this-&gt;returnValue('2012-03-27'));
+        $mockBar-&gt;expects($this-&gt;atLeastOnce())
+            -&gt;method('getEndDate')
+            -&gt;will($this-&gt;returnValue('2012-04-09'));
+
+        // More test fun to come
+    }
+}
+</code></pre>
+
+<p>A quick note about $this->atLeastOnce(): when you mock the objects you can tell it
+how often you expect that method to be called. I had a long discussion about this
+with our testing engineer Will Parker after I posted the orginal version of this post.</p>
+
+<p>We have multiple options</p>
+
+<ul>
+<li>$this->once() - should be used only when you REALLY want that method to be called once</li>
+<li>$this->atLeastOnce() - should be used when you need to do it once but aren't sure how many times</li>
+<li>$this->any() - you really don't care how many times it's called</li>
+</ul>
+
+<p>If you're lazy, you'll go with $this->any() so you don't have to worry about it.
+After a discussion with Will, I have come to like the use of $this->atLeastOnce().
+It's not a deal-breaker no matter which one you choose, a lot of it comes down
+to personal preferences.</p>
+
+<p>So now we have our two objects mocked. Now we can go back to our test and
+add in the creation of our Alpha class, inject the two mocks into the 
+method we are testing, and check for expected results.</p>
+
+<pre><code>&lt;?php
+class Test extends PHPUnit_Framework_TestCase
+{
+    public function testAlphaMunge()
+    {
+        $mockFoo = $this-&gt;getMockBuilder('Foo')
+            -&gt;disableOriginalConstructor()
+            -&gt;getMock();
+        $mockFoo-&gt;expects($this-&gt;atLeastOnce())
+            -&gt;method('getDetails')
+            -&gt;will($this-&gt;returnValue('1-&gt;2'));
+        $mockFoo-&gt;expects($this-&gt;atLeastOnce())
+            -&gt;method('getId')
+            -&gt;will($this-&gt;returnValue('1'));
+
+        $mockBar = $this-&gt;getMockBuilder('Bar')
+            -&gt;disableOriginalConstructor()
+            -&gt;getMock();
+        $mockBar-&gt;expects($this-&gt;atLeastOnce())
+            -&gt;method('getStartDate')
+            -&gt;will($this-&gt;returnValue('2012-03-27'));
+        $mockBar-&gt;expects($this-&gt;atLeastOnce())
+            -&gt;method('getEndDate')
+            -&gt;will($this-&gt;returnValue('2012-04-09'));
+
+        $source = "1|1-&gt;2|2012-03-27|2012-04-09";
+        $expectedMunge = md5('rocksalt' . $source);
+
+        $testAlpha = new Alpha();
+        $munge = $testAlpha-&gt;getMunge($mockFoo, $mockBar);
+
+        $this-&gt;assertEquals(
+            $expectedMunge,
+            $munge,
+            'Munge value should match expected'
+        );
+    }
+}
+</code></pre>
+
+<p>And there you have it! A test for a specific method that uses mocks to properly
+isolate functionality that is required for the test to work.</p>
+
+<p>I hope this blog post makes things a lot clearer when it comes to understanding
+the role of mocks when creating unit tests.</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2012/03/09/moving-on-and-a-testing-mini-manifesto/">Moving on, and a Testing Mini-Manifesto</a></h2>
+        </header>
+        <div>
+            <p>After 13 months I've decided to move on from <a href="http://moontoast.com">Moontoast</a>
+and take a position as a senior web developer with <a href="http://kaplanprofessional.com/">Kaplan Professional</a>
+working on their platform team and trying to create all sorts of testable
+awesomeness with them. I start on March 12 with two weeks of training in
+La Crosse, WI, followed by two weeks at home (wanted to be home for my birthday
+and family good times as Easter), followed by 4 weeks in La Crosse and then
+back in my basement lair cranking out the work.</p>
+
+<p>With the new position comes more of the stuff I am really passionate about: 
+testing and automation. Which also got me to thinking about the reasons why I
+am so passionate about these things.</p>
+
+<p>I thought I would create my own little testing mini-manifesto here. The ideas
+my <a href="http://devhell.info">podcasting</a> <a href="https://twitter.com/funkatron"> partner</a> did with his <a href="http://microphp.org">MicroPHP Manifesto</a>
+made me realize that sometimes it is good to write these things down, as it
+were.</p>
+
+<h2 id="i-test-because-the-tools-are-easy-to-use">I test because the tools are easy to use</h2>
+
+<p>I write tests because the tools that exist today to write them are easy to
+install and testing techniques are easily taught.</p>
+
+<h2 id="i-test-because-i-don%27t-like-surprises">I test because I don't like surprises</h2>
+
+<p>I write tests to make sure what I am building behaves the way I am expecting.</p>
+
+<h2 id="i-test-because-i-want-people-to-understand-what-i%27ve-done">I test because I want people to understand what I've done</h2>
+
+<p>I write tests so they can act as documentation for how to use things that I
+have built.</p>
+
+<h2 id="i-test-because-i-want-to-be-able-to-change-things-fearlessly">I test because I want to be able to change things fearlessly</h2>
+
+<p>I write tests so that I can experiment and change things, knowing I have a 
+way of telling myself if I've done something wrong.</p>
+
+<h2 id="i-test-because-automation-is-a-secret-weapon">I test because automation is a secret weapon</h2>
+
+<p>I write tests so I can create an automated developer workflows
+that will reduce the likelihood that something horribly broken makes it
+into production.</p>
+
+<h2 id="i-test-because-it-forces-me-to-focus-on-design">I test because it forces me to focus on design</h2>
+
+<p>I write tests to force me to loosely couple my components and create simple
+systems that can display complex behaviour.</p>
+
+<h2 id="i-test-because-to-me-it-is-the-right-thing-to-do">I test because to me it is the right thing to do</h2>
+
+<p>I write tests because applications with a high level of test code coverage
+have significantly reduced bug-fix cycles and turn production deployments
+into non-events that happen multiple times a day.</p>
+
+<p>I hope my mini-manifesto at least makes you think about where testing fits into
+modern web application development.</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2012/02/26/simple-api-testing-with-behat/">Simple API testing using Behat</a></h2>
+        </header>
+        <div>
+            <p>I've recently started using <a href="http://behat.org">Behat</a> as my testing framework
+of choice. Why? I like the idea of writing tests in a format that is as close
+to English as I can get. This also makes it easier for non-technical people
+to write tests for you as well, making sure they "have some skin in the game"
+as you build out your automated test suite.</p>
+
+<p>I have been trying to push my JavaScript skills lately by first playing around
+with Node.js to get a feel for event-driven server-side coding and by trying
+to build something semi-useful using <a href="http://knockout.js">Knockout</a>. Knockout
+is a client-side Model-View-View-Model framework that promotes four really
+good principles: declarative bindings, automatic UI refreshing, dependency
+tracking and templating. Check out the documentation on the Knockout web site
+for a great explanation of why those are good thigns.</p>
+
+<p>A typical Knockout-out powered site is one where the client-side code talks
+to a server-side API. My experimental site for this is one that uses an 
+API written in PHP using <a href="http://slimframework.com">Slim</a>. Of course, I cannot
+do this without writing some tests. My first set of tests are for the calling
+of the API itself.</p>
+
+<p>After working with PHPUnit's "assert that the result matches expectations" 
+philosophy, switching to using a behavioural approach has changed how I decide
+to approach actually testing something. Let me show you what I mean.</p>
+
+<p>Here's a test for an API call to get our "current" set of transactions, which
+is hard-coded in the system to be all trades that have occurred in the past
+3 weeks.</p>
+
+<pre><code>Feature: transactions API 
+
+Scenario: 
+    Given I call "/transactions/current"
+    Then I get a response
+    And the response is JSON
+    And the response contains at least one transaction
+    And the first transaction contains a transaction ID
+    And the first transaction contains two teams
+    And the first transaction contains a description
+</code></pre>
+
+<p>If you read that out loud it sounds like how you would describe to a co-worker
+what you were expecting to happen on an API call, albeit a little more stilted
+and formalized.</p>
+
+<p>When you first write a feature like this and then ask Behat to run all the
+tests on it, if there is no code to execute a specific step it will give you
+the skeleton of code to make it happen. Then it is up to you to implement
+the actual code that will make the tests run.</p>
+
+<p>Here's the final product:</p>
+
+<pre><code>&lt;?php
+
+use Behat\Behat\Context\ClosuredContextInterface,
+    Behat\Behat\Context\TranslatedContextInterface,
+    Behat\Behat\Context\BehatContext,
+    Behat\Behat\Exception\PendingException;
+use Behat\Gherkin\Node\PyStringNode,
+    Behat\Gherkin\Node\TableNode;
+
+//
+// Require 3rd-party libraries here:
+//
+//   require_once 'PHPUnit/Autoload.php';
+//   require_once 'PHPUnit/Framework/Assert/Functions.php';
+//
+
+/**
+ * Features context.
+ */
+class FeatureContext extends BehatContext
+{
+    /**
+     * Initializes context.
+     * Every scenario gets it's own context object.
+     *
+     * @param   array   $parameters     context parameters (set them up through behat.yml)
+     */
+    public function __construct(array $parameters)
+    {
+        // Initialize your context here
+    }
+
+    /**
+     * @Given /^I call "([^"]*)"$/
+     */
+    public function iCall($argument1)
+    {
+        $client = new Guzzle\Service\Client();
+        $request = $client-&gt;get('http://local.ibl-delphi' . $argument1)-&gt;send();
+        $this-&gt;response = $request-&gt;getBody(true);
+    }
+
+    /**
+     * @Then /^I get a response$/
+     */
+    public function iGetAResponse()
+    {
+        if (empty($this-&gt;response)) {
+            throw new Exception('Did not get a response from the API');
+        }
+    }
+
+    /**
+     * @Given /^the response is JSON$/
+     */
+    public function theResponseIsJson()
+    {
+        $data = json_decode($this-&gt;response);
+
+        if (empty($data)) {
+            throw new Exception("Response was not JSON\n" . $this-&gt;response);
+        }
+    }
+
+    /**
+     * @Given /^the response contains at least one transaction$/
+     */
+    public function theResponseContainsAtLeastOneTransaction()
+    {
+        $data = json_decode($this-&gt;response);
+
+        if (count($data) &lt; 1) {
+            throw new Exception("Response did not contain at least one transaction");
+        }
+    }
+
+    /**
+     * @Given /^the first transaction contains a transaction ID$/
+     */
+    public function theFirstTransactionContainsATransactionId()
+    {
+        $data = json_decode($this-&gt;response, true);
+        $transaction = $data[0];
+
+        if (!isset($transaction['id'])) {
+            throw new Exception("First transaction did not contain a transaction id");
+        }
+    }
+
+    /**
+     * @Given /^the first transaction contains two teams$/
+     */
+    public function theFirstTransactionContainsTwoTeams()
+    {
+        $data = json_decode($this-&gt;response, true);
+        $transaction = $data[0];
+
+        if (!isset($transaction['tradePartner1']) &amp;&amp; !isset($transaction['tradePartner2'])) {
+            throw new Exception("First transaction did not contain two teams");
+        }
+    }
+
+     /**
+     * @Given /^the first transaction contains a description$/
+     */
+    public function theFirstTransactionContainsADescription()
+    {
+        $data = json_decode($this-&gt;response, true);
+        $transaction = $data[0];
+
+        if (!isset($transaction['description'])) {
+            throw new Exception("First transaction is missing a description");
+        }
+    }
+}
+</code></pre>
+
+<p>Notice how Behat uses annotations that describe what type of scenario the
+method uses. It also uses regular expressions to extract specific values
+that you are wishing to test. Those are typically values inside quotes
+in the actual features.</p>
+
+<p>If you are wondering what the skeletons (or stubbs depending on what
+terminology you like to use) looked like <em>before</em> I wrote code to implement
+them, you can simply cut-and-paste the scenario file at the top of this
+post into a feature file (don't forget to give a .feature extension) and it
+will show you all of them.</p>
+
+<p>I liked this method because it meant I could easily add more tests and
+Behat would tell me what code woudl be needed to run it.</p>
+
+<p>So what does the output look like for the test?</p>
+
+<pre><code>-&gt; % bin/behat
+Feature: transactions API
+
+  Scenario:                                             # features/transactions.feature:3
+    Given I call "/transactions/current"                # FeatureContext::iCall()
+    Then I get a response                               # FeatureContext::iGetAResponse()
+    And the response is JSON                            # FeatureContext::theResponseIsJson()
+    And the response contains at least one transaction  # FeatureContext::theResponseContainsAtLeastOneTransaction()
+    And the first transaction contains a transaction ID # FeatureContext::theFirstTransactionContainsATransactionId()
+    And the first transaction contains two teams        # FeatureContext::theFirstTransactionContainsTwoTeams()
+    And the first transaction contains a description    # FeatureContext::theFirstTransactionContainsADescription()
+
+1 scenario (1 passed)
+7 steps (7 passed)
+0m0.362s
+</code></pre>
+
+<p>I have obviously only scratched the surface of what can be done with Behat.
+I myself have questions about how to prevent the FeatureContext.php file, 
+which contains all the functionality that drives the tests, from getting
+too large. I can also see the lure of endlessly tweaking the scenarios to
+reduce the amount of code required to run them all.</p>
+
+<p>What about code-coverage reports? Easily available in PHPUnit but is it
+possible using Behat? It's still early days for some of the alternatives to
+PHPUnit.</p>
+
+<p>The example above is only the first of numerous tests that will be written
+for this side project, as it needs to cover displaying archived transactions
+to be voted on, user authentication, and the voting process itself.</p>
+
+<p>I think that the BDD approach maps better to a results-oriented methodology
+when it comes to testing: you are using real-life scenarios to make sure that
+you are getting back the results you are expecting. In the end. that is still
+the goal of testing.</p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/24">Newer Posts</a><br />
+        <a href="/page/26">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

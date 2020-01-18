@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Home &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta name="robots" content="noindex, follow">
+                <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2><a href="/2008/06/10/yes-i-do-some-javascript-programming-as-well/">Yes, I Do Some Javascript Programming As Well</a></h2>
+        </header>
+        <div>
+            <p>(before I get into this I wanted to let people know that I will be going to <a href="http://www.zendcon.com/ZendCon08/public/content/home">ZendCon</a> to give my deployment talk.  I might be looking for a place to crash for a second night, so let me know if you're going and can hook me up)</p>
+
+<p>
+For a <a href="http://sportso.com">work project</a> I had to add in some Ajax functionality for a scoreboard feature, where users will enter scores for periods / quarters / innings and then the total score has to update automatically on the screen before the user wishes to save that scoring document.  So with some help from one of my online <a href="http://marcgrabanski.com/">javascript ninja associates</a> and Google searches, I got it all figured out, and thought I would share.
+</p>
+
+<p>
+Here's a snapshot of the interface in question:
+<img src="http://chrishartjes.com/sportso-scoreboard.png" alt="Sportso scoreboard interface" / width=532 height=183  />
+</p>
+
+<p>
+The first thing I did was apply the same class name to the away "innings" and home "innings" form fields, so that $().serialize would be able to pull up all those fields.  That way, it wouldn't matter how many "inning" fields there might be.  The tricky thing I found out was that I need to wrap my $('.homePeriods').change() call in it's own function() call so that it would actually be loaded when the page was loaded as well.  I had no idea I needed to do that, and thanks to Marc for pointing it out.  If there is a better method, let me know.
+<br />
+~~~
+// Method used to automatically update total fields
+// when editing individual periods
+$(function(){ 
+    $('.homePeriods').change(function(){
+        var params = $('.homePeriods').serialize();
+        var pArray = params.split('&');
+        var homeTotal = 0;
+
+        for (var i=0; i < pArray.length; i++) {
+            var temp = pArray[i].split('=');
+            var homePeriod = temp[1];
+            // Cast value to an integer with this little hack
+            homePeriod = homePeriod - 0;
+            homeTotal += homePeriod;
+        }
+
+        $('#homeScoreTotal').replaceWith('<td class="period" id="homeScoreTotal"><input type="text" name="homeScoreTotal" value="' + homeTotal + '" maxlength="2" size="2" id="htotal" />');
+    });
+
+    $('.awayPeriods').change(function(){
+        var params = $('.awayPeriods').serialize();
+        var pArray = params.split('&');
+        var awayTotal = 0;
+
+        for (var i=0; i < pArray.length; i++) {
+            var temp = pArray[i].split('=');
+            var awayPeriod = temp[1];
+            awayPeriod = awayPeriod - 0;
+            awayTotal += awayPeriod;
+        }
+
+        $('#awayScoreTotal').replaceWith('<td class="period" id="awayScoreTotal"><input type="text" name="awayScoreTotal" value="' + awayTotal + '" maxlength="2" size="2" id="vtotal" />');
+    });
+});
+~~~
+</p>
+
+<p>
+So, here's a small movie showing that in action.
+<br />
+<br />
+[flv:http://www.archive.org/download/SportsoDynamicScoreboard/sportso-scoreboard.flv 533 400]
+</p>
+
+<p>I hope this helps out other people looking to add similar functionality to their site.</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2008/05/30/never-stop-learning-2/">Never Stop Learning</a></h2>
+        </header>
+        <div>
+            <p>Yes, I realize that my posting had slowed down and that's mainly because, well, I'm trying to subscribe to the theory that I should only blog when I have something interesting to say.  Maybe some of you think I never have anything interesting to say.  Anyhow, here's what I've been thinking about.
+</p>
+
+<p>Despite my 10 plus years of cranking out terrible code using a language hated by numerous developers (those "I've gone to language X and will never return to PHP" comments I see on the web just make me laugh and remind me how few people really understand that a programming language is just a tool to get a job done and it's about the skill of the progammer.  Delude yourself at your own peril) I am constantly learning new things.  Here are a few of the newer things I've been concentrating on as of late:
+<ul>
+<li>Learning how to create <a href="http://simonwillison.net/static/2008/xtech/">unobtrusive Javascript</a> for my Ajax-powered applications.  Much easier to do when starting from scratch, harder to do when refactoring an existing application</li>
+<li>Simple code is better, so I am focusing my coding on trying to do the bare minimum that works, and avoiding cute and clever solutions.  Common sense, sure.  But I still see examples all over the place of people avoiding easy solutions.  Why do people do this?  Job security? Over-inflated ego?  This is where my slacker tendencies work well for me.  Simple is GOOD, my dear readers.</li>
+<li>When dealing with conditional logic and programming flow, you should always practice <a href="http://www.debuggable.com/posts/programming-psychology-return-home-early:4811de9f-ae28-49c2-a7dc-2f154834cda3">"return home early"</a>.  Felix nailed it on the head here, and I've been doing this for a number of years now but as I refactor code for <a href="http://www.sportso.com">a work project</a> I find myself chopping away at the code.  Reminds me of an old post on <a href="https://www.littlehart.net/atthekeyboard/2007/05/02/carpenter-or-sculptor/">carpenter or sculptor</a> from a programming perspective.</li>
+<li>Always be open to new ideas, as you never know when the next big thing flashes across your vision and you want to be aware of it.  Watching Twitter's struggles to simply stay up under the huge crushing load has made me realize how critical it is to actually understand WHAT it is you're building and HOW technology choices impact things.  So I've started thinking about system architectures.  I love reading about cool application stacks and figuring out how I could ever fit in time to learn some of these things like Erlang, or <a href="http://oubiwann.blogspot.com/2008/05/mantissa-alternative-to-lamp.html">Mantissa</a>.  I've been working with the LAMP stack for so long it might be time to branch out and build some apps using one of the alternatives just so I understand these things.  Why couldn't I build a Javascript + Erlang + CouchDB application?  Other than my own internal fears, nothing, right?</li>
+</ul></p>
+
+<p>
+Never stop learning, people.  Passion is the key to keep your job interesting, as you never know when your job will suddenly become interesting whether you like it or not.
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2008/05/23/whats-in-chris-brain-may-2008-edition-2/">What&#039;s In Chris&#039; Brain - May 2008 Edition</a></h2>
+        </header>
+        <div>
+            <p>
+I'm bored.
+</p>
+
+<p>
+There, I said it.  I think it's probably one of my worst character flaws in that I get disinterested in long-running projects that I am working on quite easily.  Somehow, CakePHP continues to grab my interest so maybe I'm getting better.  But I can't escape that voice I hear in my head (I mean, the one that cuts through all the other voices) that says "you MUST be working on the latest and the greatest, otherwise you're wasting your time".
+</p>
+
+<p>
+Such is the peril when you work for a small company, and you're the only developer on a project.  I should've stuck with my guns and built the damn thing on CakePHP instead of CodeIgniter.  Bah! Anyhow, here's what I've been thinking about lately:
+<ul>
+<li>Lots of good input on features for my 'cake deploy' idea.  I got a good suggestion via Twitter to take a look at what Symfony is doing in this regard, so maybe they can give me some ideas on a solid implementation.</li>
+<li>I have an extreme alpha version of Rallyhat working, and are now trying to get the look-and-feel stuff taking care of.  Found a colourscheme I like.  Thank you <a href="http://kuler.adobe.com/">kuler</a></li>
+<li>Gave up on the Django-on-Google-App-Engine idea because I just couldn't get the datastore stuff to work properly.  Screw it, I'll go back to my straight Django app.  I am contemplating running it off of Amazon EC2, but I wonder how much work that is to do.  If any of my readers have any tips on making this work, let me know.</li>
+<li>3 weeks straight of using MacVim as my main IDE!  No complaints, and I broke out Komodo the other day just for the XDebug stuff.  Yes, I know you can use xdebug inside vim but the implementation I saw lacks the variable introspection features that Komodo gives you.</li>
+<li>Some time in the next day or two, a beta release for CakePHP 1.2 is coming out.  This is *very* exciting news.  After that, 1.2RC1 is around the corner.  If I wasn't so damn busy working on the new and shiny things, I might actually contribute more than that one small patch for console work.  Which other people ended up extending anyway.  Bah</li>
+<li>I took a look at <a href="http://seaside.st">Seaside</a>, a web application framework that uses Smalltalk and found out that there is no templating for doing the HTML.  Huh?  You create all the HTML programatically and then style it using CSS.  Not too designer friendly, but they do give an explanation about <a href="http://onsmalltalk.com/programming/smalltalk/rails-vs-seaside/">why it is this way.</a>.  How delightfully sadistic!  And yet, strangely appealing...</li>
+<li>I need to find a way to convince my employer that attending conferences provides value to the company, and not just me.  Even though I only go to conferences where I speak.  Unless I have some really generous readers willing to underwrite me to go.</li>
+<li>I read something recently on the idea of working remotely but with some other freelance tech types as a way to at least get some social contact.  Don't know how well that would work out here in <a href="http://maps.google.ca/maps?f=q&hl=en&geocode=&q=Milton,+ON,+Canada&ie=UTF8&ll=43.516191,-79.883995&spn=0.113531,0.283928&z=12&iwloc=addr">Milton</a>, but maybe it's worth sending some feelers out.</li>
+</ul>
+</p>
+
+<p>
+Okay, back to refactoring some code for work...
+</p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/84">Newer Posts</a><br />
+        <a href="/page/86">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

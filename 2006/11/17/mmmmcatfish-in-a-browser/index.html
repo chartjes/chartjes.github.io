@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Mmmm...catfish in a browser &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2>Mmmm...catfish in a browser <small>post</small></h2>
+        </header>
+        <div>
+            <p>No, I'm not talking about the delicious fish, I'm talking about <a href="http://www.sitepoint.com/blogs/2005/10/18/the-catfish-part-1/">The Catfish</a>, a Javascript pop-up that sits at the bottom of the browser window and follows you as you scroll through the site.? The above-linked SitePoint uses the Catfish to show ads for their books (which I think are some of the best books for programmers just getting started).</p>
+
+<p>Before I point out an example at my work, why is it called The Catfish?? Well, catfish like to swim at the bottom of whatever body of water they are in...and the javascript Catfish sits at the bottom of your browser window.? Makes sense to me, but it sounds cool too.? "Hey guys, I just got the catfish working.? Can you check it out in IE?"</p>
+
+<p>Anyhow, I've been tasked with trying to fix our current catfish implementation (you can find ours at <a href="http://www.footballforum.com">FootballForum</a> where we use it to entice people to sign up for a membership to the site) because it was having some problems.? So I dug around and found <a href="http://www.gen-x-design.com/archives/ajax-activity-indicators-make-them-global-and-unobtrusive">this posting</a> that showed me how I could create a catfish using the <a href="http://prototype.conio.net/">Prototype javascript library</a>.? Now I can do some cool effects and such (like fade the catfish in, and will experiment with some other effects.</p>
+
+<p>However, the problem with the catfish right now isn't that it's not working, because the window is popping up at the bottom and it's staying at the bottom like it's supposed to.? I think the problem is CSS and DOM related, because we're layering two images over top of a tiled background.? It requires nasty hacks in CSS for IE in order to make it happen.? Not being a CSS guru I've passed those implementation details off to? the CSS guru here at work and he is confident he'll have it all worked out.</p>
+
+<p>Once that gets worked out I'll do a follow-up posting where I show the Javascript side of things that helped make it happen for us.</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/2006/11/21/catfish-redux/" title="Catfish Redux"><span class="title">Catfish Redux</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/2006/11/15/how-do-you-scale-a-rails-app-with-great-difficulty-apparantly/" title="How Do You Scale A Rails App?  With Great Difficulty Apparantly"><span class="title">How Do You Scale A Rails App?  With Great Difficulty Apparantly</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+
+
+
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

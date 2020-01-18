@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>DIC vs. Service Locator &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>DIC vs. Service Locator <small>post</small></h2>
+            <h3>June 6th, 2012</h3>
+        </header>
+        <div>
+            <p>People often ask me what's the one thing they could do for their code base
+RIGHT NOW that will make it easier to test. To me, the answer is simple:
+make sure you are using <a href="http://en.wikipedia.org/wiki/Dependency_injection">Dependency Injection</a>
+(yes the link is long and has code samples in Java, but whatever). Without
+the ability to "inject" your dependencies into your code (whether it is 
+class methods or functions) you will have problems testing modules of
+code in isolation from each other.</p>
+
+<p>In my <a href="http://grumpy-testing.com">book on buiding testable PHP apps</a> I touched upon Dependency Injection
+and I also mention the concept of a <a href="http://martinfowler.com/articles/injection.html">Dependency Injection Container</a>
+(sometimes also called Inversion of Control Containers). On the surface it
+sounds like a really useful tool: you put all your dependencies inside the
+container and then inject those dependencies into your classes and functions.</p>
+
+<p>The use of DIC's has become a common pattern in PHP frameworks, as it does
+offer you an easier way to access those dependencies. But I encourage people
+to be careful with how they choose to use these containers, because they can
+add unanticipated dependencies to your application.</p>
+
+<p>If you use dependency injection without the container, then you have code that
+looks like this:</p>
+
+<pre><code>&lt;?php
+namespace Grumpy;
+
+class Foo
+{
+    protected $_bar;
+    protected $_baz;
+
+    public function __construct(\Grumpy\Bar $bar, \Grumpy\Baz $baz) {
+        $this-&gt;_bar = $bar;
+        $this-&gt;_baz = $baz;
+    }
+}
+
+// In our test, using PHPUnit's built-in mock support
+$mockBar = $this-&gt;getMock('\Grumpy\Bar');
+$mockBaz = $this-&gt;getMock('\Grumpy\Baz');
+
+$testFoo = new \Grumpy\Foo($mockBar, $mockBaz);
+
+</code></pre>
+
+<p>Very straightforward to see the dependencies that we are trying to inject
+into the class, and you can see exactly what dependencies you will have to
+create mock objects for in your tests.</p>
+
+<p>If you use a container as a container ONLY then your test setup changes 
+a bit.</p>
+
+<pre><code>&lt;?php
+
+/**
+ * Code for Foo is the sanme but how we get the dependencies is different
+ * because we are going to place them in the container first and then
+ * explicitly inject them
+ */
+$container = Context::getDependendencyContainer();
+$container['bar'] = $this-&gt;getMock('\Grumpy\Bar');
+$container['baz'] = $this-&gt;getMock('\Grumpy\Baz');
+
+$testFoo = new \Grumpy\Foo($container['bar'], $container['baz']);
+
+</code></pre>
+
+<p>The purpose of the DIC is to have all your dependencies in one place
+where they are easier to grab. It's a great concept, but it can easily
+morph into a new dependency with one architectural change.</p>
+
+<pre><code>&lt;?php
+namespace Grumpy;
+
+class Foo
+{
+    protected $_bar;
+    protected $_baz;
+
+    public function __construct(\Grumpy\Container $container) {
+        $this-&gt;_bar = $container['bar'];
+        $this-&gt;_baz = $container['baz'];
+    }
+}
+
+// In our test, using PHPUnit's built-in mock support
+$mockBar = $this-&gt;getMock('\Grumpy\Bar');
+$mockBaz = $this-&gt;getMock('\Grumpy\Baz');
+$mockContainer = $this-&gt;getMock('\Grumpy\Container');
+$mockContainer['bar'] = $mockBar;
+$mockContainer['baz'] = $mockBaz;
+
+$testFoo = new \Grumpy\Foo($mockContainer);
+
+</code></pre>
+
+<p>So what is so potentially bad about this? Well, now you've introduced a
+dependency into your code such that it relies on the dependency container
+instead.</p>
+
+<p>I've worked with code bases that make heavy use of containers to do more
+things than just store dependencies to be injected into your code. If 
+you've every used Zend&#95;Registry to store things that you then retrieve
+later you will know what I am talking about.</p>
+
+<p>So what is really the difference between a service locator and a 
+dependency injection container? I think the difference is in how you
+use them. If you are using a container and manually injecting dependencies
+into your code, then you are using what I guess you could call a 
+"pure" dependency injection container. Once you start injecting
+the container itself into your objects, it's no longer just a container.
+It's a service locator since you will use it to retrieve all sorts of
+things your application might need.</p>
+
+<p>I understand why people use the container that way. It's easy! It's
+convenient. It's a pain in the ass to test, is what it is.</p>
+
+<p>In the end, it's really an architectural choice that you need to make.
+Personally, I prefer to combine the two: use the container to store
+you dependencies but "manually" inject them into your classes and
+functions. I prefer this technique because it makes it easier up front
+to determine the dependencies the code you are testing are going
+to need.</p>
+
+<p>Remember kids, the
+goal is to create code that is easily understood and easily testable, 
+or else <a href="http://twitpic.com/9p5o2x/full">this guy</a> might come looking
+for you to "ask you some questions about your code".</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2012/06/18/why-dont-you-trust-your-developers/" title="Why Don&#039;t You Trust Your Developers?"><span class="title">Why Don&#039;t You Trust Your Developers?</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2012/05/31/tricorder-a-testing-helper-for-php/" title="Tricorder: a testing helper for PHP"><span class="title">Tricorder: a testing helper for PHP</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

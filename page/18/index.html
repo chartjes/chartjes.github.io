@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Home &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta name="robots" content="noindex, follow">
+                <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2><a href="/2012/10/18/phpspec-and-the-new-wave-of-testing/">PHPSpec and the new wave of testing</a></h2>
+        </header>
+        <div>
+            <p>I promised <a href="https://twitter.com/everzet">@everzet</a> almost two weeks ago that
+I would take a look at his latest project, <a href="http://www.phpspec.net">phpspec</a>,
+and let him know what I think.</p>
+
+<p>I think that we are witnessing the first wave of new testing tools in the PHP
+community that allow developers to wrap their applications in automated tests.</p>
+
+<p>I am familiar with the BDD-style that is being promoted in PHPSpec, through
+my work with <a href="http://behat.org">Behat</a> to create automated user acceptance
+tests. I think if you want a tl;dr version of PHPSpec I would tell you
+"write hybrid unit/integration tests using plain language".</p>
+
+<p>The concept that is being promoted is "SpecBDD". It means "writing tests
+to a specification and then writing code until that specification is met."
+Not a lot different than writing tests using tools like PHPUnit.</p>
+
+<p>Your still going to have to write code that you can test if you want to
+use phpspec. That means you still need to know about dependency injection
+and other characteristics of testable code. Sorry, no magic testing pixie
+dust here.</p>
+
+<p>I was also surprised to see the use of mock objects, which are being 
+called "Prophet Objects", but that means that you can really write specs
+that test for things in isolation.</p>
+
+<p>Mock objects are, in my opinion, the conceptual stumbling block that
+developers need to get over in order to really, deeply understand how
+to write effective tests. I am happy to see phpspec promote this idea
+and provide a fairly simple API to do it.</p>
+
+<p>The process is the same as it would be if you were using PHPUnit: write
+the test / spec, and write the damn code until everything passes. Again,
+no magic testing pixie dust.</p>
+
+<p>(By the way, if someone makes me a "magic testing pixie" t-shirt, men's size
+XXL or larger, I will purchase it YESTERDAY).</p>
+
+<p>Keep on cranking out the tools, make them useful for people OTHER than testing
+zealots to use them, and you have yourself an unstoppable wave of automated
+testing.</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2012/10/15/first-steps-in-node-testing/">First steps in Node testing</a></h2>
+        </header>
+        <div>
+            <p>As I've been promising, I wanted to share my thoughts as I am starting to
+brush up on my JavaScript and learn how to do something non-trivial with
+<a href="http://nodejs.org">Node.js</a>. Of course, I want to use tests to
+help me drive my work, and also as a way to keep me focused on small iterations
+of work.</p>
+
+<p>I am intending to write some code to act as an API for the <a href="http://www.ibl.org">site that runs my simulation baseball league</a>
+and refactor the existing PHP code to consume that API instead of speaking
+to the database through CakePHP (really OLD CakePHP at that too) models.</p>
+
+<p>So, it took me a while to search around and find enough information to create
+my first integration test. In the end, the stack is <a href="http://visionmedia.github.com/mocha/">Mocha</a>
+to do the testing, with <a href="https://github.com/visionmedia/supertest">SuperTest</a> to handle
+all the HTTP testing.</p>
+
+<p>So, the app itself is built on <a href="http://expressjs.com/">Express</a> and 
+talking to a Postgres database using <a href="https://github.com/brianc/node-postgres">node-postgres</a>.
+It seemed to me that express was the best solution for a newcomer to Node but
+familiar with MVC / modern web application paradigms.</p>
+
+<p>So, let's take a look at some of the code:</p>
+
+<pre><code>// Front controller for our API
+
+var application_root = __dirname;
+var express = require("express");
+var path = require("path");
+var pg = require('pg');
+var app = express();
+var model = require('./transactionmodel');
+
+// Create our database connection
+var connectionString = "pg://chartjes:@localhost:5432/ibl_stats";
+
+pg.connect(connectionString, function(err, client) {
+  if (err) {
+    console.log(err);
+  }
+});
+var client = new pg.Client(connectionString);
+var tm = new model.TransactionModel(client);
+
+// Config things we need to get the app going
+app.configure(function() {
+  app.use(express.bodyParser());
+  app.use(express.methodOverride());
+  app.use(app.router);
+  app.use(express.static(path.join(application_root, "public")));
+  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+});
+
+app.get('/transactions/archived', function(req, res) {
+  var done = function (err, transactions) {
+    if(err) {
+      res.send("Error querying transactions", 500);
+    } else {
+      res.send(transactions);
+    }
+
+  };
+
+  var currentTransactions = tm.getArchived(done);
+});
+
+app.get('/transactions/current', function(req, res) {
+  var done = function (err, transactions) {
+    if(err) {
+      res.send("Error querying transactions", 500);
+    } else {
+      res.send(transactions);
+    }
+  };
+
+  var currentTransactions = tm.getCurrent(done);
+});
+
+module.exports = app;
+</code></pre>
+
+<p>I am also using the awesome <a href="http://postgresapp.com/">Postgress.app</a>
+while working on this app on my laptop.</p>
+
+<p>One of the things I learned while I started to build my tests was that if I
+wanted to test stuff in isolation, I needed to alter things slightly and
+export my Express "app" as a module instead of including the command 
+necessary to make it run and listen for requests on a specific port.</p>
+
+<p>Now, I did find some blog posts about how to write integration tests, but
+they either wanted to use <a href="http://coffeescript.org/">CoffeeScript</a>
+or was using custom modifications to the testing tools. I am not familiar
+enough to write stuff like that (not in JavaScript anyway) so out of
+frustration I looked at the source code of Express since <a href="http://brianstoner.com/blog/testing-in-nodejs-with-mocha/">this blog post</a>
+mentioned how he created a custom version of something used to help in 
+testing.</p>
+
+<p>When I looked at the source of Express, the author had replaced a bunch
+of stuff with code that simply imported SuperTest. I think I swore
+really loudly at myself for not looking sooner.</p>
+
+<p>Armed with the knowledge that I had my missing piece for the integration
+test, I wrote a simple one.</p>
+
+<pre><code>var app = require('../app');
+var request = require('supertest');
+var assert = require('assert');
+
+describe('Transaction API', function() {
+  it('GET /transactions/current should return 200', function(done) {
+    request(app)
+      .get('/transactions/current')
+      .expect('Content-Type', /json/)
+      .expect(200, done);
+  });
+});
+</code></pre>
+
+<p>It worked, which is the first step. How about another test? Let's make
+sure that if we do that call to /transactions/current and verify that
+we are getting back a result we expect</p>
+
+<pre><code>it('GET /transactions/current should return expected results', function(done) {                                                                    
+    var fs = require('fs');                                                     
+    var currentData = fs.readFile('./current', 'utf8', function(err, data) {    
+      if (err) { throw err; }                                                   
+      return data;                                                              
+    });                                                                         
+    request(app)                                                                
+      .get('/transactions/current')                                             
+      .expect(currentData, done);                                               
+  });                     
+</code></pre>
+
+<p>For this test, I am reading in a text file that contains, for a known database,
+a JSON representation of that data. Then I do a call to my API call, and
+compare the result I get back to my fixture. Just like any test I would 
+write in PHP. Compare the expected to the actual.</p>
+
+<p>In <a href="http://devhell.info/post/2012-10-06/the-grace-hopper-rape-whistle/">episode 21 of /dev/hell</a>
+I talked a bit about how I felt that testing skills from one language are
+transferrable to another. I think the fact that once I figured out that SuperTest
+was the missing tool, it took me less than 30 minutes to write those two tests.
+That includes research time reading the documentation for both Mocha and SuperTest.</p>
+
+<p>More tests are sure to come, but I think I've found the right set of tools
+for the time being.</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2012/10/12/grumpy-phpunit/">The Grumpy Programmer&#039;s PHPUnit Cookbook</a></h2>
+        </header>
+        <div>
+            <p>TL;DR: I've started working on <a href="http://grumpy-phpunit.com">a new book</a>.</p>
+
+<p>Having written a book that shows you how to <a href="http://grumpy-testing.com">write code that is testable</a>
+it seemed natural to write a companion book for that, to give people a better
+understanding of how to use some of the testing tools.</p>
+
+<p>To that end, I've started working on "The Grumpy Programmer's PHPUnit Cookbook"
+to be released in early 2013 (I'm thinking end of January / beginning of February
+if everything works out).</p>
+
+<p>The book will be a collection of tips and tricks on how to use the gold standard
+of PHP unit testing frameworks, the mighty <a href="https://github.com/sebastianbergmann/phpunit/">PHPUnit</a>. If you visit
+the <a href="http://grumpy-phpunit.com">website for the book</a> you can join a mailing list
+to be notified when the book is ready.</p>
+
+<p>By joining that mailing list, you will also receive some goodies along the way 
+as the book gets written. No, I'm not going to tell you what they are.</p>
+
+<p>The book will be $25. No, I don't know how big it will be. Maybe you will end up paying 
+$1 per page, but let's hope not.</p>
+
+<p>The book will also be published through <a href="http://leanpub.com">Leanpub</a> as I am
+110% happy with what they have done for me, and I encourage anyone else who wants
+to write their own technical book and keep most of the money from their efforts
+to consider using them.</p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/17">Newer Posts</a><br />
+        <a href="/page/19">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

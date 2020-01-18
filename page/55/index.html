@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Home &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta name="robots" content="noindex, follow">
+                <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2><a href="/2009/11/13/going-to-christmas-town/">Going To Christmas Town</a></h2>
+        </header>
+        <div>
+            <p>I'm off with the family to visit <a href="http://www.bronners.com/">the world's largest Christmas store</a> and do some cross-border shopping.  See you all on Monday.  I'm sure my mind will be churning about code generation and concurrency all weekend long, much to the dismay of my wife</p>
+
+<p>
+I do admire how she has learned to indulge my ramblings about programming when she is not a programmer at all and doesn't really care. ;)
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2009/11/12/the-scary-future-world-i-will-program-in/">The Scary Future World I Will Program In</a></h2>
+        </header>
+        <div>
+            <p>
+A lot of the reading I have done on the Internet in the last few years has led me to the following conclusions about the future world I will be programming in:
+<ul>
+<li>It will require manipulating exponentially more data than now</li>
+<li>It will require you to understand both parallel processing and concurrency (although to this simple programmer's brain they appear to be the same thing</li>
+<li>A stateless model of the web looks more and more like something that works against human nature</li>
+</ul>
+</p>
+
+<p>
+I have become fascinated with languages that talk about dealing with concurrency:  <a href="http://ftp.sunet.se/pub/lang/erlang/index.html">Erlang</a>, Python using <a href="http://twistedmatrix.com">Twisted</a>, <a href="http://clojure.org">Clojure</a>, and the newest kid on the block <a href="http://golang.org/">Google Go</a>.  I have no idea why these interest me so much.  But I find them all fascinating, and I wonder how anything we do at work on the XML-feed-parsing side could benefit from concurrency (and that gets me into the topic of whether or not concurrency matters if you have to write data to a relational database and dealing with locks etc, god I sound like a programming nerd!).
+</p>
+
+<p>
+Rich Hickey, the creator of Clojure, gave this <a href="http://www.infoq.com/presentations/Are-We-There-Yet-Rich-Hickey">awesome talk</a> about current programming language paradigms and how well suited they are to the highly statefull, concurrent future that I feel we will be facing when building online applications.  Go and watch it and you will find that you knew oh so very little about programming language concepts.
+</p>
+
+<p>
+So not only are we dealing with concurrency, we also need to deal with state.  PHP is stateless.  "Share-nothing" was a revelation for it's time, and allowed you to build web applications that could horizontally scale quite well.  But then we started requiring state.  So we use things like sessions, and cookies:  tricks that allow us to let data persist between requests.  You could almost throw databases into that category.
+</p>
+
+<p>
+Perhaps this is ignorant rambling.  All these things make it harder and harder for a statefull environment like the web to act like it is actually retaining values between requests.  Maybe something like <a href="http://en.wikipedia.org/wiki/Seaside_(software)">Seaside</a> is a model to look at it:  it preserves state across requests using continuations, which is a programming concept that you just don't learn when you teach yourself PHP.
+</p>
+
+<p>
+You could argue that we are on the verge of a major shift in programming language methodologies.  The challenge of programatically handling concurrency and state in a way that programming trolls like me can understand is a huge one.  Tim Bray has been covering this on his blog via his "so fascinating it makes me understands how stupid I really am" <a href="http://www.tbray.org/ongoing/When/200x/2009/09/27/Concur-dot-next">Concur.next</a> series.
+</p>
+
+<p>
+Will we ever have a statefull, concurrent language for building web apps.  I'm sure we will.  I just don't think it's been written yet.
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2009/11/11/on-remembrance-day-remember-both-sides/">On Remembrance Day, remember both sides</a></h2>
+        </header>
+        <div>
+            <p>
+I am of German descent.  Both my parents were born there (although my mother moved away when she was 2, so I don't know if that really counts).  Both my grandfathers were in the German Army - one as an infantry solider, the other as a messenger.  My grandfather (and for that matter, my father) never told me anything about their experiences during World War II.  I do know that my father had his house bombed out three times, and he probably still suffers from Post Traumatic Stress Sydrome as a result of it.  Anyway, about 10 years ago when I was visiting my uncle (my father's eldest brother) he told me a story about my grandfather.
+</p>
+
+<p>
+My grandfather was unlucky enough to have been part of the German army during the <a href="http://en.wikipedia.org/wiki/Battle_of_Stalingrad">Battle of Stalingrad.</a>  Once the German army had surrendered, all the remaining soldiers were arrested for crimes both real and imagined (according to my uncle, my grandfather was arrested for stealing a loaf of bread) and sent away to labour camps.  My grandfather got sent to Siberia along with a bunch of other prisoners.  They were dumped into a forest, given tools and told to build themselves shelters if they expected to survive.
+</p>
+
+<p>
+So, while in that prison camp my grandfather learned to speak, read and write Russian.  At some point he discovered that once a year, prisoners who had committed certain crimes could apply for clemency and be allowed to go back home.  Eventually he was able to get his case accepted and was put on a train headed to Berlin.  I believe this was 1953 or 1954, I cannot remember.  Every time the train stopped, all the pardoned prisoners were marched out and every tenth man was sent back on a train going the other way to Siberia.
+</p>
+
+<p>
+Luckily my grandfather managed to make it all the way back to Berlin and back to his family in Gelsenkirchen.  I cannot being to imagine what his experiences were like, and I can understand why he was probably very reluctant to tell his very young grandson (he died when I was 11) what World War II was like.
+</p>
+
+<p>
+So on this Remembrance Day I will think about my grandfather, Henry Hartjes, and vow to never forget what happened to him.
+</p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/54">Newer Posts</a><br />
+        <a href="/page/56">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>People Who Make Me Feel Stupid: Fabien Potencier &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>People Who Make Me Feel Stupid: Fabien Potencier <small>post</small></h2>
+            <h3>March 5th, 2010</h3>
+        </header>
+        <div>
+            <p><i>This is the final in a series of blog posts about programmers who make me feel stupid due to the amazing work they've done and their ability to explain it.  Check out my thoughts on <a href="https://www.littlehart.net/atthekeyboard/2010/03/01/people-who-make-me-feel-stupid-geoffrey-grosenbach/">Geoffrey Grosenbach</a>, <a href="https://www.littlehart.net/atthekeyboard/2010/03/02/people-who-make-me-feel-stupid-antirez/">Antirez</a>, <a href="https://www.littlehart.net/atthekeyboard/2010/03/03/people-who-make-me-feel-stupid-rich-hickey/">Rich Hickey</a> and <a href="https://www.littlehart.net/atthekeyboard/2010/03/04/people-who-make-me-feel-stupid-ezra-zygmuntowicz/">Ezra Zygmuntowicz.</a></i></p>
+
+<p>I am, for lack of a better phrase, a framework whore.  I use frameworks to build all my web applications.  Why?  Because I prefer to stand on the shoulder of giants rather than constantly reinvent things.  But in many ways, my addiction to frameworks is counter-productive because I find myself constantly wanting to use a new one.  So I end up churning instead of pushing forwards.   I've been learning Zend Framework, and I'm struggling.  Too many ways to do things, too much documentation that provides me with a tease of what it is I'm trying to do but not the full solution.  Then I have to ask people for help and feel stupid for not being the Rock Star Developer(tm) with all the answers.  
+</p>
+
+<p>
+So, even though I use Zend Framework now (unless I change my mind, get pissed off and go with the <a href="http://toys.lerdorf.com/archives/38-The-no-framework-PHP-MVC-framework.html">no-framework framework</a>) I do watch other frameworks.  While I might not agree with some features of <a href="http://www.symfony-project.org/">Symfony</a>, I am astounded at what <a href="http://fabien.potencier.org/">Fabien Potencier</a> continues to produce.
+</p>
+
+<p>
+Creating a framework is an achievement in itself.  Creating a framework in a language as your first real PHP project, like Fabien did, is nothing short of amazing.  Symfony is a full-stack framework, the kind of comfy and warm blanket I like to use when building an application on a short timeline.  Like many other full-stack frameworks, they also wrote stuff that other people had already written.  It's a common thing, everyone goes through the "not invented here" phase.  Sometimes, that's the only way you learn how to do something.
+</p>
+
+<p>
+But as Symfony glides smoothly along towards a 2.0 release, imagine the shock of people when they see Fabien talk about how he is going to use parts of Zend Framework in the 2.0 core and dump existing components like their own unit-testing framework in favour of PHPUnit.
+</p>
+
+<p>
+In the blog post about <a href="http://www.symfony-project.org/blog/2010/03/04/symfony-2-0-and-the-php-ecosystem">decisions about Symfony 2</a>, he mentions the logic surrounding what appears to be a new public philosophy from Symfony: "Use what's out there; realise it sucks; write your own; wait until others suck less; dump your own; use other."
+</p>
+
+<p>
+This is a very refreshing stance for the guiding power of a popular web application framework to take.  It reminds me of when Rails and Merb decided to quit fighting and instead become the same project in Rails 3.  The hater in me thinks that it's because Merb was becoming what Rails wanted to be, so kudos to the effort to rework Rails to make it better.  After all, that's the goal -- to produce better, faster software.
+</p>
+
+<p>
+So why does Fabien make me feel stupid:  <b>His constant willingness to do the right thing for his project, even if it means tossing away stuff that spent a long time working on.</b>  Again, just like all the others I've talked about here, he does an amazing job of explaining what he did in a way that makes it obvious.  His thoughts on <a href="http://fabien.potencier.org/article/11/what-is-dependency-injection">dependency injection</a> helped me to understand why it's important to consider it when building your applications.  I've written code that uses it and code that does not.  I found it easier to refactor code when I used dependency injection, but that just might be me.
+</p>
+
+<p>
+Thanks for following this series this week.  I hoped I've exposed you to some people you might not have heard of or known about their work.
+</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2010/03/12/rallyhat-lives/" title="Rallyhat lives!"><span class="title">Rallyhat lives!</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2010/03/04/people-who-make-me-feel-stupid-ezra-zygmuntowicz/" title="People Who Make Me Feel Stupid: Ezra Zygmuntowicz"><span class="title">People Who Make Me Feel Stupid: Ezra Zygmuntowicz</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

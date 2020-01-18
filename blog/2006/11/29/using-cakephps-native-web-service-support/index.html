@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Using CakePHP&#039;s Native Web Service Support &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>Using CakePHP&#039;s Native Web Service Support <small>post</small></h2>
+            <h3>November 29th, 2006</h3>
+        </header>
+        <div>
+            <p>
+Recently there was a posting on the <a href="http://cakephp.org">CakePHP</a> mailing list from someone complaining that CakePHP's native web service support didn't work, mainly because he couldn't figure out how to get it to work.  So, I took up the challenge and sent out an email to the list showing that you can indeed use them.  Might I add that until I tried this, I had never built a web service with CakePHP before.  I found that by turning on the debug mode and actually following the instructions that were in the error messages (best undocumented feature of CakePHP if you ask me) I was able to build it.  Oh yeah, a big shout-out to Samuel DeVore for his near-simultaneous reply to the original message showing an ever simpler example than mine.  Which I promptly stole and used it in this example. :)
+</p>
+
+<p>
+This example works with the latest stable version of CakePHP (1.1.10.3825) running on a Gentoo Linux box with PHP 5.1.2 and Apache 2.  It's my understanding that the native web service stuff was originally built for Cake 1.2 (not released yet) and back-ported to Cake 1.1.  Perhaps some key parts are missing, hence the need for some hackery mentioned below.
+</p>
+
+<p>
+First, open up /app/config/core.php and turn on support for internal web services:
+~~~
+/**
+ *  The define below is used to turn cake built webservices
+ *  on or off. Default setting is off.
+ */
+    define('WEBSERVICES', 'on');
+~~~
+</p>
+
+<p>
+Now, you have to understand that CakePHP won't magically spit out your content as XML, or SOAP, or as REST or whatever.  The internal web services support provides built-in URLs for spitting out your content in whatever alternate format you want.  This concept will become clear as we continue on here.  Basically it lets you do the following:
+<ul>
+<li>mydomain/controller/action for regular content</li>
+<li>mydomain/xml/controller/action to spit out your content formatted as XML</li>
+</ul>
+</p>
+
+<p>Okay, so first thing I did was create a test controller:
+~~~
+<?php
+
+/**
+ * Test controller for built-in web services
+ *
+ * @author Chris Hartjes
+ *
+ */
+ 
+class TestController extends AppController
+{
+    var $name = 'Test';
+    var $uses = "";
+    var $components = array('xml');
+    
+    function index()
+    {
+        $message = "This is a test of built-in web services";
+        $this->set('message', $message);
+    }
+}
+
+?>
+~~~
+Those of you who are observant about CakePHP will notice that I've dragged in a component to be used.  Currently, you need to create a component *and* a helper to make the web service stuff work.  This is hackish, and hopefully goes away.
+</p>
+
+<p>
+You need to create an XML component and put it in /app/controllers/components/xml.php
+~~~
+<?php
+
+class XMLComponent extends Object
+{
+    // Blank for now as we're not doing anything weird
+}
+
+?>
+~~~
+and then create an XML helper, placing that in /app/views/helpers/xml.php
+~~~
+<?php
+
+class XmlHelper extends Helper
+{
+    // blank for now
+}
+
+?>
+~~~ 
+</p>
+
+<p>
+Now we need to generate a bunch of thtml files to display our output.  Of course, we have to create the default view for our action in the controller.  Put this in /app/views/test/index.thtml
+~~~
+Content generated via regular view<br />
+< ?php echo $message ?>
+~~~
+Next is the XML stuff.  There are two files we need to create.  One is /app/views/layouts/xml/default.thtml, which simply tells CakePHP to use whatever data is passed into it.
+~~~
+< ?php echo $content_for_layout ?>
+~~~
+and then we create /app/views/test/xml/index.thtml to spit out our data in XML
+~~~
+< ?php e('<?xml version="1.0" encoding="utf-8" ?>' . "\n"); ?>
+<foo>
+<bar>< ?php echo $message ?></bar>
+</foo>
+~~~
+I believe the e(blah) function is a built-in helper for CakePHP.
+</p>
+
+<p>
+So, now when we go to mydomain/test we get the following output generated:
+~~~
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>CakePHP Web Services Test</title>
+<link rel="stylesheet" type="text/css" href="/css/cake.generic.css" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /></head>
+<body>
+    <div id="container">
+        <div id="content">
+            Content generated via regular view<br />
+This is a test of built-in web services     </div>
+
+        <div id="footer">
+            &nbsp;
+        </div>
+    </div>
+    </body>
+</html>
+~~~
+and when we go to mydomain/xml/test we get the following output generated
+~~~
+<?xml version="1.0" encoding="utf-8" ?>
+<foo>
+<bar>This is a test of built-in web services</bar>
+</foo>
+~~~
+</p>
+
+<p>
+Like I said before, a lot of hoops to jump through and hopefully those go away when CakePHP 1.2 comes out.
+</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2006/12/05/rallyhatcom-baby-steps/" title="Rallyhat.com -- baby steps"><span class="title">Rallyhat.com -- baby steps</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2006/11/24/adventures-with-jquery/" title="Adventures with jQuery"><span class="title">Adventures with jQuery</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tutorial: How to create a thread in vBulletin with a script &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>Tutorial: How to create a thread in vBulletin with a script <small>post</small></h2>
+            <h3>October 6th, 2006</h3>
+        </header>
+        <div>
+            <p>
+My day-job requires me to create code that will talk to <a href="http://www.vbulletin.com">vBulletin</a> web sites we run.  My latest task involves taking data that we get from <a href="http://www.pa-sportsticker.com/en/index.html">PA Sportsticker</a> and create posts in one of our forums.  Lucky for me, somebody smarter than me figured out how to do this.  It's very simple, and I've taken their work and modified it for our needs.
+<br />
+~~~
+<?php
+
+/**
+ * Script that posts info sent to it by the Sportsticker parser as a thread in a forum
+ * Based on code found in http://www.vbulletin.org/forum/showthread.php?t=97283&page=2
+ *
+ * @author Chris Hartjes
+ */
+
+require './global.php';
+require './includes/class_dm.php';
+require './includes/class_dm_threadpost.php';
+require './includes/functions_databuild.php';
+
+$threaddm = new vB_DataManager_Thread_FirstPost($vbulletin, ERRTYPE_STANDARD);
+$post_userid = 1; // Admin
+$userid = 1;
+$user_name = 'chartjes';
+$allow_smilie = '1';
+$visible = '1';
+
+if (isset($_POST['forum_id'])) $forum_id = (int)$_POST['forum_id'];
+if (isset($_POST['post_text'])) $post_text = (string)strip_tags($_POST['post_text']);
+if (isset($_POST['title'])) $title = (string)strip_tags($_POST['title']);
+
+$threaddm->do_set('forumid', $forum_id);
+$threaddm->do_set('postuserid', $post_userid);
+$threaddm->do_set('userid', $userid);
+$threaddm->do_set('username', $user_name);
+$threaddm->do_set('posttext', $post_text);
+$threaddm->do_set('title', $title);
+$threaddm->do_set('allowsmilie', $allow_smilie);
+$threaddm->do_set('visible', $visible);
+$threaddm->save();
+build_forum_counters($forum_id);
+
+?>
+~~~
+</p>
+
+<p>
+I did see some talk abot how using that do_set method is not recommended as it bypasses the data manager object vBulletin uses.  I tried using that datamanager by actually looking at the code that does posts, but couldn't get it to work.  I suspect part of the problem is that the data manager assumes you are logged in, while you can post without being logged in with the method above.  At least it sure looks that way.  More testing is obviously required but I think I'm on the right track.
+</p>
+
+<p>
+In a nutshell, the script that I wrote to parse the XML feed that Sportsticker provides will grab all the necessary info from the stream and then send that data to the above code via a POST request.  Nice and simple.  Hope this code sample helps.
+</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2006/10/10/what-chris-is-thinking-about-2/" title="What Chris Is Thinking About"><span class="title">What Chris Is Thinking About</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2006/10/04/its-dead-jim/" title="It&#039;s Dead, Jim"><span class="title">It&#039;s Dead, Jim</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

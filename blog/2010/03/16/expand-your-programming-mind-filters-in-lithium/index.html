@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Expand your programming mind:  filters in Lithium &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>Expand your programming mind:  filters in Lithium <small>post</small></h2>
+            <h3>March 16th, 2010</h3>
+        </header>
+        <div>
+            <p>Out of the ashes of a severe personality clash in an <a href="http://cakephp.org">open source PHP web application framework project</a> rose a new framework proclaiming that it <a href="http://rad-dev.org/lithium/wiki">simply sucks less than all the others</a>.  Lithium, otherwise known as li3, is the latest PHP application framework to come onto the scene.  I know what you're saying.  *Yawn*.
+</p>
+
+<p>
+As far as I can tell, Lithium is trying it's hardest to be fast, lightweight, and use all the features that PHP 5.3 has to offer.  I am unable to use it at work for a variety of reasons (not stable, required PHP 5.3 only, <a href="http://twitter.com/nateabele">Nate</a> is always picking on me via IM) but I am more interested in the ideas that are coming out of it.
+</p>
+
+<p>
+It is using all the newest hawtness in the PHP world:  namespaces, closures, Phar, late static binding.  I could go on, but probably most of these things mean nothing to you until you actually need them.  In the framework world, namespaces are a big deal, an essential tool to avoiding collisions with 3rd party code you might want to integrate into your project.  Closures are very familiar to those who've done work with Ruby or Javascript.  Phar allows for some unarchiving on the fly of code, even potentially distributing your application as an archive that can be run.  Late static binding is something I'm trying to comes to grips with, as I have either never come across a need for it or never realized that I did and have implemented a workaround for it not realizing there is a simpler solution.
+</p>
+
+<p>
+None of these are what I want to talk about.  I want to talk about something that I feel is a very underrated part of Lithium, the ability to define filters.  This is a concept that you find in <a href="http://en.wikipedia.org/wiki/Aspect-oriented_programming">Aspect-oriented programming</a>, and one that I imagine most programmers have never considered.  Here's why I think it's a big deal.
+</p>
+
+<p>
+Most frameworks are designed around an OOP paradigm.  Yes, some mix them together (I'm looking at *you* CodeIgniter), but by and large you get the job done by extending on a base model / controller / helper / whatever to create new functionality.  Sometimes this is not avoidable.  But what AOP says is that there is another way, a way that Lithium has adopted as well.
+</p>
+
+<p>
+Hence the creation of "filters".  As far as I can tell (and I'm sure I will be jumped upon if I am wrong) the purpose of filters in Lithium is to allow you to add functionality without extending the class itself.  When I saw that I immediately understood why that is so awesome.
+</p>
+
+<p>
+The idea of callbacks is also very similar:  if X happens, run code Y.  A staple of jQuery, Rails and probably other projects I have forgotten to mention.  The idea is still the same though.  In Garrett Woodworth's <a href="http://www.slideshare.net/gwoo/li3-ocphp">presentation about Lithium to the Orange County PHP Users Group</a> he goes  over some solid examples of filters including:
+<ul>
+<li>automatic use of the <a href="http://mirror.facebook.net/facebook/xhprof/doc.html">XHProf</a> for code profiling</li>
+<li>automatic setting of parameters upon saving a pasted bit of code</li>
+</ul>
+</p>
+
+<p>It's also been used to <a href="http://misja.posterous.com/playing-with-lithium">automatically change string record ID's into a MongoDB ID</a> and <a href="http://latestatic.com/integration-testing-or-how-i-learned-to-stop">graceful failing of an integration test suite when an error occurs</a>.
+</p>
+
+<p>
+These filters remind me of behaviors in Rails (and in CakePHP as well) and makes me wonder if signals are the same thing in the Django world.  All in all, this looks to me to be a better way to extend functionality than actually overriding existing methods or hacking at something deep inside a class.  Figure out what functionality you want, figure out where it needs to be called, and add your filter.
+</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2010/03/19/u-r-doin-it-wrong-adventures-with-flexible-forms-in-zend-framework/" title="\&quot;U R Doin It Wrong\&quot; - Adventures with flexible forms in Zend Framework"><span class="title">\&quot;U R Doin It Wrong\&quot; - Adventures with flexible forms in Zend Framework</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2010/03/12/rallyhat-lives/" title="Rallyhat lives!"><span class="title">Rallyhat lives!</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

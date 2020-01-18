@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Home &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta name="robots" content="noindex, follow">
+                <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2><a href="/2009/05/01/chris-brain-may-2009-edition/">Chris&#039; Brain - May 2009 Edition</a></h2>
+        </header>
+        <div>
+            <h2>Book Update</h2>
+
+<p>
+For those not following along on Twitter, the first month of sales of my <a href="https://littlehart.net/book">CakePHP book</a> have been a success:  70 PDF's and 5 print-on-demand copies via <a href="http://www.lulu.com/content/paperback-book/refactoring-legacy-applications-using-cakephp/6626981">Lulu.com</a>.  A big thanks to everyone who has purchased a copy.  My next thought has been a book about doing Test Driven Development using CakePHP, but perhaps that is just wishcasting.
+</p>
+
+<h2>Deployment Thoughts</h2>
+
+<p>
+At work I've been tweaking the deployment process for an <a href="http://www.sportsdb.org/sd/sportscaster">open source project</a> that talks to our infrastructure and came upon an interesting problem.  Like many projects, we have some configuration files that would be different from environment to environment (i.e. different database access credentials, paths to archived files) so we've chosen to instead create sample versions of those configuration files and include them in the  application when you either download it (as external clients of ours do) or update from SVN (like we do).  
+</p>
+
+<p>
+Since I like to use <a href="http://capify.org">Capistrano</a> to do deployment, I needed a way to make sure that the configuration files that are currently being used by the application get copied into the proper place.  Lucky for me, it was easy enough to add this in as a task in my Capfile:
+~~~
+  # Do nothing (To restart apache, run 'cap deploy:apache:restart')
+  task :restart do
+    run "cp /var/www/settings/sportscaster/gateway/php/config.php #{deploy_to}/current/gateway/php"
+    run "cp /var/www/settings/sportscaster/gateway/php_ci/config/gateway.config.php #{deploy_to}/current/gateway/php_ci/config"
+    run "cp /var/www/settings/sportscaster/engine/_application/config/database.php #{deploy_to}/current/engine/_application/config"
+    run "cp /var/www/settings/sportscaster/engine/_application/config/config.php #{deploy_to}/current/engine/_application/config"
+  end
+~~~
+As you can see, I've placed the configuration files in their own directory (off the web root I know, might make more sense to put them some place else but they can live there for now) and then simply copy them in place once I've deployed the latest code.  I'd be interested in seeing how other people handle this issue.
+</p>
+
+<h2>Getting paid to do open source work</h2>
+
+<p>
+I feel like I'm very fortunate to have an employer who (mostly for business reasons) has decided to make some of their projects open source so that others can use it without cost.  Sure, some of it is niche software to be sure (a web service that only works with our pay-to-use infrastructure) but still, d00d, I'm getting paid to write open source code!  We also have another project in the works, helping <a href="http://www.phpffl.com">these guys</a> create a newer, more generic version of their fantasy league management application that has hooks to allow users to pull in data from our own web services.  Sure, it's helping to drive our business but isn't that the point?  I create something that helps my company make money, and in exchange I get to share it with everyone else.  Sounds like a pretty good deal to me.
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2009/04/23/cakephp-application-rfc-follow-up/">CakePHP Application RFC Follow-Up</a></h2>
+        </header>
+        <div>
+            <p>Holy moley, has it been almost a year since I <a href="https://www.littlehart.net/atthekeyboard/2008/05/16/cakephp-application-deployment-rfc">blogged about a potential CakePHP deployment task</a>.  Since a few people have hit me up in Twitter and in the comments for that blog post, I thought I would share my progress on this task.  To be blunt, I decided it was a waste of time to do it.</p>
+
+<p>
+Why?  Well, there plenty of options out there to help you with application deployment already.  I talked about many of them in the talk I gave at PHPQuebec back in March.  In the end, there is no reason to NOT use an existing tool to handle this other than you cannot (or in some cases will not) use one of these tools.  I picked <a href="http://www.capify.org">Capistrano</a> because:
+<ul>
+<li>it is command-line based and therefore it's use could be easily automated in my development and production environments</li>
+<li>deployment instructions are written in code, not XML.  Sure it's Ruby but don't be like that and sneer at me.  I work with XML all day long and know when it's good to use it and when it's not good to use it.  In my opinion, using it as a configuration file to tell you where to deploy your stuff is a misuse of it.  Why not do it in JSON then?  Hrm, there's an idea what will rattle around in my brain for a while.</li>
+<li>it doesn't care what you are trying to deploy, which I think is such an understated feature of Capistrano that I tell it to EVERYONE who asks me about it.</li>
+</ul>
+</p>
+
+<p>
+Sure, being able to type 'cake deploy' would be nice for those people who are using Cake and have things setup completely according to the default configuration, but one little change and the whole thing might just blow up.  Capistrano and <a href="http://phing.info/trac/">Phing</a> are the two tools I would recommend to any PHP devs trying to work out automated deployment.
+</p>
+
+<p>Given the number of permutations that can be part of an install, I am not confident that 'cake deploy' would be up to the task.  When I think about all the stuff I have to deploy that is not just PHP code at work, I can't imagine making it all work in a CakePHP task.  That's not to say that someone smarter than me can't figure it out.
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2009/04/16/adventures-in-snake-handling-part-1/">Adventures In Snake Handling, Part 1</a></h2>
+        </header>
+        <div>
+            <p>Those of you who are loyal readers and follow my blog do know that I am starting to learn Python, with an angle towards making it the language that earns me my paycheque.  But that is a story for another day (and full of unrequited whining by me).  So, I've been doing some Python stuff here and there at work and since I had to update the schedule for my <a href="http://www.ibl.org">simulation baseball league</a> for the upcoming season, I figured that I should create a tool using Python.
+</p>
+
+<p>
+I did the following:
+<ul>
+<li>Decided to use <a href="http://www.sqlalchemy.org">SQLAlchemy</a> to talk to the database</li>
+<li>Learned a ton about manipulating <a href="http://docs.python.org/tutorial/datastructures.html#dictionaries">Python dictionaries</a></li>
+</ul>
+</p>
+
+<p>
+I figured I would create a dictionary for each week of the schedule containing each of the series for that particular week.  Python handles associative arrays a little differently than PHP does in terms of syntax, but the concept is still the same.  Once I had those dictionaries in place, I would then iterate through each one and save a record in the schedule database.  After a few stops and starts, I got to work properly.
+~~~
+from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey, create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+
+Base = declarative_base()
+
+class Schedule(Base):
+    __tablename__ = 'sched2009'
+    week = Column(Integer, primary_key=True)
+    home = Column(String, primary_key=True)
+    away = Column(String, primary_key=True)
+    status = Column(Integer)
+
+    def __init__(self, week, home, away, status):
+        self.week = week
+        self.home = home
+        self.away = away
+        self.status = status
+
+    def __repr__(self):
+        return "<schedule (%i, '%s', '%s', %i)>" %  (self.week, self.home, self.away, self.status)
+
+engine = create_engine('postgres://user:pass@localhost:3333/ibl_stats')
+Session = sessionmaker(bind=engine)
+session = Session()
+series = {}
+
+series[1] = {'05':'01', '08':'02', '07':'03', '06':'04', '09':'05', '12':'06', '11':'07', '10':'08', '01':'09', '04':'10', '03':'11', '02':'12'}
+series[2] = {'06':'01', '05':'02', '08':'03', '07':'04', '10':'05', '09':'06', '12':'07', '11':'08', '02':'09', '01':'10', '04':'11', '03':'12'}
+series[3] = {'07':'01', '06':'02', '05':'03', '08':'04', '11':'05', '10':'06', '09':'07', '12':'08', '03':'09', '02':'10', '01':'11', '04':'12'}
+series[4] = {'08':'01', '07':'02', '06':'03', '05':'04', '12':'05', '11':'06', '10':'07', '09':'08', '04':'09', '03':'10', '02':'11', '01':'12'}
+
+series[8] = {'08':'01', '05':'02', '06':'03', '07':'04', '12':'05', '09':'06', '10':'07', '11':'08', '04':'09', '01':'10', '02':'11', '03':'12'}
+series[9] = {'07':'01', '08':'02', '05':'03', '06':'04', '11':'05', '12':'06', '09':'07', '10':'08', '03':'09', '04':'10', '01':'11', '02':'12'}
+series[10] = {'06':'01', '07':'02', '08':'03', '05':'04', '10':'05', '11':'06', '12':'07', '09':'08', '02':'09', '03':'10', '04':'11', '01':'12'}
+series[11] = {'05':'01', '06':'02', '07':'03', '08':'04', '09':'05', '10':'06', '11':'07', '12':'08', '01':'09', '02':'10', '03':'11', '04':'12'}
+
+series[17] = {'09':'01', '12':'02', '11':'03', '10':'04', '01':'05', '04':'06', '03':'07', '02':'08', '05':'09', '08':'10', '07':'11', '06':'12'}
+series[18] = {'10':'01', '09':'02', '12':'03', '11':'04', '02':'05', '01':'06', '04':'07', '03':'08', '06':'09', '05':'10', '08':'11', '07':'12'}
+series[19] = {'11':'01', '10':'02', '09':'03', '12':'04', '03':'05', '02':'06', '01':'07', '04':'08', '07':'09', '06':'10', '05':'11', '08':'12'}
+series[20] = {'12':'01', '11':'02', '10':'03', '09':'04', '04':'05', '03':'06', '02':'07', '01':'08', '08':'09', '07':'10', '06':'11', '05':'12'}
+
+series[21] = {'12':'01', '09':'02', '10':'03', '11':'04', '04':'05', '01':'06', '02':'07', '03':'08', '07':'09', '06':'10', '05':'11', '08':'12'}
+series[22] = {'11':'01', '12':'02', '09':'03', '10':'04', '03':'05', '04':'06', '01':'07', '02':'08', '06':'09', '05':'10', '08':'11', '07':'12'}
+series[23] = {'10':'01', '11':'02', '12':'03', '09':'04', '02':'05', '03':'06', '04':'07', '01':'08', '05':'09', '08':'10', '07':'11', '06':'12'}
+series[24] = {'09':'01', '10':'02', '11':'03', '12':'04', '01':'05', '02':'06', '03':'07', '04':'08', '08':'09', '07':'10', '06':'11', '05':'12'}
+
+series[5] = {'04':'01', '01':'02', '02':'03', '03':'04', '08':'05', '05':'06', '06':'07', '07':'08', '12':'09', '09':'10', '10':'11', '11':'12'}
+series[6] = {'03':'01', '04':'02', '01':'03', '02':'04', '07':'05', '08':'06', '05':'07', '06':'08', '11':'09', '12':'10', '09':'11', '10':'12'}
+series[7] = {'02':'01', '03':'02', '04':'03', '01':'04', '06':'05', '07':'06', '08':'07', '05':'08', '10':'09', '11':'10', '12':'11', '09':'12'}
+
+series[14] = {'03':'01', '04':'02', '02':'03', '01':'04', '07':'05', '08':'06', '06':'07', '05':'08', '11':'09', '12':'10', '10':'11', '09':'12'}
+series[15] = {'02':'01', '01':'02', '04':'03', '03':'04', '06':'05', '05':'06', '08':'07', '07':'08', '10':'09', '09':'10', '12':'11', '11':'12'}
+series[16] = {'04':'01', '03':'02', '01':'03', '02':'04', '08':'05', '07':'06', '05':'07', '06':'08', '12':'09', '11':'10', '09':'11', '10':'12'}
+
+series[25] = {'02':'01', '01':'02', '04':'03', '03':'04', '06':'05', '05':'06', '08':'07', '07':'08', '10':'09', '09':'10', '12':'11', '11':'12'}
+series[26] = {'04':'01', '03':'02', '02':'03', '01':'04', '08':'05', '07':'06', '06':'07', '05':'08', '12':'09', '11':'10', '10':'11', '09':'12'}
+series[27] = {'03':'01', '04':'02', '01':'03', '02':'04', '07':'05', '08':'06', '05':'07', '06':'08', '11':'09', '12':'10', '09':'11', '10':'12'}
+
+for w, games in series.iteritems():
+    for a, h in games.iteritems():
+        for conf in 'n', 'a':
+            home_team = conf + h
+            away_team = conf + a
+            new_series = Schedule(week=w, home=home_team, away=away_team, status=0)
+            session.add(new_series)
+            session.commit()
+            print 'Added wk' + str(w) + ' ' + away_team + ' @ ' + home_team
+
+# Now, let's do the interleague games
+series = {}
+series[12] = {'a08':'n08', 'a04':'n04', 'n03':'a04', 'a02':'n02', 'a12':'n12', 'a11':'n11', 'n02':'a03', 'a01':'n01', 'n01':'a02', 'n05':'a06', 'a10':'n10', 'n10':'a11', 'n08':'a05', 'n12':'a09', 'a07':'n07', 'n04':'a01', 'n06':'a07', 'a05':'n05', 'n11':'a12', 'a06':'n06', 'a03':'n03', 'n09':'a10', 'a09':'n09', 'n07':'a08'}
+series[13] = {'a01':'n03', 'n02':'a01', 'a11':'n09', 'n09':'a12', 'a04':'n02', 'a07':'n05', 'n10':'a09', 'a10':'n12', 'a02':'n04', 'n05':'a08', 'n11':'a10', 'a05':'n07', 'a03':'n01', 'n04':'a03', 'n06':'a05', 'a08':'n06', 'a12':'n10', 'n08':'a07', 'n03':'a02', 'n01':'a04', 'a06':'n08', 'n12':'a11', 'a09':'n11', 'n07':'a06'}
+
+for w, games in series.iteritems():
+    for a, h in games.iteritems():
+        new_series = Schedule(week=w, home=h, away=a, status=0)
+        session.add(new_series)
+        session.commit()
+        print 'Added wk' + str(w) + ' ' + a + ' @ ' + h
+~~~
+</schedule></p>
+
+<p>
+The code looks straightforward, but my only concern is am I writing idiomatic Python code, or does it still look like "Python written by a PHP guy".  I'd appreciate any feedback from pythonistas.
+</p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/65">Newer Posts</a><br />
+        <a href="/page/67">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

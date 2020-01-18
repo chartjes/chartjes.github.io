@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Having Problems When Upgrading CakePHP? &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>Having Problems When Upgrading CakePHP? <small>post</small></h2>
+            <h3>November 15th, 2007</h3>
+        </header>
+        <div>
+            <p>
+People on the CakePHP mailing list often complain about not being able to get CakePHP configured properly, with CakePHP usually displaying all sorts of weird errors.  Telling people these errors is very helpful, because it shows us that the problem almost always is people not following the installation instructions as outlined in the manual.  Those instructions are there for a reason.  Anyway, I guess I'm one of the lucky ones who gets it to work properly almost every time, hell even working with non-standard web servers like nginx.  Anyway, the latest version of CakePHP 1.2.x.x as I write this has deprecated a lot of things in the configuration file...and people are simply ignoring the warning messages and complaining about why things don't work.
+</p>
+
+<p>
+Since I desire to not be as harsh as I have been in the past, here is some advice that I posted to the mailing list that I thought I would share:
+<blockquote>
+Perhaps I'm just lucky and Murphy is smiling down on me from above,
+but I am using the latest version of CakePHP via SVN *and* have my
+cake directory outside of app and I have NO problems getting my stuff
+to work.
+
+I followed all the notices that Cake threw when I updated the Cake
+core, changed the code that it mentioned and that was it.  Really.  In
+fact, here's my config file for everyone to see:
+
+http://bin.cakephp.org/view/1205137498
+
+I continue to be baffled by the problems people seem to be
+experiencing when my own configuration has been just fine.  I've found
+three things that help
+
+1) pay attention to the warning messages that CakePHP spits out as
+they usually point at the problem
+
+When I upgraded, I saw lots of warnings about deprecated functionality
+and suggestions on how to get rid of those problems.  Those error
+messages are there for a reason, ignore them at your own peril.  They
+tell you EXACTLY what to do.
+
+2) permissions for the tmp directory really do matter
+
+Use the firehose permission level if you're on some sort of UNIXy
+system:  chmod -R 777 $APP/tmp
+
+3) make sure you do your dev work with the debug level to 1 and save
+debug level 0 for your production apps.
+
+That little tip will mean you will never have to mess around with
+deleting and recreating your $APP/tmp directory.
+
+I hope this helps those who seem to be struggling to get their CakePHP
+configurations to work properly.  I did all the things above I
+mentioned and continue to have smooth sailing whenever I upgrade from
+SVN (which is usually every morning).
+</blockquote>
+</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2007/11/20/follow-up-to-a-hopefully-usefull-tutorial-for-using-cakephps-auth-component/" title="Follow-up to &quot;A Hopefully Usefull Tutorial For Using CakePHP&#039;s Auth Component&quot;"><span class="title">Follow-up to &quot;A Hopefully Usefull Tutorial For Using CakePHP&#039;s Auth Component&quot;</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2007/11/14/server-shakeout/" title="Server Shakeout"><span class="title">Server Shakeout</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Thoughts on testing APIs &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2>Thoughts on testing APIs <small>post</small></h2>
+        </header>
+        <div>
+            <p>I have been asked a few times on Twitter for some advice on how to use
+testing tools in order to test APIs. It just so happens that I am writing a
+bunch of tests for an API at work so perhaps this is a very timely blog post.
+Rather than show you exactly what I did (I'm using <a href="http://behat.org">Behat</a>)
+I wanted to discuss some common strategies I use when contemplating testing
+APIs.</p>
+
+<p>When you are testing an API you main concern is your ability to reproduce
+the results of a specific API call. If your API is such that repeating a
+call several times will give you different results, you do have some 
+challenges on your hands.</p>
+
+<p>Testing that an API just works is what I would call a functional test. At
+the highest level you are saying "will this call actually work". Since you
+will be actually making API calls in your tests they can take quite some
+time to run depending on how many you have. Long-running tests are the
+type of tests that really should be forming the last line of defense just
+before you're about to go into production.</p>
+
+<p>Why? Functional tests have a lot of moving parts: HTTP calls, request and
+response parsing, and likely communications with some sort of data store.
+Not exactly the types of things that lead you to having a test suite that
+can run in 10 seconds or less.</p>
+
+<p>In my opinion the only way to have really effective functional tests is
+by making sure that the API endpoints you are testing are using a known 
+data source, one that will not be altered by your tests. That
+way it will be easy to verify that a particular call had the expected
+response. Remember, at the most basic level testing is about repeatedly
+verifying that your code is returning an expected result.</p>
+
+<p>If you are testing someone else's API, I hope there is a test mode or a 
+sandbox that you can use. A lot of APIs are rate-limited or only allow a
+limited number of requests a day (I'm looking at you, Google Analytics). 
+The last thing you want is for your application to longer be able to access an
+API because you went nuts testing things. Remember, the goal of functional 
+tests in this scenario are to make sure that the API is returning results
+that you expect, nothing more.</p>
+
+<p>Integration tests of APIs are a bit of a tricky thing to do in an effective
+way. Sometimes 3rd party APIs change. Sometimes you are also lucky enough
+to be told ahead of time that it's happening. If your application relies
+heavily on 3rd party APIs then your integration tests are a key line of
+defense. While tests like these shouldn't be run as much as the unit
+tests for the API, they should be run before a production push. Nobody
+likes their application to be broken because of an unannounced change to
+an API.</p>
+
+<p>Finally, we have tests designed to make sure that your application is 
+correctly handling the results of API calls. To make these sorts of tests work, 
+you will end up either creating mock
+objects of the code that will do the calls or data fixtures representing 
+results of API calls. It is also for this reason I always recommend wrapping
+the calls to an API in code, just so you can mock them for testing purposes.
+Sure, it might be easier to cheat and do file&#95;get&#95;contents() on a URL but
+that approach is pretty difficult to test.</p>
+
+<p>Remember, these tests should not even be calling out to an API in order to
+work. Mocks and data fixtures are supposed to provide that data. All you
+are doing is testing the code that needs results from the API. Again, if
+you have been building your application with testability in mind your
+suite of unit tests should be blazing fast.</p>
+
+<p>In the end, it doesn't really matter what tools you are using to test either
+your own APIs or ones that your application depends on. Be clear in your
+mind about what it is you are actually trying to accomplish and don't get
+create tests that provide very little value to your application.</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/2012/02/26/simple-api-testing-with-behat/" title="Simple API testing using Behat"><span class="title">Simple API testing using Behat</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/2012/02/14/organizing-slim-framework-apps/" title="Organizing Slim Framework Applications"><span class="title">Organizing Slim Framework Applications</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+
+
+
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Why Code Generation Just Works, Damnit! &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>Why Code Generation Just Works, Damnit! <small>post</small></h2>
+            <h3>July 11th, 2007</h3>
+        </header>
+        <div>
+            <p>In a previous post <a href="https://www.littlehart.net/atthekeyboard/2007/06/22/whats-in-chris-brain-june-2007-edition/">where I rambled on about what I was thinking about</a> I briefly talked about bake, the wonderful tool that comes with <a href="http://cakephp.org">CakePHP</a>.  In the comments for that post I was asked by 'keymaster' to expand a bit on why bake is such a powerful tool.  In a nutshell: it creates a skeleton for EVERYTHING that you will need.</p>
+
+<p>
+At <a href="http://www.cakedevelopment.com">Cake Development Corporation</a> it's our secret weapon that allows us to build out a site faster than our competition.  With bake I can build the following:
+<ul>
+<li>If I've already created my database tables following CakePHP conventions, I can create models, along with all their associations (the belongsTo, hasMany, etc</li>
+<li>Create controllers, and even create not only the common <a href="http://en.wikipedia.org/wiki/Create%2C_read%2C_update_and_delete">CRUD</a> actions but create the admin-related actions as well</li>
+<li>Create views for the CRUD actions AND the admin-related ones too</li>
+</ul>
+</p>
+
+<p>That's 99% of the work taken care of for me!  Why *wouldn't* you want to use a tool like that?  Part of the reason people have been slow to come around to using it is because, well, there is no graphical interface for it.  It's all command line, and for those developers who work on Windows, using the command-line is often a daunting task.  It's not their fault, really.  Windows is a graphical environment after all.  For OS-X types like me, I just pop open a terminal and start baking.  I highly suggest people go and check out CakePHP's [YouTube channel](https://www.youtube.com/user/CakePHP) for screencasts about setting up the CakePHP console for both *NIX environments (including OS-X) and Windows.  By installing the console, you can access bake by simply typing 'cake bake' in the root directory of your app.</p>
+
+<p>
+Recent additions to bake like the ability to specify your own templates for views means that you can roll out a slightly-customized version of a site even faster.  There are enhancement requests in the CakePHP development queue to extend the abilities of bake to create components, helpers and plugins.  A great tool just keeps on getting better!  Now that I use bake as part of my regular work habits, I ask myself "how the hell did I ever create anything without it before?"
+</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2007/07/15/lazyweb-or-die-digging/" title="Lazyweb Or Die (Digging)"><span class="title">Lazyweb Or Die (Digging)</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2007/07/06/pretty-please-make-your-code-testable/" title="Pretty Please, Make Your Code Testable"><span class="title">Pretty Please, Make Your Code Testable</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

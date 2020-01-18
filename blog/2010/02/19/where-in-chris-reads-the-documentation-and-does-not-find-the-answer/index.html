@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Where In Chris Reads The Documentation...and Does Not Find The Answer &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>Where In Chris Reads The Documentation...and Does Not Find The Answer <small>post</small></h2>
+            <h3>February 19th, 2010</h3>
+        </header>
+        <div>
+            <p>If you follow me on Twitter you've seen me pissing and moaning about not being able to figure stuff out as I build out my first <a href="http://framework.zend.com">Zend Framework</a> project in a LONG time.  3 years to be exact.  I had two things that I wanted to add to the project:  (1) a new custom controller to base some other controllers off of and (2) create custom routes for it.  Sounds simple, right?
+</p>
+
+<p>
+I have stared into the belly of the beast that is the Zend Framework documentation and have discovered the following truth:  there always seems to be two ways to do something.  For someone just starting out learning a framework (never mind their actual level of experience with PHP itself) this is not a good thing.  For example, let's look at creating a new base controller to extend controllers off of.  Via twitter I found the following ways:
+<ul>
+<li>no, don't do that, use custom action helpers</li>
+<li>sure, just put it somewhere and use autoloading to find it</li>
+</ul>
+</p>
+
+<p>
+So I proceeded to start digging around and figure things out.  Hrm, an action helper is not what I need, so let's create that new base controller.  Oh, you mean you can have more than one way to lay out your project, even if you are using Zend_Application?  How come it's not finding the new controller even though I put it in a common place.  Why won't this work?!?  DAMNIT, I AM GOING TO QUIT PROGRAMMING AND RUN A DADDY DAY CARE OUT OF MY HOME.
+</p>
+
+<p>Fortunately the custom routing thing was easier to figure out.   Hey, here's an example of adding code to your bootstrap.  Oh wait, I'm using Zend_Application so things are different.  WTF, I am overriding my existing routes and everything is broken?!?  You can put this stuff in XML?!?!  But I am using the .ini format....  Nice, <a href="http://weierophinney.net/matthew/">MWOP</a> pointed me in the right direction.  Good thing he's on twitter.
+</p>
+
+<p>
+Look, I've talked about this before.  It's awesome to have lots of documentation.  The Zend Framework documentation is awesome...but seems to only have 80% of the solutions I was looking for.  Digging around using Google just seemed to point me at the same 80%-complete documentation.
+</p>
+
+<p>
+Writing documentation is a thankless task, so do not interpret my comments as a slam against those who are contributing.  I work best when I see FULL examples on how to do something, and then I can "extend and embrace" that to produce the customized solutions I always end up needing.  My complaints are solely my own, which is why I usually blog the solutions when I come up them.  I certainly cannot be the only one having problems sifting through the documentation.
+</p>
+
+<p>
+As someone who had invested a lot of time in another framework, I am painfully aware of how much you take for granted when using a familiar tool, and then try to help people solve a problem.  My own experiences have ranged from "you are most definitely doing it wrong" to "I've never done it that way, and I can see how that will work".
+</p>
+
+<p>
+Special thanks to @weierophinney, @elazar and @andriesss for their actual help and offers of help as I stumble around using Zend Framework.
+</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2010/03/01/people-who-make-me-feel-stupid-geoffrey-grosenbach/" title="People Who Make Me Feel Stupid: Geoffrey Grosenbach"><span class="title">People Who Make Me Feel Stupid: Geoffrey Grosenbach</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2010/02/04/sorting-relationship-results-in-doctrine-1-2-2/" title="Sorting Relationship Results In Doctrine 1.2"><span class="title">Sorting Relationship Results In Doctrine 1.2</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

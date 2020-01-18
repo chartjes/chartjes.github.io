@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Home &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta name="robots" content="noindex, follow">
+                <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2><a href="/2006/10/10/what-chris-is-thinking-about-2/">What Chris Is Thinking About</a></h2>
+        </header>
+        <div>
+            <p>I'm just back from a long weekend (Thanksgiving in Canada) and very tired after a weekend where my youngest was sick, and clingy, and not sleeping well.  Such is life.  So, instead of a tutorial I'll have to talk about what I'm thinking about.</p>
+
+<ul>
+<li>Have to give a quick demo tomorrow of the code I posted the other day to post things to a vBulletin thread.  The problem?  A lack of baseball-related info coming down the pipe from SportsTicker.  I'll figure something out.</li>
+<li>On the advice of my friend <a href="http://slash7.com">Amy</a> I'm going to investigate switching over the IBL site from using Typo to using Mephisto.  I'm having a hell of a time getting it installed though.  Not the best instructions available.</li>
+<li>Trying to figure out what to build my super-secret project with:  Rails?  CakePHP?  Roll my own?  Toture myself by following <a href="http://yarivsblog.com">this guy's work</a> and build the site in Erlang.   Tough to decide.</li>
+<li>Mourn the potential loss of my iBook to some weird hardware problem...it's in the hands of a MacGenius so we'll see what happens.</li>
+<li>Take my iPod in for repairs...for a second time...with the same problems as before...and appearing after the latest iTunes update...and I'm not alone in seeing problems.</li></ul>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2006/10/06/tutorial-how-to-create-a-thread-in-vbulletin-with-a-script/">Tutorial: How to create a thread in vBulletin with a script</a></h2>
+        </header>
+        <div>
+            <p>
+My day-job requires me to create code that will talk to <a href="http://www.vbulletin.com">vBulletin</a> web sites we run.  My latest task involves taking data that we get from <a href="http://www.pa-sportsticker.com/en/index.html">PA Sportsticker</a> and create posts in one of our forums.  Lucky for me, somebody smarter than me figured out how to do this.  It's very simple, and I've taken their work and modified it for our needs.
+<br />
+~~~
+<?php
+
+/**
+ * Script that posts info sent to it by the Sportsticker parser as a thread in a forum
+ * Based on code found in http://www.vbulletin.org/forum/showthread.php?t=97283&page=2
+ *
+ * @author Chris Hartjes
+ */
+
+require './global.php';
+require './includes/class_dm.php';
+require './includes/class_dm_threadpost.php';
+require './includes/functions_databuild.php';
+
+$threaddm = new vB_DataManager_Thread_FirstPost($vbulletin, ERRTYPE_STANDARD);
+$post_userid = 1; // Admin
+$userid = 1;
+$user_name = 'chartjes';
+$allow_smilie = '1';
+$visible = '1';
+
+if (isset($_POST['forum_id'])) $forum_id = (int)$_POST['forum_id'];
+if (isset($_POST['post_text'])) $post_text = (string)strip_tags($_POST['post_text']);
+if (isset($_POST['title'])) $title = (string)strip_tags($_POST['title']);
+
+$threaddm->do_set('forumid', $forum_id);
+$threaddm->do_set('postuserid', $post_userid);
+$threaddm->do_set('userid', $userid);
+$threaddm->do_set('username', $user_name);
+$threaddm->do_set('posttext', $post_text);
+$threaddm->do_set('title', $title);
+$threaddm->do_set('allowsmilie', $allow_smilie);
+$threaddm->do_set('visible', $visible);
+$threaddm->save();
+build_forum_counters($forum_id);
+
+?>
+~~~
+</p>
+
+<p>
+I did see some talk abot how using that do_set method is not recommended as it bypasses the data manager object vBulletin uses.  I tried using that datamanager by actually looking at the code that does posts, but couldn't get it to work.  I suspect part of the problem is that the data manager assumes you are logged in, while you can post without being logged in with the method above.  At least it sure looks that way.  More testing is obviously required but I think I'm on the right track.
+</p>
+
+<p>
+In a nutshell, the script that I wrote to parse the XML feed that Sportsticker provides will grab all the necessary info from the stream and then send that data to the above code via a POST request.  Nice and simple.  Hope this code sample helps.
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2006/10/04/its-dead-jim/">It&#039;s Dead, Jim</a></h2>
+        </header>
+        <div>
+            <p>
+(I appologize for the cheesy Star Trek quote above).
+</p>
+
+<p>
+My beloved iBook gave up the ghost on Sunday night, and is currently in good hands with a man I only know as MacGenius.  It's definitely hardware related as the hard-drive is okay and the diagnostics for the memory and other stuff turned up ok.  Maybe the hard-drive controller.  Anyway, my work very generously replaced my iBook for me with a new MacBook, and boy is it slick. ;)
+</p>
+
+<p>
+Anyhow, I'm busy rebuilding all the developer's tools I normally use (Ruby, PHP, MySQL, Postgres) so I can get back to actually Getting Things Done.  Once that is set, then I'll be monkeying around with some changes to Zend_Service_Audioscrobbler.
+</p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/138">Newer Posts</a><br />
+        <a href="/page/140">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

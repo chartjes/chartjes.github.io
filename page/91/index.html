@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Home &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta name="robots" content="noindex, follow">
+                <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2><a href="/2008/03/28/whats-in-chris-brain-march-2008-edition/">What&#039;s In Chris&#039; Brain: March 2008 Edition</a></h2>
+        </header>
+        <div>
+            <p>I've got a whole bunch of little things I want to talk about, as opposed to one big topic.  Here we go</p>
+
+<p>
+<ul>
+<li>You'll see a badge on the right side of my blog announcing that I'm speaking at <a href="http://openwebvancouver.ca">Open Web Vancounver 2008</a>.  If you can make your way up to Vancouver on April 14th and April 15th, please come up and support this conference.</li>
+<li>I got an email from someone on the CakePHP mailing list asking me about what sort of setup I have for running my apps.  I have a 256 MB slice <a href="http://www.slicehost.com">with slicehost</a>, and I have ZERO complaints about performance.  I'm running PHP 5.2.5 under fastcgi (I use nginx as my web server), with MySQL on there to power my blog.  In an earlier post I wrote how to create the rewrite rules for CakePHP to work with nginx, so search my archives for that.  I've got Python on there as well for my upcoming Django work, and soon Apache will be on there to act as my app server for Django.
+</li>
+<li>Wrote my first Python script for work:  it trolls through a bunch of gzipped XML documents, doing some search and replace.  75 lines of pure Python n00bness, built entirely with the help of "Dive Into Python" and google.  I'm sure it could be optimized by some more experienced Pythonistas, but it sure felt good to get the first one done and out of the way.</li>
+<li>I've decided to start using <a href="http://twitter.com">twitter</a> again, see how long that lasts</li>
+<li>The more I use it, the more powerful I realize jQuery is</li>
+<li>Some ruthless refactoring has caused my Code Igniter code to be a bit more CakePHP-like, in that I'm moving stuff into models and out of the controller wherever it makes sense.  That's a good practice no matter what framework you use</li>
+<li>As much info as there is out there for using Django (the Django project site, the Django book available online), it sure would be helpful to me to find some sort of Django guru who can help me out with some of the finer points of Django and Python itself.  I'm trying very hard to not write Python code like I was writing PHP, and I feel like some of the finer points are escaping me.</li>
+<li>I'm working on moving some old CakePHP code I have that runs on PHP 4 over to PHP 5, and having PHP 4 *and* PHP 5 running on the same server.  Should be an interesting experience</li>
+</ul></p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2008/03/25/building-rallyhat-first-steps/">Building Rallyhat: First Steps</a></h2>
+        </header>
+        <div>
+            <p>This will be the first in a series of posts chronicling my building out of Rallyhat, a site that people will use to plan sporting road trips, baseball first.  In this first installment I wanted talk a bit about the first steps I too to actually get this thing rolling.</p>
+
+<p>
+Now, I could easily build this site in CakePHP, so that's not really much of a challenge.  I already have <a href="http://www.ibl.org">one site that runs Cake</a> to keep me on top of things there, and future work-related projects are going to be CakePHP for me as well.  So, something else then?  I already did the Rails thing, and tore that down to build the CakePHP one.  I thought about using <a href="http://merbivore.com/">Merb</a>, and I'm going to attend a talk at <a href="http://openwebvancouver.ca">Open Web Vancouver</a> about Merb so I get a better idea about what it could do for me.  So that left just <a href="http://www.djangoproject.com">one choice</a>.
+</p>
+
+<p>
+C'mon, you're not really surprised are you?
+</p>
+
+<p>
+One of the things I really liked about Django is the admin app that you get for free.  I've already been using it to full some of my support tables for the application, but I wanted to talk about a neat little thing you can do here.  In Django, you define the names of the fields in your model in order for the ORM magic to work.  Here's a little sample:<br />
+~~~
+from django.db import models
+
+class Sport(models.Model):
+    name = models.CharField(max_length=30)
+    
+    class Admin:
+        pass
+
+~~~
+</p>
+
+<p>
+The Admin stuff is so that those models show up properly in the admin part of the application.  So, just like in CakePHP where you can use $this->Model->find('list') to get an array for use in your dropdowns for forms.  Django, does this a little differently.
+</p>
+
+<p>
+Being totally object oriented, if you drop into the Python interpreter and ask it to return a model to you, you'll get something like this, taken from the Django tutorials:
+~~~
+(chartjes@jackjack ~/Sites/rallyhat)
+>python manage.py shell
+Python 2.5.1 (r251:54863, Jan 17 2008, 19:35:17) 
+[GCC 4.0.1 (Apple Inc. build 5465)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from rallyhat.www.models import Sport
+>>> Sport.objects.all()
+[<sport : Sport object>]
+>>> 
+~~~
+<p>
+WTF?  What good is "Sport: Sport object" to us?  I want something more descriptive.  How about the name of the sport?  That's easy.  We can modify the Sport model and tell it that when we return the object, return the "name" field instead.
+</p>
+~~~
+class Sport(models.Model):
+    name = models.CharField(max_length=30)
+    
+    class Admin:
+        pass
+    
+    def __unicode__(self):
+        return self.name
+~~~
+</sport></p>
+
+<p>
+So, when I drop into the shell, I get the following:
+~~~
+(chartjes@jackjack ~/Sites/rallyhat)
+>python manage.py shell
+Python 2.5.1 (r251:54863, Jan 17 2008, 19:35:17) 
+[GCC 4.0.1 (Apple Inc. build 5465)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from rallyhat.www.models import Sport
+>>> Sport.objects.all()
+[<sport : MLB>]
+>>> 
+~~~
+</sport></p>
+
+<p>
+Same result, different way to get to it.        
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2008/03/21/im-a-editor-waffler-part-ii/">I&#039;m An Editor Waffler, Part II</a></h2>
+        </header>
+        <div>
+            <p>
+In a post earlier this week I had talked about the fact that I have turned into an "editor waffler", paralyzed with fear that I couldn't decide on what editor to use for my day-to-day use.   I had promised that by the end of the week I would reveal what editor I've decided on using.  But before I talk about that, I wanted to talk some more about my thoughts on why I can't decide.
+</p>
+
+<p>
+I had prepared a really long blog post to answer this question but I started rambling and I deleted it all.  It comes down to a fear of freedom.  That's right, a fear of freedom.  I have enlightened employers who don't care what tools I use as long as I get the job done.  I'm grateful for that, so I am constantly looking for tools that meet my requirements from project to project.  I think I've settled on the collection of tools that are working for me on a daily basis.  Thanks to Marc Grabanski for his <a href="http://marcgrabanski.com/article/107/Arsenal-of-Web-Development-Tools">Arsenal of Web Development Tools</a> post for reminding me that it's about tools that you don't fight with that help you get the job done.
+</p>
+
+<p>Here's my personal web development stack:
+<ul>
+<li><a href="http://macromates.com">TextMate</a> -- built in SVN integration, syntax highlighting for all sorts of common web langauges *and* I found a plugin that highlights what files in the file drawer are under version control</li>
+<li>Terminal -- still a CLI guy for a lot of tasks, especially for code generation</li>
+<li><a href="http://www.mozilla.com">Firefox</a> with <a href="http://www.getfirebug.com/">Firebug</a> -- if there was something as good for Safari I'd use it instead</li>
+<li><a href="http://cocoamysql.sourceforge.net/">CocoaMySQL</a> -- sometimes I use the CLI client, but CocoaMySQL is the tool I use most of the time for MySQL work.   I need to find one that I like as much for Postgres</li>
+<li><a href="http://macrabbit.com/cssedit/">CSSEdit</a> -- I was so impressed at how it helped this CSS and layout n00b fix a problem, I paid for a copy</li>
+</ul>
+</p>
+
+<p>
+Those 5 tools are the ones I find myself using consistently, day-in and day-out.  But that's not to say I don't use other things as well.  I use <a href="http://www.vim.org">vim</a> for quick editing of system-level files and for editing on various remote servers.  I do use <a href="http://www.activestate.com/Products/komodo_ide/index.mhtml">Komodo</a> when I really need to do some deep debugging, like I had to do a few weeks ago to try and figure out why an upgrade to the latest version of Code Igniter was failing for a work project (they broke their Active Record implementation  when dealing with Postgres for whatever reason, please prove me wrong if that's not true) and it helped me narrow down the problem a lot faster.
+</p>
+
+<p>
+By being an "editor waffler" I have learned enough about a variety of tools that I feel like they are all part of my toolkit.  It's like having a large number of tools and making sure that you use the right one for the job.  Okay, enough angst from for now on my choice of editors.
+</p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/90">Newer Posts</a><br />
+        <a href="/page/92">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

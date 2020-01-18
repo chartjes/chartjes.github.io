@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Communication Tools for Teams &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>Communication Tools for Teams <small>post</small></h2>
+            <h3>January 13th, 2009</h3>
+        </header>
+        <div>
+            <p>Being one of the lucky few who telecommutes full time.  You can drag my cold, lifeless body into an offirce, thanks very much.  So, the big issue that you face when telecommuting is how to talk to all your fellow co-workers.  Where I work, we use our own IRC server to not only talk to each other (we're spread across three time zones) but as front-line support for our customers as well.  This actually works out quite well, so I've been thinking about what other tools are helpful for this.</p>
+
+<p>
+In terms of just talking amongst yourselves, it seems that <a href="http://www.campfirenow.com">Campfire</a> has a lot to offer.  In fact, I would consider using it at work if we weren't running our own IRC server.  Via <a href="http://gilesbowkett.blogspot.com/">Giles Bowkett</a> I found out about <a href="http://propaneapp.com/">Propane</a>, a desktop client for connecting to Campfire.  Really cool stuff, and it makes me wonder what other options are out there.
+</p>
+
+<p>
+An oft-neglected category of communication tools is messages about what has been worked on by the developers.  Me, I can't stand having someone coming around all the time asking me when I've finished what I'm working on.  As a result I decided to be proactive and configured post-commit hooks for our company SVN repositories.  So now any of us who do coding work commits something, we all get a nice email about it.  Since I've done that, we've been a lot more proactive about testing things because, well, you can no longer hide when you've made a change. ;)
+</p>
+
+<p>
+As for bug and ticket tracking, well, we've got a homebrewed system (created before I got there) that I don't really like.  However, it is not going away so if I want to make any changes I will have to make them myself.  First thing I was thinking about was adding something to the post-commit hooks that will add a comment to the thread for particular ticket indicating you checked in some code that dealt with the ticket.  A common feature in things like trac I'm sure, but one I'd like to see in our own system.
+</p>
+
+<p>
+Let me know in the comments what type of tools you use at your company.
+</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2009/01/16/preview-of-refactoring-legacy-applications-using-cakephp/" title="Preview of &quot;Refactoring Legacy Applications using CakePHP&quot;"><span class="title">Preview of &quot;Refactoring Legacy Applications using CakePHP&quot;</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2009/01/04/cakephp-mythbusters/" title="CakePHP Mythbusters!"><span class="title">CakePHP Mythbusters!</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

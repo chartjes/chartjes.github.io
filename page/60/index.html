@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Home &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta name="robots" content="noindex, follow">
+                <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2><a href="/2009/09/14/open-source-is-really-about-documentation/">Open Source Is Really About Documentation - Twisted vs. Tornado</a></h2>
+        </header>
+        <div>
+            <p>I think I can give you an executive summary of this blog post:  if the documentation for an open source project sucks, nobody but the most hardcore developers will use it.</p>
+
+<p>
+What has prompted this incredibly brilliant stating-of-the-obvious?  The reaction by those in the <a href="http://twistedmatrix.com/trac/">Twisted</a> community over Facebook's pre-emptive strike in the non-blocking Python-based web server space by open sourcing a framework they are using internally called <a href="http://www.tornadoweb.org">Tornado</a>.  Why are the Twisted folks getting all twisted (look how funny I am!) up about this?  Like any good Open Source project for people who are interested in Getting Things Done, Tornado is dissing Twisted by basically saying "yeah, we thought about using Twisted but it wasn't easy enough for us to use and we think it sucks".  I'm pretty sure I'm paraphrasing here, but you get the idea.
+</p>
+
+<p>
+Now, I have looked at Twisted and have come to the following conclusions:
+<ul>
+<li>It looks awesome</li>
+<li>It is built for people who are supposed to understand what they are doing</li>
+<li>The documentation sucks</li>
+<li>The examples on how to build anything of any significance are, to this developer, non-existant and/or difficult to find without shelling out for a possibly very-outdated book</li>
+</ul>
+Contrast this with Tornado.  I've looked at Tornado and have come to the following conclusions:
+<ul>
+<li>It looks awesome</li>
+<li>It is built for people who are supposed to understand what they are doing</li>
+<li>The documentation is inside the comments on the code which sucks only if you're not into reading the code</li>
+<li>It includes a sample application so you can see something other than Hello World</li>
+</ul>
+</p>
+
+<p>
+Am I biased towards Tornado?  You bet.  Why?  Because as hard as I tried, I could not find USEFUL documentation on how to build things using Twisted.  Maybe I didn't use the right search terms.  Maybe I didn't dig down enough links deep on the Twisted site.  Maybe I didn't fully understand the terminology or architecture of Twisted and how they different components speak to each other.
+</p>
+
+<p>
+I'll tell you this though:  I am not having any such problems with Tornado.  This is coming across as a criticism aimed towards Twisted, and I suppose that's fair.  I've noticed complaints from the Twisted community which really amount to whining.  I understand that attitude totally.  I've been there, when faced with competition that just might be doing a better job then I am doing.  But complaining that Facebook should've simply fixed up Twisted instead of writing their own is not productive.  Productive is understanding that Facebook looking at Twisted and said "this is not for us because *we* don't find it easy enough to use" is a sign that something serious is wrong with Twisted's documentation.   You could have the most awesome non-blocking web server available, but if people with who WANT to use it can't figure out HOW to use it, well, what can you say to that?  Only the most dedicated open source contributors would've done that.  Most will say "meh, I want to do this myself so I understand it" and then Twisted will die an obscure death while Tornado plunges forward gaining mindshare amongst people interested in the type of applications you can build with this technology.  In my opinion, it's all because of the lack of clear, freely available documentation for Twisted.
+</p>
+
+<p>
+If there is an online source BETTER than the Twisted site, please share the link love in the comments so I can try and do a better comparison of the two at a documentation level.  For someone like me, who is new to Python but old to the idea of web frameworks, I think that would be the fairest comparison.
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2009/09/10/lazyweb-help-busting-out-of-frames/">Lazyweb Help: Busting out of frames</a></h2>
+        </header>
+        <div>
+            <p>Normally I don't ask for time-sensitive help on my blog, but since my readers are such gracious bunch I thought I could count on them to help me out.</p>
+
+<p>
+I have a <a href='http://www.agatedepot.com'>site for work</a> that uses frames.  Oh yeah, it's <a href='http://www.cakephp.org'>CakePHP</a> application.  Frames are not my favourite thing in the world, but they are part of this particular site.  Now here is my problem:
+<ol>
+<li>Users must be authenticated to use the site, and when they log in from the front page a bunch of frames are loaded.  Then they can click around doing stuff.</li>
+<li>When their session times out, meaning they need to get logged back in, I need for the frames to disappear and send them back to front page of the site.</li>
+</ol>
+</p>
+
+<p>
+So far, I have not been able to figure out how to do this.  I've been told by reliable sources on Twitter that I probably need some Javascript code that does something like this:
+
+~~~
+<script type="text/javascript"> 
+if (top !== self) top.location.replace(self.location.href); 
+</script>
+~~~
+
+but I cannot determine *where* to put that code.  Please help this frames n00b figure it out!
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2009/09/04/whats-in-chris-brain-september-2009-edition/">What&#039;s In Chris&#039; Brain - September 2009 Edition</a></h2>
+        </header>
+        <div>
+            <p>I've been feeling a little blogged-out lately, as work is ramping up on a project with some critical milestones to be met, and the stress of getting my basement lair all renovated for occupation after Labour Day.  But the mind never stops working.  Here's two big things that have been occupying my thoughts:
+</p>
+
+<p>
+<h3>The arrival of PHP 5.3 and it's impact on frameworks</h3>
+</p>
+
+<p>
+When I upgraded my MacBook to Snow Leopard I noticed that it comes with PHP 5.3 as part of the standard install.  After I got finished fixing my <a href="http://www.macports.org">MacPorts</a> install that I somehow butchered while following two different sets of instructions (way to go Chris), I was not at all surprised to find out that the <a href="http://codeigniter.com">framework I shall not say out loud</a> did not like running with PHP 5.3.  Tons of deprecation warnings abounded, and I had lost my enthusiasm for figuring out how to make them go away.  If anyone cares to tell me, feel free to add it to the comments as I would prefer to run 5.3 on my laptop.</p>
+
+<p>
+As far as I can tell, <a href="http://framework.zend.com">Zend Framework</a> is the only framework that is claiming <a href="http://www.zend.com/en/company/news/Press/zend-framework-features-php-readiness-and-new-professional-components">that it will run just fine in PHP 5.3.</a>.  Although I cut my teeth so-to-speak with <a href="http://www.cakephp.org">another framework</a> that has been good to me (hey, <a href="https://www.littlehart.net/book">buy my book to see why</a>, I cannot but remain impressed that a production-ready framework is ready to go with PHP 5.3.
+</p>
+
+<h3>Finally figuring out Design Patterns and how they relate to refactoring</h3>
+
+<p>
+In <a href="http://www.codersatwork.com">Coders At Work</a> Brandon Eich talks about how Peter Norvig once said (I'm paraphrasing here) "a design pattern shows a flaw in your programming language".  As I'm expanding functionality for <a href="http://www.sportso.com">a project at work</a>, I am starting to wonder if it's maybe time I really looked at them closely.  I see myself doing certain things in my code and wondering if there is an easier way to do them.  You know, the same sort of if-the-else comparisons, having to do the same thing but slightly differently inside a method.  Some of these are <a href="http://en.wikipedia.org/wiki/Code_smell">code smells</a>, but I am wondering about what's the best way to approach refactoring them.
+</p>
+
+<p>
+Of course, you always have to consider the environment in which your code lives.  Since I'm using a framework, there are rules I have to follow.  Most of the time, these rules are okay.  Other times I find myself fighting against them a tiny bit, which shows that maybe I need to go and buy the <a href="http://www.amazon.com/Refactoring-Improving-Design-Existing-Code/dp/0201485672/ref=sr_1_1?ie=UTF8&s=books&qid=1252100204&sr=8-1">seminal classic on refactoring</a> and read it.  Maybe one of my generous readers would send me a copy?
+</p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/59">Newer Posts</a><br />
+        <a href="/page/61">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

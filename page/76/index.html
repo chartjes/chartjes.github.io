@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Home &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta name="robots" content="noindex, follow">
+                <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2><a href="/2008/11/19/come-heckle-me-at-the-2009-php-quebec-conference/">Come Heckle Me At The 2009 PHP Quebec Conference!</a></h2>
+        </header>
+        <div>
+            <p>
+I just got word that my proposal to give a version of my "Deployment Is Not A 4-Letter Word" talk has been accepted for <a href="http://conf.phpquebec.com">2009 PHP Quebec Conference</a>.  It's actually within driving distance for me (5 hours) or maybe I can chill and take the train.  Either way, I'll be there from March 4 to March 6, 2009.
+</p>
+
+<p>
+It looks like a pretty great conference lineup, so I suggest you check it out and consider coming to Montreal in March.  It's a great city and I've always enjoyed myself every time I've gone.  It will also be nice to see some people I've met before and always more fun to make new friends.
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2008/11/17/making-mistakes-so-you-dont-have-to-development-tools/">Making Mistakes So You Don&#039;t Have To:  Development Tools</a></h2>
+        </header>
+        <div>
+            <p>I've been thinking about topics for conference talk submissions a lot lately (I have a serious case of conference envy the last little while), which usually gets my dev juices going and trying to make a better dev environment for myself.  I've started using a few newer techniques so forgive me if some of these seem old to you, dear reader.
+</p>
+
+<p>
+<h3>MySQL over an SSH tunnel</h3>
+</p>
+
+<p>
+I certainly can't be the only person who has to do development (or refactoring) work involving databases that have GB of data in them.  It's not even remotely practical to copy it over to my laptop, and taking a snapshot is pretty much impossible given the relationships between the tables.  It would be 3 times the work to create a tool to give me a snapshot that includes all the proper related records.  How do people handle that anyway?</p>
+
+<p>
+So I discovered via <a href="http://lazyweb.ca">my favourite pair-program-via-IM partner</a> the technique of tunnelling to MySQL over SSH.  It couldn't be easier:
+<pre>
+ssh -fNg -L3310:127.0.0.1:3306 user@server.domain.ext
+mysql -h127.0.0.1 -P 3310 -u user -p database
+</pre>
+<br />
+You can use whatever port you want at your end, but the key here is telling SSH that you want to map port 3306 on the remote server to a specific port at your own end.  
+</p>
+
+<p>
+The only downside I've seen is that when I was pounding on a remote server with a very involved query that the remote server started writing MySQL tmp files to disk.  Files so large that they started to trigger our <a href="http://www.nagios.org/">Nagios</a> monitoring process that look at free drive space.  Maybe I shouldn't do that on a production server.  Heh.
+</p>
+
+<h3>Use an editor that supports remote debugging in PHP</h3>
+
+<p>
+I took a Twitter poll and asked how many people actually use debugging tools like <a href="http://xdebug.org">xDebug</a> and was surprised by how many don't.  I have used them off an on (more on these days) and now that I'm using <a href="http://www.vim.org">vim</a> I have also started <a href="http://2bits.com/articles/using-vim-and-xdebug-dbgp-for-debugging-drupal-or-any-php-application.html">debugging stuff inside of vim</a>.  Is there *nothing* you cannot bend and twist vim to do for you?
+</p>
+
+<p>
+This just further reinforces my recommendation that whatever editor you do decide to use every day, learn it inside and out.  Right now I'm trying to break myself of the habit of using the arrow keys to move around in vim, instead relying on the hjkl home row keys to do so.  Debuggers are so common in other languages (Ruby and Python have an awesome interactive console to act as a debugger for you) there is no reason except for, I dunno, laziness and an unwillingness to learn how to add an extension to your PHP install, to not at least try using xdebug.
+</p>
+
+<h3>Don't procrastinate, read the documentation</h3>
+
+<p>
+A side project I've been working on has some of the tightest production-level PHP code I've ever written in it.  Why?  Because I took the time to dig into the documentation of the newer features in Cake to see how they apply to the work I'm doing.  Containable behavior that is now part of the core.  Johnathan Snook's <a href="http://snook.ca/archives/cakephp/multiple_validatable_behavior/">Multiple Validation behavior</a>.  Fat models and skinny controllers.  Reusable elements in your pages.  Pestering Nate and Garrett via IM to confirm my suspicions on how to tackle certain problems "the Cake way".  It's amazing what happens when you stop to think about all the techniques you've learned and then figure out the best way to weld them all together to solve a problem.
+</p>
+
+<p>
+Again, I've said this before and will continue to say it:  making the effort to fully understand the tools you are using (that includes editor AND programming environment) can only make you better.
+</p>
+
+<h3>If the documentation is bad, don't even bother using it</h3>
+
+<p>My IM pair-programming partner once said to me "Chris, if the documentation is shit then don't even think about using it."  Lately I've seen the wisdom in that.  If the documentation is lacking, just forget about using that tool.  Of course, if you *do* have the skills to dive right into it and figure out what's going on then this technique probably doesn't apply to you.
+</p>
+
+<h3>Learn your version control system, or else have it decide your fate for you.</h3>
+
+<p>
+There is incredibly well-written documentation for what I call the Big Three (CVS, SVN and Git) open source version control systems.  For the love of Wotan, go and learn the one you are using beyond how to commit a change.  And if you AREN'T using a version control system (no, renaming files to index.php.old.frank is NOT version control) then you should stop calling yourself a programmer.  Seriously.</p>
+
+<h3>Peer code reviews are good, not bad</h3>
+
+<p>
+Even if it consists of taking 15 minutes to talk with your boss who wrote stuff and says "but I'm not really a programmer" so he understands the changes (for the better that you are making, it pays off huge in the end.  Especially when you know they will be going back in to tweak things as they play with the code you wrote.
+</p>
+
+<p>
+That's all I can think of for the moment.  What programming techniques or tools have you come across that have made your work go faster or help you produce better code?  Let me know in the comments.</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2008/11/05/whats-in-chris-brain-november-2008-issue/">What&#039;s In Chris&#039; Brain: November 2008 Issue</a></h2>
+        </header>
+        <div>
+            <p>My apologies for the slowdown in posting.  I have a Side Project For Money That Will Not Die and it is occupying almost all my spare time outside of work and family commitments.  In the aftermath of the most historic election ever in the United States of America, here is what I've been thinking about:
+</p>
+
+<p>
+<ul>
+<li><a href="http://www.activestate.com/Products/komodo_ide/latest_release.mhtml">Komodo 5 is out</a>.  If you've been looking for an IDE that lets you work with multiple languages, do not waste any more time looking.  Go and check it out.  (Disclaimer: I am in Activestate's good books and received a free upgrade to Komodo 5).  I have been playing with it (currently I use a <a href="http://www.vim.org">different IDE</a> because I am a masochist) but I do use it when I need to break out a debugger for some nasty code.  It was weird using Komodo and finding my fingers trying to type all the keystrokes that vim uses</li>
+<li>The Side Project For Money That Will Not Die has really pushed my coding skills forwards by reinforcing the notion to embrace the conventions of the framework your application has been built with.  Nothing sharpens the skills up like taking old code and figuring out how to duplicate the functionality under the constraints of a different system.  While it is an exercise in coding masochism, I highly recommend everyone doing it at least once.</li>
+<li><a href="http://gilesbowkett.blogspot.com/">Giles Bowkett</a> is a guy you should pay attention to.  Sure, he's a Ruby guy but he's *very* different from the rest of the Ruby community.  Follow his blog and follow him on Twitter too.</li>
+<li>Returning to IDE's  for a second, if you do settle on an editor for your day-to-day use (Komodo, stop poking me in the ribs!  Vim is laughing at me now) please, PLEASE, learn what you need to learn to master it.  Otherwise you end up like me:  typing :V, scrolling down and typing Y in Komodo, then wondering why nothing got copied.  Yes, I know there are vim keybindings for it but muscle memory is a very nasty thing.</li>
+<li>It's all over but the shouting:  \ has been chosen as the new separator / indicator for namespaces in PHP 5.3+.  My own opinion on this doesn't really matter, I'm just glad that they have decided.</li>
+<li>Something I saw a few weeks ago in a screencast of a talk that <a href="http://blog.obiefernandez.com/">Obie Fernandez</a> gave about the proper way to about being a consultant has totally stuck with me:  do exceptional work.  Three simple words that a lot of people should pay attention to no matter the environment they happen to be working in.  Of course, easier said than done.
+</li>
+<li>Selenium + PHPUnit + CodeIgniter is helpful, but really, really slow.</li>
+<li>PHPUnit + CodeIgniter is good because I am tired of fixing bugs that would've been caught if I had written tests.</li>
+</ul>
+</p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/75">Newer Posts</a><br />
+        <a href="/page/77">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

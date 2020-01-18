@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Home &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta name="robots" content="noindex, follow">
+                <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2><a href="/2009/03/21/countdown-to-refactoring-legacy-applications-using-cakephp/">Countdown to &quot;Refactoring Legacy Applications Using CakePHP&quot;</a></h2>
+        </header>
+        <div>
+            <p>
+April 1st is the date when my book will FINALLY be available.  $10 for the PDF, $20 for a print-on-demand copy via Lulu.  Go to the <a href="https://www.littlehart.net/book">website for the book</a> for more information and how to be notified when the book is ready.
+</p>
+
+<p>
+I'm excited to see this project finally see the light of day and I hope it helps other people learn what a great tool CakePHP really is to get real-world work done.
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2009/03/13/got-that-olde-thyme-tdd-religion/">Got That Olde Thyme TDD Religion</a></h2>
+        </header>
+        <div>
+            <p>
+This week has been kicking my ass in terms of work.  I've started a project at work which is a bit of a rush job (my boss forgot I was at PHP Quebec last week when taking into account the schedule) and I decided that there was no time like the present to start doing things right and start practicing Test Driven Development, or Behaviour Driven Development.
+</p>
+
+<p>
+See, this is much harder to do if you inherit some legacy code.  Also, as I've discovered, Code Igniter is making it difficult to actually write some useful unit tests.  The built-in testing tools are terrible (this is not the first time nor the last time I've said this) so I am unsure how to approach this.  Let me know in the comments of tools you've used to help with this in the PHP world.
+</p>
+
+<p>
+This new app I'm building using CakePHP, because (a) I'm more familiar with is given the time constraints for the project and (b) it allows me the granular caching that I want.  I did consider using Zend Framework for this but time was the enemy.  CakePHP is a project that has a culture of testing, and I've been using Cake's <a href="http://debuggable.com/posts/running-tests-from-the-commandline-in-cakephp:4821f908-da38-4987-909a-25c74834cda3">CLI test runner</a>.  Yes, I know that Zend Framework has the testing culture too, as I remember all the fun I had writing tests for Zend_Service_Audioscrobbler.  If you take one thing from this blog post, it's this:  DO NOT USE A FRAMEWORK WITHOUT A CULTURE OF TESTING.  You will regret it when you are spending tons of time fixing bugs you should've found through unit and functional testing.
+</p>
+
+<p>
+In my first week of doing TDD I've noticed a subtle change.  I'm planning things more.  Deciding the output of functions before I actually write them.  I'm only creating the functionality I need instead of stubbing out all the functionality I think I'm going to need.  I'm looking for ways to run my tests from inside the One True Editor.  All of this must be good, right?
+</p>
+
+<p>
+PHP does not have a culture of testing at it's core like Ruby and Python do.  I point you at <a href="http://gilesbowkett.blogspot.com/">Giles Bowkett</a> and some of the awesome blog posts he's done about TDD and Ruby.   Search that blog and READ THOSE POSTS.  You will not regret it.Python has the same culture of testing (<a href="http://docs.python.org/library/doctest.html">doctest</a> is one tool for that), and I don't know how PHP can get there.  Maybe it will never get there because I hazard a guess that most people who use PHP couldn't give two flying fucks about writing tests.  Until that changes (meaning all the cool kids of PHP start writing tests) then TDD will continue to simply result in blank stares in the PHP community.
+</p>
+
+<p>
+So I think what TDD is really supposed to do is NOT find bugs.  Finding bugs is a side-effect of the process.  What it does (at least it did for me) is force you to build you code in such a way that it can be modular and testable.  I found myself adding in switches to put functionality into test mode, so that I could load test fixtures instead of hitting a webservice to get my data.  You tell me:  is that good or bad?
+</p>
+
+<p>
+Now I know I haven't been doing TDD long enough to call myself an expert, but I feel I really need to give it the time and effort that it deserves.  This project is the perfect (pardon the pun) testing ground for putting some TDD principles into practice.</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2009/03/07/slides-from-php-quebec-2009-talk/">Slides from PHP Quebec 2009 talk</a></h2>
+        </header>
+        <div>
+            <p>I swear, every time I give this talk I do it faster.  This time it took me 40 minutes, when I had 75 minutes in total to talk.  Here's the link to download it: <a href="http://chartjes-slides.s3.amazonaws.com/PHP Quebec 2009 - Deployment talk.pdf" class="s3-link">"Deployment Is Not A 4 Letter Word"</a></p>
+
+<p>
+Overall I had a great time at the conference and definitely want to go back next year.  Here's my thoughts on the presentations I saw:
+<ul>
+<li>"Practical Zend Framework Jutsu with Dojo" -- Matthew did a good job in a short time of showing how much work they've done trying to integrate that toolkit with Zend Framework.  There's just so much that's part of it you can't cover it in an hour.</li>
+<li>"Building RIA Application in PHP" -- I can sum it up as this:  developing in Flex is hard and not for the faint of heart.  The PHP stuff is easy though.</li>
+<li>"Of Lambda Functions, Closures and Traits" -- those new functions are cool but it would've helped if there were some examples of when traits are a good idea</li>
+<li>"Stupid Browser Tricks" -- Firebug is becoming an essential tool for debugging Ajax-powered applications, and Selenium is an underused testingtool</li><li>
+</li><li>"Deployment Is Not A 4 Letter Word" - my own talk was well received, got great feedback from the audience:  "Very knowledgeable.  Dynamic speaker.  Funny".  Presentation skillz FTW!</li>
+<li>"Beyond the Browser" -- while I don't agree that we're at the end of the road for the browser, the concept of making sure your site is powered by an API usable by others is one to embrace</li>
+<li>"VIM for (PHP) Programmers" -- it's always good to learn at the feet of a master like Andrei</li>
+<li>"Building applications with Yahoo! Pipes" - Pipes sure looks good but the presenter needs to brush up on his technique to get more people interested</li>
+<li>"K.I.S.S. (Keep It Simple, Stupid)" -- common sense PHP stuff never gets boring to me, really</li>
+<li>"Andrei's Regex Clinic" -- my regex fu is weak and those slides are an awesome collection of tips</li>
+<li>"Framework Comparison" -- man, no sparks or arguing at all between those three guys.</li>
+</ul>
+</p>
+
+<p>Thanks to all those I hung out with at the conference for showing me a good time.</p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/67">Newer Posts</a><br />
+        <a href="/page/69">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

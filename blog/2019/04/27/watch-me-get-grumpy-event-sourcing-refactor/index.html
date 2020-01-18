@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Watch me get grumpy - event sourcing refactor &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>Watch me get grumpy - event sourcing refactor <small>post</small></h2>
+            <h3>April 27th, 2019</h3>
+        </header>
+        <div>
+            <p>As I continue to build out <a href="https://opencfpcentral.com">OpenCFP Central</a> I
+wanted to share with you some of the work I have been doing to move it from
+your typical <a href="https://en.wikipedia.org/wiki/Create,_read,_update_and_delete">CRUD</a>
+structure to something a little more robust -- <a href="https://www.martinfowler.com/bliki/CQRS.html">CQRS</a>
+and <a href="https://www.martinfowler.com/eaaDev/EventSourcing.html">event sourcing</a>.</p>
+
+<p>So at the time I wrote this, I had two problems I needed to solve:</p>
+
+<ul>
+<li>how to refactor existing code for talk creation to support CQRS+ES</li>
+<li>how to go back and create events for data that already exists</li>
+</ul>
+
+<p>Solving the first problem appears straightforward. This is a <a href="https://laravel.com/docs/5.8">Laravel 5.8</a>
+application, so I spent time looking at some different packages that I thought
+could help me implement the core features that I needed for event sourcing
+quickly. My first research lead me to two solutions tailored towards PHP:</p>
+
+<ul>
+<li><a href="http://getprooph.org/">Prooph</a></li>
+<li><a href="https://eventsauce.io/docs/">EventSauce</a></li>
+</ul>
+
+<p>The problem I quickly ran into was there was some friction in using
+these packages with Laravel. They both are very powerful, but you will
+end up spending a lot of time writing the wiring and/or glue yourself.
+That was time that I felt I did not have. After all OpenCFP Central
+is a project I can only really devote 1-2 days a week on. I needed
+some help to implement the basic concepts and let me build stuff
+quickly.</p>
+
+<p>Like with a lot of problems I try and solve over the years, sometimes
+if you wait long enough someone else will create the solution for you!</p>
+
+<p>I discovered that <a href="https://twitter.com/freekmurze">Freek Murze</a> had been
+tweeting about <a href="https://docs.spatie.be/laravel-event-projector/v2/introduction">Laravel Event Projector</a>.
+This turned out to be exactly what I needed to get started.</p>
+
+<p>So, I need to go backwards and first figure out how do I take the
+existing data we have and create events from it. The work I needed
+to do will be used when I go and refactor the existing user registration
+code to support the new event sourcing.</p>
+
+<p>What do I need to start?</p>
+
+<ul>
+<li>An <a href="https://docs.spatie.be/laravel-event-projector/v2/getting-familiar-with-event-sourcing/using-aggregates-to-make-decisions-based-on-the-past">aggregate</a> that represents a talk</li>
+<li>An event that needs to be triggered to create our talk aggregate</li>
+<li>A script that reads in the existing data and creates those events.</li>
+</ul>
+
+<p>The aggregate looks like this:</p>
+
+<pre><code class="php">declare(strict_types=1);
+
+namespace App\Domain\User;
+
+use App\Domain\User\Events\UserCreated;
+use Spatie\EventProjector\AggregateRoot;
+
+final class UserAggregateRoot extends AggregateRoot
+{
+    public function createUser(string $email, string $name, string $password)
+    {
+        $this-&gt;recordThat(new UserCreated($email, $name, $password));
+
+        return $this;
+    }
+}
+</code></pre>
+
+<p>Remember, all I'm storing is the data about this user that is
+important to the system. It will automatically create a UUID that
+belongs to this aggregate. I'll worry about what ends up in the
+database we will <em>read</em> information from when I create a 
+<a href="https://docs.spatie.be/laravel-event-projector/v2/getting-familiar-with-event-sourcing/using-projectors-to-transform-events">projector</a>
+to extract data from the event store.</p>
+
+<p>Next, I have to create the code for the event that will
+in turn generate our user aggregate.</p>
+
+<pre><code class="php">declare(strict_types=1);
+
+namespace App\Domain\User\Events;
+
+use Spatie\EventProjector\ShouldBeStored;
+
+final class UserCreated implements ShouldBeStored
+{
+    /** @var string */
+    public $email;
+
+    /** @var string */
+    public $name;
+
+    /** @var string */
+    public $password;
+
+    /**
+     * UserCreated constructor.
+     * @param string $email
+     * @param string $name
+     * @param string $password
+     */
+    public function __construct(string $email, string $name, string $password)
+    {
+        $this-&gt;email    = $email;
+        $this-&gt;name     = $name;
+        $this-&gt;password = $password;
+    }
+}
+</code></pre>
+
+<p>It takes the user information passed into it and assigns it to
+class attributes.</p>
+
+<p>Finally, I will create a console command that I can execute
+with <code>php artisan</code> that will loop through all my existing
+user records, storing aggregates for them.</p>
+
+<pre><code class="php"><br />declare(strict_types=1);
+
+namespace App\Console\Commands;
+
+use App\Domain\User\UserAggregateRoot;
+use App\User;
+use Illuminate\Console\Command;
+use Ramsey\Uuid\Uuid;
+
+class GenerateUserCreatedEvents extends Command
+{
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'admin:generate_user_events';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Set an existing user to be an admin';
+
+    public function handle() : void
+    {
+        foreach (User::all() as $user) {
+            UserAggregateRoot::retrieve((string) Uuid::uuid4())
+                -&gt;createUser(
+                    $user-&gt;email,
+                    $user-&gt;name,
+                    $user-&gt;password
+                )
+                -&gt;persist();
+        }
+    }
+}
+</code></pre>
+
+<p>The <code>UserAggregateRoot</code> uses some magic behind the scenes to
+then take the data I submitted and write it to the event store.</p>
+
+<p>So what ends up being stored in the events table? In my current
+test environment I have exactly one user and here's a
+slightly-edited version of what got created.</p>
+
+<pre><code>id               | 4
+aggregate_uuid   | 2b5f88da-1f51-4443-a080-c566c04d452e
+event_class      | App\Domain\User\Events\UserCreated
+event_properties | {"email":"chartjes@grumpy-learning.com","name":"Chris Hartjes","password":"clearlynotmypassword"}
+meta_data        | []
+created_at       | 2019-04-26 19:31:44
+</code></pre>
+
+<p>Again, I remind you to understand the central concept
+that we are creating events that do not necessarily map
+exactly to what ends up in a database. One of the central
+parts of CQRS is that by separating the "command" (typically
+writing something to a database) from the "query" (typically
+reading something from a database). This gives me the
+flexibility to have multiple database tables that can
+display information in different ways. This is especially
+useful for domains where multiple types of reports are
+required. Multiple tables with exactly the data you need
+are, in my opinion, better than one big table where you
+have to create customized queries to filter out, and group,
+and aggregate things you are looking for.</p>
+
+<p>First, I need to modify the controller method that
+handles user creation to create an aggregate instead
+of directly writing to the database.</p>
+
+<p>Here's what it looks like right now:</p>
+
+<pre><code class="php">/**
+* Create a new user instance after a valid registration.
+*
+* @param  array  $data
+* @return \App\User
+*/
+protected function create(array $data) : User
+{
+    return User::create([
+        'name' =&gt; $data['name'],
+        'email' =&gt; $data['email'],
+        'password' =&gt; Hash::make($data['password']),
+    ]);
+}
+</code></pre>
+
+<p>Here's what it does instead:</p>
+
+<pre><code class="php">protected function create(array $data) : User
+{
+    $newUuid = (string) Uuid::uuid4();
+        UserAggregateRoot::retrieve($newUuid)
+            -&gt;createUser(
+                $data['email'],
+                $data['name'],
+                Hash::make($data['password'])
+            )
+            -&gt;persist();
+
+        return User::where('email', $data['email'])-&gt;first();
+}
+</code></pre>
+
+<p>Now, this is not exactly normal behaviour in a CQRS+ES
+application. Because Laravel's Auth system was not created
+with this is in mind, I had to cheat a little to make
+the use registration system behave correctly.</p>
+
+<p>Next I need to create a projector that will be triggered
+whenever the <code>UserCreated</code> event happens.</p>
+
+<pre><code class="php">declare(strict_types=1);
+
+namespace App\Domain\User\Projectors;
+
+use App\Domain\User\Events\UserCreated;
+use App\User;
+use Spatie\EventProjector\Projectors\Projector;
+use Spatie\EventProjector\Projectors\ProjectsEvents;
+
+final class UserProjector implements Projector
+{
+    use ProjectsEvents;
+
+    public function onUserCreated(UserCreated $event, $aggregateUuid) : void
+    {
+        User::create([
+            'name' =&gt; $event-&gt;name,
+            'email' =&gt; $event-&gt;email,
+        'password' =&gt; $event-&gt;password
+        ]);
+    }
+}
+</code></pre>
+
+<p>Alert readers will notice this is what the old controller method
+used to do.</p>
+
+<p>Any projectors you write will be automatically detected and
+registered by the application.</p>
+
+<p>So there you have it! A successful refactor of some existing
+code to support a new underlying paradigm. There is still
+more work to do and I'll share some of it in another blog post
+soon.</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2019/05/15/python-mocking-function-with-different-return-values/" title="Mocking a function with different return values in Python"><span class="title">Mocking a function with different return values in Python</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2019/03/17/zend-expressive-doctrine-configuration/" title="Watch Me Get Grumpy -- Zend Expressive Doctrine Configuration"><span class="title">Watch Me Get Grumpy -- Zend Expressive Doctrine Configuration</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

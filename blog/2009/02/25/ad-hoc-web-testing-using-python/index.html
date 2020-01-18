@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ad-hoc Web Testing using Python &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>Ad-hoc Web Testing using Python <small>post</small></h2>
+            <h3>February 25th, 2009</h3>
+        </header>
+        <div>
+            <p>
+"But Chris, I thought you were a PHP guy?"  Yes, in my day-to-day work I use a lot of PHP.  However, I am branching out as required by my desire to learn new things.  One of those new things is <a href="http://www.python.org">Python</a>, both on the web and the server side.  I thought I would share with you a tool I whipped together to do some testing of webservices at work built using <a href="http://www.sportsdb.org/sd/sportscaster">an application front-end that we have released under the GPL</a>.  Of course, you need to be using our non-free sports data feed fetching software, but that's not the point.
+</p>
+
+<p>
+So, as of March 1 we are turning off an old server that uses an older, Perl-using-CGI web service and redirecting those customers using it to one built using PHP (Code Igniter specifically.  Again, this decision was made before I started at that job.)  As the lead engineer on the project (okay, the only one) I had to make sure that all the old queries would work on the new server.  When my boss told me to "manually check them" I scoffed and said "manual checking is for suckers, I'm going to write a script to do it.".
+</p>
+
+<p>
+The methodology is as follows:
+<ol>
+<li>Make sure that calls to the old web service return properly formed XML *or* HTML with a certain string  in it when we are doing XSLT transforms</li>
+<li>Do the same thing with the new web service</li>
+<li>Tell me when something isn't right</li>
+</ol>
+</p>
+
+<p>
+I could do more work in this script, to do things like look for certain tags in the XML document to be populated but we can skip that for now.  The new web service has been tested quite well and we are getting back results as expected via some other tests I've written using PHPUnit.</p>
+
+<p>
+With help from online Python resources like <a href="https://comparite.ch/python-cs">this Python cheat-sheet</a> and some judicious online searching, I came up with this script.  As far as I can tell, the only outside dependency was me using <a href="http://www.crummy.com/software/BeautifulSoup/">Beautiful Soup</a> to read in the HTML output.  Maybe I could've used Beautiful Soup for both the XML and HTML, but this still works just fine.
+</p>
+
+<pre><code>#!/usr/bin/python 
+
+import urllib2
+from xml.dom import minidom
+import fileinput
+from BeautifulSoup import BeautifulSoup
+
+host = 'http://w04.foo.com';
+host2 = 'http://w05.foo.com';
+users = ["foo", "bar", "baz", "alpha", "omega"] 
+passwords = ['xxxxx', 'xxxxxx', 'xxxxxx', 'xxxxx', "xxxxx"]
+key = 0
+
+for username in users:
+    print "Doing check for " + username
+    password = passwords[key]
+    password_mgr = urllib2.HTTPPasswordMgrWithDefaultRealm()
+    password_mgr.add_password(None, host, username, password)
+    handler = urllib2.HTTPBasicAuthHandler(password_mgr)
+    opener = urllib2.build_opener(handler)
+    urllib2.install_opener(opener)
+    password_mgr.add_password(None, host2, username, password)
+    handler = urllib2.HTTPBasicAuthHandler(password_mgr)
+    opener2 = urllib2.build_opener(handler)
+    urllib2.install_opener(opener2)
+
+    for line in fileinput.input(username + "_url.txt"):
+        try:
+            data = urllib2.urlopen(line)
+
+            try:
+                xmldoc1 = minidom.parse(data)
+            except:
+                html = urllib2.urlopen(line).read()
+                soup = BeautifulSoup(html)
+
+                if not soup.find(text="XML Team Solutions"):
+                    print "Bad XML+HTML:" + line
+
+        except:
+            print "Could not load " + line
+
+    key = key + 1
+</code></pre>
+
+<p>
+URL's that I wished to test were stored in text files that this script then read in.  Using a little grep + awk magic I was able to extract URL's from our web server access log in order to test.  I'd appreciate any tips from Pythonistas out there on how to make this code conform more to the "Python way" if there is such a thing.
+</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2009/03/03/what-ill-be-doing-at-php-quebec/" title="What I&#039;ll Be Doing At PHP Quebec"><span class="title">What I&#039;ll Be Doing At PHP Quebec</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2009/02/18/chris-brain-2009-02-18/" title="Chris&#039; Brain - 2009-02-18"><span class="title">Chris&#039; Brain - 2009-02-18</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

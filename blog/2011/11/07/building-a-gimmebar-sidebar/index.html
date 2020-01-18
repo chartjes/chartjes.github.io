@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Building a Gimmebar Sidebar &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>Building a Gimmebar Sidebar <small>post</small></h2>
+            <h3>November 7th, 2011</h3>
+        </header>
+        <div>
+            <p>One of the interesting side effects of getting involved in your programming
+language community of choice is that you often get access to cool projects
+being done by your community buddies before the rest of the riffraff (aka 
+the general public). One such project is <a href="http://gimmebar.com">Gimme Bar</a>,
+a "capture anything you want and read later" web site. Created by the fine
+folks at <a href="http://fictivekin.com/">Fictive Kin</a>, <a href="http://twitter.com/coates">Sean Coates</a>
+and <a href="http://twitter.com/funkatron">Ed Finkler</a> were kind enough to not only
+give me access to their application (My user type apparantly is "The Betanaut") but
+also an early peek at their API.</p>
+
+<p>Now, it's changed a bit since their earliest work but now they are starting to promote
+not only the site but showing how easy it is to use their API to play around with
+not only your content but other's public-facing content too. I fooled around with
+the API and tried to write some Python stuff but lots patience when trying to work
+with OAuth from the command line. Hey, it's not their fault that I couldn't be bothered
+to slog through it all.</p>
+
+<p>Funkatron was kind enough to put together a blog post about <a href="http://funkatron.com/posts/building-a-tumblelog-with-gimme-bar-and-php.html">building a Tumblelog with 
+Gimmer Bar and PHP</a>
+so I told him I would write up what I did on my own blog.</p>
+
+<p>One of my intents was to use the <a href="https://gimmebar.com/api/v0">Gimme Bar API</a> to pull
+in a list of my latest Gimmies for the sidebar on this blog. Ed had posted a very
+simple example in Javascript (I cannot remember where it is) so I took it and ran with
+it to modify it to work with <a href="http://octopress.org">the blogging software</a> used here.</p>
+
+<p>I went and asked some questions in the Freenode IRC channel for Octopress and found out
+that they recommended the use of JS libraries that are compatible with <a href="http://dustindiaz.com/ender">Ender.js</a>.
+Okay, so that was no problem. So what to use to make the actual AJAX request call to
+the API? <a href="https://github.com/ded/reqwest">Reqwest</a> was mentioned by some as the best
+fit for using with Ender. Reqwest is an easy-to-use JS AJAX library that the #octopress
+guys suggest I use since jQuery doesn't currently play nice with all the other JS
+libraries that Octopress is using.</p>
+
+<p>Finally, I used <a href="https://github.com/documentcloud/underscore">Underscore</a> to 
+help with templating.</p>
+
+<p>Even though I'm not much of a JS whiz, I was able to take Ed's example and very quickly
+modify it to work exactly the way I wanted it to. Below is the code I used to putt in 
+my 10 latest Gimmes and insert them into the DOM exactly where I wanted them.</p>
+
+<pre><code>&lt;section&gt;
+  &lt;h1&gt;My Latest Gimmies&lt;/h1&gt;
+  &lt;ul id="gb_assets"&gt;&lt;/ul&gt;
+  &lt;script type="text/javascript"&gt;
+  reqwest({
+      url: 'https://gimmebar.com/api/v0/public/assets/grumpycanuck.js?jsonp_callback=?',
+      type: 'jsonp',
+      success: function(data){
+          var list_tpl = "&lt;% _.each(records, function(record) { %&gt; &lt;li&gt;&lt;a href='https://gimmebar.com/view/&lt;%=record.id%&gt;'&gt;&lt;%=record.title%&gt;&lt;/li&gt;&lt;/a&gt; &lt;% }); %&gt;";
+          var list_html = _.template(list_tpl, data);
+          $('#gb_assets').html(list_html);
+      }
+  });
+  &lt;/script&gt;                                                                                                                                                     
+&lt;/section&gt;
+</code></pre>
+
+<p>For those who aren't JS-savvy, I'll explain what goes on here:</p>
+
+<ul>
+    <li>Execute an AJAX call that...</li>
+    <li>calls the Gimme Bar public API to get the latest 10 public posts...</li>
+    <li>and on success generate an unordered list of posts...</li>
+    <li>linking to the item on Gimme Bar and show the title...</li>
+    <li>and insert it into the DOM where I asked it to</li>
+</ul>
+
+<p>Easy peasy, lemon squeezy. Ender.js + Reqwest + Underscore + 15 lines of markup and JS
+gives me the latest 10 posts. Hope this inspires you to play with the Gimme Bar API
+yourself.</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2011/11/25/scope-is-not-mouthwash/" title="Scope is not a mouthwash"><span class="title">Scope is not a mouthwash</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2011/11/03/infrastructure-debt/" title="Infrastructure Debt"><span class="title">Infrastructure Debt</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

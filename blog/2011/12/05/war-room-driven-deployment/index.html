@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>War-room Driven Deployment &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>War-room Driven Deployment <small>post</small></h2>
+            <h3>December 5th, 2011</h3>
+        </header>
+        <div>
+            <p>For a long time I have been an advocate of the philosophy that organizations
+as a whole, not just the engineering team (if there is such a thing where
+you work) should be striving towards the goal of treating any deployment
+of your code into production as a non-event. Sadly, there is much work to be
+done from both ends of the spectrum.</p>
+
+<p>When deployments do go wrong the reaction is fairly predictable. It's almost 
+like the five stages of grief, sometimes known as the Kuebler-Ross model. 
+You've probably heard about them: Denial, Anger, Bargaining, Depression, 
+and Acceptance.</p>
+
+<p>The common thing that happens during those two first stages is that people are 
+chewed out for their role in the deployment failure, and in many cases the anger
+is legitimate. If you haven't written code that spectacularly failed in a 
+production environment I will happily call you a liar.</p>
+
+<p>What also then happens is that the non-technical people push for what I call a
+war-room environment for dealing with deployments. By this I mean that, for
+lack of a better phrase, orders come down from on-high that whenever a 
+production push is going to be done that everyone needs to stick around and be
+there "just in case" something goes wrong.</p>
+
+<p>At the news of the new directive, the engineering staff roll their eyes and
+mumble to each other about how the other side "doesn't get it" and how "this
+won't solve these problems".</p>
+
+<p>Both sides are right, but only up to a point.</p>
+
+<p>I'm sure that some of my readers are familiar with the concept of perception
+vs. reality. When you apply this to deployment failures, the perception
+becomes that the entire team responsible for building the application
+is to blame and that by making sure that everyone should be there it fixes
+the problem. In my opinion, the reality is that the failure occurred due to 
+the actions of one or two individuals and making the whole team suffer is 
+counterproductive. I feel this way especially when I am directly responsible
+for what has happened.</p>
+
+<p>Finding bugs in development are magnitudes cheaper to fix than production ones,
+and you will feel less pressure to fix them than if they are discovered in
+production. To paraphrase Darth Vader, you know in your heart that this true.
+Therefore the engineering side of the equation really needs to push back hard
+on the idea that ALL HANDS ON DECK WE ARE DEPLOYING is not just making the
+problem worse before it can get better.</p>
+
+<p>I've had my fair share of time with war-room driven deployment. I understand
+why it is viewed as a solution to the problem of failed deployments. It seems
+very logical. By having everyone there when it happens you are more likely
+to be able to quickly solve any problems you find. However, I feel like it is
+masking the true problem in that everything that you find yourself doing when
+practicing war-room driven deployment can be done before you even get to that 
+point.</p>
+
+<p>It also becomes an issue of trust. Frequent failed deployments results in the
+engineering side of things to be labeled as sloppy, uncaring, not understanding
+the cost of lost opportunities. All of those things may or may not be clear, but
+I think forcing everyone to stick around "just in case" makes the situation worse.</p>
+
+<p>By using war-room driven deployment you are making all stakeholders nervous about
+deployments. Everyone will be exhorted to think of everything that could go wrong
+with the deployment and if something does go wrong, the stress level gets cranked
+up to 11 and there is frantic activity to try and solve the problem.</p>
+
+<p>It is often hard to explain to non-technical people that they should stay calm
+and understand that the engineering team knows what went wrong and has a real-world
+solution in mind to fix whatever problem happened to minimize the chances that
+it happens again in the future. I don't have any easy answers on how to solve
+that problem other than staying calm yourself and offering real-world, practical
+solutions to the problems.</p>
+
+<p>If you put all the effort into making production pushes a non-event, then you will
+not need war-room driven deployment. All you need is one person to push a button
+and then everyone can go home.</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2011/12/12/better-http-request-response-in-php/" title="Better HTTP Request/Response in PHP"><span class="title">Better HTTP Request/Response in PHP</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2011/11/25/scope-is-not-mouthwash/" title="Scope is not a mouthwash"><span class="title">Scope is not a mouthwash</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

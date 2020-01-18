@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Home &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta name="robots" content="noindex, follow">
+                <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2><a href="/2006/05/28/its-not-just-birds-that-migrate/">It&#039;s Not Just Birds That Migrate</a></h2>
+        </header>
+        <div>
+            <p>One of the cooler features of <a href="http://www.rubyonrails.com">Ruby on Rails</a> is it's support for a concept that they call database migrations.  In a nutshell you can create Ruby code that will generate tables and insert data into them.  Why is this a good idea?  It's also database agnostic, so it doesn't matter what database server you're running:  your database changes just work.</p>
+
+<p>For the <a href="http://www.ibl.org">baseball league web site</a> I'm running <a href="http://www.typosphere.org">Typo</a>, which I've hacked and extended for the things that I need that aren't part of the weblog engine.  It also supports migrations.  Whenever I create a new model (a representation of a table in a database that I need to work with) it also created a migration file.  Which is cool, but not totally necessary for the league site as it's not being deployed in multiple places.</p>
+
+<p>Now, I'm also running the trunk version of Typo, meaning I updated it directly from the <a href="http://subversion.tigris.org">Subversion</a> repository it's hosted in.  When I did an upgrade of the site on Friday afternoon, it also grabbed some migrations as well.  Except those migrations conflicted with ones I had already created when I created all sorts of model code.  The result:  a crashing web site.</p>
+
+<p>Arrrgh!  I panicked for a minute.  Then I hit Google trying to find a solution.  After about half-an-hour of looking I finally found a solution.  Turns out there is a table in the Rails structure that keeps track of what migration you're currently up to (schema_info for those who want to look into it).  I updated that to point to the migration BEFORE I accidentally started adding in my own.</p>
+
+<p>Okay, so I executed a 'rake migrate' command...and still nothing.  Site still complaining that it couldn't find a table...that the migration is supposed to create.  More panicking.  Another deep breath and more searching on Google.  I finally found an example of how to manually run a migration script.  I did that for the first migration and then everything else went okay.  Phew</p>
+
+<p>I think so many sites would just crash and die if it wasn't for Google.  I guess it's a vicious circle:  solutions to problems available in Google lead to more and more sites making it through tricky points which leads to more people looking for solutions.</p>
+
+<p>So everything is just fine now.  The latest addition to the site is a stats module.  There appear to be some problems in the stats themselves (one series entered twice from the looks of it, which isn't supposed to be possible) but I'll get that sorted out.</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2006/05/26/im-a-php-plumber/">I&#039;m A PHP Plumber</a></h2>
+        </header>
+        <div>
+            <p>I find more and more these days that the description "infrastructure programmer" seems to be more and more applicable to the type of work I do.  My <a href="http://www.verticalscope.com">current employer</a> owns an ever-expanding number of discussion boards (like http://www.fordforums.com and www.tunerfriends.com).  So, we buy them from people and have to move them over from their current locations to our servers.  99% of the sites are running on <a href="http://www.vbulletin.com">vBulletin</a>, a commerical PHP-based product.</p>
+
+<p>But sometimes the sites aren't running vBulletin, so I end up having to use the import tools that vBulletin provides (covering a surprisingly large number of forum software packages).  They do a pretty good job but I invariably end up having to write some custom tool to migrate the non-standard part of the site.  In this case I had to migrate the users's vehicle information (pictures and descriptions) from one site to the other.</p>
+
+<p>While working on this tool (making it generic enough to work on the other two sites I need to migrate as well) I realized that I'd been doing infrastructure work all the time and not very much user interface work.  Which is just as well because my CSS and make-things-look-pretty skills need a lot of work.  I am trying but it's gonna be a tough go.</p>
+
+<p>/me hikes up his pants to hide the PHP Plumber butt</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2006/05/23/the-upcoming-php-framework-war/">The Upcoming PHP Framework War</a></h2>
+        </header>
+        <div>
+            <p>(Wow! Two posts in one day!)</p>
+
+<p>There is a great blog posting by Jared White where he is talking about <a href="http://www.theideabasket.com/2006/05/17/winning-the-php-5-framework-wars/">Winning The PHP 5 Framework Wars</a>.  He brings up some very valid points (mainly that there will be no winner because adoption of PHP 5 has been so slow.  In some of the comments for that post (both on his blog and at php|architect magazine's linking to the article) comes the idea of why does there have to be a war and that there is plenty of room for everyone.  I used to think that way but have come to the conclusion that there can only be ONE dominant framework for a programming language.</p>
+
+<p>In theory the idea of "there is plenty of room for everyone" sounds nice when it comes to frameworks.  The reality of the situation is that one dominant framework is needed to drive things forward.  The more frameworks there are, the more people are having to "reinvent the wheel" in order to make their stuff work.  More cycles wasted redoing work that other people (usually smarter than you, which is a good thing) have already done and made stable and made easy to use.</p>
+
+<p>Look at Rails as an example.  Rails is not the only framework that works with Ruby but it is by far the dominant one.  That enables Ruby developers who want to do web work to stop worrying about nuts and bolts and instead start worrying about fine details.  I came to this realization when I started using Rails for some hobby projects.  I still do PHP at the day job and don't intend on stopping.  But there are just too damn many PHP web frameworks out there and it's impossible to pick one.  I'm betting that the Zend Framework becomes the Rails of PHP (meaning the dominant web framework for PHP 5) and the rest of us can get on with applying finishing touches instead of building from scratch.</p>
+
+<p>The pragmatic approach to programming extolls the virtue of Don't Repeat Yourself and You Ain't Gonna Need It.  What does this have to do with frameworks?  Unless you have huge amounts of spare time I can't imagine why you need to create Yet Another Framework, unless you are trying to learn how to create one of these things.  I thought about it.  Then I realized how much I enjoy sleeping.  To me, creating your own framework smacks of both DRY and YAGNI.</p>
+
+<p>Now, before you think I'm an arrogant person or just deluded, hear me out:  there is nothing wrong with taking something that someone else has created and changing it to suit your needs.  Let's be honest:  the number of projects that are <strong>so</strong> different and <strong>so</strong> unique that they require a totally written-from-scratch solution are really slim.  It's only developer arrogance (and often developer ignorance) that says you can't take something that someone else has done and make it work for you.</p>
+
+<p>As far as I can tell there are three types of frameworks any web-based programming language needs:</p>
+
+<p>1) One that a beginner can use to get a site up and running quickly.</p>
+
+<p>This is Rails.  A programmer experienced in other languages can get a Rails site up and running pretty quickly.  The <a href="http://www.ibl.org">IBL website</a> took my about a month to do working in my spare time and building off an existing application, a blogging app called <a href="http://www.typosphere.org">Typo</a>.  There is nothing like this for PHP yet.  Yes, Cake and Trax (I think it's called Trax) are very close to this by copying Rails and I think that the Zend Framework is also aiming to be helpfull this way.</p>
+
+<p>2) One that an intermediate programmer can use because they understand what the hell they are doing.</p>
+
+<p>I would put the Zend Framework in there too, moreso than in the beginner camp.  ZF is for PHP developers who understand the concepts behind building a web application.  They know about MVC, they know how to build applications of moderate complexity.  A good framework of this type gets all the details out of your way so you can just build the damn thing.  You don't have to worry about database abstraction or templating or even program flow.  It gives you the structure you need.  Like little children, programmers need structure as well and a framework forces you to do things a certain way.  I know that Rasmus Lerdorf hates framworks, but most of us non-savant developers desperately need the structure that a framwork gives you in order to save ourselves from debugging and maintenance hell.</p>
+
+<p>3) Custom solutions that require a great overall application architectural solution.</p>
+
+<p>This is, of course, the place where frameworks fear to tread.  Ookles.  Wikipedia.  Hell, even the dating site I used to work on is in here.  When you get to a certain level of traffic on your site you can no longer use off-the-shelf solutions and you are forced to create completely custom solutions.  No web application scales up to huge levels without undergoing serious changes.  I listened to a great interview with the head of Ookles and everything he talked about is what I encountered while working on the dating site.  Makes me appreciate even more that the dating site worked as well as did during my time there.  Perhaps I'm just too critical.</p>
+
+<p>So, if we stray back to the topic of the post I can try and wrap things up.  The upcoming framework war in PHP is also the battle to push PHP 5 to where it needs to be.  The structure that a framework provides will create a group of developers who all speak a common langauge and understand how to accomplish the same thing.  Yes, the rugged independants will scorn frameworks or even show us how to push them to their limits.  But pushing your skills to their limits is the best way I know of to get better.</p>
+
+<p>Pay attention to the Zend Framework because it has the type of community around it that is determined to see good ideas pushed forward.  Already the calls for "when will it be production ready" are coming on the mailing list.  Me, I wouldn't use it for production stuff yet because there is much that will change.  For small side projects, I heartily endorse it's use if you're doing PHP stuff.</p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/153">Newer Posts</a><br />
+        <a href="/page/155">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

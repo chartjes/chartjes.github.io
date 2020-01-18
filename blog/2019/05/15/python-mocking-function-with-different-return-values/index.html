@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mocking a function with different return values in Python &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>Mocking a function with different return values in Python <small>post</small></h2>
+            <h3>May 15th, 2019</h3>
+        </header>
+        <div>
+            <p>For the first half of 2019 I was borrowed by the Performance Team
+at Mozilla and asked to help them implement a way to measure the
+performance of various browsers on Android platforms. This has
+involved me getting familiar with several tools and environments
+that I had not touched before:</p>
+
+<ul>
+<li>Mozilla's tooling for use with <a href="https://hg.mozilla.org/mozilla-central">mozilla-central</a></li>
+<li>Rooting Android devices for testing purposes</li>
+<li><a href="https://developer.android.com/studio/">Android Studio</a> and it's device emulation tools</li>
+<li>Executing and parsing shell commands</li>
+</ul>
+
+<p>Of course, I am using <a href="https://docs.pytest.org/en/latest/">pytest</a> as well to make sure
+that I had thought about testing scenarios and giving whomever
+supports this code once I am back at my previous role a chance
+to figure out what is going on.</p>
+
+<p>One of the testing scenarios I came up with was handing the fact that I
+had designed the code to have a fallback mode in case the
+shell command I was using did not work on that particular
+device. Some code reviews from other developers revealed
+some differences in how the <a href="https://www.unixtutorial.org/commands/top"><code>top</code> command</a>
+works on different phones.</p>
+
+<p>So, drawing  on my own experiences with using test
+doubles in PHP, I asked myself "how can I create
+a mock that has different return values?". In
+pytest this functionality is called <code>side_effect</code>.</p>
+
+<p>So, here is some of the code in question that I needed
+to test:</p>
+
+<pre><code class="python">try:
+    cpuinfo = raptor.device.shell_output("top -O %CPU -n 1").split("\n")
+    raptor.device._verbose = verbose
+    for line in cpuinfo:
+    data = line.split()
+            if data[-1] == app_name:
+                cpu_usage = data[3]
+except Exception:
+    cpuinfo = raptor.device.shell_output("dumpsys cpuinfo | grep %s" % app_name).split("\n")
+    for line in cpuinfo:
+        data = line.split()
+        cpu_usage = data[0].strip('%')
+</code></pre>
+
+<p>I wrapped the first call in a try-catch construct because
+an exception is thrown if anything is up with that <code>top</code>
+call. If that call doesn't work, I then want to use that
+<code>dumpsys</code> call.</p>
+
+<p>In the test itself, I would need the <code>shell_output</code> call
+to first throw an exception (as expected for the scenario)
+and then return some output that I can then parse and use.</p>
+
+<p>In the PHP world, most test doubling tools allow you to
+create a mock and have it return different values on
+consecutive calls. Pytest is no different, but it took
+me a while to figure out the correct search terms to find
+the functionality I wanted.</p>
+
+<p>So, here is how I did it:</p>
+
+<pre><code class="python">def test_usage_with_fallback():
+    with mock.patch('mozdevice.adb.ADBDevice') as device:
+        with mock.patch('raptor.raptor.RaptorControlServer') as control_server:
+            '''
+            First we have to return an error for 'top'
+            Then we return what we would get for 'dumpsys'
+            '''
+            device.shell_output.side_effect = [
+                OSError('top failed, move on'),
+                ' 34% 14781/org.mozilla.geckoview_example: 26% user + 7.5% kernel'
+            ]
+            device._verbose = True
+
+            # Create a control server
+            control_server.cpu_test = True
+            control_server.test_name = 'cpuunittest'
+            control_server.device = device
+            control_server.app_name = 'org.mozilla.geckoview_example'
+            raptor = Raptor('geckoview', 'org.mozilla.geckoview_example', cpu_test=True)
+            raptor.device = device
+            raptor.config['cpu_test'] = True
+            raptor.control_server = control_server
+
+            # Verify the response contains our expected CPU % of 34
+            cpuinfo_data = {
+                u'type': u'cpu',
+                u'test': u'usage_with_fallback',
+                u'unit': u'%',
+                u'values': {
+                    u'browser_cpu_usage': '34'
+                }
+            }
+            cpu.generate_android_cpu_profile(
+                raptor,
+                "usage_with_fallback")
+            control_server.submit_supporting_data.assert_called_once_with(cpuinfo_data)
+</code></pre>
+
+<p>Let me break down what I did (as always, I am open to
+suggestions on better ways to write this test).</p>
+
+<p>The first double is for a class that communicates with the
+Android device. Then the next double I needed was for the
+"control server", which is what is used to control the
+browser and execute tests.</p>
+
+<p>My first "side effect" is to generate an error so it
+triggers the first condition of the scenario that
+'top should not work'. The second "side effect" is
+the response I am expecting to get from the shell
+command in my fallback area of the code.</p>
+
+<p>Then I continue with the "arrange" part of the <a href="http://wiki.c2.com/?ArrangeActAssert">Arrange-Act-Assert</a>
+testing pattern I like to use -- I configure my
+"control server" to be the way I want it.</p>
+
+<p>I finish up with creating what I expect the data
+that is to be submitted to our internal systems
+looks like.</p>
+
+<p>I execute the code I am testing (the "act" part)
+and then use a <a href="https://github.com/testdouble/contributing-tests/wiki/spy">spy</a>
+to make sure the control server would have submitted
+the data I was expecting to have been generated.</p>
+
+<p>The ability to have a method return different values
+is powerful in the context of writing tests for code
+that has conditional behaviour. I hope you find this
+example useful!</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2019/05/15/getting-things-done-while-remote/" title="Mocking a function with different return values in Python"><span class="title">Mocking a function with different return values in Python</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2019/04/27/watch-me-get-grumpy-event-sourcing-refactor/" title="Watch me get grumpy - event sourcing refactor"><span class="title">Watch me get grumpy - event sourcing refactor</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

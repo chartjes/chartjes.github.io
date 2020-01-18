@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sending data via HTTP-PUT using Basic Authentication &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>Sending data via HTTP-PUT using Basic Authentication <small>post</small></h2>
+            <h3>November 7th, 2009</h3>
+        </header>
+        <div>
+            <p>(This is another problem I solved with the help of <a href="http://stackoverflow.com"</a>Stack Overflow</a> and some <a href="http://en.wikipedia.org/wiki/Rubber_duck_debugging">rubber duck debugging</a>)
+</p>
+
+<p>
+While cleaning up some code I noticed a function that was sending data via an HTTP-PUT had stopped working.  A classic example of code "accidentally working".  So, this was the perfect opportunity to (a) write a test to verify that it worked and (b) clean up the code so that it was doing the job properly.  It had been using cURL, but I was using PHP streams elsewhere so I decided to be consistent.
+</p>
+
+<p>
+So here's what we had to do:
+<ul>
+<li>Pass the code a URL of where the file was going to end up on the eXist DB server</li>
+<li>Pass the name of the temporary file that contained the info</li>
+<li>Send the file via HTTP-PUT to eXist, along with the username and password it requires.</li>
+</ul>
+</p>
+
+<p>
+The old code was sending the username and password as part of the URL, but that simply was not working any more.  Why it stopped working isn't all that important except to say that passing the username and password the *proper* way, which is via the HTTP header in the request, is the correct way to go.
+</p>
+
+<p>
+So, I googled around, looked at my existing code (including an <a href="https://www.littlehart.net/atthekeyboard/2008/01/11/how-to-http-put-a-file-somewhere-using-php/">old blog post</a>) I tried a few things and just couldn't get it to work.  The problem?  I kept getting a "401 Authorization denied" message.  I was positive I was sending the header in the correct format.  So, I asked Stack Overflow to help me while I looked at the code with my trusty stuffed Grumpy Dwarf doll (you know, from the Disney Movie) in my lap looking at the screen while I went over the code.
+</p>
+
+<p>
+You know, I never figured that "rubber duck debugging" worked, but in this instance by explaining what I'm doing I figured out a few things:
+<ul>
+<li>Don't blindly trust code examples you find on the internet</li>
+<li>Sometimes taking the time to explain how something is supposed to work someone actually makes it easier for you to figure it out.</li>
+</ul>
+</p>
+
+<p>
+Lo and behold, I <a href="http://stackoverflow.com/questions/1691530/sending-a-file-via-http-put-in-php">figured it out</a>.  I'll repost the code here too:
+<br />
+~~~
+$params = array(
+    'http' => array(
+        'method' => 'PUT',
+        'header' => "Authorization: Basic " . base64_encode($this->ci->config->item('ws_login') . ':' . $this->ci->config->item('ws_passwd')) . "\r\nContent-type: text/xml\r\n",
+        'content' => file_get_contents($tmpFile)
+             )
+         );
+$ctx = stream_context_create($params);
+$response = @file_get_contents($url, false, $ctx);
+
+return ($response == '');
+~~~
+</p>
+
+<p>
+My mistake?  For some reason unbeknownst to me I was passing an array of values as the header.  Dunno why I did it, must've got it from an example somewhere.  Now I have code that successfully sends my file to eXist via HTTP-PUT.  The only thing I do not like is that I have to suppress the output of file_get_contents() because it throws a warning while also reporting the successful 201 HTTP response code.  Perhaps there is another way to do it, but I know with 100% certainty that this code does work.
+</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2009/11/09/why-i-dont-want-to-use-tools-written-for-php-4/" title="Why I Don&#039;t Want To Use Tools Written For PHP 4"><span class="title">Why I Don&#039;t Want To Use Tools Written For PHP 4</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2009/11/05/next-gen-work-projects/" title="Next-Gen Work Projects"><span class="title">Next-Gen Work Projects</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

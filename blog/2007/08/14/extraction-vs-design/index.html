@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Extraction vs. Design &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>Extraction vs. Design <small>post</small></h2>
+            <h3>August 14th, 2007</h3>
+        </header>
+        <div>
+            <p>For those not familiar with the history of the <a href="http://www.rubyonrails.org">Ruby on Rails</a> framework, it's interesting (well, at least to me) to note that the framework grew from extractions from working on <a href="http://www.basecamphq.com/">Basecamp</a>, an online project management / collaboration tool.  Basically, they took functionality from Basecamp (the "extraction") and used it as components for Ruby on Rails.  This is probably a gross oversimplification, but this is not a blog posting about how Ruby on Rails was created.</p>
+
+<p>
+<a href="http://www.loudthinking.com">David Heinemeier Hansson</a> (the driving force behind Ruby on Rails) is a huge believer in using extractions as a method to add functionality to your projects, typically in the context of a framework.  You need some particular functionality, you write it, and if it's good enough you extract it from it's original context and make it generic enough that it can be used by other people.  You could also call this "building stuff you need" instead of "building stuff you think you might need".  It's part of the whole <a href="http://en.wikipedia.org/wiki/YAGNI">YAGNI</a> philosophy of programming, I guess.</p>
+
+<p>
+So, the flipside to this idea of how you get new features is doing it by design.  This is where you sit down and decide "I'm going to write a component to interface with Frammastat's Whoozinator API because I think some people would like to have that".  So, you sit down and you bang out the code so that users of GrumpyFramework can now talk to Frammastat's Whoozinator via a component instead of writing their own.  It's like what I did when I helped write code for Zend Framework to talk to Last.fm's Audioscrobbler service.  I didn't need it, but a friend thought it was a good idea and it was a chance to learn how to use Zend Framework.  I received a patch request for it the other day, so maybe I should go and take a look at it... :)</p>
+
+<p>
+Anyway, where was I?  Oh yeah</p>
+
+<p>
+In this case, a decision was made to build something specifically for a project, whether it was required as part of my current work or not.  Did I need that Frammastat interface for GrumpyFramework?  No, but somebody else might.  And that, in my opinion, leads down the road to premature optimization and feature creep.  Just because you *might* need something, doesn't mean you should spend the time and effort to write some code for it.  Often times, design makes sense when you know that the vast majority of users of your project will need something.  But for a lot of things, wait until you actually need them.</p>
+
+<p>
+I have found that the best bits and pieces of code that I have used with <a href="http://www.cakephp.org">CakePHP</a> have come from people extracting ideas they were using for their own personal projects and then putting a good spin on it so others could use it. Of course, it helps that CakePHP lets you create components and behaviors (that talk to controllers and models respectively) so that you can extend functionality without rewriting any of the core, but I remain firmly convinced that the extraction of ideas from current projects is the best method of adding new functionality to an existing application.
+</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2007/08/17/cakephp-resources/" title="CakePHP Resources"><span class="title">CakePHP Resources</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2007/08/07/stupid-cakephp-controller-tricks/" title="Stupid CakePHP Controller Tricks"><span class="title">Stupid CakePHP Controller Tricks</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

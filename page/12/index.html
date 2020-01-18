@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Home &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta name="robots" content="noindex, follow">
+                <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2><a href="/2014/12/14/stop-telling-me-to-refactor/">Stop Telling Me To Refactor</a></h2>
+        </header>
+        <div>
+            <p>I got an email from Daniele earlier this morning about the post I did talking
+about <a href="https://littlehart.net/atthekeyboard/2014/10/31/web-acceptance-tools-suck/">how web acceptance tools suck</a> and
+they were kind enough to share their thoughts on how they felt I was (to use
+their words) "facing the problem in the wrong way".</p>
+
+<p>They went on to describe how I should just separate the front-end from the
+back-end to make testing the app as a whole easier. They shared a link
+to a project where they had done that so <a href="https://github.com/fourlastor/playlist">go take a look</a>.</p>
+
+<p>I don't find much wrong with that approach but it has a hole in it big enough
+to throw my ego through without scraping the sides. Daniele, this has nothing
+to do with you and everything to do with a mind set that continually comes up
+in our industry.</p>
+
+<p>The incredible casualness with which we tell people that the solution to all
+their problems is to refactor things.</p>
+
+<p>Just stop it. Stop telling me that. Stop telling other people that. It reflects
+that you have given no thought to the other person's situation. Do they have
+the time to refactor? Do they have permission to refactor? Are they even skilled
+enough to refactor the app in such a way to make it better? These are all legitimate
+questions. Blindly recommending refactoring isn't the solution.</p>
+
+<p>In my case for my current work-related activities, there is zero chance we will be
+doing the kind of refactoring that Daniele is very-helpfully recommending. Why?
+The application in question works and brings in money. So the app in it's current
+form needs to stay up and keep working. So that means I need to find the least-invasive
+way possible to test the application's UI.</p>
+
+<p>There are other refactorings I am doing (moving the app from ZF1 to ZF2 is among
+them) but those take time and have to ensure the existing application doesn't
+crash and burn due to those changes. I suspect I may be ending up buying a bunch
+of over-worked QA people in Kiev a nice thank-you present when they finish the
+extensive testing I need them to do.</p>
+
+<p>Send me your thoughts and ideas on Twitter or to chartjes@grumpy-learning.com</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2014/10/31/web-acceptance-tools-suck/">Web Acceptance Tools Suck</a></h2>
+        </header>
+        <div>
+            <p>Wow. Almost a whole year since I posted something. Time to change that.</p>
+
+<p>It is not a coincidence that I write this blog post on Halloween 2014. Because
+I want to talk about something that should make your skin crawl and want to 
+turn all the lights on in the location where you are reading this.</p>
+
+<p>I am talking, of course, about writing automated web acceptance tests.</p>
+
+<p>At ZendCon2014 I did a talk about how to use <a href="http://behat.org">Behat</a> and
+<a href="http://mink.behat.org">Mink</a> to write some automated acceptance tests for
+your web sites. You know, the type of thing where you drive a browser using
+some code and it pretends to click on things...and you lie to yourself about
+what value all this work is giving you.</p>
+
+<p>I also made the classic mistake of waiting too long to go over my slides for
+this talk and realized I was using versions of these tools that were extremely
+out of date. I then spent 6 hours updating the code, instead of watching my
+friends give awesome talks about PHP and complementary technologies.</p>
+
+<p>This sucked. Sucked big time.</p>
+
+<p>As far as I can tell, we are currently at the point in the PHP community with 
+these tools like unit testing tools were 10 years ago when I first decided I
+needed to find ways to never work 120 hours of overtime in 6 weeks leading
+up to Christmas ever again.</p>
+
+<p>Behat and Mink are both very powerful tools, but their documentation is
+lacking and the code samples review what I think is a very large disconnect
+between how the creators of these tools use them and how the rest of us use
+them. I have no idea if there is even any blame to be handed out, unless you
+subscribe to the theory that shitty documentation is the fault of the people
+who created the projects in question.</p>
+
+<p>I am not diminishing the work of those who created these things. They are
+great programmers, and I am just a grumpy guy who wants things to work a
+certain way and not act like obstacles. I like my tools to be complementary
+and easy to figure out how to bend to my will.</p>
+
+<p>But when I look at how brittle these things are, and how slow they are, it
+makes me wonder if I wasted my time learning how to use them.</p>
+
+<p>For those who don't understand what I am getting at, or think I am acting like
+the drama queen they secretly hope I am, consider this -- the best way to
+identify elements on a web page is to use tools that expect you to either
+fully understand CSS and also how XPath works.</p>
+
+<p>Folks, this is a shit show.</p>
+
+<p>Now, it is entirely possible I am simply Doing It Wrong, and will be happy
+to be corrected. Take a look at the code in <a href="https://github.com/chartjes/wat-zendcon14">this repo</a>
+AND DESPAIR. This code is brittle, has to maintain state between test steps
+manually, and the tests take forever to run because you have the overhead
+of starting up a browser and painfully crawling through the DOM to find things.</p>
+
+<p>(By the way, who is the person that decided the DOM was the best way to internally
+represent elements on a web page? If it was Tim Berners-Lee, well, it strikes me
+as a decision that is biting us in the ass now but was probably totally logical
+at the time)</p>
+
+<p>I am hopeful that someone out there is working on a better set of abstractions
+and tools that will make the types of things we are asking Behat and Mink and
+Page Objects and PhantomJS to do a lot better.</p>
+
+<p>Send me your thoughts and ideas on Twitter or to chartjes@grumpy-learning.com
+and I will do a follow-up post.</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2013/12/27/test-spies-and-mockery/">Test Spies and Mockery</a></h2>
+        </header>
+        <div>
+            <p>While recording some screencasts I was struggling to figure out how to
+get PHPUnit's built-in object mocking tools to allow me to create what is
+known as a "test spy". I talk about them briefly in my <a href="http://grumpy-phpunit.com">PHPUnit Cookbook</a>
+but I think that what I wanted to do in this instance was beyond what PHPUnit
+could give me.</p>
+
+<p>I had some code-under-test that had a conditional statement inside a foreach()
+loop (aggravating my desire to use <a href="http://www.slideshare.net/rdohms/bettercode-phpbenelux212alternate">object calisthenics</a>)
+and I wanted to make sure that both branches of the conditional statement got
+executed.</p>
+
+<p>I first tried something like this:</p>
+
+<pre><code>    // $db is our mocked database object based off stdClass for testing
+    $db-&gt;expects($this-&gt;once())
+        -&gt;method('query')
+        -&gt;with($update, ['id' =&gt; 1]);
+    $db-&gt;expects($this-&gt;once())
+        -&gt;method('query')
+        -&gt;with($delete, ['id' =&gt; 5]);
+</code></pre>
+
+<p>I was using <a href="http://auraphp.com/manuals/v1/en/sql/">Aura.Sql</a> and it's Update
+and Delete objects. I wanted to be sure that I was using both objects.</p>
+
+<p>I also tried using <em>$this->at(0)</em> and <em>$this->at(1)</em> as well, I got errors
+ranging from "method query was not mocked" to problems complaining about
+expected values not showing up at the expected sequence.</p>
+
+<p>I knew there had to be a better way, but I really wanted just to use PHPUnit's
+built-in mocking. I couldn't figure it out. So instead I turned to a mocking
+library that I knew supported test spies: <a href="https://github.com/padraic/mockery">Mockery</a>.</p>
+
+<p>The code reads a lot smoother:</p>
+
+<pre><code>    // m is an alias to \Mockery
+    $db = m::mock('stdClass');
+    $db-&gt;shouldReceive('query')-&gt;with($update, ['id' =&gt; 1])-&gt;once();
+    $db-&gt;shouldReceive('query')-&gt;with($delete, ['id' =&gt; 5])-&gt;once();
+</code></pre>
+
+<p>The first thing that jumps out at me is that the Mockery version looks cleaner.
+Well, really, it's only one less chained call. But looks do count for something.</p>
+
+<p>More importantly, my test worked the first time with no weird error messaging
+about unexpected behaviour.</p>
+
+<p>So the next time you are writing a unit test and need to create spies on
+methods of a mocked object, I cannot recommend enough that you take a look
+at Mockery.</p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/11">Newer Posts</a><br />
+        <a href="/page/13">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

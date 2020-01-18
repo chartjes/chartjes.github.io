@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Home &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta name="robots" content="noindex, follow">
+                <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2><a href="/2007/08/03/database-shards-and-cakephp/">Database Shards and CakePHP</a></h2>
+        </header>
+        <div>
+            <p>As I've mentioned in this blog before, I spent 4 years working for an adult dating web site.  One of the biggest problems we ran into was a bottleneck involving database replication lag.  In a normal replication setup you have your application do writes to a master database and then those changes get replicated to the slaves.  That's okay...until you start dealing with huge amounts of updates.</p>
+
+<p>
+So, the quick solution was to make sure that we had fast enough hardware on the slaves to handle the huge volume of updates.  I remember partition lag in the order of 30 minutes on some of the machines (that's right, THIRTY MINUTES).  But the bigger problem came down to trying to find a way to minimize replication problems.  One of the things discussed (and I have no idea if it ever got implemented after I left) was partitioning the data into groups that made sense.  Some of the suggestions were to partition based on geographical location of the users, or simply do grouping based on the record ID.</p>
+
+<p>
+The other day I came across a great blog posting talking about <a href='http://highscalability.com/unorthodox-approach-database-design-coming-shard'>database shards</a> and instantly realized that they were talking about exactly what we were facing.  The goal is to spread the data around, denormalize things so that you have all your necessary data in one spot and to try and minimize replication issues.  So you'd be reading and writing to a shard depending on whatever criteria you are using.</p>
+
+<p>Now, I know that you could put code into the beforeSave() method on a model to figure out what shard you would be writing to, but how to figure out what shard you would be *reading* from is something I am still mulling over.  Suggestions from #cakephp-dev (where I hang out during the work day) seem to point towards using a behavior (go to <a href="http://bakery.cakephp.org">the Bakery</a> and search for "behavior" to see lots of examples) to make this work.  I'll fool around with some code to see if I can come up with something that works.
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2007/08/01/whats-in-chris-brain-august-2007-edition/">What&#039;s In Chris&#039; Brain: August 2007 Edition</a></h2>
+        </header>
+        <div>
+            <p>I have a post coming up later this week on some tips and tricks involving CakePHP best practices I've picked up (and had foisted upon me) but for now it's brain dump time:
+<ul>
+<li>Can the <a href="http://lazyweb.ca">lazyweb</a> tell me where I can find some cool online crime statistics?  I was at a friend's birthday party last Saturday and he suggested a really cool mashup that people searching for houses would be interested in</li>
+<li>I'm back to using Komodo instead of vim because, well, vim just couldn't give me the environment I wanted.  What I need is the "here are the files in your project" hanging off the main editing window, syntax checking when I'm typing away, and then show me what files I changed that are going to be checked back into version control.  Komodo does this.  Vim does not.  Well, at least not the way I want it to.</li>
+<li>Is it possible for a single incompetent programmer to cost their employer millions of dollars in lost opportunities without actually breaking anything?  I think a lot of managers would go insane if they actually sat down and tracked how the progress of others was held up by a single person.  That "domino" effect could cost a company a lot of money without them actually realizing it.</li>
+<li>Big news out of CakePHP-land is that <a href="http://www.mambo-foundation.org">Mambo</a> will be using CakePHP as the core for the next version of Mambo.  Yet another reason to seriously consider CakePHP, if you haven't already</li>
+</ul></p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2007/07/28/two-headed-application-authentication-in-cakephp-12/">Two-Headed Application Authentication in CakePHP 1.2</a></h2>
+        </header>
+        <div>
+            <p>I've been working on an internal application for use at <a href="http://www.cakedevelopment.com">CDC</a> that required me to have what I call "two-headed" authentication.  By this I mean that there were two types of users in the system and while they could access some of the same controllers they could not always access the same actions.  I know what you're saying:  why not have them both use the same model instead of making my life difficult?  A few reasons, one of which was that one type of user was using their email address as the login while the other had a more traditional login name.</p>
+
+<p>
+After struggling my way through the Auth component (the API changed while I was starting to use it), and understanding the actual flow that the Auth component uses, I nailed down how to do it.  Using good CDC practices (as in "do it our way you stupid Kanuckistanian!") I started off with putting my Auth stuff into the before filter:
+~~~
+function beforeFilter() {
+        parent::beforeFilter();
+               
+        $this->Auth->loginAction = 'plugin/users/login';
+        $this->Auth->loginRedirect = 'plugin/users/index';
+        $this->Auth->fields = array('username' => 'username', 'password' => 'psword');
+        
+        $this->set('current', $this->action);
+        
+        if($this->Auth->isAuthorized()) {
+            
+            $role = $this->Auth->user('role');
+            
+            if($role) {
+                if ($role == 'admin' && strpost($this->action, CAKE_ADMIN) !== false) {
+                    $this->Auth->allow($this->action);
+                }        
+                if ($role == 'admin') {
+                    $this->set('adminNavigation', $this->adminNavigation);
+                }
+                
+                $this->set('userNavigation', $this->userNavigation);
+            } else {
+                $this->set('clientNavigation', $this->clientNavigation);    
+            }
+            
+            $this->set('userRole', $role);
+        }
+ }
+~~~
+</p>
+
+<p>
+Now, I had an action in a controller where a "client" can view everything but a "user" could only view a specific action.  On top of that any "user" who also had an "admin" role could view any action in that controller.  In that particular controller I had to put in this code:
+~~~
+function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->userModel = 'Client';
+        $this->Auth->loginAction = 'plugin/clients/login';
+        $this->Auth->fields = array('username' => 'email', 'password' => 'psword');
+        $this->Auth->authorize = 'controller';        
+}
+~~~
+In the latest version of the Auth component (from the bleeding edge of Cake 1.2.x.x) you can tell it to use an action in your controller for authorization.  This is if you're lazy like me and don't want to use the Acl (which has a number of steps you need to go through just to get it up and running) or want something very simple.  So, in the above beforeFilter() we override the parent beforeFilter() settings and tell Auth that we want to use our Client model as the source for verifying login credentials.
+</p>
+
+<p>
+Now, I mentioned before that I had one action in the controller that could be viewed by the User and one action only.  So, I added in the isAuthorized() method to my controller that I told Auth to look for:
+~~~
+    function isAuthorized() {
+        if ($this->Auth->user('role')) {
+            if (strpos($this->action, CAKE_ADMIN) !== false && $this->Auth->user('role') == 'admin') {
+                return true;
+            }
+            
+            if ($this->action == 'view') {
+                return true;
+            }
+            
+            return false;
+        }
+        
+        return true;
+    }
+~~~
+I think the code is pretty self-explanatory.
+</p>
+
+<p>
+Working with the Auth component taught me a lesson about frameworks in general: when you take the time to actually dig into the source code of a framework you will realize just how much work goes into some of the more "magic" functions.  I mean, you tell CakePHP that you want to use the Auth component, set a few parameters and *BAM* it takes care of directing people to your login page and validating login names and passwords (even automatically encrypting passwords upon account creation!) against your specified model.  Why wouldn't you want to use something like that?</p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/110">Newer Posts</a><br />
+        <a href="/page/112">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

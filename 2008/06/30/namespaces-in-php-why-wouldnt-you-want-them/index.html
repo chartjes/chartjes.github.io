@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Namespaces in PHP?  Why *wouldn&#039;t* you want them? &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2>Namespaces in PHP?  Why *wouldn&#039;t* you want them? <small>post</small></h2>
+        </header>
+        <div>
+            <p>
+Earlier today I say the following tweet on the-often-down-but-always-interested Twitter from <a href="http://weierophinney.net/matthew/">Matthew Weier-O'Phinney</a>:
+<br /><br />
+"What issues to _you_ see with using namespaces in PHP? Start blogging!"
+<br /><br />
+Since I am one who likes to share his opinion on a wide variety of topics, I thought this is a good one to prompt discussion.
+</p>
+
+<p>
+<a href="http://en.wikipedia.org/wiki/Namespaces">Namespaces</a> are expected to be a feature in future releases of PHP.  I'm an outsider when it comes to tracking the going-on in the world of PHP internals.  So, because of that, I'm not going to comment on the actual syntax of how namespaces will be implemented or it's impact on internals.  That's not really important as far as this particular discussion goes.
+</p>
+
+<p>
+Imagine if you will that you are the user of a <a href="http://cakephp.org">web application framework</a> that allows you to easily use third-party libraries by dropping them into a specific location in your application structure.  You go to use it and...what the fuck?!? Class name conflicts?!?!? ARRRRRRGGGGGGGHHH.  You proceed to post to  the mailing list for said framework, complaining bitterly about how you cannot use your favourite library with this stupid framework.  Some grumpy guy from Canada flames you in response and it spirals down from there into oblivion.
+</p>
+
+<p>
+There are many programming languages that support namespaces, but PHP was not one of them.  Why are namespaces so important?  They can help to solve the exact problem mentioned in the paragraph above.  Why *wouldn't* you want such a thing?!?!  You can have 5 classes with the same name in 5 different namespaces and everything will be just fine.  Except for the fact you have 5 classes with the same name.  That's not good design, but namespaces would let you do that.
+</p>
+
+<p>
+So, to go back to our little framework example for a minute, the framework could assign itself a namespace (oh, I dunno, like 'Cake') and if you happen to want to use a 3rd-party library with your application that has a class with the same name, it's all good...as long as you didn't put your own code in the same namespace.
+</p>
+
+<p>
+So, to answer Matthew's original question:  I cannot think of any reason to NOT have namespaces in PHP.
+</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/2008/07/07/web-mockups-with-a-hint-of-balsamiq/" title="Web Mockups, With A Hint Of Balsamiq"><span class="title">Web Mockups, With A Hint Of Balsamiq</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/2008/06/24/new-trends-in-front-ends/" title="New Trends In Front Ends"><span class="title">New Trends In Front Ends</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+
+
+
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

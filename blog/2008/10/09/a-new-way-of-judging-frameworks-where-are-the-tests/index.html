@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>A New Way Of Judging Frameworks:  Where are the tests? &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>A New Way Of Judging Frameworks:  Where are the tests? <small>post</small></h2>
+            <h3>October 9th, 2008</h3>
+        </header>
+        <div>
+            <p>
+As a <a href="http://sportso.com">project for work</a> gets ready for an alpha release, I've managed to eliminate all the serious bugs and now have some time for what should've been part of the project from the beginning:  writing tests. As a lapsed tester, I always feel guilty about not writing tests when things start to get complicated with an application.  Whenever you make a change, you have to point-and-click your way through the application to make sure that nothing has broken.  I got tired of pointing-and-clicking, so I decided it was time to shut up and write some tests.  Since I'm using Code Igniter instead of CakePHP for this project (did I mention that I inherited the project and couldn't switch?) I started looking into the culture of testing surrounding Code Igniter.  It's weaker than a newborn baby.
+</p>
+
+<p>
+The built-in testing system is some weird mishmash of unit testing and "you have to create your own test results template".  WTF?  You can't be serious.  So I quickly ignored that.  Besides, the first set of tests were going to be using <a href="http://phpunit.de">PHPUnit</a> combined with <a href="https://selenium.dev/">Selenium</a> so I could make the "acceptance testing" automated.  As an aside to this, I remember speaking with Sebastian Bergmann (the driving force behind PHPUnit) at a conference maybe 3 years ago and him telling me that he knew someone was working on getting Selenium and PHPUnit to play nicely together.  Anyway, it's working just fine.
+</p>
+
+<p>
+So, next step was to see if I could use something else than the incredibly lame testing tools that Code Igniter came with.  I found something called <a href="/www.foostack.com/foostack/">fooStack</a>, that contained CIUnit.  It lets you use PHPUnit with Code Igniter.  Now we're talking!  Lickety split I had some unit tests for my models written.  Well, after spending quite a lot of time screwing around with the tests and finding out the difference in relative paths between the application running via Apache and trying to test the models via the command line.  Thanks to all those on Twitter who yelled "use php_sapi_name to figure out what environment you are in, you idiot!" at me.
+</p>
+
+<p>
+But all this got me to thinking:  how do some other PHP frameworks stack up in terms of having tests?
+<ul>
+<li>Code Igniter has ZERO tests for the framework itself.  Perhaps I will mention this to my boss next time I'm asked to create a project from scracth.  Hrm, guess I'll have to trust that their code actually works the way it's supposed to.</li>
+<li>Zend Framework (full disclosure: I was one of the original authors of the Zend_Service_Audioscrobbler component) has huge amounts of tests for the framework itself.  In fact, any new contributions MUST have working tests submitted with it.</li>
+<li>CakePHP has lots of tests for the core, and I believe that I saw something in the changelog for CakePHP 1.2RC3 that indicated they were at 80% code coverage in terms of testing for the CakePHP core.  Bug submissions for CakePHP are supposed to come with tests to prove that there is a repeatable problem.</li>
+<li>Symfony recently rewrote it's core tests and created their own testing framework for it.</li>
+</ul></p>
+
+<p>So now when you start comparing frameworks to each other, I think it's important you also consider how much effort has gone into creating tests for the core functionality of that framework.  A well tested framework should mean far less surprises when using it.  Given how many tools are out there to assist you in testing, I don't think there are any excuses other than being totally lazy to not create tests for the core functionality of any application.  Pay now, or pay later, but you will PAY to fix bugs in your application.  Paying now is simply cheaper.
+</p>
+
+<p>
+Would you stake your project on complex code written by someone else that is simply not testable by you?  Perhaps I am not looking at from the proper distance because I am inside the framework-creator culture, but I can't see why you wouldn't want to provide tests to prove your stuff actually works the way you claim it does.  Tests prove that the code is *behaving* the way you expect, and code that is testable is also usually easier to modify as time goes on.  There is some sort of sick joy in making a change to code, running the unit tests, and seeing that you didn't break anything. 
+</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2008/10/16/job-opening-xmlteam-solutions/" title="Job Opening: XMLTeam Solutions"><span class="title">Job Opening: XMLTeam Solutions</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2008/10/02/cakephp-12rc3-released/" title="CakePHP 1.2RC3 Released"><span class="title">CakePHP 1.2RC3 Released</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Home &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta name="robots" content="noindex, follow">
+                <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2><a href="/2008/05/16/cakephp-application-deployment-rfc/">CakePHP Application Deployment: RFC</a></h2>
+        </header>
+        <div>
+            <p>A co-worker of mine always complains that people don't read the <a href="http://en.wikipedia.org/wiki/Request_for_Comments">RFC</a> that covers a topic related to making their own stuff work with our stuff.  He's old sk00l like that.  Although my co-worker is a tad out-of-touch with the realities of programming these days (as in the amount of people who actually read the RFC when they can simply use someone else's library / module / function / application is very small), I thought I would at least adhere to some semblance of standards and do a blog posting about my plans for making CakePHP application deployment easier.
+</p>
+
+<p>
+While I really prefer to use <a href="http://capify.org">tools like this</a> for deployment, I understand that not everyone wants to mess with standalone programs and configuration files.  I've been asked before about Cake-specific deployment techniques, so I figure the easiest way is to see about adding a task to the Cake console.  Let's call this 'cake deploy'.
+</p>
+
+<p>
+As I <a href="http://groups.google.com/group/cake-php/browse_thread/thread/ea4e5ec768c8d95a#">explained on the mailing list</a> I am looking for opinions on what sort of things should be part of the 'cake deploy' task.  Right now, my thoughts are as follows:
+<ul>
+<li><i>cake deploy config</i></li> - setup and edit configuration parameters.  Initially I thought of setting things like transport method (ssh, ftp), logins and passwords, remote location, source directory, and destination directory.  The configuration file would be stored locally in APP/config
+<li><i>cake deploy</i> - seems pretty self-explanatory to me.</li>
+</ul>
+</p>
+
+<p>
+In the RFC thread on the CakePHP mailing list, someone mentioned they'd like to see rsync, but I'm trying to avoid having to external programs required to make the deployment work.  Or, at least, use as few as possible.  Anyhow, if you have any thoughts on this feel free to add them to the comments.
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2008/05/13/new-cakephp-12-release-coming/">New CakePHP 1.2 Release Coming</a></h2>
+        </header>
+        <div>
+            <p>I'm certainly not the only person who has been blogging about this, but I thought I'd mention that a feature freeze is coming up for the next CakePHP 1.2 release, codenamed 'DV'.  My very modest contribution this time around is a patch to fix a problem with running 'cake bake' on Windows, where it was mangling the app path that a user would enter.  <a href="https://trac.cakephp.org/ticket/4495">Ticket 4495</a> if anyone is interested.
+</p>
+
+<p>
+Anyhow, anyone who uses CakePHP or wants to help out can definitely get involved in the process by:
+<ul>
+<li>Entering bugs into CakePHP's trac if they don't see them in there</li>
+<li>Contributing tests and/or patches for existing bugs</li>
+<li>Testing out the bleeding-edge versions of CakePHP that you can get from the SVN repository</li>
+</ul>
+</p>
+
+<p>
+There has been a lot of debate on the mailing list about both the direction of the project and the attitude of people on the mailing list.  Well, as one of the people who gets to be involved in both sides (albeit a minor role in terms of contributing code) I can tell you that the project will continue moving forward, building on all the traction CakePHP has gotten.  Maybe 1.2 has dragged on for a while, but isn't that just a number anyway?  Would people be reacting if it was Cake 1.7.2 or something like that?
+</p>
+
+<p>What people don't always see is the amount of work that goes into CakePHP by developers.  Every morning when I log into my account on my MacBook, I update my copy of CakePHP from SVN.  99.999% of the time there is an update.  These days, tests are being written like crazy and <a href="http://debuggable.com/posts/code-coverage-analysis-soon-in-cakephp---test-how-well-you-test:4814f6a0-fe60-4f50-be0b-07194834cda3">Tim's awesome work in creating code coverage information</a> and those things can only help the project as a whole get better.  These are exciting times for anyone connected to the project, no doubt about that.  No amount of CakePHP haters (you know who you are) are going to change that.
+</p>
+
+<p>
+Secondly, people have to understand that a mailing list full of a lot of technical, highly-skilled people is not a friendly place for beginners.  Sad, but true.  I have answered many questions on the mailing list, some of them properly and some of them, well, let's just say my nickname of GrumpyCanuck has been well-placed.  Can we all be civil?  Probably not.  Should we be civil?  Maybe.  I think anyone who doesn't understand the dynamics of the CakePHP list itself should go and read <a href="http://www.catb.org/~esr/faqs/smart-questions.html">this</a>.  Forewarned is forearmed.
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2008/05/07/cakefest-hispania/">CakeFest Hispania</a></h2>
+        </header>
+        <div>
+            <p>This was *supposed* to be a post about my successes in getting the Rallyhat web service up and running on Google App Engine, but that's not quite done yet.  Instead, I will inform our spanish-speaking CakePHP users (and the more adventurous types who enjoy travel) that the <a href="http://www.cakefest.org">CakeFest</a> site as been updated to announce <a href="http://cakefest.org/users/add">pre-registration</a> and other information about CakeFest #2, which will be held in Buenos Aries, Argentina at the beginning of December.
+</p>
+
+<p>
+All your favourite people from the CakePHP world will be there, although I might not be able to make it despite Mariano's very convincing IM conversations.  The organizer (the previously-mentioned Mariano) is a great guy, good contributor to the project, and I still like him despite the fact that he is a Windows user in an ocean of Mac fanbois.  Maybe things will work out that I can go, but if you can make the trip it will be one of the most interesting conferences this year.
+</p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/85">Newer Posts</a><br />
+        <a href="/page/87">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

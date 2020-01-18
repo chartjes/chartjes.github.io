@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Data providers and arrays &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2>Data providers and arrays <small>post</small></h2>
+        </header>
+        <div>
+            <p>I was asked a question on Twitter by <a href="https://twitter.com/tex_morgan">Tex Morgan</a> 
+about a problem he was having with <a href="http://phpunit.de/manual/current/en/writing-tests-for-phpunit.html#writing-tests-for-phpunit.data-providers">PHPUnit data providers</a>. He was trying to pass in some data and kept wondering
+why PHPUnit was serializing the data instead of doing what he was expecting.</p>
+
+<pre><code>public function preLoaderArrayDataProvider()
+{
+    return array("one" =&gt;
+        array(
+            'http://yahoo.com',
+            'http://google.com',
+            'http://facebook.com',
+            'http://twitter.com'
+        ), "two" =&gt;
+        array(
+            "http://jquery.com",
+            "http://jqueryui.com"
+        )
+    );
+}
+
+/** testSetArray
+ * @dataProvider   preLoaderArrayDataProvider
+ */
+public function testSetArray($array)
+{
+    $this-&gt;expected = true;
+    $this-&gt;actual = $this-&gt;object-&gt;setArray($array);
+    $this-&gt;assertEquals($this-&gt;expected, $this-&gt;actual);
+}
+</code></pre>
+
+<p>I see what Mr. Morgan was trying to do, and more importantly why it wasn't
+working. The problem he was running into has to deal with how PHPUnit expects
+data to be sent by the data providers.</p>
+
+<p>The method under test is expecting one parameter that consists of an array.
+Data providers are supposed to return an array of arrays, where each element
+of the inner array maps to a parameter the method under test is expecting.</p>
+
+<p>So what went wrong? The data provider is passing in 5 strings as a parameter.
+Here's the results:</p>
+
+<pre><code>PHPUnit 3.7.28 by Sebastian Bergmann.
+
+FF
+
+Time: 28 ms, Memory: 2.50Mb
+
+There were 2 failures:
+
+1) TexTest::testSetArray with data set "one" ('http://yahoo.com', 'http://google.com', 'http://facebook.com', 'http://twitter.com')
+Failed asserting that false matches expected true.
+
+/Users/chartjes/src/php-test-bootcamp-practice/tests/TexTest.php:29
+
+2) TexTest::testSetArray with data set "two" ('http://jquery.com', 'http://jqueryui.com')
+Failed asserting that false matches expected true.
+
+/Users/chartjes/src/php-test-bootcamp-practice/tests/TexTest.php:29
+
+FAILURES!
+Tests: 2, Assertions: 2, Failures: 2.
+</code></pre>
+
+<p>The fix is easy. The method under tests is expecting one parameter that is an
+array, so let's give it one.</p>
+
+<pre><code>public function preLoaderArrayDataProvider()
+{
+    return array("one" =&gt;
+        array(
+            array(
+                'http://yahoo.com',
+                'http://google.com',
+                'http://facebook.com',
+                'http://twitter.com'
+            )
+        ), "two" =&gt;
+        array(
+            array(
+                "http://jquery.com",
+                "http://jqueryui.com"
+            )
+        )
+    );
+}
+</code></pre>
+
+<p>The result?</p>
+
+<pre><code>PHPUnit 3.7.28 by Sebastian Bergmann.
+
+..
+
+Time: 17 ms, Memory: 2.25Mb
+
+OK (2 tests, 2 assertions)
+</code></pre>
+
+<p>Problem solved. Hope this helps you give a better understanding of how
+PHPUnit data providers work.</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/2013/11/18/the-power-of-the-browserproxymob/" title="The Power of the BrowserProxyMob"><span class="title">The Power of the BrowserProxyMob</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/2013/10/14/booze-babes-and-buttholes/" title="Booze, babes, and buttholes"><span class="title">Booze, babes, and buttholes</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+
+
+
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

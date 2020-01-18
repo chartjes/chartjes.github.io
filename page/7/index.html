@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Home &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta name="robots" content="noindex, follow">
+                <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2><a href="/2017/03/27/a-different-twitter-experience/">A Different Twitter Experience</a></h2>
+        </header>
+        <div>
+            <p>It's no secret that I am on Twitter a lot. I mean, really a lot. Almost 100k
+worth of posts a lot. But as I use it more and more I find I was spending
+way more time treating Twitter as read-only, when what I wanted was to actually
+interact with people! Maybe that is a naive position to take, but it is what
+it is.</p>
+
+<p>Then I stumbled upon this <a href="https://elvery.net/drzax/the-list-cycle">blog post</a> 
+where someone described an experiment they were trying out. The code for it
+was written in Node and I couldn't get it to work so like any pragmatic programmer
+I used the tools I am most comfortable with and <a href="https://gist.github.com/chartjes/57e4470ef686d2fdcf5e496812d9fea1">wrote a version in PHP</a>.</p>
+
+<p>So every morning a cron job kicks off on a server and looks at the last 30
+days of my Twitter timeline. It looks for users who I have "interacted" with
+during that time frame. What is "interaction"? It's defined as:</p>
+
+<ul>
+<li>you replied to, favourited, or retweeted a tweet of mine</li>
+<li>you favourited or retweeted a tweet I was mentioned in</li>
+<li>I mentioned you in a tweet</li>
+<li>I replied to or favourited a tweet of yours</li>
+</ul>
+
+<p>The results so far have been interesting. I definitely see a different group
+of people on my feed than I have expected. Which is entirely the point! It
+has made me <em>use</em> Twitter differently...which again is the point. I'm far freer
+with my favourites and retweets than I was before. I'm also slowing down to
+actually read my timeline rather than just scroll through it super quickly
+like a trained monkey or something.</p>
+
+<p>It's also making me be a lot less judgemental of the people who do end up on
+this list. While some of the people I follow are definitely blasting out stuff
+I am not all that interested in, I'm willing to take a chance and not just
+mute them as soon as I don't like the minutiae of their life. Diversity is
+a good thing and filter bubbles are not.</p>
+
+<p>Another side effect of this has been some people proclaiming "I didn't know you
+were following me!" when I say something to them. Hate to burst your bubble but
+I'm not following you -- you are on my 'cycle' list and I can see your Tweets.</p>
+
+<p>I know some folks follow accounts that send out emergency information and
+things like that -- I work from home so things like that are not of great
+use to me. YMMV etc etc.</p>
+
+<p>If you're looking to have a different experience with Twitter, try my code out
+and see what kind of list it can generate for you. I'm going to keep using this
+for the near future because I feel like it's a worthy experiment. In fact, some
+Twitter accounts I felt were essential to follow have just slid off the list
+and I haven't missed them.</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2017/03/12/fighting-fear-and-loathing-in-crested-butte/">Fighting Fear and Loathing In Crested Butte</a></h2>
+        </header>
+        <div>
+            <p>This past week (March 5th-10th) I went to Crested Butte, Colorado to attend
+the <a href="http://www.mindviewinc.com/Conferences/JavaPosseRoundup/">Winter Tech Forum</a>
+with my fellow Mozillian <a href="https://twitter.com/m8ttyb">Matt Brandt</a>. He'd been
+encouraging me for about a year to come out for a visit and see the conference
+for myself.</p>
+
+<p>I went intending to push myself out of my comfort zone. I pushed a little too
+hard.</p>
+
+<p>WTF (pretty sure it was named this on purpose) is an Open Spaces conference.
+This means that there are no set speakers -- attendees self-organize and the
+goal is really for smaller sessions where it's more of a discussion than
+your traditional lecture-style session. It seems to me it leans more towards
+having a number of attendees in the 30-40 range -- Bruce Eckel, one of the
+organizers for this event, mentioned he felt things started to change once
+you get up to 50 people. This year's event was just a little over 20.</p>
+
+<p>So, the first thing that caused me some stress was the very first session where
+Bruce explained how everything worked and the attendees introduced themselves.
+When it was my turn I introduced myself and talked about how I came into this
+event with no expectations and was going to try and just go with the flow.</p>
+
+<p>It was very strange to go from being a known quantity after all these years of
+giving talks at PHP conferences to being absolutely nobody at this event. I'm
+not going to lie -- it was a very uncomfortable feeling for me. There were four
+newcomers, I only knew Matt, and it seemed like EVERYONE ELSE knew each other.</p>
+
+<p>So the sessions started going and there were some interesting discussions:</p>
+
+<ul>
+<li>a quick intro to Machine Learning led by someone who worked for a consultancy specializing in it</li>
+<li>I led a discussion about how I manage social media and a discussion about whether or not to interact with haters and trolls</li>
+<li>offered some input and my experiences to a discussion on remote working</li>
+</ul>
+
+<p>The afternoons were ours to do with as we wished. A lot of attendees liked to
+ski or do other activities. Since I am usually against sweating while outdoors,
+I retreated to my charming little Airbnb and kept on doing a big refactor of
+<a href="https://github.com/opencfp/opencfp">OpenCFP</a> to add in consistency for the
+use of forms and replacing Sentry (the authentication and authorization library)
+with it's replacement from Caratalyst, <a href="https://cartalyst.com/manual/sentinel/2.0">Sentinel</a>.</p>
+
+<p>Tuesday was more of the same -- open discussions in the morning and then we
+were free to do whatever we wanted in the afternoons. Tuesday's sessions for me were:</p>
+
+<ul>
+<li>Matt led a discussion on app and web accessibility issues</li>
+<li>What had people done with hardware devices and ideas for the Wednesday hack day</li>
+</ul>
+
+<p>I didn't go to the last sessions, I instead went to go hack some more on OpenCFP
+in order to have something to show off on Wednesday night. Had some lunch at
+one of the many fine restaurants in Crested Butte, and went back to my Airbnb.</p>
+
+<p>Wednesday I spent the entire day working on more OpenCFP stuff -- adding tests
+to the application is a very slow and deliberate process and I am trying to
+be a Good Open Source Project Maintainer. After dinner everyone went back to
+the conference venue (the local parish hall) and I fought against my fear
+and loathing by going first and doing a quick 5 minute demo of OpenCFP.
+What else did we see?</p>
+
+<ul>
+<li>demo of using machine learning to detect angry tweets</li>
+<li>demo of a Slack bot that uses Markov chains of some Twitter accounts to generate output</li>
+<li><a href="https://developer.amazon.com/alexa">Alexa</a>-as-a-mentalist demo</li>
+<li>Using an Echo dot to turn a disco ball off and on</li>
+<li>Adding some Alexa skills to give people information about Crested Butte</li>
+<li>A <a href="https://en.wikipedia.org/wiki/Brainfuck">Brainfuck</a> compiler written in <a href="https://en.wikipedia.org/wiki/Clojure">Clojure</a></li>
+<li>Using a <a href="https://www.leapmotion.com">Leap Motion</a> controller to allow people to cast spells from Harry Potter by hand</li>
+<li>A quick demo of <a href="https://ponylang.org">Pony</a></li>
+</ul>
+
+<p>There were two other demos that I cannot remember and didn't take notes for, sorry folks.</p>
+
+<p>Dinner that night was at an awesome restaurant that specialized in dishes for
+sharing -- the 12 of us had one of (almost) everything on the menu. Probably
+the best $50 I ever spent on a dinner.</p>
+
+<p>Then Thursday happened.</p>
+
+<p>I went to some sessions but my brain wouldn't let go of a fear of going to the
+progressive dinner event. It starts off by going to a house (many of the
+attendees rented houses for the event) for appetizers, then a different
+house for the main course, and a third place for dessert.</p>
+
+<p>I watched sessions on:</p>
+
+<ul>
+<li>keeping things like login and passwords your app needs from being leaked out</li>
+<li>a jumpstart for a functional programmer getting into Python</li>
+</ul>
+
+<p>Then I went back and hacked some more, had lunch, and went back to my Airbnb.</p>
+
+<p>It's been a very long time since I've had a panic attack. The last time was
+when I was going to do a joint talk with <a href="https://twitter.com/stuherbert">Stuart Herbert</a>
+at ZendCon and he couldn't come due to medical issues.</p>
+
+<p>My brain just latched onto:</p>
+
+<ul>
+<li>20 people</li>
+<li>you don't know any of them</li>
+<li>it's too many people in one small house</li>
+<li>I WILL NOT LET YOU GO</li>
+</ul>
+
+<p>So I remained in my Airbnb and had a salad I had bought at the local grocery
+store. I felt bad that I couldn't go -- but many of the attendees approached
+me on Friday to lend me their support and tell me they have often felt the
+same thing. That was the one big thing that made this event really, really
+different -- everyone was 100% serious about giving yourself permission to
+do as much or as little as you wanted at this event.</p>
+
+<p>Friday was a much, much better day.</p>
+
+<ul>
+<li>Session for the new attendees to discuss their experience</li>
+<li>Integrating remote folks into your teams</li>
+</ul>
+
+<p>Then the closing session where Bruce talked about his own experiences this
+year, some changes he was thinking about, and his own plans for future
+events like this in 2017. We went around the circle sharing our own
+experiences and then we took off for lunch.</p>
+
+<p>I went back to my Airbnb and worked on converting over a <a href="https://cakephp.org">CakePHP</a>
+application from 2.x to 3.4. Of <em>course</em> the ORM has changed things so I have
+lots of work to do.</p>
+
+<p>Then the finale of the event was awesome -- dinner at a yurt that you could
+only get to my snowshoeing, skiing, or snowmobile. There were multiple starting
+points depending on your own comfort level and experience level. I had decided
+on the 1.5 mile starting point and would snowshoe in. I had never used snowshoes
+before.</p>
+
+<p>This time I felt comfortable having dinner with the whole group. The snowshoe
+experience was not going to deter me from making it.</p>
+
+<p>In the end, the experience was GREAT. We walked as the sun set, great conversations
+to be had and then a great dinner prepared in the yurt for us. I sat at a table
+with all the other attendees named Chris (there were 4 of us) and I shared
+the tale of my grandfather's experiences as a German soldier who got caught
+in the <a href="https://en.wikipedia.org/wiki/Battle_of_Stalingrad">siege at Stalingrad</a>.</p>
+
+<p>The return walk was even better -- walking in bright moonlight combined with
+a great talk with an attendee about his upcoming job helping to build the
+infrastructure for an autonomous car company. It made me regret not participating
+in the progressive dinner the night before.</p>
+
+<p>Saturday I got up early and Matt drove me back to Durango for my flights home.
+Again, great chats with Matt over the 4-1/2 hour drive and I feel like we really turned a professional
+relationship into a real friendship. My flights home were uneventful and I
+grabbed my car from the off-airport valet parking around midnight.</p>
+
+<p>So what are my big takeaways from this event?</p>
+
+<p>First, it's really intimidating to get into meaningful discussions on any topic
+with a group of strangers. By the end of the week I felt like these people
+weren't strangers any more -- it felt more like work colleagues. It's clear
+to me that the event (which is 10+ years old if I recall correctly) acts as
+a support and networking group for these people. They really care about each
+others' lives and careers. It was great to see.</p>
+
+<p>The second thing is a bit of weird perspective from me. For a lot of people,
+they get the impression that what they are doing is unique and then these
+sort of events show you that others are doing or experiencing the same things.</p>
+
+<p>I had always felt that what I was doing was very similar to other peoples' experiences.
+Instead, I discovered much of my experience and views on remote working, personal management,
+and communication skills are quite unique. Attendees told me they really liked
+how I articulated my views on these topics and that they got a lot out of it.
+Nice little boost for the ego, to be sure.</p>
+
+<p>So, will I be back? I want to go back and immerse myself more into this
+group. Hopefully I can convince <a href="https://twitter.com/funkatron">Ed</a> to come
+with me.</p>
+
+<p>Thanks to Bruce for being so warm and welcoming and treating me like I had
+been part of this forever. Extra special thanks to Matt for being my conference
+buddy. I would not have gone to an event like this without knowing someone.</p>
+
+<p>Finally, this event has made me wonder if my 2018 event idea (GrumpyCon) should
+be something similar. I am moving in the summer and maybe I get lucky and
+wherever I end up has the ability for me to allow me to host 30 people
+for a week of in-depth discussions and experiences about PHP and other topics
+people want to discuss.</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2017/01/18/testing-xml-based-apis/">Testing XML-based API&#039;s</a></h2>
+        </header>
+        <div>
+            <p>At the <a href="https://mozilla.org">day job</a> I deal with making sure that a number
+of different services
+get tested sufficiently that we have confidence that what's being deployed and
+then used by Firefox is correct. This is a big change from what I did before
+I got to Mozilla - I mostly wrote unit tests and integration tests for code.
+These services are like black boxes as far as QA is concerned -- I do have
+some insight into the code itself by being involved in code reviews to make
+sure unit and integration tests are still in place but my task is to make sure
+the service is functioning as expected.</p>
+
+<p>Since it's 2017, most of the services around here are returning JSON-based
+responses but <a href="https://github.com/mozilla/balrog">Balrog</a> returns XML that
+is consumed by Firefox itself to let you know any updates that need to be
+made to Firefox itself or any add-ons you've installed.</p>
+
+<p>Normally I would write some <a href="https://pytest.org">pytest</a> scripts that use the
+<a href="https://pypi.python.org/pypi/requests">Requests</a> library and then parse the
+XML responses. These days I like to create what I call "API contract" tests
+that look at the API responses and verify not that the contents of the
+response make sense, but we look at the "shape" of the responses to make sure
+we are getting expected fields and other content. This helps us catch any
+unexpected changes to the body of the response and also verify the documented
+calls to API's are still correct.</p>
+
+<p>So I was all set to dive into parsing XML in Python (shoutout to <a href="http://lxml.de/">lxml</a>)
+when my co-worker <a href="https://ziade.org/">Tarek</a> suggested an easier path is to
+use DTD (Document Type Definition) files instead. "It would be easier than
+what you are trying to do and probably faster." Tarek is very wise.</p>
+
+<p>So the process for the test would become something like this:</p>
+
+<ul>
+<li>make a request to a known Balrog API endpoint</li>
+<li>grab the XML response</li>
+<li>validate it against the DTD</li>
+<li>assert that the validation worked</li>
+<li>profit!</li>
+</ul>
+
+<p>I know I mentioned I am using Python for this but the same principles apply to
+any language where there are tools available to manipulate and validate XML
+using a DTD.</p>
+
+<p>So, after conversing with the main developer on the project I got a list of
+sample URL's and got some details about what fields where required, what ones
+were optional, and some potential different responses. Next I needed to
+create some DTD's that act as our validation set. For example, here's a
+typical response from Balrog:</p>
+
+<pre><code class="xml">&lt;updates&gt;
+    &lt;update type="minor" displayVersion="50.1.0" appVersion="50.1.0" platformVersion="50.1.0" buildID="20161208153507" detailsURL="https://www.mozilla.org/en-US/firefox/50.1.0/releasenotes/"&gt;
+        &lt;patch type="complete" URL="http://download.mozilla.org/?product=firefox-50.1.0-complete&amp;os=win64&amp;lang=en-US&amp;force=1" hashFunction="sha512" hashValue="1c2cea9770c814c58058c66ad9f99c678bf1612c8e05960fe415772383c4ab5e293eafef51b8b574307667a880c567d71b0d32c89d2c65dae02f68967991f8f7" size="56892755"/&gt;
+        &lt;patch type="partial" URL="http://download.mozilla.org/?product=firefox-50.1.0-partial-50.0.1&amp;os=win64&amp;lang=en-US&amp;force=1" hashFunction="sha512" hashValue="52dab15fb6cbfb3a324a117fb5f1576a0b5947555d1a4535e0f5735a918e817d7c03f5300b3624883758b3a9300a9061a0e190087f1653fef39eb77b81311f69" size="13185929"/&gt;
+    &lt;/update&gt;
+&lt;/updates&gt;
+</code></pre>
+
+<p>(Apologies for the long line lengths)</p>
+
+<p>FYI I used <a href="http://www.w3schools.com/xml/xml_dtd.asp">this documentation</a> to
+figure out what I needed to do to make the DTD work.</p>
+
+<p>Now, what does the DTD look like?</p>
+
+<pre><code>&lt;!ELEMENT updates (update*) &gt;
+&lt;!ELEMENT update (patch+) &gt;
+&lt;!ATTLIST update
+type CDATA #REQUIRED
+displayVersion CDATA #REQUIRED
+appVersion CDATA #REQUIRED
+platformVersion CDATA #REQUIRED
+buildID CDATA #REQUIRED
+detailsURL CDATA #IMPLIED
+licenseURL CDATA #IMPLIED
+showPrompt CDATA #IMPLIED
+showNeverForVersion CDATA #IMPLIED
+actions CDATA #IMPLIED
+openURL CDATA #IMPLIED
+notificationUrl CDATA #IMPLIED
+alertUrl CDATA #IMPLIED
+promptWaitTime CDATA #IMPLIED
+backgroundInterval CDATA #IMPLIED &gt;
+&lt;!ELEMENT patch (#PCDATA)&gt;
+&lt;!ATTLIST patch
+type CDATA #REQUIRED
+URL CDATA #REQUIRED
+hashFunction CDATA #REQUIRED
+hashValue CDATA #REQUIRED
+size CDATA #REQUIRED &gt;
+</code></pre>
+
+<p>There is a lot going on in here so let's break it down. This DTD describes
+the elements and attributes I am expecting to find in this type of response
+from the service.</p>
+
+<ul>
+<li>There needs to be a top element <em>updates</em></li>
+<li>It has zero or more <em>update</em> elements (the &#42; indicates that)</li>
+<li>Each <em>update</em> has a bunch of attributes that are required or optional (that's what #IMPLIED refers to)</li>
+<li>Each <em>update</em> should have one or more <em>patch</em> elements</li>
+<li>Each <em>patch</em> element has some required attributes</li>
+</ul>
+
+<p>The Python code for a test is pretty simple. Again, substitute your own
+preferred tools in your own language of choice.</p>
+
+<pre><code class="python">'''
+We're using lxml for the XML parsing and validating
+url contains the full URL to the API endpoint
+'''
+repsonse = requests.get(url)
+root = etree.XML(response.text)
+# Load our DTD file
+f = open('./api-tests/updates.dtd')
+dtd = etree.DTD(f)
+
+# Validate the response against the DTD and show the errors if it fails
+valid = dtd.validate(root)
+
+if valid:
+    assert True
+else:
+    print(dtd.error_log.filter_from_errors())
+    assert False
+</code></pre>
+
+<p>As a rule I try and find libraries and tools that solve problems for me rather
+than write my own. In this case, lxml and the use of DTD's was the right
+choice than my initial thoughts of using <a href="https://en.wikipedia.org/wiki/XPath">XPath</a>
+to hunt for attributes inside the elements.</p>
+
+<p>Hope this gives you a different perspective on strategies for testing API's.</p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/6">Newer Posts</a><br />
+        <a href="/page/8">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

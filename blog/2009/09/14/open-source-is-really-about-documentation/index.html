@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Open Source Is Really About Documentation - Twisted vs. Tornado &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>Open Source Is Really About Documentation - Twisted vs. Tornado <small>post</small></h2>
+            <h3>September 14th, 2009</h3>
+        </header>
+        <div>
+            <p>I think I can give you an executive summary of this blog post:  if the documentation for an open source project sucks, nobody but the most hardcore developers will use it.</p>
+
+<p>
+What has prompted this incredibly brilliant stating-of-the-obvious?  The reaction by those in the <a href="http://twistedmatrix.com/trac/">Twisted</a> community over Facebook's pre-emptive strike in the non-blocking Python-based web server space by open sourcing a framework they are using internally called <a href="http://www.tornadoweb.org">Tornado</a>.  Why are the Twisted folks getting all twisted (look how funny I am!) up about this?  Like any good Open Source project for people who are interested in Getting Things Done, Tornado is dissing Twisted by basically saying "yeah, we thought about using Twisted but it wasn't easy enough for us to use and we think it sucks".  I'm pretty sure I'm paraphrasing here, but you get the idea.
+</p>
+
+<p>
+Now, I have looked at Twisted and have come to the following conclusions:
+<ul>
+<li>It looks awesome</li>
+<li>It is built for people who are supposed to understand what they are doing</li>
+<li>The documentation sucks</li>
+<li>The examples on how to build anything of any significance are, to this developer, non-existant and/or difficult to find without shelling out for a possibly very-outdated book</li>
+</ul>
+Contrast this with Tornado.  I've looked at Tornado and have come to the following conclusions:
+<ul>
+<li>It looks awesome</li>
+<li>It is built for people who are supposed to understand what they are doing</li>
+<li>The documentation is inside the comments on the code which sucks only if you're not into reading the code</li>
+<li>It includes a sample application so you can see something other than Hello World</li>
+</ul>
+</p>
+
+<p>
+Am I biased towards Tornado?  You bet.  Why?  Because as hard as I tried, I could not find USEFUL documentation on how to build things using Twisted.  Maybe I didn't use the right search terms.  Maybe I didn't dig down enough links deep on the Twisted site.  Maybe I didn't fully understand the terminology or architecture of Twisted and how they different components speak to each other.
+</p>
+
+<p>
+I'll tell you this though:  I am not having any such problems with Tornado.  This is coming across as a criticism aimed towards Twisted, and I suppose that's fair.  I've noticed complaints from the Twisted community which really amount to whining.  I understand that attitude totally.  I've been there, when faced with competition that just might be doing a better job then I am doing.  But complaining that Facebook should've simply fixed up Twisted instead of writing their own is not productive.  Productive is understanding that Facebook looking at Twisted and said "this is not for us because *we* don't find it easy enough to use" is a sign that something serious is wrong with Twisted's documentation.   You could have the most awesome non-blocking web server available, but if people with who WANT to use it can't figure out HOW to use it, well, what can you say to that?  Only the most dedicated open source contributors would've done that.  Most will say "meh, I want to do this myself so I understand it" and then Twisted will die an obscure death while Tornado plunges forward gaining mindshare amongst people interested in the type of applications you can build with this technology.  In my opinion, it's all because of the lack of clear, freely available documentation for Twisted.
+</p>
+
+<p>
+If there is an online source BETTER than the Twisted site, please share the link love in the comments so I can try and do a better comparison of the two at a documentation level.  For someone like me, who is new to Python but old to the idea of web frameworks, I think that would be the fairest comparison.
+</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2009/09/24/chris-brain-almost-october-2009-edition/" title="Chris&#039; Brain - Almost October 2009 Edition"><span class="title">Chris&#039; Brain - Almost October 2009 Edition</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2009/09/10/lazyweb-help-busting-out-of-frames/" title="Lazyweb Help: Busting out of frames"><span class="title">Lazyweb Help: Busting out of frames</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Book Review -- Easy PHP Websites with the Zend Framework &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>Book Review -- Easy PHP Websites with the Zend Framework <small>post</small></h2>
+            <h3>April 11th, 2011</h3>
+        </header>
+        <div>
+            <p>Full disclosure: Jason Gilmore publishes my book
+<a href="http://www.wjgilmore.com/books/read/refactoring_legacy_applications_using_cakephp">Refactoring Legacy Applications Using CakePHP</a>
+and also provided me with a free copy of his book (in both PDF and
+MOBI formats) for me to review. While I consider Jason a friend, I
+do not let my personal friendships interfere with an objective
+review of a book.)</p>
+
+<p>When you are going through the progress from beginner to mastery of
+any web application framework, it is almost impossible to do unless
+(a) you wrote the framework yourself or (b) there is excellent 3rd
+party documentation available on how to use it. Even if the project
+itself has really good extensive documentation (which Zend
+Framework does) it is still essential that other people have
+documented their usage of it in situations beyond the very limited
+ones presented in the documentation provided by the project itself.
+When you add to this the fact that Zend Framework is very large, is
+component based, and often provides multiple solutions for the same
+problem, it means that it is even more critical to find out how
+other people are solving problems similar to the ones you are
+facing.</p>
+
+<p>Jason did provide me a copy of the previous version of this book as
+well (it never hurts to ask people for favours...) and when he told
+me at <a href="http://codemash.org">CodeMash</a> that he was putting the
+finishing touches on an updated version of the book I said (a) let
+me know what tools you used to build it and (b) I'd be happy to
+review it when it comes out. So when I saw the announcement that
+<a href="http://www.wjgilmore.com/books/read/easy_php_websites_with_the_zend_framework">Easy PHP Websites with the Zend Framework</a>
+had been released I reminded Jason about my promise to review it.
+Shortly thereafter an electronic copy of the book showed up in my
+email.</p>
+
+<p>At 240 pages I wouldn't say this is the type of book that you can
+really read cover-to-cover at a rapid pace. I think it is more
+suited as a very long and expanded HOWTO for building an
+application from scratch. I was also pleased to see that Jason had
+made the commitment to pushing Test Driven Development by having
+the reader write tests for the site they were building as they went
+along. The more people who come to understand the benefits of
+writing and automating testing of the applications, the better the
+applications people in the PHP community will produce.</p>
+
+<p>In this book Jason guides you from start to finish on the creation
+of GameNomad, a social networking application for console and PC
+gaming enthusiasts. You start with nothing but a skeleton of a
+project built using ZendTool and end up with an automated
+deployment system for pushing your changes up into production. Oh,
+you also end up learning how to integrate
+<a href="http://jquery.org">jQuery</a> into the project as well <em>and</em> learning
+how to use Git, albeit at a very basic level) to keep things
+organized.</p>
+
+<p>I know what you're thinking: how could Jason have covered anything
+of substance in 240 pages. I'm going to let you in on one of the
+dirty secrets of the programming profession: a social networking
+site is not as complicated to build as people think it is. Facebook
+itself is not complicated, what is complicated is how it has
+changed over time to handle the ridonkulous traffic levels it
+handles. Trust me when I tell you that Jason shows you how to build
+the features that are at the core of any decent social networking
+site where members post items and send messages to each other.</p>
+
+<p>In my opinion, this book works well as a resource for beginning and
+intermediate users of Zend Framework. For beginners, it guides them
+from creating the application from scratch and promotes some good
+practices. For the intermediate level user, it shows you how to
+accomplish common tasks needed by any website that relies on
+user-generated content and adding unit testing, code coverage
+reports, and automated deployment skills to your toolkit.</p>
+
+<p>I've found this book to be a good resource, even for a grumpy
+veteran PHP programmer like myself. Flipping through the chapters
+quickly I can find some slightly different ways of doing things on
+my projects, and I really like that Jason is also showing how to
+take tools outside of the PHP ecosystem and embrace them. Tools
+like Git and Capistrano are there to help you, why wouldn't you
+want to use them?</p>
+
+<p>Also pay close attention to how Jason shows you the proper places
+to using the various helper and plugin architectures that Zend
+Framework provides you. It has been my belief that any
+well-designed framework should consist of as small a core as
+possible, and then allow you to extend it through plugins. Zend
+Framework allows you to do exactly that, and I've very quickly
+embraced plugins as an easy way to keep customized code inside a
+component that can be used anywhere in the application, instead of
+dealing with the problem of cutting-and-pasting code all over the
+place.</p>
+
+<p>If you want to get serious about building a real application using
+Zend Framework, I would recommend you pick up a copy of Jason's
+book and take your time to go through it as your building your
+project. When you've got an application full of tests providing
+100% code coverage <em>and</em> can be automatically deployed, you'll be
+able to sleep at night without worrying about the dreaded
+late-night phone call "the site is broken and you have to fix it
+RIGHT NOW!!!"</p>
+
+<p>Also check out some of Jason's other books if you're fairly new to
+PHP and are looking to get up to speed faster with things like
+using MySQL with PHP and integrating PayPal into your web
+applications.</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2011/04/26/real-people-building-real-things/" title="PHP Community Conference 2011 -- Real People Building Real Things"><span class="title">PHP Community Conference 2011 -- Real People Building Real Things</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2011/04/03/component-architecture-followup/" title="Component Architecture -- Follow-up"><span class="title">Component Architecture -- Follow-up</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

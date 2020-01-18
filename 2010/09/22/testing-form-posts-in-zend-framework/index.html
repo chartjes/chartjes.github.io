@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Testing Form Posts in Zend Framework &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2>Testing Form Posts in Zend Framework <small>post</small></h2>
+        </header>
+        <div>
+            <p>Man, did I ever blaze through a bunch of anger to figure this stuff out.  Why?  Same thing that bugs me about the Zend Framework in general:  multiple ways to accomplish something, and examples in the documentation that does NOT work as advertised.  Maybe, just maybe, I'm an idiot and did not understand the subtle nuances involved in making these tests work.  I doubt it though.
+</p>
+
+<p>
+As I explained to the small group at the <a href="http://www.meetup.com/GTA-PHP-User-Group-Toronto/">PHP user's group meeting</a> I went to, I am not so dogmatic about TDD.  I tend to be pragmatic in that I am using tests and continuous integration to find things that are broken.  When I find something that is broken or not functioning as expected, I write a test for the expected behaviour and codes gets written and/or mangled until the test pass.
+</p>
+
+<p>
+In this case, I had done a refactoring of the way a model was pulling in stats for running backs and receivers for a fantasy game.  As a result, in production (you suck Chris) you could not see results for those players.  The data was there, I had not properly tested things.  A familiar situation.  So, I fixed the code and wrote my more-specific-than-before unit tests, but I decided I also wanted to make sure that the output on the page itself worked correctly.  This began the descent into madness.</p>
+
+<p>
+I found MANY examples on how you allegedly send a POST request to something inside a PHPUnit-powered Zend Framework controller test.  Some said use $this->request.  Some said use $this->getRequest().  Some said to use object chaining (you know, $this->foo->setBar('fizz')->setFoo('buzz').  None of them worked.
+</p>
+
+<p>
+Cue the sounds of Chris cursing loudly.  Eventually I figured it out.  What did I learn?  Object chaining did not work. And $this->getRequest() was the ticket.  Behold the code!
+<br />
+~~~
+public function testShowRbStatsPage()
+{
+    $this->loginUser('admin@xmlteam.com');
+    $this->getRequest()->setMethod('POST');
+    $this->getRequest()->setPost(array(
+        'range' => '2009-09-10 to 2010-01-01',
+        'position' => 'rb',
+        'leagueName' => 'nflcanada2010'
+    ));
+    $this->dispatch('/football/nflcanada2010/stats');
+    $this->assertQuery('td .rettd', 'Checking we have return TD stats');
+}
+~~~
+[/php]
+</p>
+
+<p>$this->loginUser() is a convenience method I created that authenticates a given user because to access the site you must have a username and password.
+</p>
+
+<p>
+So what did I decide to look for?  I noticed in the templates that every running back, when displayed, would have a table cell that had the style .rettd.  Since that was unique to running backs (and receivers) I felt that was a sufficient check that we were actually displaying running back stats.
+</p>
+
+<p>One thing to take back from all this is that choosing a more pragmatic approach to testing can yield some interesting results.  It's my belief that by doing up a test every time something is broken or not behaving as expected makes for a more realistic set of tests.  You'll have tests that reflect how the application is really supposed to work, and you haven't wasted a lot of time on what you could call boilerplate testing, meaning tests that confirm stuff you already knew.  Edge cases are the first killer in any application, and then unexpected behaviour comes right after that.
+</p>
+
+<p>
+If your tests reveal things that you or your users found by actually using the application, I think you are in much better shape than strict adherence to TDD.  Yes, having the tests are good.  Having tests that mean something are even better.
+</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/2010/10/18/whats-in-chris-brain-october-2010-edition/" title="What&#039;s in Chris&#039; Brain - October 2010 Edition"><span class="title">What&#039;s in Chris&#039; Brain - October 2010 Edition</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/2010/09/07/twitter-asks-continuous-integration-landscape-for-php-developers/" title="Twitter Asks:  Continuous Integration Landscape for PHP Developers"><span class="title">Twitter Asks:  Continuous Integration Landscape for PHP Developers</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+
+
+
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

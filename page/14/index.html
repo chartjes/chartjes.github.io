@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Home &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta name="robots" content="noindex, follow">
+                <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2><a href="/2013/09/27/test-listeners/">Testing Listeners</a></h2>
+        </header>
+        <div>
+            <p>I had an idea to put together some kind of "PHP Testing Koans" site as a way
+to help PHP developers get better at learning how to actually write tests. Most
+developers who are introduced to testing get blocked at the point of actually
+writing a test. This, in my opinion, has been part of my advocacy that I 
+have been struggling to find a good way to teach to people.</p>
+
+<p>So I started to brainstorm ways to make it happen. With some help from <a href="https://twitter.com/jclermont">Joel Clermont</a>
+I stumbled upon using test listeners for this.</p>
+
+<p>To be completely fair, I first ran across test listeners when <a href="https://twitter.com/old_sound">Alvfaro Videla</a>
+showed me a blog post he had written on how to <a href="http://videlalvaro.github.io/2013/04/using-rabbitmq-in-unit-tests.html">write unit tests for RabbitMQ</a>.
+It's a very imaginative use of them, so I wondered if I could bend those test
+listeners to my will.</p>
+
+<p>From a high-level view, test listeners in PHPUnit are bits of code designed
+to be executed whenever a test suite or individual test is run. For the example
+of dealing with RabbitMQ, this makes total sense.</p>
+
+<p>Imagine how happy I was to find that I could use it to determine if a particular
+test existed. So how did I do it?</p>
+
+<pre><code>&lt;?php
+
+class Koan1Listener extends PHPUnit_Util_Printer implements PHPUnit_Framework_TestListener
+{
+    private $expected_tests = array();
+    private $found_tests = array();
+
+    public function __construct()
+    {
+        $this-&gt;expected_tests = array('testHelloWorld');
+    }
+
+    public function __destruct()
+    {}
+
+    public function startTestSuite(PHPUnit_Framework_TestSUite $suite)
+    {
+    }
+
+    public function endTestSuite(PHPUnit_Framework_TestSuite $suite)
+    {
+        foreach ($this-&gt;expected_tests as $test) {
+            if (!in_array($test, $this-&gt;found_tests)) {
+                throw new Exception("Missing test {$test}");
+            }
+        }
+    }
+
+    public function addError(PHPUnit_Framework_Test $test, Exception $e, $time)
+    {}
+
+    public function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time)
+    {}
+
+    public function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time)
+    {}
+
+    public function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time)
+    {}
+
+    public function startTest(PHPUnit_Framework_Test $test)
+    {
+        $test_names = get_class_methods($test);
+
+        foreach ($test_names as $test_name) {
+            $this-&gt;found_tests[] = $test_name;
+        }
+    }
+
+    public function endTest(PHPUnit_Framework_Test $test, $time)
+    {}
+}
+
+</code></pre>
+
+<p>When you create a listener, you are implementing all the required methods
+for <em>PHPUnit_Framework_TestListener</em>. You can see that there are a lot of
+them, but in this instance all we needed were <em>endTestSuite</em> and <em>startTest</em>.</p>
+
+<p>The approach is simple: for each test class that gets executed, add the names
+of all the methods to an internal list. When the entire test suite is finished,
+we then check to see if the test names that we were expecting are in our
+list of methods we found. I am sure there is a more efficient way to do it, 
+so let me know in the comments of a different approach.</p>
+
+<p>In the case of the example listener, I wanted to make sure that the person
+doing the first exercise has a test called <em>testHelloWorld</em> written. As more
+koans (or whatever you want to call them) get created, I can use test listeners
+to make sure that all the tests, and data providers, and internal class methods
+designed to improve code reuse are actually getting written.</p>
+
+<p>Despite all my years of using these tools, I still find things that I didn't 
+know about that can be (ab)used to accomplish certain goals.</p>
+
+<p>I hope you find that something you thought you couldn't figure out becomes
+possible using test listeners.</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2013/04/30/testing-smells-try-catch/">Testing Smells - try/catch</a></h2>
+        </header>
+        <div>
+            <p>As part of a project to migrate the PHP code at <a href="http://synacor.com">work</a>
+from PHP 5.2 to PHP 5.4, I'm using our extensive test suite to look for instances
+where something that changed between the versions of PHP that we are using
+has caused some unexpected behaviour.</p>
+
+<p>In one of our code bases, I found some tests that are exhibiting a test smell
+through their use of a try / catch block in the test itself.</p>
+
+<p>Here's a totally-contrived example:</p>
+
+<pre><code>    &lt;?php
+    public function testThatExceptionIsThrown()
+    {
+        // Use a helper to give us a ready-to-go parser
+        $parseHelper = $this-&gt;getHelper('parseHelper');
+
+        /**
+         * If we pass a string as the first parameter to parseGrumpyRambling
+         * instead of an array, we should get an exception generated because
+         * we are using a type hint
+         */
+        try {
+            $weirdCanadianWords = '';
+            $phrase = "No doot aboot it, we're gonna win at hockey!";
+            $parsedText = $parseHelper-&gt;parseGrumpyRambling(
+                $weirdCanadianWords,
+                $phrase
+            );
+            $this-&gt;fail();
+        } catch (Exception $e) {
+            $this-&gt;assertContains(
+                'must be of the type array, string given',
+                $e-&gt;getMessage()
+            );
+        }
+    }
+</code></pre>
+
+<p>Okay, so why does this test offend me so much?</p>
+
+<p>First, I am of the opinion that writing a test to check to make sure you are
+enforcing type hinting for your class method parameters is probably not a
+good use of your time. I mean, what potential problem are you catching?</p>
+
+<p>Consider the following:</p>
+
+<ul>
+<li>you likely have access to info about what type of value each parameter
+is expected to be</li>
+<li>you are probably much better off filtering for parameter type before you
+even call that method</li>
+</ul>
+
+<p>I can say with confidence that a test like this is returning very little
+value for the effort.</p>
+
+<p>Second, putting any logic inside your unit tests is a great way to end
+up with unexpected results. Need an "if" statement? Write two tests
+for that condition. Need a switch / case? Again, one test per case is a
+much better way to logically divide things up.</p>
+
+<p>The worst thing about using try / catch is that <em>PHPUnit gives you two built-in
+methods to not ever have to use it</em>. I've had people say to me "but Chris,
+if you use try / catch you get much better control over determining where
+in the process to test that the exception was thrown." I don't buy it, and
+I will try and explain why.</p>
+
+<p>If you are using docblocks on your tests (which you should) it is super easy
+to indicate what exception you are expecting to be thrown.</p>
+
+<pre><code>    &lt;?php
+    /**
+     * @expectedException Exception
+     * @expectedExceptionMessage must be of the type array 
+     */
+    public function testThatExceptionIsThrown()
+    {
+        // Use a helper to give us a ready-to-go parser
+        $parseHelper = $this-&gt;getHelper('parseHelper');
+
+        /**
+         * If we pass a string as the first parameter to parseGrumpyRambling
+         * instead of an array, we should get an exception generated because
+         * we are using a type hint
+         */
+        $weirdCanadianWords = '';
+        $phrase = "No doot aboot it, we're gonna win at hockey!";
+        $parsedText = $parseHelper-&gt;parseGrumpyRambling(
+            $weirdCanadianWords,
+            $phrase
+        );
+    }
+</code></pre>
+
+<p>Now we have a much cleaner-looking test with no conditional logic inside it.</p>
+
+<p>You can also choose to use a built in PHPUnit method to set what exception
+you are expecting.</p>
+
+<pre><code>    &lt;?php
+    public function testThatExceptionIsThrown()
+    {
+        $this-&gt;setExpectedException(
+            'Exception',
+            'must be of the type array'
+        );
+
+        // Use a helper to give us a ready-to-go parser
+        $parseHelper = $this-&gt;getHelper('parseHelper');
+
+        /**
+         * If we pass a string as the first parameter to parseGrumpyRambling
+         * instead of an array, we should get an exception generated because
+         * we are using a type hint
+         */
+        $weirdCanadianWords = '';
+        $phrase = "No doot aboot it, we're gonna win at hockey!";
+        $parsedText = $parseHelper-&gt;parseGrumpyRambling(
+            $weirdCanadianWords,
+            $phrase
+        );
+    }
+</code></pre>
+
+<p>Again, a much cleaner-looking test with no conditional logic in sight.</p>
+
+<p>On Twitter Brian Fenton shared a <a href="http://www.brianfenton.us/2011/09/bad-practice-setting-expected.html">blog post</a>
+he wrote back in 2011 that disagrees with me. In it he very briefly talks about
+why you should use try / catch in your tests, but I feel like he is contradicting
+himself when he talks about why.</p>
+
+<p>Basically, Brian is concerned about how @expectedException and <em>setExpectedException()</em>
+can be triggered by other errors in your tests (including other exceptions
+being unexpectedly triggered. He feels that by using try / catch you have
+much better control over when and where you wish to trigger an exception.</p>
+
+<p>To quote Brain's post:</p>
+
+<blockquote>
+  <p>"The basic idea here is that the most specific test is best, because
+  you have the least likelihood of a false negative or a test error slipping
+  through the cracks."</p>
+</blockquote>
+
+<p>If you are making sure that every test is the most specific test that you
+can write, then you NEVER have to worry about whether or not some other
+code under test is throwing an exception or other error that is messing up
+the current test.</p>
+
+<p>Using try-catch because you want to not miss errors that might occur before
+you deliberately throw an exception is a sign that you are doing too much
+in that test.</p>
+
+<p>A test failure is a test failure, no matter what caused it. The harder you
+work to make sure that a test is actually testing the most specific thing
+possible, the less likely you have to worry about the things that Brian
+feels require him to use try / catch.</p>
+
+<p>This is the same reason I don't like seeing tests like this:</p>
+
+<ul>
+<li>do Task A</li>
+<li>do an assertion on the results of Task A</li>
+<li>do Task B</li>
+<li>do an assertion on the results of Task B</li>
+</ul>
+
+<p>Those are really two separate tests, so split them up. In fact, you could 
+write two tests that look like this:</p>
+
+<ul>
+<li>do Task A</li>
+<li><p>do an assertion on results of Task A</p></li>
+<li><p>do Task A</p></li>
+<li>do Task B</li>
+<li>do an assertion on the results of Task B</li>
+</ul>
+
+<p>That second test doesn't need to re-assert that Task A did it's job because
+Task A was already covered in the previous test.</p>
+
+<p>Test smells, testing anti-patterns, whatever you want to call them, do exist
+and many programmers are often unaware of the consequences of those decisions
+are.</p>
+
+<p>Keep your tests small, keep them very specific, and don't use conditional
+logic in your tests. I have yet to see a specific example where the use
+of conditional logic did anything except reduce the amount of lines of
+code a grumpy developer didn't want to type.</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2013/03/30/grumpy-culture/">The Grumpy Programmer&#039;s Guide To Software Company Culture</a></h2>
+        </header>
+        <div>
+            <p>My co-worker <a href="https://twitter.com/chipersoft">Jarvis</a> wrote a blog post
+about how he <a href="http://chipersoft.com/p/I-Dont-Care-About-Your-Culture/">doesn't care about your company culture</a>.</p>
+
+<p>I don't know what prompted this blog post, but I disagree with many fundamental
+parts of it. Jarvis seems like a decent guy (have only met him online and not
+yet in person) but I think Jarvis is making a mistake that many people (not
+just software developers) make: thinking that the rest of the world should
+think like you when it clearly doesn't.</p>
+
+<p>Initially I was going to make a point-by-point takedown of his blog post, but
+halfway through it I realized I was being an asshole. So instead I want to
+discuss where I think he's wrong.</p>
+
+<p>I mentioned on Twitter to Jarvis that it's just as important to work on your
+co-workers as all the other things you do. He said two interesting things in
+response:</p>
+
+<ul>
+<li>"This is what I don't like about big companies"</li>
+<li>"I work on computers, not people"</li>
+</ul>
+
+<p>First, I've worked at places both big and small. There is nothing inherently
+better about either type. Do not kid yourself thinking only great things
+happen at small companies. Great things happen when groups of smart people
+get together and are given permission to go make it happen.</p>
+
+<p>I've seen it work at large places where managers "ran interference" so their
+employees could make stuff happen. I've seen small places stifle creativity
+in their employees out of fear of change.</p>
+
+<p>It's not the size of the company that matters, it's how they choose to work
+together that matters.</p>
+
+<p>The second point is the one where I think Jarvis has made the biggest mistake
+in his approach.</p>
+
+<p>We work FOR people USING computers. The computer is a tool
+to achieve a goal. Those goals are achieved by working with others, whether
+you wish to believe that or not.</p>
+
+<p>As someone who has worked from home for a long time, I understand and
+sympathize with many of the things Jarvis indicates that bug him. Noise
+from co-workers, drive-by meetings, feeling pressure to participate in
+social activities.</p>
+
+<p>But at the end of the day, to accomplish anything of substance requires me
+to interact with others in REAL TIME. I have proven that I can both get work
+done AND not be such an asshole that others choose to ignore the remote
+worker instead of working hard to integrate me into the team.</p>
+
+<p>I find that socializing with my co-workers is a good way to learn about the
+people I work with, so that when I need something from them later they are
+less likely to say "why the fuck should I help that guy?" I need their help
+as much as they need mine.</p>
+
+<p>Of course, I don't think this bit at the end helps much:</p>
+
+<blockquote>
+  <blockquote>
+    <p>I am extremely productive in this setting. For five years I have cranked out more code in this room than many people have written in their entire careers.</p>
+    
+    <p>I am exceedingly good at my job and I am sick of being told that my lack of cultural involvement makes me a bad employee.</p>
+    
+    <p><em>mic drop</em></p>
+  </blockquote>
+</blockquote>
+
+<p>Disrespecting co-workers isn't always the smartest move. Failing to understand
+why others think that being aloof and distant and insisting that results matter
+more than how you treat people isn't always the smartest move either.</p>
+
+<p>Tech is not a meritocracy, despite our wishes for it to be. Jarvis, you're not
+alone in wanting people to just leave you the hell alone so you can get some
+work done. I am that way many times, but I make sure to create those bonds
+with my co-workers so that the amount of time that I spend with them is
+enjoyable instead of resenting the time there.</p>
+
+<p>Nothing creates bonds of friendship like a shitty job, but being friendly with
+your co-workers costs you nothing but a little time, time you're probably
+spending doing horrible things like reading the comments on Hacker News.</p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/13">Newer Posts</a><br />
+        <a href="/page/15">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

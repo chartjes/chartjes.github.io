@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>What Do You Mean You Haven&#039;t Had A Code Review?!? &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2>What Do You Mean You Haven&#039;t Had A Code Review?!? <small>post</small></h2>
+        </header>
+        <div>
+            <p>As I finish up week 3 at my new job, I have had more code reviews in 3 weeks than I have had in my last 5 years of work.  This is no lie.</p>
+
+<p>
+Right now, a code review consists of me either sitting right next to my boss looking at my code on a big monitor or talking via Skype while I am connected to a gotomeeting.com session he is hosting.  Either way, he is in the driver's seat and we go through my code, refactoring things and discussing the original goals of whatever it was I was supposed to be doing.  When we're done, he commits the changes back into our <a href="http://subversion.tigris.org">svn</a> repository, and I'm left to go back and test everything we've changed.
+</p>
+
+<p>
+So far, to be honest, the reviews have been just fine.  What I'm lacking right now is elegance in the code.  My boss likes to joke about making metrosexual code, but what he's really after is code that is elegant, readable, and as simple as possible.  I find that while my code is getting the job done properly, it could be more elegant as I learn (and in some cases relearn) some of the finer points of design and move towards a more OOP-style of thinking instead of the mishmash of OOP and functional I seem to gravitate towards.
+</p>
+
+<p>
+Things like returning objects (so that we can chain things as needed), and dumping nested ifs for the sake of readability.  Above all though, he's encouraging me to think about what I'm doing instead of just banging out the code.  Nobody I know gets paid per line of code, and my boss is not some dimwitted pointy-haired-boss who is impressed by the volume of my output as opposed to the quality of what I'm doing.  For the IPTV project I'm working on, the code HAS to be bulletproof and HAS to be able to run unattended as I won't be able to log into the server to hack things on the fly.  I've got a healthy enough level of self-esteem that I am able to take these code reviews not as criticism (which they are not, but would be if I was thin-skinned or had too much ego invested in my code) but as an invaluable opportunity to go back and fix assumptions, drill the manta of elegant code into my programmer's brain, and unlearn bad habits from years of essentially unsupervised programming.  Ouch, kind of hurts to read that now that I've typed it.  
+</p>
+
+<p>
+Code reviews and unit testing are probably the two things developers try to avoid as much as they can.  Don't be scared of either one.  You will not believe how much you can benefit from a code review, xtreme programming-style, with a developer who knows what he's doing.
+</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/2007/04/04/keep-an-eye-on-your-radar/" title="Keep An Eye On Your RADAR"><span class="title">Keep An Eye On Your RADAR</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/2007/03/28/more-framework-fun/" title="More Framework Fun"><span class="title">More Framework Fun</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+
+
+
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

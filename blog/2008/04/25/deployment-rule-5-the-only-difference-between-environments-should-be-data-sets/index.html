@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Deployment Rule #5: The only difference between environments should be data sets &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>Deployment Rule #5: The only difference between environments should be data sets <small>post</small></h2>
+            <h3>April 25th, 2008</h3>
+        </header>
+        <div>
+            <p>One of the 6 "rules" I came up with for my talk on application deployment at <a href="http://www.openwebvancouver.ca">Open Web Vancouver</a> was that the only difference between your development environment and your production environment should be data sets.  My friend Juan, who works as the software architect at the adult dating site I used to work for, talked with me via IM about how that rule isn't always true.
+</p>
+
+<p>
+A little background on this is necessary.  They are still using the same development setup today that was in place when I was there, in that they have given each developer a server that uses jails (this is a FreeBSD thing) to simulate having all the servers they would have in production.  A great solution, one that is still great today.  It made writing architecture-specific code (i.e. testing that an application server could talk to a queue processing server for a specific task) very simple.  So, in this case I believe that they had a development environment that matches production as closely as you can get.
+</p>
+
+<p>
+But then Juan mentioned that they are using <a href="http://www.zend.com/en/products/platform/">Zend Platform</a> on their production servers, and it wasn't possible to give everyone a copy of Zend Platform on their development servers due to licensing.  While Zend Platform is a great product, well, you've just introduced an extra variable into your application development and deployment process.  Now, your development environment will never be the same as production and you are increasing the likelihood that you will encounter "production-only" bugs, which are the hardest to solve.
+</p>
+
+<p>I have great respect for Juan (he's near the top of my list of the smartest developers I've worked with), but rule #5 still the best one to follow.  While you gain from using something like Zend Platform in production because of all the extras you get, you end up with a development environment very far from what is using in production. Just make sure that you understand the implications of that decision.
+</p>
+
+<p>
+Also, there is something else hidden inside rule #5.  If you have differences between environments, make sure you understand what those differences are and take steps to minimize their impact.  For example, I run Apache2 + PHP 5.2.5 compiled from source + Postgres 8.25 from a package for OS-X & MySQL 5.0.45  from a package for OS-X on my laptop, which is my main development environment.  On my VPS (which hosts this blog) I'm running Nginx + PHP 5.2.5 modified under Gentoo with USE flags + MySQL 5.0.54 under Gentoo.  So, that means I'm running mod_php on my dev, but using FastCGI on my "production".
+</p>
+
+<p>
+Has this been a problem?  Nothing yet *but* if I ever got serious about running something other than my blog I would definitely consider configuring my VPS to use Apache 2 and PHP with the same configuration options as I have in dev, so that I have consistency in environments.  Django is recommending Apache + mod_python so I may be doing this sooner rather than later.
+</p>
+
+<p>
+So, remember, the goal is to have your dev and production environments the same.  But if you can't have the same, you better be damn sure you understand what the differences are so you don't end up saying stuff like <a href="https://www.littlehart.net/workz-for-me-u-must-b-dum.jpg">this</a>.
+</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2008/05/02/whats-in-chris-brain-may-2008-edition/" title="What&#039;s In Chris&#039; Brain - May 2008 Edition"><span class="title">What&#039;s In Chris&#039; Brain - May 2008 Edition</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2008/04/23/c7y-podcast/" title="C7Y Podcast"><span class="title">C7Y Podcast</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

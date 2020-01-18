@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Home &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta name="robots" content="noindex, follow">
+                <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2><a href="/2007/11/26/developing-with-php-on-leopard/">Developing with PHP on Leopard</a></h2>
+        </header>
+        <div>
+            <p>I recently bought a new MacBook (took the huge street-cred hit by getting a 13" white MacBook) and are busy getting my development environment up and running.  I had heard some rumblings that things weren't quite what they seemed when it came to getting PHP up and running in Leopard, and spent much time googling for things.</p>
+
+<p>
+My main dev environment is Apache2+PHP+MySQL/Postgres, so I searched around and found that Sean Coates (from <a href="http://www.phparch.com">php|architect</a> and a guy I've had several beers with at conferences) put together some great instructions up on <a href="http://blog.phpdoc.info/archives/83-php-5.2.5-on-Leopard.html">on getting PHP 5.2.5 up and running on Leopard</a>.</p>
+
+<p>
+If you are upgrading to Leopard, those instructions are the best I've seen so far AND do nothing to mess up your existing Leopard Apache and PHP installation.</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2007/11/20/looking-outside-the-box/">Looking Outside The Box</a></h2>
+        </header>
+        <div>
+            <p>As devoted as I am to the use of frameworks (although not THAT devoted that I would take the anti-lazy-programmer's route of porting an existing non-frameworked app to use a framework) I do enjoy seeing what frameworks in other languages are up to.  I'd like to share three with you that I've been following for a variety of reasons (mostly curiousity).</p>
+
+<p>
+I've mentioned <a href="http://erlyweb.org/">ErlyWeb</a> in this blog before.  Created by <a href="http://yarivsblog.com/">Yariv Sadin</a>, it's a web framework built to run on top of <a href="http://www.erlang.org/">Erlang</a>, which is a programming language created by Ericsson (the cellphone people) and open sourced a while back.  Why do I feel it's worth checking out?  Erlang is legendary in it's ability to supply a robust concurrent environment.  When you use it to run phone switches, it has to stay up!  99.999% uptime makes Erlang barely break a sweat.  Now, as web 2.0 morphs into Web Pi, there will be more demand for the type of interactive web apps that require statefull connections.  The most common "Ajax design pattern" that requires concurrency is <a href="http://en.wikipedia.org/wiki/Comet_(programming)">comet</a>, where you want to continually push information to the client without it having to request that information.  Given that much of the web is stateless, this is usually implemented as 'pull' with clients repeatedly polling data sources.  Anyway, that's a whole another discussion and I'd want to do lots more research before I get into that.  Anyway, Erlang is ideally suited for large-scale interactive applications that would be sending information back and forth.  Check out what Yariv's been talking about.</p>
+
+<p>
+My friend <a href="http://lazyweb.ca">Kevin</a> is a Perl hacker and he mentioned <a href="http://catalyst.perl.org">Catalyst</a> to me and then I heard a great podcast over at <a href="http://www.twit.tv/floss">FLOSS Weekly</a> about Catalyst.  Now, I'm not a Perl guy (I've used a little bit of it as part of the data-munging effort for the game the <a href="http://www.ibl.org">IBL</a> uses) but if you've made a big investment in Perl and want to move forward with some more modern web applications then I think Catalyst is a great option.  Listen to the podcast.
+</p>
+
+<p>
+Finally, I took a very quick look at a web framework written in <a href="http://www.scala-lang.org">Scala</a> called <a href="http://liftweb.net/index.php/Main_Page">Lift</a>.  There's a <a href="http://http://radar.oreilly.com/archives/2007/05/liftscala_for_w.html">great write-up about it</a> by Tim O'Reilly, and I think I will look into it further.  Why should I care about Scala?  Well, it looks very similar to Ruby in it's syntax (and I have a smattering of Ruby experience) and it's multithreaded (which should theoretically scale better on a single machine I believe).  Besides, it never hurts to learn a new language.  Evolve or die, right?  I have a VPS that I can fool around on so why not see if Lift (and Scala) is worth investing some time into.
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2007/11/20/follow-up-to-a-hopefully-usefull-tutorial-for-using-cakephps-auth-component/">Follow-up to &quot;A Hopefully Usefull Tutorial For Using CakePHP&#039;s Auth Component&quot;</a></h2>
+        </header>
+        <div>
+            <p>
+There have been some mention in the comments for <a href="https://www.littlehart.net/atthekeyboard/2007/09/11/a-hopefully-useful-tutorial-for-using-cakephps-auth-component/">this post</a> for clarification on the 'remember me' cookie that is mentioned in the code.  I thought I'd elaborate a bit on how I used it for this example.</p>
+
+<p>
+As part of a project I was working on while at <a href="http://www.cakedevelopment.com">CDC</a> there was a requirement for there to be 'Remember Me' functionality for the authentication system.  I'm sure you've seen this elsewhere.  Implementing such a thing is actually very simple, but I should've clarified that 'remember me' functionality is NOT part of the Auth component.  
+<ul>
+<li>When they go to log in, check to see if there is a 'remember me' cookie present.</li>
+<ii>If there is, read in the cookie (containing the user name and encrypted password.  Never EVER put plaintext passwords in a cookie!) and then compare those values to the database table (or whatever data source you are using) that you are authenticating against.  If they match, then set the user as being 'authorized' and they can proceed on their merry way.  Otherwise, delete the cookie (it may be a bad cookie) and send them to the login screen
+<li>If there is no cookie, let the person log in as usual and if they are successfully authenticated then store that information  in your 'remember me' cookie before you let them proceed to whatever areas require authorization.</li>
+</ii></ul>
+</p>
+
+<p>
+Now, to drop into CakePHP for a minute the key thing that was left out of the previous blog posting is *how* you get the Auth system to accept the values in the cookie.  It took a quick IM conversation with <a href="http://rd11.com/">gwoo</a> to jog my memory.
+~~~
+function beforeFilter() {
+     /**
+     * Code that does other Auth stuff goes before this...
+     */
+
+     /**
+     * If you've checked the data against your auth model,
+     * you have to put that info into $this->data so that the
+     * Auth component can use it
+     */
+     $this->data['User']['username'] = $cookie['username'];
+     $this->data['User']['password'] = $cookie['password'];
+}
+~~~
+The password stuff is critical here.  By default, the Auth component will take any password that you've entered via a form and then hash it using the default for Auth (this value is configurable, check the Auth section API to see how to do it).  So, make sure that the *encrypted* password value is being placed into $this->data, and consequently stored in your cookie.  In the example above 'User' is the model being authenticated against, so feel free to change it if you're using something else.  Keep in mind it's probably not a good idea to put a field called 'password' in your cookie, so feel free to change it to something less obvious or come up with another method of obscuring the true contents of the cookie.
+</p>
+
+<p>
+Hope that clears up the 'remember me' cookie mystery for people.  Thanks again to gwoo for helping me rummage around in my brain for the details.
+</p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/101">Newer Posts</a><br />
+        <a href="/page/103">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

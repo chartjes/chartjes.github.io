@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>More Framework Fun &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>More Framework Fun <small>post</small></h2>
+            <h3>March 28th, 2007</h3>
+        </header>
+        <div>
+            <p>Sometimes you make a blog post that generates a lot of feedback.  In this case, Nate from CakePHP had a vigorous conversation with me via IM about my blog posting <a href="https://www.littlehart.net/atthekeyboard/2007/03/23/in-spring-time-a-not-so-young-php-programmers-mind-turns-to-frameworks/">about frameworks</a>.  In a nutshell, Nate took issue with my comment that CakePHP isn't quite there yet because you can't use components from it outside the framework itself.</p>
+
+<p>
+Nate does have a point here.  Zend Framework is perhaps being *overly* ambitious by not only providing an MVC component, but you can use parts of it outside that MVC component as long as you place the Zend Framework itself in your path.  So is Zend Framework truly a framework?  Yes, as long as you understand that a web application framework means more than just a MVC-based framework.
+</p>
+
+<p>
+At this point, CakePHP is an MVC-based framework only.  That is changing (remember my interactive console project?), but Nate's argument was that perhaps Zend Framework is unfocused and should be concentrating on the MVC part of the web application problem.  Not to mention the fact that it still doesn't have an Active Record implementation for database access.  This particular thing baffles me, but what can you do?  Zend_Db_ActiveRecord (or whatever you could call it) wasn't a priority among the core developers for Zend Framework.  I still can't believe that I have to write SQL by hand with Zend Framework, when I have all those magic methods available to me in CakePHP.
+</p>
+
+<p>
+Which brings me around to another point.  A disproportionately large number of successful open-source projects are the creation of one, very talented, egomaniacal developer.  David Heinemeier Hansson is a great developer (and has a big ego from what I've seen, heard and read about him) and still is one of the main driving forces behind Ruby on Rails.  Without him being there at the beginning, deciding on the core features and rejecting anything he didn't like, who knows how Rails would've ended up?  One of the toughest things to do is to say "no" to someone when they ask you for something.  Not many people can do it.  It's an especially important skill to have as a developer, because adding in features when they don't really add anything of value is the kiss of death for an application</p>
+
+<p>
+So, as a result of this sort of "cult of personality" that surrounds open source projects (or any popular project) you get people initially choosing projects based on the recommendations of others, not on the merits of the project itself.  Why pick Zend Framework?  It's rich in libraries, backed by a large well-known company in the industry, and has many talented contributors (including yours truly).  But *why* use it for your particular project?  Biggest flaw right now as I can see it is (beating a dead horse here today) lack of an ORM database wrapper.  Again, CakePHP has one so it can't be *that* hard to implement such a thing.  I know that <a href="http://pixelated-dreams.com/">Davey Shafik</a> has created such a beast for Zend Framework...but it's nowhere to be seen in ZF 0.91 beta and likely ZF 1.0.  C'mon, cut Davey a break and ram it in there.
+</p>
+
+<p>
+So, at this point, CakePHP is probably better suited for building an MVC application, despite the lack of libraries that Zend Framework provides that CakePHP does not.  On the other hand, a decent programmer should be able to quickly implement such things themselves, right?  So, for MVC-based apps that I need to build in a hurry I'm going to pick CakePHP.
+</p>
+
+<p>There, Nate.  You happy now?</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2007/03/31/what-do-you-mean-you-havent-had-a-code-review/" title="What Do You Mean You Haven&#039;t Had A Code Review?!?"><span class="title">What Do You Mean You Haven&#039;t Had A Code Review?!?</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2007/03/23/in-spring-time-a-not-so-young-php-programmers-mind-turns-to-frameworks/" title="In Spring Time, A Not-so-young PHP Programmer&#039;s Mind Turns To Frameworks"><span class="title">In Spring Time, A Not-so-young PHP Programmer&#039;s Mind Turns To Frameworks</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

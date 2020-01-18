@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Home &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta name="robots" content="noindex, follow">
+                <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2><a href="/2008/08/27/reader-feedback-working-with-xml-in-php/">Reader Feedback: Working with XML In PHP</a></h2>
+        </header>
+        <div>
+            <p>
+Welcome to the 3rd installment of me answering reader feedback questions.  Today we deal with a topic that I deal with every day at my <a href="http://www.xmlteam.com">day job</a> -- working with XML in PHP.</p>
+
+<p>
+First of all, I do all this in PHP 5.  SimpleXML makes it so easy to manipulate XML.  For my main work project, I've written a PHP application front end that talks to <a href="http://exist.sourceforge.net">eXist</a>, an open source XML database.  Since we deal with XML all day long it was decided that we needed to <a href="http://en.wikipedia.org/wiki/Eat_one's_own_dog_food">eat our own dog food</a> and go with an XML database to store the information that the <a href="http://sportso.com">application</a> generates.  So a lot of my code does some of the following things:
+<ul>
+<li>Do a call to a xQuery script running on the database that returns info that I'm looking for, usually both comma and pipe-separated data</li>
+<li>Load a specific document into a SimpleXML object and pull out some specific info</li>
+<li>Load a specific document into a SimpleXML object and then use it's XPath functions to pull some information out.</li>
+</ul>
+</p>
+
+<p>
+Those 3 techniques seem to work well for me when dealing with XML data in PHP.  If I had to go back and redo some of the earlier code, I'd probably change things a little differently in how I'm using eXist to simulate how some of our other products work:
+<ol>
+<li>Use eXist to give me a list of documents that contain the info I am looking for</li>
+<li>Load those documents into SimpleXML</li>
+<li>Use Xpath to grab the data I needed</li>
+</ol>
+But in the interest of Getting Things Done, what I've done works pretty good and the code is really not horrible.</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2008/08/26/reader-feedback-experiences-with-django/">Reader Feedback: Experiences With Django</a></h2>
+        </header>
+        <div>
+            <p>Welcome to Day 2 of my answering reader feedback questions here in the month of August.  I was asked to share my experiences with Django.  I will confess that I am a complete n00b when it comes to Python (wrote a few scripts for work-related stuff) and got an early alpha of my baseball road-trip planning site actually working using Django.  Sure, it was ugly and very rough around the edges but I got it to work.  But I will say this:  if I had the opportunity to start working with Python and Django every day (and for the same pay I'm getting now) I would take it in a heartbeat.  Seriously.
+</p>
+
+<p>
+So why all the love for Django and Python?  As a guy who's used PHP for a very long time, I'm really blind to the syntax of it.  All the griping about needle vs. haystack and "PHP is ugly" is just wasted on me.  Just so much pissing and moaning by people who should know better and lack the courage to learn the language they way they should.  I heard it described by Evan from Identi.ca as being "the working man's language".  Nothing wrong with that, as PHP is great at Getting Things Done.  But Python...Python is vastly different from PHP.  It's about objects.  It's about consistency.  It's about the most amazing interactive interpreter I've seen since I was a kid fooling around on my VIC-20 typing in programs from Compute! magazine.  Bet you didn't think I'd been using computers for that long.  To shift into bragging mode, I first got paid for programming when I wrote a program for my mother's school (she's a teacher) to create the salary grid for the teachers.  I was 12. I think.
+</p>
+
+<p>
+Also, there's a dirty little secret about using frameworks that nobody really tells you.  After a while, it makes you lazy.  You forget how to do certain things because, well, the framework does it for you.  The other day there was a tweet from someone asking about the best way to sanitize data before you put it into the database.  My first thought was "sheesh, that's built into the framework" and then I stopped myself and said "you are getting goddamn lazy!".  My response was "try using mysql_real_escape_string(...)" but was also told about using PDO's binding of parameters as another way to do it.  See, those things are all done by the framework meaning lazy old Chris doesn't have to remember how to do it.  Until the time he's confronted with non-framework code that he cannot simply rewrite as part of a framework.  *gulp*.  So, since Python and Django are so different from the other frameworks I've used it forces me to STOP being lazy and actually learn how not only Django itself works but how the insides of it work as well.  
+</p>
+
+<p>
+Now, being an old hand at frameworks means using Django is not that big a stretch.  I spent a lot time googling around for the "Python (or Django) Way" to do things.  Except for a few concepts that are not familiar to a long time PHP guy (generators?) it wasn't that hard to get up and running with Django.  The documentation is awesome, and once you learn to stop writing PHP code in Python and instead embrace doing things the Python way, it becomes a lot easier.
+</p>
+
+<p>
+In the end it's still datasource-backed models talking to some controller code and passing it onto some template.  I find the Django templates to be very limiting after my initial experiences and my "PHP is the template" background, and I think that as I get deeper into it I really have to find out how to do things the Django way.  What CakePHP calls Model-View-Controller, Django calls Model-View-Template, but it's really the same thing.
+</p>
+
+<p>
+When I compare Ruby to Python, I don't get the feeling that I will have to resort to dynamic functions and closures to Get Things Done in Django like I see happening in Rails.  Besides, they seem to be two very different communities.  That's probably because the leaders of the Django community are so different in temperament and I don't see the same type of "Django rules, everything else sucks!" mind sets that I saw in the Rails community.  Maybe I'm just looking in the wrong places, but I feel more at ease in the Django community than the Rails community, albeit from the outer fringes of it.
+</p>
+
+<p>
+So don't be lazy and complacent about the tools that you use.  Go and checkout Django and you might feel the same way about it as I do.
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2008/08/25/reader-feedback-personal-project-management/">Reader Feedback: Personal Project Management</a></h2>
+        </header>
+        <div>
+            <p>
+With August winding down to a close and the insane August family event schedule over with (5 birthdays and my wedding anniversary) I now have the time to answer some of the reader feedback questions I had solicited at the beginning of the month.  So, to give something back I will be answering one question each day this week.  Today's first topic is Personal Project Management.
+</p>
+
+<p>
+As I never get tired of telling people, my <a href="http://www.xmlteam.com">employer</a> is one of the enlightened few who lets their employees telecommute 100% of the time, so there are some different challenges in play.  I understand that some people could not "handle the pressure" (their words, not mine, although I am paraphrasing) of working from home.  At this point I could not imagine going BACK to working in an office.
+</p>
+
+<p>
+So, with your boss always around on IRC and just a phone call away, how does your grumpy correspondent stay on top of his tasks since he knows the boss will never show up at my desk asking me a question?  You may be surprised at the answer if you know me in real life:  through self-discipline.
+</p>
+
+<p>Yes, I can already feel the immense amount of eye-rolling (including my <a href="http://www.teachersatrick.com">mother</a>) but it really is true.  If you are the type of person who needs to be constantly told what to do, you are not going to cut it in a telecommute environment because you WILL be left alone for long periods of time to Get Things Done Without Constant Supervision.  The only way to make sure you are able to function without simply going upstairs and watching TV when you are supposed to be working is to, well, act like the professional coder you are supposed to be.  So, how do I handle this?  Please be aware that this is a method that works for me and probably only for me.  Copy it at your own peril.  
+</p>
+
+<p>
+I tend to approach programming assignments as if it was Big Problem that can be solved by breaking it down into Little Problems.  This is why when confronted with the question "is there any programming challenge you solved that you are really proud of?" I tend to draw a blank because, well, despite all my bluster and accusations of being an asshole, I don't really look at the stuff I do and say "goddamn, that was amazing work".  To me, it's really just solving a bunch of smaller problems that make up a bigger problem.  I guess you thought I'm a shameless self-promoter of my work.  I try to do go
+</p>
+
+<p>I mean, not every programming task I complete is what I would call exceptional work because sometimes you just can't figure out an exceptional way to do it.  Plus, I can't bring myself to be such an asshole as to expect everything I do to be perfect.  Not everyone is at their best all the time.  Therefore, I try to follow a policy that was explained to me by gwoo from the CakePHP project: "Make it work, then make it work better".  I can't think of a better philosophy for the type of work I do every day.</p>
+
+<p>
+Everything beyond how I approach solving problems is really just non-important.  I make lots of notes, but I'm not a compulsive note organizer.  I don't have any system for keeping track of what I'm working on beyond a simple list of items in a spiral notebook that I cross off and scratch away at while I work.  Hate to disappoint people, but I try to keep it very simple.  Whenever I veer off into the land of Complex Task Tracking, I spend more time tracking tasks than doing them.  Keep it simple, keep it something I can use each day and every day.
+</p>
+
+<p>
+So, that's my approach to personal project management:
+<ul>
+<li>Be professional since you are, you know, being paid to do it.</li>
+<li>Keep your solutions simple</li>
+<li>Adopt organizational practices you can follow every day.</li>
+<li>Try and do your best work whenever you can, but understand when you are not at your best</li>
+</ul></p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/79">Newer Posts</a><br />
+        <a href="/page/81">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Why Exception Handling Matters &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>Why Exception Handling Matters <small>post</small></h2>
+            <h3>June 9th, 2006</h3>
+        </header>
+        <div>
+            <p>
+As I start working on PHP 5 projects in my own time (and pushing for the upgrade of our sites to PHP 5 at work) I'm gaining more exposure to the newer features of PHP 5.  The big one for me is the try-catch-throw exception handling abilities.  When I think of <a href="http://www.sexsearch.com">my old job</a> and the problems we faced with exception handling it makes me wish that we could've written it in PHP 5.
+</p>
+
+<p>
+Anyhow I've been working with my friend <a href="http://derekmartin.ca">Derek Martin</a> on a component for the <a href="http://framework.zend.com">Zend Framework</a> to provide support for using <a href="http://last.fm">Last.fm</a> via <a href="http://www.audioscrobbler.net">Audioscrobller's</a> REST web services.
+</p>
+
+<p>
+Since the ZF is PHP 5 only it was time to break out the try-catch-throw.  Check out how simple this can be:
+</p>
+
+<div><ol><li><div>&#160;</div></li><li><div>protected function _getInfoByUser&#40;$service&#41;</div></li><li><div>&#123;</div></li><li><div>&#160; &#160; &#160; &#160; $service = &#40;string&#41; $service;</div></li><li><div>&#160; &#160; &#160; &#160; </div></li><li><div>&#160; &#160; &#160; &#160; try &#123;</div></li><li><div>&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; $response = $this-&amp;gt;_rest-&amp;gt;restGet&#40;"/1.0/user/{$this-&amp;gt;user}/{$service}"&#41;;</div></li><li><div>&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; </div></li><li><div>&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; if &#40;$response-&amp;gt;isSuccessful&#40;&#41;&#41; &#123;</div></li><li><div>&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; $profile_info = simplexml_load_string&#40;$response-&amp;gt;getBody&#40;&#41;&#41;;</div></li><li><div>&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; return $profile_info;</div></li><li><div>&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#125; else &#123;</div></li><li><div>&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; </div></li><li><div>&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; if &#40;$response-&amp;gt;getBody&#40;&#41; == "No such user"&#41; &#123;</div></li><li><div>&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; throw new Zend_Service_Exception&#40;'Could not find the user ' . $this-&amp;gt;user&#41;;</div></li><li><div>&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#125; else &#123;</div></li><li><div>&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; throw new Zend_Service_Exception&#40;'The REST service ' . $service . ' returned the following status code: ' . $response-&amp;gt;getStatus&#40;&#41;&#41;;</div></li><li><div>&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#125;</div></li><li><div>&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; </div></li><li><div>&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#125;</div></li><li><div>&#160;</div></li><li><div>&#160; &#160; &#160; &#160; &#125; catch &#40;Zend_Service_Exception $e&#41; &#123;</div></li><li><div>&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; throw &#40;$e&#41;;</div></li><li><div>&#160; &#160; &#160; &#160; &#125;</div></li><li><div>&#160;</div></li><li><div>&#125;</div></li><li><div>&#160;</div></li></ol></div>
+
+<p>
+So, if there are any errors generated I "throw" an exception that the framework can handle.  I then "catch" that exception and "throw" it up another level, where the controller (which is calling the above code in question) catches the exception I originally created.  Nice and easy.  Thanks to <a href="http://www.slash7.com">Amy Hoy</a> for giving me a 60 second clinic on try-catch-throw via IM yesterday.
+</p>
+
+<p>
+Next week has been decleared "Proposals Week" on the Zend Framework mailing list, so Derek and I are trying to get our contribution together so that we can submit it next week.  Last.fm and Audioscrobbler are a neat technology that I use all the time to track my own musical tastes and find things that I like.  Hopefully the other users like it enough that it gets accepted.
+</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2006/06/13/sql-for-web-nerds/" title="SQL For Web Nerds"><span class="title">SQL For Web Nerds</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2006/06/05/people-over-30-should-be-dead/" title="People Over 30 Should Be Dead"><span class="title">People Over 30 Should Be Dead</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

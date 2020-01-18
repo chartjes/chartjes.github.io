@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Reader Feedback: Experiences With Django &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>Reader Feedback: Experiences With Django <small>post</small></h2>
+            <h3>August 26th, 2008</h3>
+        </header>
+        <div>
+            <p>Welcome to Day 2 of my answering reader feedback questions here in the month of August.  I was asked to share my experiences with Django.  I will confess that I am a complete n00b when it comes to Python (wrote a few scripts for work-related stuff) and got an early alpha of my baseball road-trip planning site actually working using Django.  Sure, it was ugly and very rough around the edges but I got it to work.  But I will say this:  if I had the opportunity to start working with Python and Django every day (and for the same pay I'm getting now) I would take it in a heartbeat.  Seriously.
+</p>
+
+<p>
+So why all the love for Django and Python?  As a guy who's used PHP for a very long time, I'm really blind to the syntax of it.  All the griping about needle vs. haystack and "PHP is ugly" is just wasted on me.  Just so much pissing and moaning by people who should know better and lack the courage to learn the language they way they should.  I heard it described by Evan from Identi.ca as being "the working man's language".  Nothing wrong with that, as PHP is great at Getting Things Done.  But Python...Python is vastly different from PHP.  It's about objects.  It's about consistency.  It's about the most amazing interactive interpreter I've seen since I was a kid fooling around on my VIC-20 typing in programs from Compute! magazine.  Bet you didn't think I'd been using computers for that long.  To shift into bragging mode, I first got paid for programming when I wrote a program for my mother's school (she's a teacher) to create the salary grid for the teachers.  I was 12. I think.
+</p>
+
+<p>
+Also, there's a dirty little secret about using frameworks that nobody really tells you.  After a while, it makes you lazy.  You forget how to do certain things because, well, the framework does it for you.  The other day there was a tweet from someone asking about the best way to sanitize data before you put it into the database.  My first thought was "sheesh, that's built into the framework" and then I stopped myself and said "you are getting goddamn lazy!".  My response was "try using mysql_real_escape_string(...)" but was also told about using PDO's binding of parameters as another way to do it.  See, those things are all done by the framework meaning lazy old Chris doesn't have to remember how to do it.  Until the time he's confronted with non-framework code that he cannot simply rewrite as part of a framework.  *gulp*.  So, since Python and Django are so different from the other frameworks I've used it forces me to STOP being lazy and actually learn how not only Django itself works but how the insides of it work as well.  
+</p>
+
+<p>
+Now, being an old hand at frameworks means using Django is not that big a stretch.  I spent a lot time googling around for the "Python (or Django) Way" to do things.  Except for a few concepts that are not familiar to a long time PHP guy (generators?) it wasn't that hard to get up and running with Django.  The documentation is awesome, and once you learn to stop writing PHP code in Python and instead embrace doing things the Python way, it becomes a lot easier.
+</p>
+
+<p>
+In the end it's still datasource-backed models talking to some controller code and passing it onto some template.  I find the Django templates to be very limiting after my initial experiences and my "PHP is the template" background, and I think that as I get deeper into it I really have to find out how to do things the Django way.  What CakePHP calls Model-View-Controller, Django calls Model-View-Template, but it's really the same thing.
+</p>
+
+<p>
+When I compare Ruby to Python, I don't get the feeling that I will have to resort to dynamic functions and closures to Get Things Done in Django like I see happening in Rails.  Besides, they seem to be two very different communities.  That's probably because the leaders of the Django community are so different in temperament and I don't see the same type of "Django rules, everything else sucks!" mind sets that I saw in the Rails community.  Maybe I'm just looking in the wrong places, but I feel more at ease in the Django community than the Rails community, albeit from the outer fringes of it.
+</p>
+
+<p>
+So don't be lazy and complacent about the tools that you use.  Go and checkout Django and you might feel the same way about it as I do.
+</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2008/08/27/reader-feedback-working-with-xml-in-php/" title="Reader Feedback: Working with XML In PHP"><span class="title">Reader Feedback: Working with XML In PHP</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2008/08/25/reader-feedback-personal-project-management/" title="Reader Feedback: Personal Project Management"><span class="title">Reader Feedback: Personal Project Management</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Home &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta name="robots" content="noindex, follow">
+                <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2><a href="/2012/02/22/thoughts-on-testing-apis/">Thoughts on testing APIs</a></h2>
+        </header>
+        <div>
+            <p>I have been asked a few times on Twitter for some advice on how to use
+testing tools in order to test APIs. It just so happens that I am writing a
+bunch of tests for an API at work so perhaps this is a very timely blog post.
+Rather than show you exactly what I did (I'm using <a href="http://behat.org">Behat</a>)
+I wanted to discuss some common strategies I use when contemplating testing
+APIs.</p>
+
+<p>When you are testing an API you main concern is your ability to reproduce
+the results of a specific API call. If your API is such that repeating a
+call several times will give you different results, you do have some 
+challenges on your hands.</p>
+
+<p>Testing that an API just works is what I would call a functional test. At
+the highest level you are saying "will this call actually work". Since you
+will be actually making API calls in your tests they can take quite some
+time to run depending on how many you have. Long-running tests are the
+type of tests that really should be forming the last line of defense just
+before you're about to go into production.</p>
+
+<p>Why? Functional tests have a lot of moving parts: HTTP calls, request and
+response parsing, and likely communications with some sort of data store.
+Not exactly the types of things that lead you to having a test suite that
+can run in 10 seconds or less.</p>
+
+<p>In my opinion the only way to have really effective functional tests is
+by making sure that the API endpoints you are testing are using a known 
+data source, one that will not be altered by your tests. That
+way it will be easy to verify that a particular call had the expected
+response. Remember, at the most basic level testing is about repeatedly
+verifying that your code is returning an expected result.</p>
+
+<p>If you are testing someone else's API, I hope there is a test mode or a 
+sandbox that you can use. A lot of APIs are rate-limited or only allow a
+limited number of requests a day (I'm looking at you, Google Analytics). 
+The last thing you want is for your application to longer be able to access an
+API because you went nuts testing things. Remember, the goal of functional 
+tests in this scenario are to make sure that the API is returning results
+that you expect, nothing more.</p>
+
+<p>Integration tests of APIs are a bit of a tricky thing to do in an effective
+way. Sometimes 3rd party APIs change. Sometimes you are also lucky enough
+to be told ahead of time that it's happening. If your application relies
+heavily on 3rd party APIs then your integration tests are a key line of
+defense. While tests like these shouldn't be run as much as the unit
+tests for the API, they should be run before a production push. Nobody
+likes their application to be broken because of an unannounced change to
+an API.</p>
+
+<p>Finally, we have tests designed to make sure that your application is 
+correctly handling the results of API calls. To make these sorts of tests work, 
+you will end up either creating mock
+objects of the code that will do the calls or data fixtures representing 
+results of API calls. It is also for this reason I always recommend wrapping
+the calls to an API in code, just so you can mock them for testing purposes.
+Sure, it might be easier to cheat and do file&#95;get&#95;contents() on a URL but
+that approach is pretty difficult to test.</p>
+
+<p>Remember, these tests should not even be calling out to an API in order to
+work. Mocks and data fixtures are supposed to provide that data. All you
+are doing is testing the code that needs results from the API. Again, if
+you have been building your application with testability in mind your
+suite of unit tests should be blazing fast.</p>
+
+<p>In the end, it doesn't really matter what tools you are using to test either
+your own APIs or ones that your application depends on. Be clear in your
+mind about what it is you are actually trying to accomplish and don't get
+create tests that provide very little value to your application.</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2012/02/14/organizing-slim-framework-apps/">Organizing Slim Framework Applications</a></h2>
+        </header>
+        <div>
+            <p>Influenced by discussion with <a href="https://twitter.com/funkatron">Ed</a> I have
+decided to use <a href="http://www.slimframework.com/">Slim</a> as the framework
+for a PHP application I am building that is an addition to what is found
+on the web site for the <a href="http://www.ibl.org">simulation baseball league</a> I
+have belonged to for 14 seasons. I've never really used a microframework
+in PHP before. I used <a href="http://flask.pocoo.org">Flask</a> for a Python
+<a href="https://github.com/chartjes/liesitoldmykids">project</a> that I did to experiment
+with using Google App Engine. The principles seem to be quite similar 
+(although I will admit that having decorators in PHP would be ineresting)
+but the trade-off with a microframework is that you usually have to figure
+out an application layout for yourself.</p>
+
+<p>I decided to use the following things for this app:</p>
+
+<ul>
+<li>Slim (using latest stable version, 1.5.0 at this writing)</li>
+<li><a href="http://pimple.sensiolabs.org">Pimple</a> as a dependency injection container</li>
+<li><a href="http://twig.sensiolabs.org">Twig</a> for a templating engine</li>
+</ul>
+
+<p>I also decided to use <a href="http://packagist.org/about-composer">Composer</a> as a way
+to install the above dependencies. Slim is not in <a href="http://packagist.org">Packagist</a>
+so I was forced to do a little reorganizing work after getting some help in
+IRC from <a href="https://twitter.com/jakefolio">Jake Smith</a>. Here's what I did to get
+all three of those things playing nicely together with Composer's autoloader:</p>
+
+<ul>
+<li>moved the directory that contains Slim into the vendor directory</li>
+<li>altered vendor/.composer/autoload&#95;namespaces.php to look for Slim</li>
+</ul>
+
+<pre><code>// autoload_namespace.php generated by Composer
+
+$vendorDir = dirname(__DIR__);
+
+return array(
+    'Twig_Extensions_' =&gt; $vendorDir . '/twig/extensions/lib/',
+    'Twig_' =&gt; $vendorDir . '/twig/twig/lib/',
+    'Pimple' =&gt; $vendorDir . '/pimple/pimple/lib/',
+    'Slim' =&gt; $vendorDir .'/slim/slim'
+);
+</code></pre>
+
+<p>I've come to the opinion that if you are using a tool that provides an autoload
+you are probably better off using the one they provide rather then trying to make
+those two co-exist. I'm sure I could've used the autoloader from the <a href="http://phix-project.org">Phix project</a>
+but I didn't feel like screwing around with it. The composer one works and it was
+easy to tell it to use Slim. Once I start creating the models that I will use for 
+this application I will add their location to that file too.</p>
+
+<p>With that out of the way, it came time to discuss how to actually organize this
+application. I have a templates directory for my Twig templates, which totally
+makes sense. But what to do with the index.php file that Slim relies on. Like
+any front-controller-driven application all our requests, after being folded
+and mutilated by a web server rewrite rule, go through index.php. In the sample
+Slim app they have something like this in their index.php file:</p>
+
+<pre><code>$app = new Slim();
+$app-&gt;get('/hello/:name', function ($name) {
+    echo "Hello, $name!";
+});
+$app-&gt;run();
+</code></pre>
+
+<p>This might be all Kool and the Gang if you only have a bunch of really small 
+actions. This app will be interacting with models a lot, and I'm positive that
+despite my best efforts to roll with a "fat models, skinny controllers" paradigm
+that some of those actions will end up being lots of code. Smashing all that stuff
+together in one file strikes me as an abomination against best coding practices.
+Ed told me how the <a href="http://fictivekin.com/">FictiveKin</a> folks are organizing their
+Slim apps, so I have created something similar to it.</p>
+
+<p>All my routes are going to go into a routes directory and then I will
+specifically include the routes I want via require calls. One route per file and
+I will try and name them something sensible.</p>
+
+<pre><code>&lt;?php
+
+require './bootstrap.php';
+
+// Load all our routes
+require './routes/main.php';
+require './routes/hello.php';
+
+$app-&gt;run();
+</code></pre>
+
+<p>Inside each one of these files will be an app->get|post|whatever call</p>
+
+<pre><code>&lt;?php
+
+$app-&gt;get('/', function() {
+    echo 'MAIN PAGE';
+});
+</code></pre>
+
+<p>Yes, that default route sucks but getting the structure in place was more 
+important to me than having something useful stubbed out.</p>
+
+<p>I'm sure there is more than one way to organize a Slim application, but this
+is one that I think works best for me.</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2012/02/13/baby-steps-with-node-js/">Baby Steps with Node.js</a></h2>
+        </header>
+        <div>
+            <p>In a desire to stay relevant, I have been spending some time taking a look
+at <a href="http://nodejs.org">Node.js</a>. Why? I believe it is always a good idea
+to take a look at whatever the new hawtness is, if only to evaluate it's
+suitability for use within your own applications. Sometimes it is also
+a good idea to see if you can wrap your brain around it.</p>
+
+<p>So I went and bought a good <a href="http://leanbundle.com/b/node/">bundle of ebooks about Node</a>
+and started going through the tutorial code. These two seemed like a good
+place to start: an introductory tutorial and then another book that leaps
+right into things with the aim of really giving you some hands-on work with
+Node.</p>
+
+<p>The crowning glory of my early work is this bit of code from a tutorial that
+emits events and then allows you to react to them:</p>
+
+<pre><code>var EventEmitter = require('events').EventEmitter;
+var util = require('util');
+
+var Ticker = function(){};
+
+util.inherits(Ticker, EventEmitter);
+
+Ticker.prototype.tick = function() {
+    self = this;
+    interval = setInterval(function() {
+        self.emit('tick');
+    }, 1000);
+};
+
+var myTicker = new Ticker();
+
+myTicker.on('tick', function() {
+    console.log('TICK');
+});
+
+myTicker.tick();
+</code></pre>
+
+<p>Now I realize that this code sample is something very trivial but I also
+think it shows what someone who has mostly worked in languages without
+callbacks is up against when they start using node.</p>
+
+<p>As a PHP guy I am used to my code being executed pretty much in the order
+that you read it when looking at the source code: from top to bottom, with
+jumps out to other code as required but always returning to this flow.</p>
+
+<p>Once you start getting into callbacks and other evented paradigms it becomes
+a lot more difficult to intuitively figure out what's going on. Note that
+I said "intuitively" because I'm sure that to anyone past the beginner
+stage with Node would understand what is going on there.</p>
+
+<p>There is a lot that looks familiar though. We have the importing of modules
+via require statements. I also think this a good point to mention the
+outstanding job that <a href="http://npmjs.org/">npm</a> does in helping to manage
+dependencies. I used to think that the <a href="http://rubygems.org">Ruby gems</a> system
+was one that should be aspired to. If you're going to ignore <a href="http://www.cpan.org/">CPAN</a>
+that is.</p>
+
+<p>Then I create what I can only describe as an empty object, and then we
+say that our Ticket object is going to inherit whatever is in EventEmitter.
+Okay, so far so good in terms of familiar territory.</p>
+
+<p>Next we have the block of code that lets us create a tick method for our
+overall Ticker object, and this is done with a callback. We have scoping
+issues to deal with (hence the self = this line) and we are creating something
+that will emit a 'tick' event once a second (1000ms). That looks a little
+weird if you're not used to callbacks, and we even have an anonymous function
+inside an anonymous function.</p>
+
+<p>After that we then grab a Ticker object, tell it that every time there is a
+'tick' event detected we want to log TICK to the console. Finally, we tell
+it to run myTicker.tick() and then it goes on it's way emitting TICK once a second.</p>
+
+<p>That's not such a mind bender once you break it down the way I did. But what about
+this type of thing:</p>
+
+<pre><code>var fs = require('fs');
+
+fs.open('./a.txt', 'a', function(err, fd) {
+    var writeBuffer = new Buffer('7');
+    var bufferOffset = 0;
+    var bufferLength = writeBuffer.length;
+    var filePosition = 10;
+
+    fs.write(fd, writeBuffer, bufferOffset, bufferLength, filePosition, function(err, written) {
+        if (err) {
+            throw err;
+        }
+
+        console.log('wrote ' + written + ' bytes');
+    });
+});
+</code></pre>
+
+<p>We all know that it is easy to write spaghetti code in PHP because of the fact
+that it grew up on the web: it was a templating language with C library 
+wrappers. Very easy to just mash everything together. I see the same sort of
+spaghetti possibilities there in Node, with the added bonus of callbacks
+being mixed in there to make certain things difficult.</p>
+
+<p>I understand what I did there: I am opening a file and then writing to it. The
+way that I got to do it made me scratch my head. Writing to the file happens
+as a callback that is executed as a result of opening up the file for
+appending? Like I said before, that does not strike me as very intuitive
+for programmers coming to Node with a little understanding of Javascript
+and jQuery, which is probably most programmers' introduction to anonymous
+functions.</p>
+
+<p>But I do get it. You cannot get non-blocking IO without doing such gyrations
+but I am concerned that sufficiently large Node applications will be, to put
+it bluntly, a fucking nightmare to debug. Is this something that cannot be
+moved away from if you choose to write programs using tools that suppoort
+concurrency and/or evented concepts?</p>
+
+<p>I'd love to hear what sort of best practices people are using in order to
+tame the potential for Node applications degenerating into spaghetti hell.</p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/25">Newer Posts</a><br />
+        <a href="/page/27">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

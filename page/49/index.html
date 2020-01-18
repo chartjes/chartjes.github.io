@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Home &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta name="robots" content="noindex, follow">
+                <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2><a href="/2010/02/04/sorting-relationship-results-in-doctrine-1-2-2/">Sorting Relationship Results In Doctrine 1.2</a></h2>
+        </header>
+        <div>
+            <p>
+I've been building an admin panel for a work project dealing with fantasy sports, and one of the failings of the old version of the overall application was that, well, sometimes it didn't retain the desired display order of players grouped by position.  Sometimes it worked, sometimes it didn't.  A classic case of "software working by accident" maybe?  So I've set out to fix that part of it.
+</p>
+
+<p>
+I've been using <a href="http://www.doctrine-project.org">Doctrine</a> 1.2 for the project (integrated with <a href="http://framework.zend.com">Zend Framework</a>), and I found it quite easy to setup the relationships I needed between my models.  Oh, except for finding out that I really needed a field called 'id' in one table in order to make a relationship work properly.  Sometimes convention triumphs over configuration. ;)
+So I thought to myself "I wonder if I can configure things so that when we're pulling in the related results, it is sorted?"
+</p>
+
+<p>
+So I started digging around via search engine.  Took me about an hour to find the solution.  First, it took me half the time to dive deep enough to find out WHERE I can define the default sort order.  Surprisingly, it was in an area that made total sense but I could not find before.  Weird.  Probably due to me not fulling understanding the API.
+</p>
+
+<pre><code>class Team extends Doctrine_Record 
+{
+    public function setUp() 
+    {
+                ...
+
+        $this-&gt;hasMany('Player as Players', array(
+            'local' =&gt; 'team_id',
+            'foreign' =&gt; 'player_id',
+            'refClass' =&gt; 'PlayersTeams',
+            'orderBy' =&gt; 'FIELD(position, "C","1B", "2B" ,"3B", "SS", "OF", "P")'
+        ));
+    }
+}
+</code></pre>
+
+<p>
+Oh, what's all that other stuff?  That's what took the other half of the hour to figure out.  See, I couldn't use any sort of natural sorting order.  I had a specific order that they needed to be displayed in.  As usual <a href="http://stackoverflow.com/questions/134379/returning-query-results-in-predefined-order">StackOverflow came to my rescue</a>.  I'm pretty sure that what I am doing is MySQL-specific but I imagine you can figure it out for other RDBMS'.
+</p>
+
+<p>
+So now when I pull in info about a Team, I get the associated Player records sorted to my heart's desire.  Awesome.  This does raise a question:  how would you accomplish this sort of trick if you were using a non-relational database like <a href="http://couchdb.apache.org">CouchDB</a>.  Research for another day I guess.
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2010/01/27/creating-usable-forms-with-zend-framework/">Creating Usable Forms With Zend Framework</a></h2>
+        </header>
+        <div>
+            <p><i>Note: These examples are using Zend Framework 1.9.5, with comes with Zend Server Community Edition 4.0.6 for OS-X</i></p>
+
+<p>As I begin working on the admin area for a work application being built with <a href="http://framework.zend.com">Zend Framework</a>, I've been spending a lot of time starting and stopping on it.  Why?  Chalk it up to the extensibility of Zend Framework, who have clearly taken the "configuration" side of the "configuration vs. convention" philosophy when it comes to frameworks.  Before you get all worked up, remember that (a) I last used Zend Framework 3 years ago and (b) I got very used to relying on framework conventions to help me speed things up, a tactic used with great success in building <a href="http://cakephp.org">CakePHP</a> and <a href="http://codeigniter.com">CodeIgniter</a> applications.  Alas, those days are behind me and I am getting schooled in the wonders of "figuring everything out" and "object chaining is cool" and "why are there always more than one way to do something with this framework?!?".
+</p>
+
+<p>
+So one of my first tasks is to create a form to allow people to create new leagues for a fantasy sports league.  Need a very simple form with three things in it: league name, sport and scoring period (which is how often we need to compile standings).  Sounds easy right? 
+</p>
+
+<p>
+After searching around online for some examples of building simple forms, I was dismayed to discover there were two different ways of building the form.  I could (a) do it the long way and create specific instances of the form elements using Zend_Form_Element_X or (b) do it the short way and add them to the form by use of <a href="http://framework.zend.com/apidoc/1.9/Zend_Form/Zend_Form.html#addElement">Zend_Form::addElement()</a> and pass it the type of form element I want via an array.  For reasons I cannot explain initially, I decided to do things the long way.  Later on, I found out that doing it this way saved me from rewriting.
+</p>
+
+<p>
+So, the approach I decided to use was to create a separate file that contains the form I want to use.  Why? Because I wanted to reuse this form for both "add a new league" functionality and "edit an existing league" functionality.  After figuring out that I needed to create a Bootstrap file for the module that the form was in (otherwise auto loading wouldn't work) here's what I cranked out:
+~~~
+class Admin_Form_League extends Zend_Form
+{
+    public function __construct($options = null)
+    {
+        parent::__construct($options);
+        $this->setAction($options['action'])->setMethod('post');
+    
+        $name = new Zend_Form_Element_Text('name', array('required' => true));
+        $sport = new Zend_Form_Element_Select(
+            'sport', 
+            array(
+                'required' => true,
+                'multiOptions' => array('baseball' => 'Baseball', 'football' => 'Football')
+            )
+        );
+        $scoringPeriod = new Zend_Form_Element_Select(
+            'scoring_period',
+            array(
+                'required' => true,
+                'multiOptions' => array('daily' => 'Daily', 'weekly' => 'Weekly', 'monthly' => 'Monthly')
+            )
+        );
+        $submit = new Zend_Form_Element_Submit('submit', array('label' => $options['submitLabel']));
+
+        if (isset($options['leagueId'])) {
+            $leagueId = new Zend_Form_Element_Hidden('id', array('value' => $options['leagueId']));
+            $this->addElement($leagueId);
+        }
+
+        $this->addElements(array($name, $sport, $scoringPeriod, $submit));
+    }
+}
+~~~
+Perhaps you've noticed something different about this example compared to others you might have seen elsewhere?  Okay, I won't keep you in suspense about it.  I'm using the $options parameter when creating an instantiation of this particular form to pass some dynamic information.  Without this, it would be very difficult to reuse this form.  In this case, I pass in up to three different parameters:  the target for the form, the label I want on the submit button and (in the case where we're editing an existing record) the primary key of that league in the database.
+</p>
+
+<p>
+So, then the next step is to tell my controller I want to use that form.  Ignore the database related stuff as I'm using <a href="http://www.doctrine-project.org/">Doctrine</a> and my use of that probably deserves it's own blog post down the line.
+~~~
+class Admin_IndexController extends Zend_Controller_Action
+{
+    protected $_flashMessenger = null;
+
+    public function init()
+    {
+        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        $this->initView();
+    }
+
+    public function indexAction()
+    {
+        $leagues = Doctrine::getTable('Leagues');
+        $form = new Admin_Form_League(array(
+            'action' => '/admin/index', 
+            'submitLabel' => 'Add New League'
+        ));
+
+        if ($this->_request->getPost()) {
+            $formData = $this->_request->getPost();
+
+            if ($form->isValid($formData)) {
+                $newLeague = new Leagues();
+                $newLeague->fromArray($form->getValues(true));
+                $newLeague->save();
+            } else {
+                $form->populate($formData);
+            }
+        }
+
+        $this->view->leagues = $leagues->findAll()->toArray();
+        $this->view->messages = $this->_flashMessenger->getMessages();
+        $this->view->form = $form;
+    }
+
+}
+~~~
+</p>
+
+<p>Nice and simple, and effective.  I also have another action that is for the editing or deleting an existing league.  Here's the controller for that
+~~~
+class Admin_LeaguesController extends Zend_Controller_Action
+{
+    public function init()
+    {
+        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        $this->initView();
+    }
+    
+    public function editAction()
+    {
+        $leagueId = $this->_getParam('id', 0);
+        $leagues = Doctrine::getTable('Leagues');
+        
+        if ($this->_request->getPost()) {
+            $formData = $this->_request->getPost();
+            $form = new Admin_Form_League(array(
+                'action' => '/admin/leagues/edit', 
+                'submitLabel' => 'Update League',
+                'leagueId' => $formData['id']
+            ));
+            
+            if ($form->isValid($formData)) {
+                $updateLeague = $leagues->find($formData['id']);
+                $updateLeague->name = $formData['name'];
+                $updateLeague->sport = $formData['sport'];
+                $updateLeague->scoring_period = $formData['scoring_period'];
+                $updateLeague->save();
+                $this->_flashMessenger->addMessage('Updated league');
+                $this->_redirect('/admin');
+                exit();
+            } else {
+                $form->populate($formData);
+            }
+        } else {
+            $leagueId = $this->_getParam('id', 0);
+
+            if ($leagueId == 0) {
+                $this->_redirect('/admin');
+                exit();
+            } else {
+                $form = new Admin_Form_League(array(
+                    'action' => '/admin/leagues/edit', 
+                    'submitLabel' => 'Update League',
+                    'leagueId' => $leagueId
+                ));
+            }
+        }
+        
+        $results = $leagues->findById($leagueId)->toArray();
+        $formData = array(
+            'name' => $results[0]['name'],
+            'sport' => $results[0]['sport'],
+            'scoring_period' => $results[0]['scoring_period']
+        );
+        $form->populate($formData);
+        $this->view->form = $form;
+    }
+
+    public function deleteAction()
+    {
+        $leagueId = $this->_getParam('id', 0);
+
+        if ($leagueId == 0) {
+            $this->_redirect('/admin');
+            exit();
+        }
+
+        $leagues = Doctrine::getTable('Leagues');
+        $deleteLeague = $leagues->find($leagueId);
+        
+        if ($deleteLeague->delete()) {
+            $deleteMessage = 'Deleted league';
+        } else {
+            $deleteMessage = 'Unable to delete league';
+        }
+
+        $this->_flashMessenger->addMessage($deleteMessage);
+        $this->_redirect('/admin'); 
+        exit();
+    }
+}
+~~~
+</p>
+
+<p>Nothing too earth-shattering I would think.  Armed with this, I can now display my form in two different places:
+~~~
+<h1>Admin home</h1>
+<h2>Leagues</h2>
+< ?php if (count($this->messages) > 0) : ?>
+<ul>
+< ?php foreach ($this->messages as $message) : ?>
+<li>< ?php echo $message ?></li>
+< ?php endforeach; ?>
+</ul>
+< ?php endif; ?>
+<table border=1>
+    <tr>
+        <th>League Name</th>
+        <th>Sport</th>
+        <th>Scoring Period</th>
+    </tr>
+< ?php foreach ($this->leagues as $league) : ?>
+    <tr>
+        <td>< ?php echo $league['name'] ?></td>
+        <td>< ?php echo $league['sport'] ?></td>
+        <td>< ?php echo $league['scoring_period'] ?></td>
+        <td><a href="/admin/leagues/edit/id/<?php echo $league['id'] ?>">Edit</a> <a href="/admin/leagues/delete/id/<?php echo $league['id'] ?>" onClick="return confirm('Are you sure you want to delete this league?');">Delete</a></td>  
+    </tr>
+< ?php endforeach; ?>
+    <tr>
+< ?php echo $this->form ?>
+    </tr>
+</table>
+~~~
+~~~
+<h1>Edit league</h1>
+</p>
+
+<p>Use the form below to edit an existing league</p>
+
+<table border=1>
+    <tr>
+        <th>League Name</th>
+        <th>Sport</th>
+        <th>Scoring Period</th>
+    </tr>
+    <tr>
+< ?php echo $this->form ?>
+    </tr>
+</table>
+
+<pre><code><br />&lt;p&gt;So I do that, and load up the form and...what the?  Damn, the default decorator for these elements is ugly.  I want my form fields to line up nicely inside my table (shut up, I know I should use CSS but this is an admin panel and I am in a hurry) so after finding &lt;a href="http://devzone.zend.com/article/3450"&gt;this article by Zend Framework architect MWOP&lt;/a&gt; I figured out how to create the exact decorator I wanted.  Here's the final version of my reusable form.
+</code></pre>
+
+<p>class Admin_Form_League extends Zend_Form
+{
+    public function __construct($options = null)
+    {
+        parent::__construct($options);
+        $this->setAction($options['action'])->setMethod('post');
+        $decoratorOptions = array(
+            'ViewHelper',
+            'Errors',
+            array(array('data' => 'HtmlTag'), array('tag' => 'td', 'class' => 'element')),
+        );</p>
+
+<pre><code>    $name = new Zend_Form_Element_Text('name', array('required' =&gt; true));
+    $name-&gt;setDecorators($decoratorOptions);
+
+    $sport = new Zend_Form_Element_Select(
+        'sport', 
+        array(
+            'required' =&gt; true,
+            'multiOptions' =&gt; array('baseball' =&gt; 'Baseball', 'football' =&gt; 'Football')
+        )
+    );
+    $sport-&gt;setDecorators($decoratorOptions);
+
+    $scoringPeriod = new Zend_Form_Element_Select(
+        'scoring_period',
+        array(
+            'required' =&gt; true,
+            'multiOptions' =&gt; array('daily' =&gt; 'Daily', 'weekly' =&gt; 'Weekly', 'monthly' =&gt; 'Monthly')
+        )
+    );
+    $scoringPeriod-&gt;setDecorators($decoratorOptions);
+    $submit = new Zend_Form_Element_Submit('submit', array('label' =&gt; $options['submitLabel']));
+    $submit-&gt;setDecorators($decoratorOptions);
+
+    if (isset($options['leagueId'])) {
+        $leagueId = new Zend_Form_Element_Hidden('id', array('value' =&gt; $options['leagueId']));
+        $this-&gt;addElement($leagueId);
+    }
+
+    $this-&gt;addElements(array($name, $sport, $scoringPeriod, $submit));
+}
+</code></pre>
+
+<p>}
+~~~
+</p></p>
+
+<p>
+I'm pretty sure that if I dig around some more, I can find info on how to automatically apply that decorator to ALL my form elements if I needed that.  Maybe in the next revision.  Hope you find this example helps you to create your own reusable forms and to tweak the decorators yourself.
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2010/01/15/rallyhat-playing-with-couchdb-and-python/">Rallyhat: Playing with CouchDB and Python</a></h2>
+        </header>
+        <div>
+            <p>Many thanks to <a href='http://twitter.com/janl'>Jan Lehnardt</a> for helping me out via IM to understand some concepts that I was having problems wrapping my mind around.</p>
+
+<p>
+Rallyhat is for the most part a programming experiment for me, designed to learn Python *and* produce an web application that is actually usable by someone other than me.  One of the technologies I'm using is <a href="http://couchdb.apache.org/">CouchDB</a> to store things.  I was having some problems getting both <a href="http://code.google.com/p/couchdb-python/">couchdb-python</a> working with permanent views (meaning views stored in CouchDB itself) as opposed to temporary views (meaning views generated in the code).
+</p>
+
+<p>
+Now, couchdb-python looks to be a nice, simple interface to use.  The problem I found was the documentation is, what's the word I'm looking for?  Lacking.  Since Jan is an amazing teacher, he was patient with me and showed me that I could look at the documentation for couchdb-python via the Python REPL (aka the Python shell).  So, armed with this "how the hell could I not realize this" knowledge I figured out how to use it.  Yet another reason why I'm warming up to Python.  
+</p>
+
+<p>It was as simple as starting up the Python shell and then doing the following:
+~~~
+import couchdb
+help(couchdb.client)
+~~~
+In there you will find code examples for each method, and then explanations of the parameters for each method.  All you really need in this case.  So I take back what I said about the documentation for couchdb-python being lacking.  I was just looking in the wrong place.
+</p>
+
+<p>
+So, task #1 was to create the view I needed.  I decided to use Futon, the built-in interface to create my permanent view:
+~~~
+{
+   "_id": "_design/searches",
+   "_rev": "3-e7f43cfdd5a8ef62ae338bd1f19b3e95",
+   "views": {
+       "by_user": {
+           "map": "function (doc) { emit(doc.user, {'date': doc.date, 'locations': doc.loations});}"
+       }
+   }
+}
+~~~
+</p>
+
+<p>This view would then live at http://couchdb.server//rallyhat/_design/searches/_view/by_user is you want to get every doc for every user.  To get just the docs belong to a specific user, you append ?key=<user> to the URL above.  Is that easy to understand or what?  As an aside, I am finding the <a href="http://books.couchdb.org/relax/">online version of CouchDB: The Definitive Guide</a> to be an awesome reference guide (once you remember to actually use it, thanks again Jan). With the view then created, the next step was to create the Python code to read in those views.</user></p>
+
+<p>
+~~~
+     def get_by_user(self, username):
+         my_searches = []
+ 
+         if username:
+             for row in db.view('searches/by_user', None, key=username):
+                 info = db.get(row.id)
+                 locations = json.loads(info['locations'])                                                
+                 my_search = {'date': info['date'], 'locations': locations}
+                 my_searches.append({'id': row.id, 'date': info['date'],
+                                     'locations': locations})
+     
+         return my_searches
+~~~          
+</p>
+
+<p>
+With *any* Python library that you use, make sure to see if the author added help files to the package.  You'd be surprised to see what's in there...
+</p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/48">Newer Posts</a><br />
+        <a href="/page/50">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

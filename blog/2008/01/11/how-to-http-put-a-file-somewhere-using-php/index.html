@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>How To HTTP-PUT A File Somewhere Using PHP &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>How To HTTP-PUT A File Somewhere Using PHP <small>post</small></h2>
+            <h3>January 11th, 2008</h3>
+        </header>
+        <div>
+            <p>
+A work project is getting close to 0.1 status.  Pretty underwhelming, I know.  One of the last 'milestones' for 0.1 is taking these wonderful XML documents that my web app creates (and stores in <a href='http://www.exist-db.org/'>eXist</a> and sends them to an internal web service that reads in the XML and breaks it apart for use by a wide variety of other company applications.  This web service will accept documents via an HTTP PUT (you know, GET, POST and it's neglected siblings PUT and DELETE) so I dug around a bit on the web (ignoring one cranky co-worker's complaints that real programmers read RFC's, or at least *know* what an RFC is) and put together some code</p>
+
+<p><br /><br /></p>
+
+<pre><code>    function _publish($service, $doc) {
+        $params = array(
+            'http' =&gt; array(
+                'method' =&gt; 'PUT'));
+        $context = stream_context_create($params);
+        $fp = fopen($service, 'rb', false, $context);
+        $response = fwrite($fp,file_get_contents($doc));
+
+        if ($response === false) {
+            return false;
+        }
+
+        // Pull out the status code from the header
+        $metaData = stream_get_meta_data($fp);
+        preg_match_all("/HTTP\/1\.[1|0]\s(\d{3})/", $metaData['wrapper_data'][0], $matches);
+        $code = end($matches[1]);
+
+        if ($code == 200) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+</code></pre>
+
+<p>
+The only tricky thing here really is the use of the <a href="http://www.php.net/end">end</a> function to grab that last match of the status codes.  I got the code for doing the preg_match from <a href"http://www.jellyandcustard.com/2006/05/31/determining-if-a-url-exists-with-curl/">this site</a> and it seems to work just fine.  The reason to use end(...) as far as I can tell is to make sure that I only get the last match of the group.  Neat little trick and the link I posted demonstrates it.
+</p>
+
+<p>
+I'm also quite proud that it's cURL free, as cURL seems to be the first option that most people use when doing this kind of thing.  There is some existing code that is using cURL that I *might* refactor to use the streams-driven stuff that I've been playing with.
+</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2008/01/17/job-posting-manufacturing-engineer-position/" title="Job Posting: Manufacturing Engineer Position"><span class="title">Job Posting: Manufacturing Engineer Position</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2008/01/08/simple-user-registration-in-cakephp/" title="Simple User Registration in CakePHP 1.2"><span class="title">Simple User Registration in CakePHP 1.2</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

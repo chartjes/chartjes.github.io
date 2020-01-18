@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Cake and AJAX &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>Cake and AJAX <small>post</small></h2>
+            <h3>July 28th, 2006</h3>
+        </header>
+        <div>
+            <p>Success!  I did manage to get the sortable grid working for the stats reporting system.  It was my first real example of creating an AJAX component for a work project.  It took me quite a while to figure some of the trickier things out.  I did use <a href=http://www.crackajax.net/grid.php>this excellent tutorial</a> to show me a basic example of implementing a sortable grid backed by data pulled from a SQL database.  After that, I found Graham Bird's excellent tutorial on <a href=http://grahambird.co.uk/cake/tutorials/ajax.php>creating an AJAX sortable task list with Cake</a></p>
+
+<p>Now, what I did was a little more complicated because not only did I have to sort by the header columns in the table, I also had date ranges selected via a form <em>and</em> categories selectable via a form to take into consideration.</p>
+
+<p>I can say this:  the AJAX helper functions for CakePHP are just fantastic and spared me from having to figure out all this stuff on my own.  I did have to create some stuff by hand in order to build the following little snipper:</p>
+
+<p>body onLoad = "new Ajax.Updater('hiddenDIV','/verticalscope_stats/reports/getusers/site_name/99', {asynchronous:true, evalScripts:true, requestHeaders:['X-Update', 'hiddenDIV']}) }, false);"</p>
+
+<p>Yikes.  Not the kind of stuff I want to be building by hand if I can avoid it.  Now, the Cake AJAX helpers use scriptaculous and prototype as the base for their actions.  I found a post in the wiki for Cake complaining about the large size of those two helper libraries, and they do have a point.</p>
+
+<p>The post also turned me on to <a href="http://jquery.com">jQuery</a> , which describes itself as "... a Javascript library that takes this motto to heart: Writing Javascript code should be fun. jQuery acheives this goal by taking common, repetitive, tasks, stripping out all the unnecessary markup, and leaving them short, smart and understandable."</p>
+
+<p>I have an idea to try and see if I can take a stab at creating my own Cake helper that uses jQuery instead of the awesome-but-quite-large scriptaculous+prototype combo for the AJAX stuff.</p>
+
+<p>I plan on creating a tutorial on the stuff I did (specifically for implementing a sortable grid in CakePHP) in the next week or so.  It would be nice to share all the stuff I did. :)</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2006/08/02/phpworks-isnt-that-far-off/" title="php|works Isn&#039;t That Far Off..."><span class="title">php|works Isn&#039;t That Far Off...</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2006/07/26/quick-hits/" title="Quick Hits"><span class="title">Quick Hits</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

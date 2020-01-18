@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Readers Ask Me: TDD and freelancing &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>Readers Ask Me: TDD and freelancing <small>post</small></h2>
+            <h3>December 2nd, 2009</h3>
+        </header>
+        <div>
+            <p>Hendrick Daldrup writes:
+<blockquote>I just saw your post regarding topic suggestions on your blog for Dec.
+
+I actually have 2, but the first one might be better suited for a blog post.
+So, here goes:
+
+1. I started doing some freelance work to boost my portfolio and have been using CakePHP as my framework of choice in several cases.
+I wanted to focus on TDD for the larger projects, thanks to Cake's nice tie in with SimpleTest, but found it impossible to market to clients.
+The problem is that TDD causes an overhead on development time while reducing the bugs in the code. However, since bug fixes are basically included in the price, for the client it just translates to paying more for work that I would otherwise do for free anyway.
+TDD makes sense for a company with full time developer(s), but those with a small budget/tight deadline or no technical understanding always translate it to an unnecessary additional cost & time.
+Of course you could just add it to the development time and/or costs without mentioning it, but I prefer keeping my work transparent and was hoping that you or one of your readers might have been in a similar situation and have a tip on how to justify the use of TDD to a potential client.
+</blockquote>
+</p>
+
+<p>The first thing that occurs to me when trying to answer this question is this:<i>TDD is not for the client, it is for the developer</i>.  In other words, the client should not care that you are using TDD to build this application for them.  They should care that you deliver something on-time, within budget, and meeting their application requirements.
+</p>
+
+<p>
+TDD can be a powerful tool, especially if you are going in and reworking an existing application.  With work projects, every time a bug is reported I now create a test to (a) verify that the bug exists and (b) make sure that when I fix that bug, it has not broken anything else.  Scoff at the TDD crowd if you want, but there appears to be lots of evidence that including tests with your application goes a long way towards reducing bugs.  <a href="http://sites.google.com/site/yacoset/Home/how-to-avoid-writing-bugs">This article</a> speaks anecdotally about the value of TDD:
+<blockquote>
+ At first it wasn't clear what the benefits and trade-offs of TDD were, but an empirical study conducted on teams working at Microsoft and IBM2 found that teams practicing TDD could get up to 40% fewer bugs in their released code, but it came at a cost of taking up to 35% longer than a team developing the same software without TDD. It neither absolves TDD nor condemns it, but it can tell a product manager what he could get if he had the time to pay for it.
+</blockquote>
+</p>
+
+<p>We have started to stray from Hendrik's question.  In my opinion, there is no need to sell the client on TDD.  As far as the client is concerned, TDD is simply part of the whole "building the application for you" process.  At this point, I could not imagine building a web application for someone else without including tests to make sure I don't break things.  Those tests are your first line of defence when fixing the bugs you inevitably introduce into an application.  No set of tests can cover everything, but even a limited set of tests are better than nothing.
+</p>
+
+<p>
+Now, if someone can tell me how to test CodeIgniter controllers using <a href="http://jamierumbelow.net/2009/08/11/setting-up-the-perfect-codeigniter-tdd-environment/">this type of setup</a>, I'll be a much-less grumpier programmer.
+</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2009/12/15/shells-and-sandboxes/" title="Shells and Sandboxes"><span class="title">Shells and Sandboxes</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2009/11/30/so-it-ends-gentle-reader/" title="So It Ends, Gentle Reader"><span class="title">So It Ends, Gentle Reader</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

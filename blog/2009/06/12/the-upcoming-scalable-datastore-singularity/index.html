@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>The Upcoming Scalable Datastore Singularity &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>The Upcoming Scalable Datastore Singularity <small>post</small></h2>
+            <h3>June 12th, 2009</h3>
+        </header>
+        <div>
+            <p>I talked about this briefly on Twitter but I am wondering if we are at the edge of an upcoming "singularity" for technologies dealing with really large data sets.  Things like <a href="http://couchdb.apache.org">CouchDB</a>, <a href="http://tokyocabinet.sourceforge.net/">Tokyo Cabinet</a>, <a href="http://incubator.apache.org/cassandra/">Cassandra</a> and some other non-RDBM's datastores that I'm sure I'm forgetting about are starting to filter down from the experimental level to the usable-by-developers-like-me level.  We all dream of working on a project that has to deal with highly scalable data sources, because that means the project has been an awesome success.</p>
+
+<p>
+I just wonder if use of these types of technology for a site that you have no idea whether or not it will be wildly successful is a case of premature optimization.  I mean, it's cool that I can use CouchDB for a little side project that is more an exercise in learning CouchDB and Python.  But could I use something like this at work?
+</p>
+
+<p>(Warning, this is where I start talking about some of the things I do at <a href="http://www.xmlteam.com">my day job</a>.) Our systems accepts tens of thousands of XML documents per day from different sources, and then a lot of them get translated from source XML into <a href="http://en.wikipedia.org/wiki/SportsML">SportsML</a>.  Now, granted, some of these things are updates of previous information, but we still have to process them.  One of our products queries our servers, pulls down the SportsML documents and then parses them to stick the results in a RDBMS.  Customers can then build their own products on top of this system, writing SQL to pull out the info they want.
+</p>
+
+<p>
+But what if instead of parsing them, we drop them into a document datastore?  I've been using <a href="http://exist.sourceforge.net">eXist</a> for a work-related project and after some initial struggles (mostly learning to use <a href="http://www.w3.org/TR/xquery/">XQuery 1.0</a>) it's the perfect datastore for a project where you need to deal with XML.</p>
+
+<p>
+I work on a web service front-end for all these stats, which we both give to our customers (it's open-sourced under the GPL) to run themselves *and* use it internally (eating our own dog food!).  I've often wondered if we switched to using eXist as the back-end instead of a more traditional RDBMS, would our customers be able to handle it?  Finding a developer who knows SQL or a DBA who can tweak the queries is probably easier than finding someone who is familiar with XQuery / Xpath and eXist.</p>
+
+<p>So while switching to something like eXist would make sense on a certain level (skips the intermediate step of parsing the XML, we have in-house knowledge of writing XQuery scripts to pull data out) it definitely does not make sense for us from a customer support perspective.  Definitely a research project for when the company makes enough money to hire some minions for me to boss around.
+</p>
+
+<p>
+Maybe I'm wrong, but much like the <a href="http://en.wikipedia.org/wiki/Magic_8-Ball">Magic 8-ball</a> says: all signs point to yes.  Non-RDBMS datastores are getting right up into our faces, and it's only a matter of time before a high-profile project uses one of these and then everyone jumps on board.  Keep your eyes open and read up what you can about these things.  You never know when you might get the opportunity to use one in a serious way.
+</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2009/06/19/do-androids-dream-of-googlephones/" title="Do Androids Dream Of Googlephones?"><span class="title">Do Androids Dream Of Googlephones?</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2009/06/05/a-simple-couchdb-datasource/" title="A Simple CouchDB Datasource"><span class="title">A Simple CouchDB Datasource</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

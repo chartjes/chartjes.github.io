@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>How Not To Suck At PHP &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>How Not To Suck At PHP <small>post</small></h2>
+            <h3>February 3rd, 2012</h3>
+        </header>
+        <div>
+            <p>Since I hadn't blogged for a bit I thought I would ask my Twitter peeps what
+they might want to hear my rant about. One of the more interesting suggestions
+I got was from <a href="https://twitter.com/tnorthcutt">Travis Northcutt</a> who said
+the following:</p>
+
+<blockquote>
+  <p>"Got it. I have no formal CS background, but I'm trying to learn enough
+  to build (something). I know enough PHP to kind of, sort of get by
+  but am trying to solidify my foundation. So if I'm being selfish, write
+  a post to someone in my position who wants to not suck at building stuff."</p>
+</blockquote>
+
+<p>This is actually a great question. Although the self-centered answer is
+to start off by buying my <a href="http://grumpy-testing.com">book</a>, that isn't
+really the question that is being asked.</p>
+
+<p>I thought about this question for a while and have some thoughts on what it
+really means to know how to not suck at building things using PHP. In my
+never even remotely humble opinion I think the key is to understand what
+PHP is really good at.</p>
+
+<p>I have spoken at length about my opinion that PHP won the web war because
+it was so tightly coupled with HTML and very early on had support to run
+with Apache via mod&#95;php. However the world has changed, and the web war
+itself has changed. I think I can say with a smirk that the web war is now
+an asymmetrical one, where the expectations of behaviour by users is totally
+different.</p>
+
+<p>But PHP is still in a really good position because of its true nature:
+PHP is glue. It's glue that binds things together in 
+a way to quickly produce HTML output. There is a reason the LAMP stack (with
+PHP as the "P") was so successful: if you had to get data out of a database
+and onto an HTML page there was no easier way.</p>
+
+<p>One of the trends that I see in PHP is that the frameworks that sit on top
+of PHP are starting to ask for influence over the development and direction
+of PHP itself. I have mixed feelings about this. On the one hand, it is
+good that people push for newer features in their chosen programming 
+language. I think the PHP core is not necessarily against these suggestions
+but they move at different pace than the framework people. But my other 
+concern is that we don't end up with a framework driving the language.</p>
+
+<p>When you think of Ruby, unless you are in denial or a really old Ruby hacker,
+you think of Rails. Without Rails Ruby does not get the push that it did
+and continues to get. It's a good language but it would've languished in 
+obscurity if not for DHH.</p>
+
+<p>So what does this have to do with not sucking at building stuff in PHP? I 
+think it's important to understand that you can build cool stuff without
+relying on a framework. Heresy, I know. But if you keep thinking of PHP
+as glue it totally makes sense. How many applications are REALLY just PHP?
+They are <em>really</em> web server + data source + Javascript + CSS + HTML. Think 
+about that for a minute. PHP is the glue that binds all that together.</p>
+
+<p>The danger for people like Travis who are starting out with PHP is that they
+will get caught up with a mindset that a framework is the solution to their
+problems. It is <em>one</em> solution to the problem of building a web application,
+but failing to understand how to write PHP that behaves like glue will lead
+to a lot of problems later. Because when the time comes for you to do something
+that the framework did not anticipate you will be fucked. And you will be 
+incorrect when you blame the framework.</p>
+
+<p>So my advice to Travis is that he should worry about learning to use PHP like
+glue and correctly identify the problems he is trying to solve NOW instead of
+worrying about the problems he might have to solve later. There will be time to
+fix your problems. Some of those will be solved by using tools that are not
+written in PHP, but PHP can still glue them together. NoSQL data sources.
+Distributed workers. Queuing systems. Real-time document searching capabilities.
+These are all things that are NOT written in PHP but it is extremely likely
+that someone has written a library in PHP that can talk to them.</p>
+
+<p>Hope that helps you Travis!</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2012/02/13/baby-steps-with-node-js/" title="Baby Steps with Node.js"><span class="title">Baby Steps with Node.js</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2012/01/17/phpunit-aborted-fix/" title="PHPUnit aborted fix"><span class="title">PHPUnit aborted fix</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

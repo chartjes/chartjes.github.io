@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>\&quot;U R Doin It Wrong\&quot; - Adventures with flexible forms in Zend Framework &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <link href="https://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+        <script src="https://vjs.zencdn.net/ie8/1.1.1/videojs-ie8.min.js"></script>
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/atom.xml">RSS/Atom</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2>\&quot;U R Doin It Wrong\&quot; - Adventures with flexible forms in Zend Framework <small>post</small></h2>
+            <h3>March 19th, 2010</h3>
+        </header>
+        <div>
+            <p><a href="http://framework.zend.com/manual/en/zend.form.html">Zend_Form</a> is a super-powerful, force-of-nature tool.  By force-of-nature I mean it does all this crazy stuff, and you can see it doing it, but I am not alone in admitting that taming it sometimes is very difficult.  When building tools to make form programatically you either severely limit peoples options or make it so flexible that there are multiple ways to get something done.  Given the concept that Zend Framework "treats you like an adult" (I cannot find the blog post where I read this) it is not surprising that Zend_Form takes the flexible route.
+</p>
+
+<p>
+Before I go any further, thanks (again) to <a href="http://twitter.com/elazar">@elazar</a> and to <a href="http://akrabat.com/">Rob Allen</a> aka <a href="http://twitter.com/akrabat">@akrabat</a> for helping me solve this particular problem.
+</p>
+
+<p>
+Okay, so onto my problem.  I was creating a page for a fantasy baseball draft application to process transaction requests.  You could do one thing, and one thing only:  make a request to add a free agent to your team and what player off your team you wanted to drop.  Since I needed to locate form elements in specific places in the layout, I didn't do the usual < ?= $form ?> in my template, instead I created a bunch of setX methods, with X representing a specific form element.  Then, in my templates I simply did < ?= $form->X ?> where X represents the specific element.  Let me show you what I mean:
+</p>
+
+<pre><code>            &lt;form action="/baseball/&lt;?= $this-&gt;league ?&gt;/transactions/process" method="post"&gt;
+                &lt; ?= $this-&gt;transactionForm-&gt;teamId ?&gt;
+                &lt; ?= $this-&gt;transactionForm-&gt;shortLeagueName ?&gt;
+                &lt;table width="100%"&gt;
+                    &lt;tr&gt;
+                        &lt;th width="50%" align="center"&gt;Players on your Team&lt;/th&gt;
+                        &lt;th width="50%" align="center"&gt;Players Available&lt;/th&gt;
+                    &lt;/tr&gt;
+                    &lt;tr&gt;
+                        &lt;td align="center" valign="top"&gt;
+                            &lt; ?= $this-&gt;transactionForm-&gt;players ?&gt;
+                        &lt;/td&gt;
+                        &lt;td align="center" valign="top"&gt;
+                            &lt;div id="freeAgentList"&gt;
+                                &lt; ?= $this-&gt;transactionForm-&gt;freeAgents ?&gt;
+                            &lt;/div&gt;
+                        &lt;/td&gt;
+                    &lt;/tr&gt;
+                &lt;/table&gt;
+                &lt;input type="submit" id="transactionFormSubmit" value="Request Selection"/&gt;
+            &lt;/form&gt;
+</code></pre>
+
+<p>
+I did this figuring it would give me lots of flexibility.  Then, the pain started.
+</p>
+
+<p>
+I kept wondering why every time I validated the form, it kept coming back as true.  I had a requirement that to have a successful transaction request, they had to select both a player to drop from their own team AND a free agent to add.  I had put into the form validation that a free agent was required, but it never seemed to be triggered.  Off to <a href="http://stackoverflow.com">Stack Overflow</a> I went to ask for help, along with pleas for help on Twitter.  I had thought I was doing something subtly wrong, and I was right.
+</p>
+
+<p>
+Here's the finished, working code.  I will explain what I had been doing wrong.  By the way, if you can think of a better way to do something of the more "hackish" stuff in there, I'd appreciate it.
+</p>
+
+<p>
+~~~
+    public function indexAction()
+    {
+        $form = new Baseball_Form_Transactions();
+        $options = array(
+            'teamId' => $this->teamId,
+            'position' => 'C',
+            'leagueShortName' => $this->league,
+            'status' => 0
+        );
+
+        $form->setMyPlayers($options);
+        $form->setFreeAgents($options);
+        $form->setTeamId($options);
+        $form->setShortLeagueName($options);
+
+        if ($this->getRequest()->isPost()) {
+            // This is hack to make sure we pull back the list of free agents for
+            // the player's position
+            $postData = $this->_request->getPost();
+            $player = Doctrine::getTable('Player')->find($postData['players']);
+            $options['position'] = $player['position'];
+            $form->setFreeAgents($options);
+
+            if ($form->isValid($this->_request->getPost())) {
+                $data = $form->getValues();
+                $leagueInfo = Doctrine::getTable('League')->findOneByShortName($data['shortLeagueName'])->toArray();
+
+                // Create the request top drop an existing player       
+                $transactionInfo = array(
+                    'league_id' => $leagueInfo['id'],
+                    'team_id' => $data['teamId'],
+                    'player_id' => $data['players'],
+                    'type' => 'drop',
+                    'target_team_id' => 0,
+                    'transaction_date' => date('Y-m-d H:m:s'),
+                    'shortLeagueName' => $data['shortLeagueName'],
+                    'group_id' => uniqid()
+                );
+                $transaction = new Transaction();
+                $transaction->fromArray($transactionInfo);
+                $transaction->save();
+
+                // Now we do the request to add a player
+                $transactionInfo['team_id'] = 0;
+                $transactionInfo['player_id'] = $data['freeAgents'];
+                $transactionInfo['target_team_id'] = $data['teamId'];
+                $transactionInfo['type'] = 'add';
+                $transaction = new Transaction();
+                $transaction->fromArray($transactionInfo);
+                $transaction->save();
+                $this->_flashMessenger->addMessage('Added transaction');
+            }
+        }
+
+        $this->view->transactionForm = $form;
+        $this->view->messages = $this->_flashMessenger->getMessages();
+        $transaction = new Transaction();
+        $this->view->transactions = $transaction->byTeam($options);
+    }
+~~~
+</p>
+
+<p>The big mistake?  I was not setting up all the form elements via my setX calls BEFORE I did the validation.  Because I didn't, those elements didn't exist, and therefore the validation never got called.  See, I told you my mistake was (a) dumb and (b) subtle.
+</p>
+
+<p>
+I think I did the right thing with my method of creating the form elements outside of the init() method to give me the ability to layout things where I wanted them.  I'm interested in finding out how other people have solved the same problem.
+</p>
+
+        </div>
+                
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="/blog/2010/03/30/is-there-a-more-practical-approach-to-tdd/" title="Is There A More Practical Approach To TDD?"><span class="title">Is There A More Practical Approach To TDD?</span></a></li>
+                                                                <li>Previous: <a class="previous" href="/blog/2010/03/16/expand-your-programming-mind-filters-in-lithium/" title="Expand your programming mind:  filters in Lithium"><span class="title">Expand your programming mind:  filters in Lithium</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <section>
+                            <h3>Find stuff</h3>
+                            <script>
+                              (function() {
+                                var cx = '010269902375244482518:ddxhg1qhod4';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                    '//www.google.com/cse/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                              })();
+                            </script>
+                            <gcse:searchbox-only></gcse:searchbox-only>
+                        </section>
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2020 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>

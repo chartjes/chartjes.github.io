@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Home &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta name="robots" content="noindex, follow">
+                <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2><a href="/2008/08/05/dynamic-models-in-cakephp-12/">Dynamic Models in CakePHP 1.2</a></h2>
+        </header>
+        <div>
+            <p>While working on a consulting gig where I'm using <a href="http://cakephp.org">CakePHP</a> to rewrite an existing site, I was fooling around with the latest version of Cake from SVN and discovered a nifty little feature.  Cake now has dynamic models.
+</p>
+
+<p>
+I discovered this because my app was working, pulling data from the database but I hadn't baked any models at all.  After confirming with gwoo via IM that I was not going crazy, he told me what was going on.
+</p>
+
+<p>
+By default now, Cake will automatically use the AppModel class and create a unique alias to a database table if it does not find the file.  This means that if you have a table that follows the Cake conventions, needs no validation, and has no associations to other tables, you <b>don't even have to create the model file any more</b>.  Woah, talk about a serious time saver in some cases.
+</p>
+
+<p>
+However, keep in mind that this feature *also* means that if you misspell the name of your model file, this dynamic model feature will mean that your misspelled model file will NOT get loaded, and you might be scratching your head as to why your associations don't work and why validation is not going on. So pay close attention to the naming of your files to avoid confrontations with grumpy Canadian programmers on the mailing list.
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2008/08/01/august-is-reader-feedback-month/">August Is Reader Feedback Month!</a></h2>
+        </header>
+        <div>
+            <p>With summer half over, I've realized that I'm just too damn busy during the summer.  As a result, my blogging suffers.  So, I've decided to turn things around and bit and ask my readers what they would like to see in the next month or so.</p>
+
+<p>
+Using <a href="http://haveamint.com">Mint</a> I do get to see what visitors are looking at when they visit, and it's a mixed bag.  Which is good.  Many of my tutorials and smaller posts have gotten lots of visits and lots of great feedback.  Again, which is good.  Feedback lets me know if I'm being clear in what I'm posting.  But now I've sort of hit a lull and run out of topics.  I'm sure nobody wants to read about my struggles at softball or the intricacies of politics in my job.  You know, the boring non-technical stuff.  Instead, I want to give YOU more of what YOU want.  
+</p>
+
+<p>
+In the comments, let me know what stuff you'd like to see.  Follow-ups to existing tutorials, my thoughts on certain topics, explanations on other things I've blogged about.  I'm sure that some of the existing content might be slightly out-of-date, so if there is enough call for revision I'd be glad to revisit things and give them an update spin.  
+</p>
+
+<p>
+As most of my commenters know, I do moderate every single comment that comes in and only dump the spam that gets through Akismet.  Don't be shy, let me know what sort of stuff you are looking for.
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2008/07/22/what-is-really-considered-documentation/">What Is Really Considered Documentation?</a></h2>
+        </header>
+        <div>
+            <p>
+I struggled to come up with a good name for this blog post, and have totally failed, but give this article a chance.  Or maybe you're here by accident thanks to a weird google search.  
+</p>
+
+<p>As a committed user of open source technologies, the difference between me using something and not using something is the documentation.  Is there documentation for it?  Is it easy to find?  Does it answer my questions?  Is there someone I can call an idiot if I disagree with the level of documentation?  These are all very important questions.
+</p>
+
+<p>My involvement with <a href="http://cakephp.org">CakePHP</a> has opened my eyes in terms of what people consider documentation.  Me, I'm the type who learns from examples that come with explanations.  While API documentation is great, it only becomes useful to me once *I* can figure out how to do something useful with this new technology.  I see people on the mailing list for Cake asking for the source code to a sample application, which I immediately file away in my head as "looking for answer to their homework", and move on.  Maybe that's unfair, but it's more a reflection of the fact that I tend not to learn anything from having the source code for an application.  I learn by getting in there and DOING SOMETHING and figuring out why this goddamn thing is not behaving properly and who do I know who can help me with this problem etc.  Learning by mooching, I call it.
+</p>
+
+<p>
+So, back to CakePHP.  CakePHP had acquired the reputation that the documentation for it sucked.  While I did not share that opinion, I can see why people say that.  Because most coders are lazy.  Seriously.  They want solutions handed to them in a form that they can just drop into their application and then get onto the next problem.  There are definitely times when I wish someone else could just write this goddamn "alter the football game stats form dynamically via Ajax and send the results to the XML database" code for me.  Inevitably, I build the code up from an example stolen via Google into something that both works and that I understand fully.  However, most of the time I am content to figure stuff out on my own and ask for help only when stuck.  I'm not lazy, but maybe I'm suffering from a bit of the <a href="http://en.wikipedia.org/wiki/Lake_Wobegon_effect">Lake Woebegon effect</a>.
+</p>
+
+<p>So, things are much better in terms of documentation for CakePHP.  Whereas we used to have a manual that only covered 1.1, we now have the amazing <a href="http://book.cakephp.org">CakePHP cookbook</a> that covers both 1.1 and 1.2.  If that's not enough, well, you might actually have to do a little thing I like to call "research".  This gets us to the point of this blog posting.  Sometimes you have to stop being lazy and actually think about where you could find an answer.
+</p>
+
+<p>
+There are no shortage of blogs that talk about CakePHP.  Some of them are even good.  Maybe you like the code examples I put up here.  People seem to like them enough to comment, so maybe I'm doing something right.  Google is your friend to track down blogs that have exactly the type of information that you need:  small examples with explanations about how they work.
+</p>
+
+<p>
+The CakePHP mailing list is done via Google Groups, so all those posts where I make fun of people for no reason other than my poor self-esteem can be found with a few keywords.  But there are a lot of great tips on how to accomplish things using Cake, so a search of the google group will find lots of good information.
+</p>
+
+<p>
+The <a href="http://bakery.cakephp.org">Bakery</a> is another good source of CakePHP info, consisting of all sorts of small articles along with comments.  It has a search function as well, but could easily be considered YACB (Yet Another Cake Blog).  Again, perfect for people with the same learning style as me:  short examples with explanations of how it was done.
+</p>
+
+<p>
+Finally, we come to one of the more unorthodox documentation sources:  the unit tests for CakePHP.  CakePHP has some really good unit test coverage, although I sometimes wonder if you can really say that a piece of code works properly if it passes all the unit tests associated with it.  This is by no means a phenomenon limited to CakePHP, it happens everywhere there are unit tests.  Sometimes you can't figure out a test that makes something break.  It happens, so please do not misinterpret my thoughts on this.  Unit tests are good, and the amount of tests that CakePHP has in place is awesome and perfect example of a cohesive development team.  Automated testing is a goal worth striving for, don't let anyone else tell you otherwise.  I'm in the early phases of automated testing for a work project on the integration side of things because I'm tired of always running through the same damn tests by hand all the time to make sure something that I wrote didn't break things.  Tips on what good browser-based solutions are out there would be appreciated.  Other than telling me to use Selenium.  A solution that is tailored to the <a href="http://codeigniter.com">framework I have been forced to use</a> would be even better.
+</p>
+
+<p>
+Okay, back on topic.  Since the unit tests cover so much of what CakePHP can do, what better way to see examples of how to actual do things?  My work on fiddling around with new console functionality showed me that I had no idea of how to create unit tests for my console work.  That led to discussions with people on the best way to do testing of console functionality.  Which leads to changes in the console code itself to make it easier to test certain things.  But at least when I'm ready to get back to doing that console work I can see if doing testing for it has become easier.
+</p>
+
+<p>
+So, having been told all the stuff above, how can anyone who is not simply lazy say that the documentation for CakePHP sucks?!?
+</p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/81">Newer Posts</a><br />
+        <a href="/page/83">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>

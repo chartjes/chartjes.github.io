@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Home &mdash; At The Keyboard &mdash; Chris Hartjes sharing grumpy wisdom since 2005</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <meta name="robots" content="noindex, follow">
+                <link rel="stylesheet" href="/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="At The Keyboard activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="/">At The Keyboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                        <article>
+        <header>
+            <h2><a href="/2010/05/28/essential-programming-books-building-scalable-web-site/">Essential Programming Books: &quot;Building Scalable Web Sites&quot;</a></h2>
+        </header>
+        <div>
+            <p>Like many old sk00l developers, I like the security blanket a bookshelf full of technical books gives me.  Whenever I have a problem, I check to see if I can figure it out using the reference materials on hand.  Just looking at my shelves.  Since She Who Must Be Obeyed Around Here frowns on boxes constantly showing up at our house from various online book retailers, I usually only purchase books that I think are going to be good additions to the library.</p>
+
+<p>
+Taking a quick peek at my bookcase, these are a few of the books that I consider essential reference guides for me:
+<ul>
+<li>The Pragmatic Programmer</li>
+<li>Practices of an Agile Developer</li>
+<li>Mastering Regular Expressions
+</li><li>Beautiful Code / Beautiful Architecture</li>
+<li>Javascript: The Good Parts</li>
+</ul>
+I have more books, but those are the ones closest to my desk.
+</p>
+
+<p>
+There is now a new book that has earned a spot on my bookcase, and should be in one of the slots closest to my desk.  I am reading a borrowed copy of it, but I plan on rectifying that soon.  "Building Scalable Web Sites" by Cal Henderson (he of Flickr and <a href="http://www.youtube.com/watch?v=i6Fr65PFqfk">"Why I Hate Django</a> fame) is that book.
+</p>
+
+<p>
+I don't know how I can describe how awesome this book is in this blog.  Just check out the topics in the table of contents:
+<ol>
+<li>Introduction</li>
+<li>Web Application Architecture</li>
+<li>Development Environment</li>
+<li>i18n, L10n, and Unicode</li>
+<li>Data Integrity and Security</li>
+<li>Email</li>
+<li>Remote Services</li>
+<li>Bottlenecks</li>
+<li>Scaling Web Applications</li>
+<li>Statistics, Monitoring, and Alerting</li>
+<li>APIs</li>
+</ol>
+</p>
+
+<p>Pardon my vulgarity, but that is pretty much every single fucking thing you need to worry about when building a web site that is going to be used by anyone other than you and your close circle of friends.
+</p>
+
+<p>
+This book is old in internet time:  published in 2006, meaning it was probably written in 2004-2005.  A lot of technology has changed, but the principles themselves have not.  Also, a lot of the code inside uses PHP for it's examples, but I really think this applies to any programming language that is stateless and/or promotes a "shared nothing" architecture.  That means (as far as I'm concerned) PHP, Python and Ruby.  It's very simple:  scaling anything is difficult, but scaling something where there is information that needs to be shared between nodes is extremely difficult.   The best way to use this book is to ignore the specific technologies being mentioned and focus on the ideas and practices that are being promoted.  I mean, let's be brutally honest:  Cal Henderson helped build one of the most massively scaled web sites, using a programming language at it's core that the hipster programmer crowd sneers at.  Ignore his advice at your peril.
+</p>
+
+<p>
+Go buy this book.  Right now.  You will not regret it.
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2010/05/26/its-the-community-stupid/">It&#039;s The Community, Stupid</a></h2>
+        </header>
+        <div>
+            <p>I had an awesome time at <a href="http://tek.phparch.com/">Tek-X</a> in Chicago last week.  It was worth the 8 hour drive to get to Chicago from my basement lair.  Of course, it helped that the wait at the border was under 10 minutes both times.  There were good talks, but even better *people*.
+</p>
+
+<p>
+A programming language is only as good as the community that supports.  By supporting it, I mean willing to get together several times a year for conferences and bust their asses to have people share interesting talks with everyone else.   Look at Python and Ruby.  Awesome languages to work with.  But even more awesome are the conferences that serve as anchors for the community.</p>
+
+<p>There seems to be lots of little regional Ruby conferences, which give the language itself a unique flavour in return.  Of course, it helps that Ruby can be used quite easily outside the traditional web application building environment.  I don't see so many regional Python conferences, just PyCon and DjangoCon both in the US and over in Europe.  It could be that I'm not looking hard enough.</p>
+
+<p>
+As for PHP, to be fair, it shows up at pretty much any open source web-related conference.  OS Bridge. OSCON.  Codemash.  I could go on, but I am not in the conference-promotion business.  I mean, why is there no Great Canadian PHP Conference?  I know there was phpworks in Toronto back in the mid 2000's.  It was my first conference I ever went to.  But I'll tell you why there is no Great Canadian PHP Conference:  there is no PHP community in Toronto.
+</p>
+
+<p>
+Oh sure, there are tons of PHP jobs to be had in Toronto.  Lots of code monkey positions to be filled.  But the Toronto PHP User's group has been dormant since last year.  I sent an email to the organizer telling him I wanted to help out at least 3 days ago.  Haven't heard a damn thing back.  Perhaps it is time to go around such a person and just do it myself.
+</p>
+
+<p>
+See, without the PHP community I do not have a career.  Once I took the plunge, submitted a talk, and got accepted (I gave a talk about what the PHP community could learn from Ruby on Rails) I found I had suddenly joined the PHP *community*.  Instantly I had people asking me questions AND people willing to answer my questions.  Like I was their long-lost buddy.  That was an awesome feeling, let me tell you.  But even more important were the people I met.
+</p>
+
+<p>
+As a result of the community, I have found myself in the awesome position that every time I needed a job, it took less than a week to get one.  It was a combination of my blogging and my work in making those connections in the community that put me in this position, but it is sure a nice feeling to be able to convince your nervous wife that we were not about to face a rough patch while I struggled to find work.  So it's a no-brainer for me to continue to submit talks to conferences and try to attend even when I don't speak.  It's about giving something back to the community that has helped me grow my career.  
+</p>
+
+<p>
+So don't just *use* your language of choice.  Try and become part of that community.  Doesn't matter if it's Python, Ruby, or good-old-solved-the-web-problem-first PHP.  You'd be surprised what doors are opened up by your participation.
+</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/2010/05/17/off-to-tek-x/">Off to TEK-X</a></h2>
+        </header>
+        <div>
+            <p>Tomorrow (May 18) I throw all my junk in the trunk of my trusty steed (a 2000 Ford Taurus that loves to chew up the highway miles) and hit the road for Chicago for <a href="http://tek.phparch.com">TEK-X</a>, the 10th edition of this conference.  I have spoken at previous editions (is that the correct word?) of this conference and I'll be honest:  I'm a bit bummed that I'm not speaking.
+</p>
+
+<p>See, I normally only go to conferences when I speak.  Why?  Being away from the family is tough to arrange when you work from home.  I've got two little girls, and they are used to Daddy being around to help out with stuff.  Like taking them to day care, or picking them up from school.  Making dinner.  Helping with school lunches.  Grocery shopping.  I'm sure you get the picture.  So to abandon the family to go to a conference requires lots of logistical work.</p>
+
+<p>
+But damnit, I hadn't been to a conference since March of last year (the old PHP Quebec conference) I was determined not to get shut out.  Luckily my boss agreed to foot the bill and so off I go.  I'd love to meet any of my readers, and even sign paper copies of my <a href="http://www.litttlehart.net/book">book</a> if you got a print-on-demand version.  Hell, I don't even have one. ;)  So don't be intimidated by my size, appearance, or lack of knowledge on certain topics.  Come and say hi.  I'll the big, bald, grumpy Canadian with a pot-scrubber on his chin stomping around the conference.
+</p>
+
+<p>
+Anyway, I wanted to talk about the sessions I'm looking forward to seeing.  In no particular order, here they are:
+<h3>Building Real-Time Applications with XMPP</h3>
+</p>
+
+<p>
+I've known <a href=http://twitter.com/tswicegood>Travis</a> for a while through the PHP community, and never seen him do a presentation.  However, his numerous IM sessions helping me understand decorators in the context of Django and talking me through fixing totally busted Git commits lead me to one conclusion:  he knows his shit so I should pay attention to what he has to say.  The building of our next-gen fantasy sports gaming platform starts when I get back so I'm hoping he imparts some pearls of wisdom.
+</p>
+
+<h3>Continuous Inspection and Integration of PHP Projects</h3>
+
+<p>
+Being the only guy working on projects gets frustrating:  nobody to share ideas with and also very hard to make the case for the types of tools and procedures that the TDD/BDD and continuous integration crowd advocates.  I mean, all this work so Chris stops complaining about bugs slipping through the QA cycle?   Besides, I always have a soft-spot for Ze Germans who are always at the PHP conferences. 
+</p>
+
+<h3>Graphs, Edges & Nodes: Untangling the Social Web</h3>
+
+<p>
+I first met the presenter (Joel Perras) at PHP Quebec last year through the CakePHP community.  Now that he's moved on to the <a href="http://lithify.me/">Lithium</a> project, I see his ego has grown to the point where he is okay giving presentations.  Don't worry whippersnapper, I'll cut you down to size during this (probably awesome because it deals with stats and nodes and graphs and all this cool stuff I've been reading in "Programming Collective Intelligence") talk.
+</p>
+
+<p>
+Now, I'm sure that I will be attending other sessions while I'm there.  But those are the main ones I'm looking forward to seeing.  We are spoiled for choice at this conference, and I am definitely looking forward to seeing old friends and making some new ones.
+</p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/43">Newer Posts</a><br />
+        <a href="/page/45">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="col-sm-4 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">At The Keyboard</div>
+                        <div class="card-body">
+                            <small>Chris Hartjes sharing grumpy wisdom since 2005</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <section>
+                            <h3>Contact me</h3>
+                            <ul>
+                                <li>Email me at chartjes@grumpy-learning.com</li>
+                                <li>Find me on Twitter as <a href="https://twitter.com/grmpyprogrammer">@grmpyprogrammer</a></li>
+                            </ul>
+                        </section>
+			<section>
+				<h3>Sponsor me</h3>
+				<p>If you like the work I do on <a href="https://github.com/opencfp/opencfp/">OpenCFP</a> you can become a
+				sponsor via my <a href="https://github.com/sponsors/chartjes">GitHub sponsors</a> page. Your sponsorship
+				allows me to spend more time on open source and less time writing books and training material.</p>
+			</section>
+                        <section>
+                            <h3>Books</h3>
+                            <ul>
+				<li><a href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications (currently pre-ordering)</a></li>
+                                <li><a href="https://leanpub.com/test-driven">Building Test-Driven Developers</a></li>
+                                <li><a href="https://leanpub.com/minimumviabletests">Minimum Viable Tests</a></li>
+                                <li><a href="https://leanpub.com/grumpy-phpunit">The Grumpy Programmer's PHPUnit Cookbook</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2020 At The Keyboard</span>
+        </footer>
+
+        <script src="/build/app.js"></script>
+                
+        
+                    </body>
+</html>
