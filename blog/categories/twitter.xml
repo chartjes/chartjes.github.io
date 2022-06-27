@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title><![CDATA[Grumpy Learning]]></title>
+    <link href="https://grumpy-learning.com/blog/categories/twitter.xml" rel="self"/>
+    <link href="https://grumpy-learning.com/"/>
+    <updated>
+Deprecated: DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in /Users/chartjes/grumpy-learning.com/vendor/twig/twig/src/Extension/CoreExtension.php on line 522
+2022-03-09T16:24:34+00:00</updated>
+    <id>https://grumpy-learning.com/</id>
+        <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[Better Outcomes]]></title>
+            <link href="https://grumpy-learning.com/blog/2022/01/02/better-outcomes/"/>
+            <updated>2022-01-02T00:00:00+00:00</updated>
+            <id>https://grumpy-learning.com/blog/2022/01/02/better-outcomes/</id>
+            <content type="html"><![CDATA[<p>I’m not a New Year’s resolution type but here are some suggestions for my fellow devs of things I believe can lead to better outcomes:</p>
+
+<p>Learn your IDE/editor better: I spent a lot of 2021 refining my <a href="https://neovim.org">Vim</a> setup and I plan on adding increased use of <a href="https://vimwiki.github.io/">VimWiki</a> for making notes and linking things together.</p>
+
+<p>If your dynamic language of choice supports types, start using them and <a href="https://psalm.dev">static</a> <a href="https://phpstan.org">analysis</a> tools. It leads to much clearer intent and can catch problems at the edges.</p>
+
+<p>Focus on automation. Stop doing things manually the computer can do for you. Take the time to semi-automate manual processes first. It frees your brain up to solve different problems.</p>
+
+<p>Make continuous learning a foundation of everything you do. Even after 23 years of getting paid to program, I learn new things almost every day.</p>
+
+<p>Remember that what people call “luck” is often you having the skills to take advantage of an opportunity.</p>
+
+<p>(This was originally posted as a Twitter thread starting with <a href="https://twitter.com/grmpyprogrammer/status/1477326886766362626">https://twitter.com/grmpyprogrammer/status/1477326886766362626</a>)</p>
+]]></content>
+        </entry>
+    </feed>
