@@ -57,115 +57,9 @@
             <h2><a href="https://grumpy-learning.com/blog/2022/01/14/asking-companies-about-testing/">Asking Companies About Testing</a></h2>
         </header>
         <div>
-            <p>This post could also be subtitled "The Grumpy Programmer's Guide to Getting Rejected at Interviews".</p>
-
-<p>Someone tagged me in a tweet...</p>
-
-<blockquote>
-  <p><em>Book idea for @grmpyprogrammer: an interviewing guide for job seekers wanting to get an idea of how dedicated companies are to testing. Questions to ask, ways to gauge the culture, etc.</em>
-  <em>(Originally posted on Twitter at <a href="https://twitter.com/n00bJackleCity/status/1481632465403981824?s=20">https://twitter.com/n00bJackleCity/status/1481632465403981824?s=20</a>)</em></p>
-</blockquote>
-
-<p>...and it got me to thinking about where to start with
-a request like this one. My personal opinion that there
-really isn't a book in here but it did get me to start thinking
-about what sort of questions you should be asking.</p>
-
-<p>Again, keep in mind that all of this is just my opinion. One based
-on many years of experience, but still an opinion.</p>
-
-<h2 id="why-does-it-matter%3F">Why Does It Matter?</h2>
-
-<p>In my experience, companies that make a commitment to doing automated
-testing also tend to make a commitment towards "quality"
-in their coding practices and "automation" in their software development tooling.
-The reason those are in quotes is because they definitely can mean 
-different things depending on the company.</p>
-
-<p>Now, again, in my experience, you are likely to have more success
-in solving problems and growing your own skills as a developer if you work
-in an environment where they value those things.</p>
-
-<p>After all, just because we can get paid a lot of money to dig in the pixel
-mines doesn't mean we should be forced to eat a shit sandwich. We should at 
-least have a choice of the additional toppings.</p>
-
-<h2 id="what-questions-should-i-ask%3F">What Questions Should I Ask?</h2>
-
-<p>Like a lot of things related to programming, I find it helpful to start at the
-end result you want and work backwards to figure out what needs to be done. Therefore
-I think the first two things to ask are:</p>
-
-<blockquote>
-  <blockquote>
-    <p>What things always have to work when you push changes into production
-    and how do you verify that it works as expected?</p>
-  </blockquote>
-</blockquote>
-
-<p>This question cuts to the heart of the issue: what matters and how do we make
-sure it stays that way.</p>
-
-<p>What you are looking for is clear statements about what matters and clearer statements
-about how they verify it. Again, not every company has invested the time and money
-into having the ability for code changes to seamlessly flow from a development
-environment into production, accompanied by effective automated tests and a clear understanding
-of outcomes.</p>
-
-<p>If they already have some kind of commitment to testing, asking follow-up questions
-like this are also very informative:</p>
-
-<blockquote>
-  <blockquote>
-    <p>What do you like about your current testing practices and what do you want to change?</p>
-  </blockquote>
-</blockquote>
-
-<p>Pay as much attention to what they like as what they dislike. That will give you an idea
-of what challenges lie ahead if you want to be the person making the changes.</p>
-
-<p>Finally, if you want to find out about what their commitment to quality is, I feel like
-a great question is:</p>
-
-<blockquote>
-  <blockquote>
-    <p>Tell me about how code gets from the developer and up into production</p>
-  </blockquote>
-</blockquote>
-
-<p>Look for things like:</p>
-
-<ul>
-<li>code reviews</li>
-<li>coding standards</li>
-<li>static code analysis</li>
-<li>continuous integration systems</li>
-<li>separate staging and production environments</li>
-<li>automated deployments</li>
-</ul>
-
-<p>Not all of these things are going to guarantee great results (nothing
-does and never believe anyone who says it) but, when taken together,
-they show a commitment to making sure that:</p>
-
-<ul>
-<li>the intent of code is clear</li>
-<li>others can understand the code</li>
-<li>the code is taking advantage of appropriate language features</li>
-<li>the team uses tooling that integrates with version control to automate error-prone manual checklists</li>
-<li>application / end-to-end testing happens before it reaches production</li>
-<li>repeatable processes ensure consistency</li>
-</ul>
-
-<h2 id="so-now-what%3F">So Now What?</h2>
-
-<p>It's hard for me to give any more specific advice other than "don't be 
-afraid to ask more questions based on the answers you are hearing." 
-If we're being honest, most companies aren't doing all that stuff I listed
-above. You can always start at the bottom ("we try and manually test all changes")
-and work as hard as you are allowed to on getting to the point where you
-have an automated test suite catching issues before your users do.</p>
-
+                        ...
+            <p>
+            <a href="https://grumpy-learning.com/blog/2022/01/14/asking-companies-about-testing/">Read more of this post &raquo;</a>
         </div>
             </article>
     <article>
@@ -173,122 +67,9 @@ have an automated test suite catching issues before your users do.</p>
             <h2><a href="https://grumpy-learning.com/blog/2022/01/05/solving-problems-with-profiling/">Solving Problems With Profiling</a></h2>
         </header>
         <div>
-            <p>I was presented with a problem that was occurring in the <a href="https://grumpy-learning.com/blog/2021/12/30/repeatable-dev-environments/">virtual machine</a>
-I was using for client development work -- the PHP-based acceptance test suite was running
-extremely slowly. Normally it takes 12-13 minutes to run outside of the 
-virtual machine but it was taking...54 minutes!</p>
-
-<p>Because I am almost never afraid to ask for help, I bugged <a href="https://twitter.com/ocramius">Marco Pivetta</a>
-to give me a hand, since he is working on the same client project. I figured if anyone knew of where to START diagnosing what
-the problem is, it would be Marco.</p>
-
-<p>Marco's suggestion after watching a smaller test suite run both in his
-local environment and in my VM was that we should run the test suite
-with a debugger enabled so we can see what is going on terms of resources
-being consumed. For PHP, this usually means using <a href="https://xdebug.org">Xdebug</a>.</p>
-
-<p>What Xdebug allows you to do is:</p>
-
-<ul>
-<li><a href="https://xdebug.org/docs/step_debug">step debugging</a></li>
-<li>see better <code>var_dump()</code> information</li>
-<li>write every function call to disk for later summarizing and reporting</li>
-<li>profile your code to look for performance bottlenecks</li>
-<li>generate code coverage when using PHPUnit (not sure if it works with other testing frameworks)</li>
-</ul>
-
-<p>I've used the step debugging feature a lot on unfamiliar
-code bases but the profiling feature was definitely what we needed.</p>
-
-<p>To ask Xdebug to profile the code we're testing, you need to have the
-Xdebug extension installed and then tell <a href="https://phpunit.de">PHPUnit</a> that you want
-to use it. The command to do it from your shell looks something like
-this:</p>
-
-<p><code>XDEBUG_MODE=profile vendor/bin/phpunit --testsuite=unit</code></p>
-
-<p>Because our test environment was configured to run these tests using a specific
-Docker container, I had to access the container directly via <code>docker-compose exec php-fpm</code>
-and then execute this command inside the container.</p>
-
-<p>This ran the test suite and generated a large number of <a href="https://valgrind.org/docs/manual/cg-manual.html">cachegrind</a>
-files. These files contain profiling data but you need a specialized
-tool to read them and get information out of them that makes sense.
-For Linux users you would likely want to use <a href="https://kcachegrind.github.io">KCachegrind</a>
-but luckily for me you can read these files using <a href="https://www.jetbrains.com/phpstorm/">PhpStorm</a>.</p>
-
-<p>The first step was to figure out which of these cachegrind files to 
-examine. Unfortunately this is more intuition than science: our test
-suite uses <code>@runInSeparateProcess</code> annotations so all the small ones
-represent single tests. These are likely not to return any meaningful 
-information. "Just pick the biggest one and let's see what happens."</p>
-
-<p>So, we both opened up cachegrind files of similar sizes and took a look
-at the data. What exactly where we looking for? In terms of bottlenecks
-we can place things in either "network" or "CPU" categories. Is the application
-waiting a lot for external resources (say, a service in a different container)
-or is it waiting for the CPU to finishing doing something before it 
-can continue.</p>
-
-<p>Sadly, I cannot share the cachegrind output here as I have NDA's surrounding
-the client work but the approach was:</p>
-
-<ul>
-<li>sort the calls by how much time was being spent on executing them</li>
-<li>figure out if it is network or CPU</li>
-</ul>
-
-<p>For network issues, we were looking for things like time spent connecting
-to a MySQL database in another container. As we scrolled through the list
-at my end together we started noticing a few things:</p>
-
-<ul>
-<li>network access wasn't the problem</li>
-<li>we were spending an awful lot of time continually parsing a configuration file written using <a href="https://toml.io/en/">TOML</a> during bootstrap (ticket filed to fix this)</li>
-<li>a lot of very simple PHP calls were taking significant amounts of CPU time</li>
-</ul>
-
-<p>The next step was to look at how much memory and CPU power I was giving to 
-the virtual machine. I was giving it half my processing cores and half the
-available memory. So that should not have been an issue.</p>
-
-<p>Marco did some searching and found some forum posts of folks complaining about
-how slow some VM's were in the latest version of <a href="https://www.vmware.com/products/fusion.html">VMWare Fusion</a>
-but their situation didn't seem to be the same as ours.</p>
-
-<p>"Hrm, Chris, open up that 'Advanced Options' section in the 'Processors &amp; Memory' configuration
-section. Aha!"</p>
-
-<p>In that section were two disabled options, both dealing with running containers
-inside the virtual machine. Given that we are heavily relying on Docker it definitely
-made sense to enable those.</p>
-
-<p>So I shut down the virtual machine, enabled those two options, and started it up.
-Much to my surprise, the acceptance test suite now ran in 10 minutes instead of
-54 minutes! Huge improvement and is also faster than how long it takes outside
-of the virtual machine.</p>
-
-<p>Afterwards, Marco was explaining to me how much Docker relies on having direct memory
-access to things so not forcing those connections to go through a different path
-in the VM would yield a huge gain. Now I'm happier with the performance of the test
-suite.</p>
-
-<p>So, in summary:</p>
-
-<ul>
-<li>the test suite was much slower than expected</li>
-<li>a decision was made to run the test suite with Xdebug profiling enabled</li>
-<li>we made an educated guess as to which profile output file to analyze</li>
-<li>the profiling output led us to believe that there was a CPU-related bottleneck</li>
-<li>the virtual machine had adequate memory and processor resources allocated to it</li>
-<li>the VM was not configured to run containerized applications optimally</li>
-<li>the VM has stopped and options pertaining to running containers inside the VM were enabled</li>
-<li>re-running the test suite saw a huge increase in performance and execution time</li>
-</ul>
-
-<p>Without the ability to profile the code to get a better idea of where there might 
-be problems, it would've taken a lot longer to come to an effective solution.</p>
-
+                        ...
+            <p>
+            <a href="https://grumpy-learning.com/blog/2022/01/05/solving-problems-with-profiling/">Read more of this post &raquo;</a>
         </div>
             </article>
     <article>
@@ -296,20 +77,9 @@ be problems, it would've taken a lot longer to come to an effective solution.</p
             <h2><a href="https://grumpy-learning.com/blog/2022/01/02/better-outcomes/">Better Outcomes</a></h2>
         </header>
         <div>
-            <p>I’m not a New Year’s resolution type but here are some suggestions for my fellow devs of things I believe can lead to better outcomes:</p>
-
-<p>Learn your IDE/editor better: I spent a lot of 2021 refining my <a href="https://neovim.org">Vim</a> setup and I plan on adding increased use of <a href="https://vimwiki.github.io/">VimWiki</a> for making notes and linking things together.</p>
-
-<p>If your dynamic language of choice supports types, start using them and <a href="https://psalm.dev">static</a> <a href="https://phpstan.org">analysis</a> tools. It leads to much clearer intent and can catch problems at the edges.</p>
-
-<p>Focus on automation. Stop doing things manually the computer can do for you. Take the time to semi-automate manual processes first. It frees your brain up to solve different problems.</p>
-
-<p>Make continuous learning a foundation of everything you do. Even after 23 years of getting paid to program, I learn new things almost every day.</p>
-
-<p>Remember that what people call “luck” is often you having the skills to take advantage of an opportunity.</p>
-
-<p>(This was originally posted as a Twitter thread starting with <a href="https://twitter.com/grmpyprogrammer/status/1477326886766362626">https://twitter.com/grmpyprogrammer/status/1477326886766362626</a>)</p>
-
+                        ...
+            <p>
+            <a href="https://grumpy-learning.com/blog/2022/01/02/better-outcomes/">Read more of this post &raquo;</a>
         </div>
             </article>
     <nav>
