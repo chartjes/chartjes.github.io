@@ -2,17 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://grumpy-learning.com</loc>
-    <lastmod>
-Deprecated: DateTime::__construct(): Passing null to parameter #1 ($datetime) of type string is deprecated in /Users/chartjes/grumpy-learning.com/vendor/twig/twig/src/Extension/CoreExtension.php on line 522
-2022-03-09</lastmod>
+    <lastmod>2022-11-11</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
-  </url>
-    <url>
-    <loc>https://grumpy-learning.com/blog/2022/03/07/march-2022-tdd-training/</loc>
-    <lastmod>2022-03-07T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
   </url>
     <url>
     <loc>https://grumpy-learning.com/blog/2022/01/14/asking-companies-about-testing/</loc>
