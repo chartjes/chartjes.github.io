@@ -14,14 +14,14 @@ jobs:
         run: |
           NEW=$(curl --silent $URL | jq -r first.uri)
 
-          curl -X POST https://webmention.app/check?url="$NEW"
+          curl -X POST https://webmention.app/check?url="https://grumpy.learning.com$NEW"
           
           curl -H "Content-Type: application/x-www-form-urlencoded" --request POST \
-          -d source="$NEW" \
+          -d source="https://grumpy-learning.com$NEW" \
           -d target="https://brid.gy/publish/twitter" \
           "https://brid.gy/publish/webmention"
           
           curl -H "Content-Type: application/x-www-form-urlencoded" --request POST \
-          -d source="$NEW" \
+          -d source="https://grumpy-learning.com$NEW" \
           -d target="https://brid.gy/publish/mastodon" \
           "https://brid.gy/publish/webmention"
