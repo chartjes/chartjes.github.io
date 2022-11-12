@@ -1,9 +1,6 @@
 name: Send Webmentions
 
-on:
-  workflow_run:
-    workflows: ["Build"] # Name of your build workflow
-    types: [completed]
+on: push
 
 jobs:
   send:
