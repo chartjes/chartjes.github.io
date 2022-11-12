@@ -1,0 +1,31 @@
+name: Send Webmentions
+
+on:
+  workflow_run:
+    workflows: ["Build"] # Name of your build workflow
+    types: [completed]
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+
+      - name: Send Webmentions
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          URL: ${{ secrets.URL }}
+        run: |
+          NEW=$(curl --silent $URL | jq -r first.uri)
+
+          curl -X POST https://webmention.app/check?url="$NEW"
+          
+          curl -H "Content-Type: application/x-www-form-urlencoded" --request POST \
+          -d source="$NEW" \
+          -d target="https://brid.gy/publish/twitter" \
+          "https://brid.gy/publish/webmention"
+          
+          curl -H "Content-Type: application/x-www-form-urlencoded" --request POST \
+          -d source="$NEW" \
+          -d target="https://brid.gy/publish/mastodon" \
+          "https://brid.gy/publish/webmention"
