@@ -3,9 +3,35 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="https://grumpy-learning.com/atom.xml" rel="self"/>
     <link href="https://grumpy-learning.com/"/>
-    <updated>2022-11-11T22:31:20+00:00</updated>
+    <updated>2022-11-12T16:13:19+00:00</updated>
     <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[Federating Yourself]]></title>
+            <link href="https://grumpy-learning.com/blog/2022/11/12/federating-yourself/"/>
+            <updated>2022-11-12T00:00:00+00:00</updated>
+            <id>https://grumpy-learning.com/blog/2022/11/12/federating-yourself/</id>
+            <content type="html"><![CDATA[<p>As I write this blog post, Twitter is convulsing as it's new
+owner Elon Musk is trying to treat a huge cruise ship like
+it's a jetski. Having cut a ton of staff and literally workshopping
+ideas in public, it's not going well.</p>
+
+<p>I have ignored blogging and some other interactions as Twitter made
+it so easy to share those little thoughts and I also became reliant
+on a curated feed to find stuff I was interested in. Along the way
+I ran into the idea of the <a href="https://indieweb.org/">IndieWeb</a>.</p>
+
+<p>I have made a non-trivial amount of money off selling my <a href="https://leanpub.com/u/chartjes">books</a>
+and have dabbled in paid courses and workshops. So it made a lot of
+sense to me to check out this <a href="https://indiewebify.me">guide to joining the IndieWeb</a>
+and learn about <a href="https://microformats.org">microformats</a>, <a href="http://webmention.org/">Webmentions</a>
+and start really leaning into POSSEing (Publish on my Own Site, Syndicate Elsewhere)
+my stuff.</p>
+
+<p>This is the first blog post that (if I have set up things correctly at my end) that
+will be syndicated out to other platforms.</p>
+]]></content>
+        </entry>
             <entry>
             <title type="html"><![CDATA[Asking Companies About Testing]]></title>
             <link href="https://grumpy-learning.com/blog/2022/01/14/asking-companies-about-testing/"/>
