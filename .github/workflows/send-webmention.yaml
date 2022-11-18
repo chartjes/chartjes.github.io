@@ -14,7 +14,7 @@ jobs:
         run: |
           NEW=$(curl --silent $URL | jq -r first.uri)
 
-          curl -X POST https://webmention.app/check?url="https://grumpy.learning.com$NEW"
+          curl -X POST https://webmention.app/check?url="https://grumpy-learning.com$NEW"
           
           curl -H "Content-Type: application/x-www-form-urlencoded" --request POST \
           -d source="https://grumpy-learning.com$NEW" \

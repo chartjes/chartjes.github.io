@@ -3,9 +3,212 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="https://grumpy-learning.com/blog/categories/indieweb.xml" rel="self"/>
     <link href="https://grumpy-learning.com/"/>
-    <updated>2022-11-12T16:53:15+00:00</updated>
+    <updated>2022-11-18T22:15:52+00:00</updated>
     <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[A Grumpy POSSE]]></title>
+            <link href="https://grumpy-learning.com/blog/2022/11/18/a-grumpy-posse/"/>
+            <updated>2022-11-18T00:00:00+00:00</updated>
+            <id>https://grumpy-learning.com/blog/2022/11/18/a-grumpy-posse/</id>
+            <content type="html"><![CDATA[<p>One of the main reasons I have decided to embrace more of
+the <a href="https://indieweb.org">IndieWeb</a> ethos is out of a desire
+to have more control over where the various things I create
+(micro-blogging and longer-form content) ends up. Twitter ended
+up being something that replaced the blogging I used to do.</p>
+
+<p>One of the concepts coming out of the Indieweb is the great-sounding
+acronym POSSE. It stands for Publish On your own Site, Syndicate Elsewhere.
+Which is another way of saying you should have one central location
+where most of your material lives (shitposting on social media still will
+happen) and then push that content out to other places.</p>
+
+<p>So for me, what would this look like?</p>
+
+<p>For a long time I had another blog, but once I really leaned into the
+Grumpy Programmer brand that blog served no purpose and I really should've
+just moved stuff over there. Although that old blog is no longer online
+I still have all the posts I made to it. Maybe I will go through one day
+and do "the best of when I was less grumpy" or something like that.</p>
+
+<p>So, in a world where I embrace POSSE, here is how it should work:</p>
+
+<ul>
+<li>I write content on this blog</li>
+<li>I use the static site generator <a href="https://sculpin.io">Sculpin</a> to create the site</li>
+<li>As part of updating my site, I then automatically publish a link to that blog elsewhere</li>
+</ul>
+
+<p>There are other solutions to make this happen if you use other blogging
+engines (static or otherwise) but there was nothing out-of-the-box to make it
+work for Sculpin. So, I used my <a href="https://duckduckgo.com">favourite search engine</a>
+and started doing some research.</p>
+
+<p>I also, like any good online influencer, leveraged my personal relationships
+with people...like the current maintainer of Sculpin...to ask them how I could accomplish
+a few tasks.</p>
+
+<h2 id="writing-on-this-blog">Writing on this blog</h2>
+
+<p>Sculpin supports me writing posts using Markdown. This means I get to keep using
+the <a href="https://neovim.io">new One True Editor</a> to create new posts. It also uses
+<a href="https://twig.symfony.com">Twig</a> for the templates it uses to generate the static
+HTML for the site.</p>
+
+<p>Again, I am not telling you one way or the other what to use for your blog. For a lot
+of folks using <a href="https://wordpress.com">Wordpress</a> and a plugin tailored to IndieWeb
+needs will work. I didn't want to setup anything new, so I was going to stick with
+Sculpin.</p>
+
+<h2 id="creating-the-site">Creating the site</h2>
+
+<p>I am currently using GitHub pages for this site, so all I have to do is copy the
+generated HTML output into the correct location in the repo that holds my site,
+push those changes up to GitHub and in a minute or two I have a new version of
+my web site for all the world to see.</p>
+
+<p>This is no big change for what I was doing previously -- I used to have an AWS
+Lightsail instance for hosting the blog but decided GitHub was a better option
+since I was already paying for an account there. Why pay twice?!?</p>
+
+<p>Now, to prepare my site to be "IndieWeb friendly" is simply followed the instructions
+at <a href="https://indiewebify.me">IndeWebify.me</a>. Followed by, of course, a lot of
+commits and pushes to get things to behave exactly the way I needed them to.</p>
+
+<p>For example. this is what the template looks like for a blog post, with all the
+IndieWeb <a href="https://microformats.org/">microformats</a> embedded in them:</p>
+
+<pre><code>
+{% extends "default" %}
+
+{% block head_meta %}
+    &lt;meta name="robots" content="index, follow"&gt;
+{% endblock %}
+
+{% block content_wrapper %}
+    &lt;article class="h-entry"&gt;
+        &lt;header&gt;
+            &lt;h2&gt;&lt;div class="p-name"&gt;{{ page.title }}&lt;/div&gt; &lt;small&gt;post&lt;/small&gt;&lt;/h2&gt;
+        &lt;/header&gt;
+        &lt;div class="e-content"&gt;
+            {{ page.blocks.content|raw }}
+        &lt;/div&gt;
+        {% if page.categories %}
+            &lt;p class="categories"&gt;
+            Categories:
+            {% for category in page.categories %}
+            &lt;a class="p-category" href="{{ site.url }}/blog/categories/{{ category|url_encode(true) }}"&gt;{{ category }}&lt;/a&gt;{% if not loop.last %}, {% endif %}
+            {% endfor %}
+            &lt;/p&gt;
+        {% endif %}
+        {% if page.tags %}
+            &lt;p class="tags"&gt;
+            Tags:
+            {% for tag in page.tags %}
+            &lt;a href="{{ site.url }}/blog/tags/{{ tag|url_encode(true) }}"&gt;{{ tag }}&lt;/a&gt;{% if not loop.last %}, {% endif %}
+            {% endfor %}
+            &lt;/p&gt;
+        {% endif %}
+        &lt;a href="https://brid.gy/publish/mastodon"&lt;/a&gt;
+        &lt;a href="https://brid.gy/publish/twitter"&lt;/a&gt;
+        {% if page.previous_post or page.next_post %}
+            &lt;nav class="article"&gt;
+                &lt;ul&gt;
+                    {% if page.next_post %}
+                        &lt;li&gt;Next: &lt;a class="next" href="{{ site.url }}{{ page.next_post.url }}" title="{{ page.next_post.title }}"&gt;&lt;span class="title"&gt;{{ page.next_post.title }}&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                    {% endif %}
+                    {% if page.previous_post %}
+                        &lt;li&gt;Previous: &lt;a class="previous" href="{{ site.url }}{{ page.previous_post.url }}" title="{{ page.previous_post.title }}"&gt;&lt;span class="title"&gt;{{ page.previous_post.title }}&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                    {% endif %}
+                &lt;/ul&gt;
+            &lt;/nav&gt;
+        {% endif %}
+    &lt;/article&gt;
+{% endblock %}
+
+</code></pre>
+
+<h2 id="the-grumpy-posse">The Grumpy POSSE</h2>
+
+<p>Figuring out how to syndicate my content without an existing plugin proved to
+be a bit of a challenge. Luckily, I found a blog post that explained how to
+make this work by embracing <a href="https://indieweb.org/Webmention">Webmentions</a>
+and using an awesome (and free!) service called <a href="https://brid.gy">Bridgy</a>
+to automate syndication.</p>
+
+<p>The solution I found was to create a GitHub action that would be triggered
+each time I did a push to the repo. This action would take care of using
+webmentions and Brid.gy to do the magic. But first, I needed a feed of
+my website that was in JSON, not XML.</p>
+
+<p>So I hit up <a href="https://phpc.social/@kboyd">Kevin Boyd</a> and ask him how
+could I do this in Sculpin. He very gracious created a Twig template
+that would turn my list of blog posts into a JSON feed. Here it is
+in all it's glory:</p>
+
+<pre><code>    ---
+    permalink: feed.json
+    use:
+        - posts
+    ---
+        
+    
+    []
+</code></pre>
+
+<p>I dropped that into the root directory Sculpin uses for generating
+my site, named it <code>feed.json.twig</code> and now I had a JSON-based feed
+for the site.</p>
+
+<p>Now, the GitHub action. This would go in <code>.github/workflows/send-webmention.yaml</code>
+for my repo that I am using for the page.</p>
+
+<pre><code>name: Send Webmentions
+
+on: push
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Send Webmentions
+        env:
+          GITHUB_TOKEN: $
+          URL: $
+        run: |
+          NEW=$(curl --silent $URL | jq -r first.uri)
+
+          curl -X POST https://webmention.app/check?url="https://grumpy.learning.com$NEW"
+
+          curl -H "Content-Type: application/x-www-form-urlencoded" --request POST \
+          -d source="https://grumpy-learning.com$NEW" \
+          -d target="https://brid.gy/publish/twitter" \
+          "https://brid.gy/publish/webmention"
+
+          curl -H "Content-Type: application/x-www-form-urlencoded" --request POST \
+          -d source="https://grumpy-learning.com$NEW" \
+          -d target="https://brid.gy/publish/mastodon" \
+          "https://brid.gy/publish/webmention"
+</code></pre>
+
+<p>The <a href="https://gist.github.com/dianoetic/b45466a7c04fa47cf80905b182dbda3c">original instructions</a> recommended
+putting the JSON feed details into a secret and then referencing it inside the action.
+I am not sure it matters that much but stuck with it.</p>
+
+<p>So, the next thing is that it grabs the feed using <a href="https://curl.se">cURL</a> and grabs what
+it thinks is the latest post (the first one in the feed) and then proceeds to use
+<a href="https://webmention.app">webmention.app</a> and Brid.gy to syndicate my content by sharing
+the post title and linking to it).</p>
+
+<p>So far it is working well and if you came across this post via my social media microblogging (I
+sound so pretentious when I say it out loud) then it clearly worked.</p>
+
+<p>I think my takeway from this is that gluing things together so your existing blog
+can syndicate content to a variety of platforms. If you're looking to have more control over
+the things you share online, I highly recommend looking into the IndieWeb. I hope this post helps!</p>
+]]></content>
+        </entry>
             <entry>
             <title type="html"><![CDATA[Federating Yourself]]></title>
             <link href="https://grumpy-learning.com/blog/2022/11/12/federating-yourself/"/>
