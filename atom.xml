@@ -3,7 +3,7 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="https://grumpy-learning.com/atom.xml" rel="self"/>
     <link href="https://grumpy-learning.com/"/>
-    <updated>2022-11-18T22:15:52+00:00</updated>
+    <updated>2022-11-19T14:17:59+00:00</updated>
     <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
             <entry>
@@ -146,14 +146,60 @@ could I do this in Sculpin. He very gracious created a Twig template
 that would turn my list of blog posts into a JSON feed. Here it is
 in all it's glory:</p>
 
-<pre><code>    ---
-    permalink: feed.json
-    use:
-        - posts
-    ---
-        
-    
-    []
+<pre><code>
+---
+permalink: feed.json
+use:
+    - posts
+---
+{#
+     Example data structure for delivering a Webmentions feed:
+
+     From: https://blog.geheimesite.nl/en/index.json
+
+     [
+        {
+            "author": {},
+            "categories": ,
+            "content": "yadda yadda yadda",
+            "date": "2022-05-03T16:27:18+02:0",
+            "site": "https://whateverthing.com/",
+            "tags": null,
+            "title": "Article One",
+            "uri": "https://whateverthing.com/2022/11/11/article-one/"
+        },
+        {
+            "author": {},
+            "categories": ,
+            "content": "yadda yadda yadda",
+            "date": "2022-06-03T16:27:18+02:0",
+            "site": "https://whateverthing.com/",
+            "tags": null,
+            "title": "Article Two",
+            "uri": "https://whateverthing.com/2022/11/11/article-two/"
+        },
+     ]
+#}
+{% set outputArray = [] %}
+
+{% for post in data.posts[:10] %}
+    {%
+        set postOutput = {
+            'author': site.author,
+            'categories': post.meta.categories,
+            'content': post.blocks.content|raw,
+            'date': post.date|date("c"),
+            'site': site.global_url,
+            'tags': post.meta.tags,
+            'title': post.title,
+            'uri': [ site.global_url, post.url]|join
+        }
+    %}
+    {% set outputArray = outputArray|merge([postOutput]) %}
+{% endfor %}
+
+{{ outputArray|json_encode(constant('JSON_PRETTY_PRINT'))|raw }}
+
 </code></pre>
 
 <p>I dropped that into the root directory Sculpin uses for generating
