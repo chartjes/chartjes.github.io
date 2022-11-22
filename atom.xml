@@ -3,9 +3,89 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="https://grumpy-learning.com/atom.xml" rel="self"/>
     <link href="https://grumpy-learning.com/"/>
-    <updated>2022-11-19T14:17:59+00:00</updated>
+    <updated>2022-11-22T18:47:15+00:00</updated>
     <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[Why isn&#039;t testing ubiquitous?]]></title>
+            <link href="https://grumpy-learning.com/blog/2022/11/22/why-isnt-testing-ubiquitous/"/>
+            <updated>2022-11-22T00:00:00+00:00</updated>
+            <id>https://grumpy-learning.com/blog/2022/11/22/why-isnt-testing-ubiquitous/</id>
+            <content type="html"><![CDATA[<p>Over on Twitter Mathias Verraes tweeted something that immediately 
+triggered some feelings:</p>
+
+<blockquote>
+  <blockquote>
+    <p>Perhaps TDD isn't as ubiquitous as it should be because you
+    can't make a business model out of it.
+    (Original post on Twitter <a href="https://twitter.com/mathiasverraes/status/1595100145129263106">https://twitter.com/mathiasverraes/status/1595100145129263106</a></p>
+  </blockquote>
+</blockquote>
+
+<p>I commented saying "Boy do I ever have feelings about this topic..." and
+Matias asked me to share. I decided my response was better off as
+a longer blog post. Don't worry, this will end up on Twitter / Mastodon
+anyway.</p>
+
+<p>He mentioned "observability" as a technique that ended up
+being a very good business model. Why? In my opinion, figuring out
+how to observe something in production is generic enough in that you
+can create a tool and say "hey, add these stuff to your code or
+production systems, and it will report stuff to this well-crafted
+dashboard you can use to get an idea of what is going on."</p>
+
+<p>I am a fan of these approach -- I highly recommend looking into
+things like <a href="https://www.honeycomb.io">Honeycomb</a> to get an idea
+of what you are signing up for when you choose that path.</p>
+
+<p>So what about testing? Is testing generic enough that you could come
+up with some kind of black box or external system that you can connect
+your tests to and react to when things fail?</p>
+
+<p>Tests are almost entirely bespoke. Dependent on architecture. Dependent
+on environments. Heck, dependant on the skill of the people who have to
+write and maintain them.</p>
+
+<p>Also, in my experience, tests work best when you approach them from
+the idea that they are there to make sure things are behaving as you
+expect them to and to give you a way to determine if you've made changes
+that have broken something elsewhere in your application.</p>
+
+<p>In other words, chances are that a failing test is something that the
+users of your application will never notice. They will notice broken
+pages, non-functioning links, slow-to-respond interfaces. Those are things
+that can probably be monitored through observability tools.</p>
+
+<p>In a lot of cases you start off with the idea of having to add tests to
+a system being adversarial. Developers don't want to spend the time
+writing them. Management views them as tasks with little-to-no return
+on investments. Clients balk at being told your bid is more expensive because
+you are writing tests. Flaky tests reduce confidence. Build tools need
+to be able to play nicely with your chosen testing tools. Effective
+test suites can take a lot of time to create and maintain.</p>
+
+<p>Not to mention almost nobody teaches people how to learn to use a programming
+language from a test-centric perspective. I could not even imagine
+how to teach a novice programmer how to use PHP while also showing them
+how to use all the tools. Understanding my own target audience is developers-with-experience
+has really changed how I teach and what I teach them.</p>
+
+<p>Using an observability tool
+can often be as simple as signing up for an online tool, follow their
+directions on what needs to happen to monitor things, and then you
+will know a lot faster when things aren't behaving correctly in
+production.</p>
+
+<p>Under those types of terms, testing will never be ubiquitous. Which
+is a shame because it is a technique that can lead to stable code
+bases and confident deployments to production.</p>
+
+<p>Maybe someone out there with a different perspective will figure out
+how to solve the stuff I talked about here. Until then, I am still happy
+to help teach people how to add automated testing to their skill set
+and hope they find it as useful as I have.</p>
+]]></content>
+        </entry>
             <entry>
             <title type="html"><![CDATA[A Grumpy POSSE]]></title>
             <link href="https://grumpy-learning.com/blog/2022/11/18/a-grumpy-posse/"/>
