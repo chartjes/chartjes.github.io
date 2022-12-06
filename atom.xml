@@ -3,7 +3,7 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="/atom.xml" rel="self"/>
     <link href="/"/>
-    <updated>2022-12-06T15:25:47+00:00</updated>
+    <updated>2022-12-06T15:50:14+00:00</updated>
     <id>/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
             <entry>
@@ -131,28 +131,6 @@ from how the code is actually implemented.</p>
         $loader = new FilesystemLoader(__DIR__ . '/../../templates/');
         $twig = new Environment($loader);
 
-
-        $gamesRepo = $this-&gt;createMock(GameRepository::class);
-        $gamesRepo-&gt;expects($this-&gt;once())
-            -&gt;method('getMaxWeek')
-            -&gt;willReturn(1);
-
-        $testRotation = new ArrayCollection();
-        $testRotation-&gt;add([
-            'franchise_id' =&gt; 1,
-            'ibl' =&gt; 'MAD',
-            'rotation' =&gt; 'One, Two, Three'
-        ]);
-
-        $viewModel = $this-&gt;createMock(RotationsUsingDoctrine::class);
-        $viewModel-&gt;expects($this-&gt;once())
-            -&gt;method('getAllByWeek')
-            -&gt;willReturn($testRotation);
-
-        $request = $this-&gt;createMock(Request::class);
-        $request-&gt;expects($this-&gt;once())
-            -&gt;method('getQueryParams')
-            -&gt;willReturn(['week' =&gt; 1]);
         $gamesRepo = $this-&gt;createMock(GameRepository::class);
         $gamesRepo-&gt;expects($this-&gt;once())
             -&gt;method('getMaxWeek')
