@@ -1,16 +1,314 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title><![CDATA[Grumpy Learning]]></title>
-    <link href="https://grumpy-learning.com/blog/categories/PHP.xml" rel="self"/>
-    <link href="https://grumpy-learning.com/"/>
-    <updated>2022-11-22T18:47:15+00:00</updated>
-    <id>https://grumpy-learning.com/</id>
+    <link href="/blog/categories/PHP.xml" rel="self"/>
+    <link href="/"/>
+    <updated>2022-12-06T15:25:47+00:00</updated>
+    <id>/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
             <entry>
+            <title type="html"><![CDATA[Testing decoupled PHP code?]]></title>
+            <link href="/blog/2022/12/06/testing-decoupled-code/"/>
+            <updated>2022-12-06T00:00:00+00:00</updated>
+            <id>/blog/2022/12/06/testing-decoupled-code/</id>
+            <content type="html"><![CDATA[<p>One of the reasons many experienced developers encourage the concept of
+"decoupling your code" is so that it makes testing your code straightforward.
+I wanted to share an example of how I went about writing some tests for
+some code that I had refactored from being a tangled spaghetti-like mess.</p>
+
+<p>Here is the code I am looking at, written targeting PHP 8.1.</p>
+
+<pre><code class="php">&lt;?php
+declare(strict_types=1);
+
+namespace Webreg\Query;
+
+use Slim\Psr7\Response;
+use Slim\Psr7\Request;
+use Twig\Environment;
+use Webreg\Repository\GameRepository;
+use Webreg\ViewModel\Rotations;
+
+final class RotationManagementQuery
+{
+    public function __construct(
+        private Environment $twig,
+        private GameRepository $gameRepository,
+        private Rotations $rotations
+    ) {}
+
+    public function __invoke(Request $request): Response
+    {
+        $params = $request-&gt;getQueryParams();
+        $maxWeek = $this-&gt;gameRepository-&gt;getMaxWeek();
+        $week = (isset($params['week'])) ? (int) $params['week'] : $maxWeek;
+        $rotations = $this-&gt;rotations-&gt;getAllByWeek($week);
+        $response = new Response(200, null);
+        $response-&gt;getBody()-&gt;write($this-&gt;twig-&gt;render('rotations/management.twig', [
+            'current_week' =&gt; $week,
+            'rotations' =&gt; $rotations,
+        ]));
+
+        return $response;
+    }
+}
+</code></pre>
+
+<p>I am using <a href="https://www.martinfowler.com/bliki/CQRS.html">Command Query Responsibility Segregation</a> in
+this application's architecture, and this bit of code is a Query that will
+retrieve a collection of pitchers who will be starting for baseball
+teams in my simulation baseball league for a particular week.</p>
+
+<p>In following some rules for decoupling, you can see some of the
+following decisions had been made:</p>
+
+<ul>
+<li>not extending off of a base class</li>
+<li>all dependencies are injected at run time</li>
+<li>single-method for the class</li>
+</ul>
+
+<h2 id="identifying-dependencies">Identifying Dependencies</h2>
+
+<p>So what are the dependencies I will need?</p>
+
+<ul>
+<li>a <a href="https://twig.symfony.com">Twig</a> object</li>
+<li>a <a href="https://martinfowler.com/eaaCatalog/repository.html">repository</a> object for retrieving data</li>
+<li>a <a href="https://martinfowler.com/eaaDev/PresentationModel.html">view model</a> for presenting the data</li>
+<li>an object that contains the HTTP <a href="https://www.php-fig.org/psr/psr-7/">request</a></li>
+</ul>
+
+<p>In the old architecture, I was creating those dependencies deep inside the "business logic"
+and therefore it was very hard to write anything other than some kind of "check
+the HTML output" type of test. Ironically that is what the new test does as well but
+this sort of decoupled architecture leads to a much more straightforward test.</p>
+
+<h2 id="identifying-output">Identifying Output</h2>
+
+<p>In these tests, I wanted to make sure that if I had at least one rotation
+stored in the database for a particular week, when the page renders I should
+see that rotation in the output somewhere.</p>
+
+<h2 id="test-skeleton">Test Skeleton</h2>
+
+<p>As always, I break out the <a href="http://wiki.c2.com/?ArrangeActAssert">Arrange-Act-Assert</a> pattern
+to create the skeleton of the test:</p>
+
+<pre><code class="php">    /** @test */
+    public function it_returns_expected_rotation(): void
+    {
+        // Arrange
+
+        // Act
+
+        // Assert
+        self::fail();
+    }
+</code></pre>
+
+<p>Remember, you always want to start with a failing test.</p>
+
+<h2 id="arranging-our-dependencies">Arranging our dependencies</h2>
+
+<p>These days I try and use the fewest number of <a href="https://phpunit.readthedocs.io/en/9.5/test-doubles.html">test doubles</a>
+in my test scenarios. Given the dependencies I needed,
+I was going to need three "fake" dependencies, configured
+to provide only the implementation details required to make
+the scenario work.</p>
+
+<p>I don't want to get into a longer discussion on the use of
+test doubles except to say that the decoupling strategy
+I am using will minimize the chances that any doubles drift
+from how the code is actually implemented.</p>
+
+<p>Trust me, I do this for a living!</p>
+
+<pre><code class="php">    /** @test */
+    public function it_returns_expected_rotation(): void
+    {
+        // Arrange
+        $loader = new FilesystemLoader(__DIR__ . '/../../templates/');
+        $twig = new Environment($loader);
+
+
+        $gamesRepo = $this-&gt;createMock(GameRepository::class);
+        $gamesRepo-&gt;expects($this-&gt;once())
+            -&gt;method('getMaxWeek')
+            -&gt;willReturn(1);
+
+        $testRotation = new ArrayCollection();
+        $testRotation-&gt;add([
+            'franchise_id' =&gt; 1,
+            'ibl' =&gt; 'MAD',
+            'rotation' =&gt; 'One, Two, Three'
+        ]);
+
+        $viewModel = $this-&gt;createMock(RotationsUsingDoctrine::class);
+        $viewModel-&gt;expects($this-&gt;once())
+            -&gt;method('getAllByWeek')
+            -&gt;willReturn($testRotation);
+
+        $request = $this-&gt;createMock(Request::class);
+        $request-&gt;expects($this-&gt;once())
+            -&gt;method('getQueryParams')
+            -&gt;willReturn(['week' =&gt; 1]);
+        $gamesRepo = $this-&gt;createMock(GameRepository::class);
+        $gamesRepo-&gt;expects($this-&gt;once())
+            -&gt;method('getMaxWeek')
+            -&gt;willReturn(1);
+
+        $testRotation = new ArrayCollection();
+        $testRotation-&gt;add([
+            'franchise_id' =&gt; 1,
+            'ibl' =&gt; 'MAD',
+            'rotation' =&gt; 'One, Two, Three'
+        ]);
+
+        $viewModel = $this-&gt;createMock(RotationsUsingDoctrine::class);
+        $viewModel-&gt;expects($this-&gt;once())
+            -&gt;method('getAllByWeek')
+            -&gt;willReturn($testRotation);
+
+        $request = $this-&gt;createMock(Request::class);
+        $request-&gt;expects($this-&gt;once())
+            -&gt;method('getQueryParams')
+            -&gt;willReturn(['week' =&gt; 1]);
+
+        // Act
+
+        // Assert
+        self::fail();
+    }
+</code></pre>
+
+<h2 id="acting-on-the-code-under-test">Acting on the code-under-test</h2>
+
+<p>This has always struck me as a weird way to describe "executing the
+code we are testing" but I guess "Arrange-Execute-Assert" doesn't
+flow in English quite the same way.</p>
+
+<p>Now that I have all my dependencies created and configured the way
+I need, time to run the code and grab some results I can test.</p>
+
+<pre><code class="php">    /** @test */
+    public function it_returns_expected_rotation(): void
+    {
+        // Arrange
+
+        // Act
+        $query = new RotationManagementQuery($twig, $gamesRepo, $viewModel);
+        $results = $query-&gt;__invoke($request);
+
+        // Assert
+        self::fail();
+    }
+</code></pre>
+
+<h2 id="asserting-results-of-code-execution">Asserting results of code execution</h2>
+
+<p>Just like I did before, I am checking the HTML output from executing
+this Query to make sure I am seeing values that I expect</p>
+
+<pre><code class="php">    /** @test */
+    public function it_returns_expected_rotation(): void
+    {
+        // Arrange
+
+        // Act
+
+        // Assert
+        self::assertStringContainsString('One, Two, Three', $results-&gt;getBody());
+    }
+</code></pre>
+
+<p>When building my assertions, I tend to go with "what are the
+fewest number of things I need to do in order to prove the
+code is working as expected."</p>
+
+<p>In this case, I felt checking that I see an expected "pitching rotation"
+in the output is good enough.</p>
+
+<p>Here is what the whole test looks like:</p>
+
+<pre><code class="php">&lt;?php
+
+namespace Webreg\Test\Query;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Slim\Psr7\Request;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
+use Webreg\Query\RotationManagementQuery;
+use PHPUnit\Framework\TestCase;
+use Webreg\Repository\GameRepository;
+use Webreg\ViewModel\RotationsUsingDoctrine;
+
+class RotationManagementQueryTest extends TestCase
+{
+    /** @test */
+    public function it_returns_expected_rotation(): void
+    {
+        // Arrange
+        $loader = new FilesystemLoader(__DIR__ . '/../../templates/');
+        $twig = new Environment($loader);
+
+        $gamesRepo = $this-&gt;createMock(GameRepository::class);
+        $gamesRepo-&gt;expects($this-&gt;once())
+            -&gt;method('getMaxWeek')
+            -&gt;willReturn(1);
+
+        $testRotation = new ArrayCollection();
+        $testRotation-&gt;add([
+            'franchise_id' =&gt; 1,
+            'ibl' =&gt; 'MAD',
+            'rotation' =&gt; 'One, Two, Three'
+        ]);
+
+        $viewModel = $this-&gt;createMock(RotationsUsingDoctrine::class);
+        $viewModel-&gt;expects($this-&gt;once())
+            -&gt;method('getAllByWeek')
+            -&gt;willReturn($testRotation);
+
+        $request = $this-&gt;createMock(Request::class);
+        $request-&gt;expects($this-&gt;once())
+            -&gt;method('getQueryParams')
+            -&gt;willReturn(['week' =&gt; 1]);
+
+        // Act
+        $query = new RotationManagementQuery($twig, $gamesRepo, $viewModel);
+        $results = $query-&gt;__invoke($request);
+
+        // Assert
+        self::assertStringContainsString('One, Two, Three', $results-&gt;getBody());
+    }
+}
+
+</code></pre>
+
+<p>Some thoughts that occur to me from looking at the final test:</p>
+
+<ul>
+<li>decoupling makes your dependencies quite visible during test creation</li>
+<li>always make sure to only implement the behaviour of your test doubles that you need</li>
+<li>your Arrange step will almost always be the largest part of any test</li>
+<li>PHPUnit's built-in test double generators also act as assertions</li>
+<li>sometimes the simplest way of verifying behaviour is what you should use</li>
+</ul>
+
+<p>From my perspective, decoupling the code allows me to focus on smaller
+pieces of application behaviour, reducing the chances that a change in
+this code breaks something somewhere else.</p>
+
+<p>For more details on the approach I am using for decoupling my code, check
+out Matthias Noback's <a href="https://leanpub.com/recipes-for-decoupling">"Recipes for Decoupling"</a>.</p>
+]]></content>
+        </entry>
+            <entry>
             <title type="html"><![CDATA[Solving Problems With Profiling]]></title>
-            <link href="https://grumpy-learning.com/blog/2022/01/05/solving-problems-with-profiling/"/>
+            <link href="/blog/2022/01/05/solving-problems-with-profiling/"/>
             <updated>2022-01-05T00:00:00+00:00</updated>
-            <id>https://grumpy-learning.com/blog/2022/01/05/solving-problems-with-profiling/</id>
+            <id>/blog/2022/01/05/solving-problems-with-profiling/</id>
             <content type="html"><![CDATA[<p>I was presented with a problem that was occurring in the <a href="https://grumpy-learning.com/blog/2021/12/30/repeatable-dev-environments/">virtual machine</a>
 I was using for client development work -- the PHP-based acceptance test suite was running
 extremely slowly. Normally it takes 12-13 minutes to run outside of the 

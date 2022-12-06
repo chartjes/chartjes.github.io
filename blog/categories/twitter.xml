@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title><![CDATA[Grumpy Learning]]></title>
-    <link href="https://grumpy-learning.com/blog/categories/twitter.xml" rel="self"/>
-    <link href="https://grumpy-learning.com/"/>
-    <updated>2022-11-22T18:47:15+00:00</updated>
-    <id>https://grumpy-learning.com/</id>
+    <link href="/blog/categories/twitter.xml" rel="self"/>
+    <link href="/"/>
+    <updated>2022-12-06T15:25:47+00:00</updated>
+    <id>/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
             <entry>
             <title type="html"><![CDATA[Better Outcomes]]></title>
-            <link href="https://grumpy-learning.com/blog/2022/01/02/better-outcomes/"/>
+            <link href="/blog/2022/01/02/better-outcomes/"/>
             <updated>2022-01-02T00:00:00+00:00</updated>
-            <id>https://grumpy-learning.com/blog/2022/01/02/better-outcomes/</id>
+            <id>/blog/2022/01/02/better-outcomes/</id>
             <content type="html"><![CDATA[<p>I’m not a New Year’s resolution type but here are some suggestions for my fellow devs of things I believe can lead to better outcomes:</p>
 
 <p>Learn your IDE/editor better: I spent a lot of 2021 refining my <a href="https://neovim.org">Vim</a> setup and I plan on adding increased use of <a href="https://vimwiki.github.io/">VimWiki</a> for making notes and linking things together.</p>
