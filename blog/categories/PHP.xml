@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title><![CDATA[Grumpy Learning]]></title>
-    <link href="/blog/categories/PHP.xml" rel="self"/>
-    <link href="/"/>
-    <updated>2022-12-06T15:50:14+00:00</updated>
-    <id>/</id>
+    <link href="https://grumpy-learning.com/blog/categories/PHP.xml" rel="self"/>
+    <link href="https://grumpy-learning.com/"/>
+    <updated>2022-12-08T17:11:17+00:00</updated>
+    <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
             <entry>
             <title type="html"><![CDATA[Testing decoupled PHP code?]]></title>
-            <link href="/blog/2022/12/06/testing-decoupled-code/"/>
+            <link href="https://grumpy-learning.com/blog/2022/12/06/testing-decoupled-code/"/>
             <updated>2022-12-06T00:00:00+00:00</updated>
-            <id>/blog/2022/12/06/testing-decoupled-code/</id>
+            <id>https://grumpy-learning.com/blog/2022/12/06/testing-decoupled-code/</id>
             <content type="html"><![CDATA[<p>One of the reasons many experienced developers encourage the concept of
 "decoupling your code" is so that it makes testing your code straightforward.
 I wanted to share an example of how I went about writing some tests for
@@ -284,9 +284,9 @@ out Matthias Noback's <a href="https://leanpub.com/recipes-for-decoupling">"Reci
         </entry>
             <entry>
             <title type="html"><![CDATA[Solving Problems With Profiling]]></title>
-            <link href="/blog/2022/01/05/solving-problems-with-profiling/"/>
+            <link href="https://grumpy-learning.com/blog/2022/01/05/solving-problems-with-profiling/"/>
             <updated>2022-01-05T00:00:00+00:00</updated>
-            <id>/blog/2022/01/05/solving-problems-with-profiling/</id>
+            <id>https://grumpy-learning.com/blog/2022/01/05/solving-problems-with-profiling/</id>
             <content type="html"><![CDATA[<p>I was presented with a problem that was occurring in the <a href="https://grumpy-learning.com/blog/2021/12/30/repeatable-dev-environments/">virtual machine</a>
 I was using for client development work -- the PHP-based acceptance test suite was running
 extremely slowly. Normally it takes 12-13 minutes to run outside of the 

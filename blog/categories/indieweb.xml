@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title><![CDATA[Grumpy Learning]]></title>
-    <link href="/blog/categories/indieweb.xml" rel="self"/>
-    <link href="/"/>
-    <updated>2022-12-06T15:50:14+00:00</updated>
-    <id>/</id>
+    <link href="https://grumpy-learning.com/blog/categories/indieweb.xml" rel="self"/>
+    <link href="https://grumpy-learning.com/"/>
+    <updated>2022-12-08T17:11:17+00:00</updated>
+    <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
             <entry>
             <title type="html"><![CDATA[A Grumpy POSSE]]></title>
-            <link href="/blog/2022/11/18/a-grumpy-posse/"/>
+            <link href="https://grumpy-learning.com/blog/2022/11/18/a-grumpy-posse/"/>
             <updated>2022-11-18T00:00:00+00:00</updated>
-            <id>/blog/2022/11/18/a-grumpy-posse/</id>
+            <id>https://grumpy-learning.com/blog/2022/11/18/a-grumpy-posse/</id>
             <content type="html"><![CDATA[<p>One of the main reasons I have decided to embrace more of
 the <a href="https://indieweb.org">IndieWeb</a> ethos is out of a desire
 to have more control over where the various things I create
@@ -257,9 +257,9 @@ the things you share online, I highly recommend looking into the IndieWeb. I hop
         </entry>
             <entry>
             <title type="html"><![CDATA[Federating Yourself]]></title>
-            <link href="/blog/2022/11/12/federating-yourself/"/>
+            <link href="https://grumpy-learning.com/blog/2022/11/12/federating-yourself/"/>
             <updated>2022-11-12T00:00:00+00:00</updated>
-            <id>/blog/2022/11/12/federating-yourself/</id>
+            <id>https://grumpy-learning.com/blog/2022/11/12/federating-yourself/</id>
             <content type="html"><![CDATA[<p>As I write this blog post, Twitter is convulsing as it's new
 owner Elon Musk is trying to treat a huge cruise ship like
 it's a jetski. Having cut a ton of staff and literally workshopping
