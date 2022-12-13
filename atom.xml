@@ -3,9 +3,478 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="https://grumpy-learning.com/atom.xml" rel="self"/>
     <link href="https://grumpy-learning.com/"/>
-    <updated>2022-12-12T14:31:36+00:00</updated>
+    <updated>2022-12-13T20:45:01+00:00</updated>
     <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[Current NeoVim setup]]></title>
+            <link href="https://grumpy-learning.com/blog/2022/12/13/current-neovim-setup/"/>
+            <updated>2022-12-13T00:00:00+00:00</updated>
+            <id>https://grumpy-learning.com/blog/2022/12/13/current-neovim-setup/</id>
+            <content type="html"><![CDATA[<h2 id="grumpiness-and-neovim">Grumpiness and NeoVim</h2>
+
+<p>I have been a <a href="https://vim.org">Vim</a> user since the early 2000's.
+Someone who worked in the same building as me and was also a fellow
+Linux user (this was before I had bought my first Macbook) got
+to talking with me as I struggled to figure out <a href="https://www.gnu.org/software/emacs/">Emacs</a>
+suggested I sit with him for a little bit as he showed me how to
+use Vim. Still not sure to this day why it clicked with me but I
+have been using it ever since.</p>
+
+<p>In the past few years I have changed which version of Vim I am
+using and switched to <a href="https://neovim.io/">NeoVim</a>.</p>
+
+<p>Now, to be transparent, these days I use <a href="https://www.jetbrains.com/phpstorm/">PhpStorm</a>
+as my main PHP programming tool and use NeoVim for pretty much everything
+else. I do pay for PhpStorm because I think it's important to encourage the creation
+of tools for the programming languages I use. If I was still doing a lot of
+Python work, I'd be paying for <a href="https://www.jetbrains.com/pycharm/">PyCharm</a>.
+I had really good experiences with it while at Mozilla.</p>
+
+<p>Anyway, I still like to keep up with what is going on in the NeoVim "community"
+and I am happy to see a vibrant group of people creating plugins and
+sharing their knowledge. I wanted to give things with NeoVim and PHP another
+spin so it was time to go look at my current setup.</p>
+
+<h2 id="why-do-all-this%3F">Why do all this?</h2>
+
+<p>My goal is to have a Vim experience that matches the way I currently work.
+I've been using Vim for so long that there is lots of muscle memory and
+I usually enable "Vim mode" in any tools I use. Editing things a "modal way"
+has become my default and any tools that don't support doing things that
+way slow me down immensely.</p>
+
+<p>So, what do I want out of my NeoVim setup.</p>
+
+<ul>
+<li>works well with the languages I will use</li>
+<li>allows me to quickly find files</li>
+<li>allows me to quickly find source definitions</li>
+<li>allows me to quickly find places where code is used</li>
+</ul>
+
+<p>Now, of course, PhpStorm does all this but also carries a lot of extra
+functionality around with it. Which is fine! But in an era where the tools
+we use on desktop operating systems get bigger and bigger and consume more
+and more resources, I find something appealing in using tools that take up
+as few resources as possible.</p>
+
+<p>I did an older post on my old blog from about a year ago so I will
+follow the same structure but I noticed some changes. I'll be going
+through my current NeoVim config and filling things in as we go</p>
+
+<pre><code>set nocompatible
+syntax on 
+set encoding=utf8
+filetype off
+
+" Load our plugins
+lua require('plugins')
+</code></pre>
+
+<p>I am using as much <a href="https://www.lua.org">Lua</a> as I can within NeoVim.
+The first few steps here are pretty much standard:</p>
+
+<ul>
+<li>you always turn "no compatible" off otherwise lots of things break</li>
+<li>I want syntax highlighting by default</li>
+<li>I want things to be UTF8</li>
+<li><p>I am going to define my own behaviour for how I want NeoVim to
+handle filetypes</p>
+
+<h2 id="plugins">Plugins</h2>
+
+<p>My list of plugins:</p>
+
+<p>```
+return require('packer').startup(function()
+use 'wbthomason/packer.nvim'
+use 'neovim/nvim-lspconfig'</p>
+
+<p>-- General plugins
+use 'dracula/vim'
+use 'junegunn/vim-easy-align'
+use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate'
+}
+use 'onsails/lspkind-nvim'
+use 'vim-vdebug/vdebug'</p>
+
+<p>-- See the git status of the current line in the gutter
+use 'airblade/vim-gitgutter'</p>
+
+<p>--  PHP plugins
+use 'tpope/vim-dispatch'
+use 'StanAngeloff/php.vim'
+use 'stephpy/vim-php-cs-fixer'
+use 'jwalton512/vim-blade'
+use 'noahfrederick/vim-laravel'</p>
+
+<p>-- Help for vim-laravel
+use 'tpope/vim-projectionist'
+use 'noahfrederick/vim-composer'</p>
+
+<p>-- Respect .editorconfig files for a project
+use 'editorconfig/editorconfig-vim'</p>
+
+<p>-- Telescope support
+use 'nvim-lua/plenary.nvim'
+use 'nvim-telescope/telescope.nvim'
+use 'sharkdp/fd'
+use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }</p>
+
+<p>-- LSP support for Typescropt
+use 'jose-elias-alvarez/nvim-lsp-ts-utils'</p>
+
+<p>-- nvim-cmp support
+use 'hrsh7th/nvim-cmp'
+use 'hrsh7th/cmp-nvim-lsp'
+use 'saadparwaiz1/cmp_luasnip'
+use 'L3MON4D3/LuaSnip'</p></li>
+</ul>
+
+<p>end)</p>
+
+<pre><code><br />I am using [Packer](https://github.com/wbthomason/packer.nvim) to
+handle installing all my packages. I have commented in places where I
+felt that things were not clear, but I guess some further explanations
+couldn't hurt.
+
+* I use the [Dracula](https://draculatheme.com/vim) theme
+* I use [vim-easy-align](https://github.com/junegunn/vim-easy-align)
+  to make it easier to line up blocks of code
+* [vim-gitgutter](https://github.com/airblade/vim-gitgutter) shows me
+  which lines have changed from Git's perspective
+* I like to respect the
+  [EditorConfig](https://github.com/editorconfig/editorconfig-vim)
+  settings for a project if they exist
+* [Telescope](https://github.com/nvim-telescope/telescope.nvim) 
+forms the basis for a lot of fuzzy find functionality
+* I use [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) as my
+  completion engine (and it plays nicely with Intelephense)
+
+## More NeoVim Settings
+
+</code></pre>
+
+<p>" Do smart autoindenting
+set smartindent
+set autoindent</p>
+
+<p>" I like linenumbers, thanks
+set number</p>
+
+<p>" set search case to a good configuration http://vim.wikia.com/wiki/Searching
+set ignorecase
+set smartcase</p>
+
+<p>" I like pretty colours in my terminal
+set t_Co=256</p>
+
+<p>" Let's get some good colours in our terminal
+let $NVM_TUI_ENABLE_TRUE_COLOR=1
+set termguicolors
+color dracula</p>
+
+<p>" We want to use ripgrep for any grep commands
+set grepprg='rg'</p>
+
+<p>" Basic configuration options
+set tabstop=4
+set shiftwidth=4
+set softtabstop=0
+set smarttab
+set expandtab
+set wildmenu
+set wildmode=list:longest,full
+set ttyfast
+set showmatch
+set hlsearch
+set incsearch
+set backspace=indent,eol,start</p>
+
+<p>" Make sure we are using the version of Python we want
+let g:python3_host_prog = "/opt/homebrew/bin/python3"</p>
+
+<p>" We always want to use UTF-8
+set encoding=UTF-8
+set fileencoding=UTF-8</p>
+
+<pre><code><br />A lot of what is up there is fairly straightforward when it comes to
+Vim/NeoVim, so I am not going to go over a lot of them.
+
+## LSP Configuration
+
+This is the critical piece for me -- supporting different languages
+makes NeoVim so versatile.
+
+In my config I have these two lines:
+
+</code></pre>
+
+<p>lua require('lsp-config')
+lua require('nvm-cmp')</p>
+
+<pre><code><br />and these handle my languages and making sure autocompletion behaves
+as I expect.
+
+```lua
+--- Configuration for LSP, formatters, and linters.
+local nvim_lsp = require("lspconfig")
+
+-- short cut methods.
+local t = function(str)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
+local opts = { noremap=true, silent=true }
+vim.api.nvim_set_keymap('n', '&lt;space&gt;e', '&lt;cmd&gt;lua vim.diagnostic.open_float()&lt;CR&gt;', opts)
+vim.api.nvim_set_keymap('n', '[d', '&lt;cmd&gt;lua vim.diagnostic.goto_prev()&lt;CR&gt;', opts)
+vim.api.nvim_set_keymap('n', ']d', '&lt;cmd&gt;lua vim.diagnostic.goto_next()&lt;CR&gt;', opts)
+vim.api.nvim_set_keymap('n', '&lt;space&gt;q', '&lt;cmd&gt;lua vim.diagnostic.setloclist()&lt;CR&gt;', opts)
+vim.api.nvim_set_keymap('n', '&lt;space&gt;f', '&lt;cmd&gt;lua vim.lsp.buf.formatting()&lt;CR&gt;', opts)
+
+local on_attach = function(client, bufnr)
+  -- Enable completion triggered by &lt;c-x&gt;&lt;c-o&gt;
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '&lt;cmd&gt;lua vim.lsp.buf.declaration()&lt;CR&gt;', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '&lt;cmd&gt;lua vim.lsp.buf.definition()&lt;CR&gt;', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '&lt;cmd&gt;lua vim.lsp.buf.hover()&lt;CR&gt;', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '&lt;cmd&gt;lua vim.lsp.buf.implementation()&lt;CR&gt;', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '&lt;C-k&gt;', '&lt;cmd&gt;lua vim.lsp.buf.signature_help()&lt;CR&gt;', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '&lt;space&gt;wa', '&lt;cmd&gt;lua vim.lsp.buf.add_workspace_folder()&lt;CR&gt;', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '&lt;space&gt;wr', '&lt;cmd&gt;lua vim.lsp.buf.remove_workspace_folder()&lt;CR&gt;', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '&lt;space&gt;wl', '&lt;cmd&gt;lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))&lt;CR&gt;', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '&lt;space&gt;D', '&lt;cmd&gt;lua vim.lsp.buf.type_definition()&lt;CR&gt;', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '&lt;space&gt;rn', '&lt;cmd&gt;lua vim.lsp.buf.rename()&lt;CR&gt;', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '&lt;space&gt;ca', '&lt;cmd&gt;lua vim.lsp.buf.code_action()&lt;CR&gt;', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '&lt;cmd&gt;lua vim.lsp.buf.references()&lt;CR&gt;', opts)
+end
+
+-- PHP
+nvim_lsp.intelephense.setup {
+    cmd = { "intelephense", "--stdio" },
+    filetypes = { "php" },
+}
+
+--- Linter setup
+local filetypes = {
+  typescript = "eslint",
+  typescriptreact = "eslint",
+  php = {"phpcs", "psalm"},
+}
+
+local linters = {
+  phpcs = {
+    command = "vendor/bin/phpcs",
+    sourceName = "phpcs",
+    debounce = 300,
+    rootPatterns = {"composer.lock", "vendor", ".git"},
+    args = {"--report=emacs", "-s", "-"},
+    offsetLine = 0,
+    offsetColumn = 0,
+    sourceName = "phpcs",
+    formatLines = 1,
+    formatPattern = {
+      "^.*:(\\d+):(\\d+):\\s+(.*)\\s+-\\s+(.*)(\\r|\\n)*$",
+      {
+        line = 1,
+        column = 2,
+        message = 4,
+        security = 3
+      }
+    },
+    securities = {
+      error = "error",
+      warning = "warning",
+    },
+    requiredFiles = {"vendor/bin/phpcs"}
+  },
+  psalm = {
+    command = "./vendor/bin/psalm",
+    sourceName = "psalm",
+    debounce = 100,
+    rootPatterns = {"composer.lock", "vendor", ".git"},
+    args = {"--output-format=emacs", "--no-progress"},
+    offsetLine = 0,
+    offsetColumn = 0,
+    sourceName = "psalm",
+    formatLines = 1,
+    formatPattern = {
+      "^[^ =]+ =(\\d+) =(\\d+) =(.*)\\s-\\s(.*)(\\r|\\n)*$",
+      {
+        line = 1,
+        column = 2,
+        message = 4,
+        security = 3
+      }
+    },
+    securities = {
+      error = "error",
+      warning = "warning"
+    },
+    requiredFiles = {"vendor/bin/psalm"}
+  }
+}
+
+nvim_lsp.diagnosticls.setup {
+  on_attach = on_attach,
+  filetypes = vim.tbl_keys(filetypes),
+  init_options = {
+    filetypes = filetypes,
+    linters = linters,
+  },
+}
+</code></pre>
+
+<p>A lot of what is in here I simple stole from other people's
+configurations but I think most of it should be straightforward to
+figure out.</p>
+
+<p>Some highlights from my perspective:</p>
+
+<ul>
+<li>you pick which language servers to care about</li>
+<li>you map functionality to existing Vim bindings so, again, it behaves
+as expected</li>
+</ul>
+
+<p>Here is what I have for getting the autocompletion engine working:</p>
+
+<pre><code class="lua">local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+local lspconfig = require('lspconfig')
+
+-- Enable some language servers with the additional completion capabilities offered by nvim-cmp
+local servers = { 'intelephense', 'tsserver' }
+for _, lsp in ipairs(servers) do
+  lspconfig[lsp].setup {
+    -- on_attach = my_custom_on_attach,
+    capabilities = capabilities,
+  }
+end
+
+-- luasnip setup
+local luasnip = require 'luasnip'
+
+-- nvim-cmp setup
+local cmp = require 'cmp'
+cmp.setup {
+  snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body)
+    end,
+  },
+  mapping = {
+    ['&lt;C-p&gt;'] = cmp.mapping.select_prev_item(),
+    ['&lt;C-n&gt;'] = cmp.mapping.select_next_item(),
+    ['&lt;C-d&gt;'] = cmp.mapping.scroll_docs(-4),
+    ['&lt;C-f&gt;'] = cmp.mapping.scroll_docs(4),
+    ['&lt;C-Space&gt;'] = cmp.mapping.complete(),
+    ['&lt;C-e&gt;'] = cmp.mapping.close(),
+    ['&lt;CR&gt;'] = cmp.mapping.confirm {
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    },
+    ['&lt;Tab&gt;'] = function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      else
+        fallback()
+      end
+    end,
+    ['&lt;S-Tab&gt;'] = function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end,
+  },
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' },
+  },
+}
+</code></pre>
+
+<p>Again, more mapping of existing keys to get the plugin to behave as
+expected. This sort of thing lies at the very heart of how Vim/NeoVim
+plugins do so much work -- they literally alter how the application
+behaves by overriding things. Perhaps this is actually a form of
+monkey patching? TIME IS A CIRCLE.</p>
+
+<h2 id="key-mappings">Key Mappings</h2>
+
+<pre><code class="vim">" ------------------------------------------------------------------------------
+" # Mappings
+" ------------------------------------------------------------------------------
+" # All of your mappings go in this file! Don't worry about your mappings
+" # being separate from related config. Sourcery provides mappings to
+" # easily jump between plugin definitions, mappings, and configs.
+" #
+" # More info: https://github.com/jesseleite/vim-sourcery#jumping-between-files
+
+
+" ------------------------------------------------------------------------------
+" # Example
+" ------------------------------------------------------------------------------
+
+" easily switch between vsplit windows
+map &lt;Leader&gt;j &lt;C-w&gt;j
+map &lt;Leader&gt;k &lt;C-w&gt;k
+map &lt;Leader&gt;h &lt;c-w&gt;h
+map &lt;Leader&gt;l &lt;c-w&gt;l
+
+" Remove highlighing of search terms
+nnoremap &lt;leader&gt;&lt;space&gt; :nohlsearch&lt;CR&gt;
+
+" Mappings for EasyAlign
+xmap ga &lt;Plug&gt;(EasyAlign)
+nmap ga &lt;Plug&gt;(EasyAlign)
+
+" Use &lt;Tab&gt; and &lt;S-Tab&gt; to navigate through popup menu
+inoremap &lt;expr&gt; &lt;Tab&gt;   pumvisible() ? "\&lt;C-n&gt;" : "\&lt;Tab&gt;"
+inoremap &lt;expr&gt; &lt;S-Tab&gt; pumvisible() ? "\&lt;C-p&gt;" : "\&lt;S-Tab&gt;"
+
+" Telescope Lua mappings
+nnoremap &lt;leader&gt;ff &lt;cmd&gt;lua require('telescope.builtin').find_files()&lt;cr&gt;
+nnoremap &lt;leader&gt;fg &lt;cmd&gt;lua require('telescope.builtin').live_grep()&lt;cr&gt;
+nnoremap &lt;leader&gt;fb &lt;cmd&gt;lua require('telescope.builtin').buffers()&lt;cr&gt;
+nnoremap &lt;leader&gt;fh &lt;cmd&gt;lua require('telescope.builtin').help_tags()&lt;cr&gt;
+nnoremap &lt;leader&gt;fr &lt;cmd&gt;lua require('telescope.builtin').lsp_references()&lt;cr&gt;
+nnoremap &lt;leader&gt;fd &lt;cmd&gt;lua require('telescope.builtin').lsp_definitions()&lt;cr&gt;
+nnoremap &lt;leader&gt;ft &lt;cmd&gt;lua require('telescope.builtin').lsp_type_definitions()&lt;cr&gt;
+</code></pre>
+
+<p>No Vim setup is complete without mapping and re-mapping keys in
+Vim. The list above mostly focuses on making Telescope friendlier to
+use.</p>
+
+<p>So there you have it -- this is my current NeoVim setup. It is more
+than sufficient for me to do daily PHP development work. What are some
+other things I am looking to integrate into my setup?</p>
+
+<ul>
+<li>Make it easier to use <a href="https://xdebug.org">XDebug</a></li>
+<li>More refactoring tools (I understand Intelephense can help but I
+have also experimented with
+<a href="https://github.com/phpactor/phpactor">Phpactor</a></li>
+</ul>
+
+<p>As always, I continue to tweak my configuration as I evaluate new
+tools or discover new ways of completing old tasks. I hope you find my
+setup useful.</p>
+]]></content>
+        </entry>
             <entry>
             <title type="html"><![CDATA[Testing decoupled PHP code?]]></title>
             <link href="https://grumpy-learning.com/blog/2022/12/06/testing-decoupled-code/"/>
