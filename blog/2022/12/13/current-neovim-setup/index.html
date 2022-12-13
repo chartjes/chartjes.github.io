@@ -125,108 +125,108 @@ The first few steps here are pretty much standard:</p>
 <li>you always turn "no compatible" off otherwise lots of things break</li>
 <li>I want syntax highlighting by default</li>
 <li>I want things to be UTF8</li>
-<li><p>I am going to define my own behaviour for how I want NeoVim to
-handle filetypes</p>
+<li>I am going to define my own behaviour for how I want NeoVim to
+handle filetypes</li>
+</ul>
 
 <h2 id="plugins">Plugins</h2>
 
 <p>My list of plugins:</p>
 
-<p>```
-return require('packer').startup(function()
-use 'wbthomason/packer.nvim'
-use 'neovim/nvim-lspconfig'</p>
+<pre><code class="lua">  return require('packer').startup(function()
+    use 'wbthomason/packer.nvim'
+    use 'neovim/nvim-lspconfig'
 
-<p>-- General plugins
-use 'dracula/vim'
-use 'junegunn/vim-easy-align'
-use {
-    'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate'
-}
-use 'onsails/lspkind-nvim'
-use 'vim-vdebug/vdebug'</p>
+    -- General plugins
+    use 'dracula/vim'
+    use 'junegunn/vim-easy-align'
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        run = ':TSUpdate'
+    }
+    use 'onsails/lspkind-nvim'
+    use 'vim-vdebug/vdebug'
 
-<p>-- See the git status of the current line in the gutter
-use 'airblade/vim-gitgutter'</p>
+    -- See the git status of the current line in the gutter
+    use 'airblade/vim-gitgutter'
 
-<p>--  PHP plugins
-use 'tpope/vim-dispatch'
-use 'StanAngeloff/php.vim'
-use 'stephpy/vim-php-cs-fixer'
-use 'jwalton512/vim-blade'
-use 'noahfrederick/vim-laravel'</p>
+    --  PHP plugins
+    use 'tpope/vim-dispatch'
+    use 'StanAngeloff/php.vim'
+    use 'stephpy/vim-php-cs-fixer'
+    use 'jwalton512/vim-blade'
+    use 'noahfrederick/vim-laravel'
 
-<p>-- Help for vim-laravel
-use 'tpope/vim-projectionist'
-use 'noahfrederick/vim-composer'</p>
+    -- Help for vim-laravel
+    use 'tpope/vim-projectionist'
+    use 'noahfrederick/vim-composer'
 
-<p>-- Respect .editorconfig files for a project
-use 'editorconfig/editorconfig-vim'</p>
+    -- Respect .editorconfig files for a project
+    use 'editorconfig/editorconfig-vim'
 
-<p>-- Telescope support
-use 'nvim-lua/plenary.nvim'
-use 'nvim-telescope/telescope.nvim'
-use 'sharkdp/fd'
-use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }</p>
+    -- Telescope support
+    use 'nvim-lua/plenary.nvim'
+    use 'nvim-telescope/telescope.nvim'
+    use 'sharkdp/fd'
+    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
-<p>-- LSP support for Typescropt
-use 'jose-elias-alvarez/nvim-lsp-ts-utils'</p>
+    -- LSP support for Typescropt
+    use 'jose-elias-alvarez/nvim-lsp-ts-utils'
 
-<p>-- nvim-cmp support
-use 'hrsh7th/nvim-cmp'
-use 'hrsh7th/cmp-nvim-lsp'
-use 'saadparwaiz1/cmp_luasnip'
-use 'L3MON4D3/LuaSnip'</p></li>
-</ul>
+    -- nvim-cmp support
+    use 'hrsh7th/nvim-cmp'
+    use 'hrsh7th/cmp-nvim-lsp'
+    use 'saadparwaiz1/cmp_luasnip'
+    use 'L3MON4D3/LuaSnip'
 
-<p>end)</p>
-
-<pre><code><br />I am using [Packer](https://github.com/wbthomason/packer.nvim) to
-handle installing all my packages. I have commented in places where I
-felt that things were not clear, but I guess some further explanations
-couldn't hurt.
-
-* I use the [Dracula](https://draculatheme.com/vim) theme
-* I use [vim-easy-align](https://github.com/junegunn/vim-easy-align)
-  to make it easier to line up blocks of code
-* [vim-gitgutter](https://github.com/airblade/vim-gitgutter) shows me
-  which lines have changed from Git's perspective
-* I like to respect the
-  [EditorConfig](https://github.com/editorconfig/editorconfig-vim)
-  settings for a project if they exist
-* [Telescope](https://github.com/nvim-telescope/telescope.nvim) 
-forms the basis for a lot of fuzzy find functionality
-* I use [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) as my
-  completion engine (and it plays nicely with Intelephense)
-
-## More NeoVim Settings
-
+end)
 </code></pre>
 
-<p>" Do smart autoindenting
+<p>I am using <a href="https://github.com/wbthomason/packer.nvim">Packer</a> to
+handle installing all my packages. I have commented in places where I
+felt that things were not clear, but I guess some further explanations
+couldn't hurt.</p>
+
+<ul>
+<li>I use the <a href="https://draculatheme.com/vim">Dracula</a> theme</li>
+<li>I use <a href="https://github.com/junegunn/vim-easy-align">vim-easy-align</a>
+to make it easier to line up blocks of code</li>
+<li><a href="https://github.com/airblade/vim-gitgutter">vim-gitgutter</a> shows me
+which lines have changed from Git's perspective</li>
+<li>I like to respect the
+<a href="https://github.com/editorconfig/editorconfig-vim">EditorConfig</a>
+settings for a project if they exist</li>
+<li><a href="https://github.com/nvim-telescope/telescope.nvim">Telescope</a> 
+forms the basis for a lot of fuzzy find functionality</li>
+<li>I use <a href="https://github.com/hrsh7th/nvim-cmp">nvim-cmp</a> as my
+completion engine (and it plays nicely with Intelephense)</li>
+</ul>
+
+<h2 id="more-neovim-settings">More NeoVim Settings</h2>
+
+<pre><code>" Do smart autoindenting
 set smartindent
-set autoindent</p>
+set autoindent
 
-<p>" I like linenumbers, thanks
-set number</p>
+" I like linenumbers, thanks
+set number
 
-<p>" set search case to a good configuration http://vim.wikia.com/wiki/Searching
+" set search case to a good configuration http://vim.wikia.com/wiki/Searching
 set ignorecase
-set smartcase</p>
+set smartcase
 
-<p>" I like pretty colours in my terminal
-set t_Co=256</p>
+" I like pretty colours in my terminal
+set t_Co=256
 
-<p>" Let's get some good colours in our terminal
+" Let's get some good colours in our terminal
 let $NVM_TUI_ENABLE_TRUE_COLOR=1
 set termguicolors
-color dracula</p>
+color dracula 
 
-<p>" We want to use ripgrep for any grep commands
-set grepprg='rg'</p>
+" We want to use ripgrep for any grep commands
+set grepprg='rg'
 
-<p>" Basic configuration options
+" Basic configuration options
 set tabstop=4
 set shiftwidth=4
 set softtabstop=0
@@ -238,35 +238,34 @@ set ttyfast
 set showmatch
 set hlsearch
 set incsearch
-set backspace=indent,eol,start</p>
+set backspace=indent,eol,start
 
-<p>" Make sure we are using the version of Python we want
-let g:python3_host_prog = "/opt/homebrew/bin/python3"</p>
+" Make sure we are using the version of Python we want
+let g:python3_host_prog = "/opt/homebrew/bin/python3"
 
-<p>" We always want to use UTF-8
+" We always want to use UTF-8
 set encoding=UTF-8
-set fileencoding=UTF-8</p>
-
-<pre><code><br />A lot of what is up there is fairly straightforward when it comes to
-Vim/NeoVim, so I am not going to go over a lot of them.
-
-## LSP Configuration
-
-This is the critical piece for me -- supporting different languages
-makes NeoVim so versatile.
-
-In my config I have these two lines:
-
+set fileencoding=UTF-8
 </code></pre>
 
-<p>lua require('lsp-config')
-lua require('nvm-cmp')</p>
+<p>A lot of what is up there is fairly straightforward when it comes to
+Vim/NeoVim, so I am not going to go over a lot of them.</p>
 
-<pre><code><br />and these handle my languages and making sure autocompletion behaves
-as I expect.
+<h2 id="lsp-configuration">LSP Configuration</h2>
 
-```lua
---- Configuration for LSP, formatters, and linters.
+<p>This is the critical piece for me -- supporting different languages
+makes NeoVim so versatile.</p>
+
+<p>In my config I have these two lines:</p>
+
+<pre><code>lua require('lsp-config')
+lua require('nvm-cmp')
+</code></pre>
+
+<p>and these handle my languages and making sure autocompletion behaves
+as I expect.</p>
+
+<pre><code class="lua">--- Configuration for LSP, formatters, and linters.
 local nvim_lsp = require("lspconfig")
 
 -- short cut methods.
