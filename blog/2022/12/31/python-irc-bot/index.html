@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head lang="en">
-        <title>Home &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <title>How a grumpy programmer writes Python IRC bots &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
         <meta charset="utf-8">
         <meta name="theme-color" content="#ffffff">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-                    <meta name="robots" content="noindex, follow">
-                <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
 
         <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
         <meta name="mobile-web-app-capable" content="yes">
@@ -52,36 +52,157 @@
         <main role="main" class="container">
             <div class="row">
                 <div class="col-sm-7">
-                        <article>
-        2022-12-31 <a href="https://grumpy-learning.com/blog/2022/12/31/python-irc-bot/">How a grumpy programmer writes Python IRC bots</a>
-    </article>
-    <article>
-        2022-12-13 <a href="https://grumpy-learning.com/blog/2022/12/13/current-neovim-setup/">Current NeoVim setup</a>
-    </article>
-    <article>
-        2022-12-06 <a href="https://grumpy-learning.com/blog/2022/12/06/testing-decoupled-code/">Testing decoupled PHP code?</a>
-    </article>
-    <article>
-        2022-11-22 <a href="https://grumpy-learning.com/blog/2022/11/22/why-isnt-testing-ubiquitous/">Why isn&#039;t testing ubiquitous?</a>
-    </article>
-    <article>
-        2022-11-18 <a href="https://grumpy-learning.com/blog/2022/11/18/a-grumpy-posse/">A Grumpy POSSE</a>
-    </article>
-    <article>
-        2022-11-12 <a href="https://grumpy-learning.com/blog/2022/11/12/federating-yourself/">Federating Yourself</a>
-    </article>
-    <article>
-        2022-01-14 <a href="https://grumpy-learning.com/blog/2022/01/14/asking-companies-about-testing/">Asking Companies About Testing</a>
-    </article>
-    <article>
-        2022-01-05 <a href="https://grumpy-learning.com/blog/2022/01/05/solving-problems-with-profiling/">Solving Problems With Profiling</a>
-    </article>
-    <article>
-        2022-01-02 <a href="https://grumpy-learning.com/blog/2022/01/02/better-outcomes/">Better Outcomes</a>
-    </article>
-    <article>
-        2021-12-30 <a href="https://grumpy-learning.com/blog/2021/12/30/repeatable-dev-environments/">Repeatable Development Environments</a>
-    </article>
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">How a grumpy programmer writes Python IRC bots</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <h2 id="why-python-and-why-irc%3F">Why Python and why IRC?</h2>
+
+<p>My longest-running hobby is being a member of <a href="https://www.ibl.org">tabletop simulation baseball league</a>
+that uses dice and cards and charts to determine outcomes. There are a lot
+of charts so a signifcant amount of time is spent looking up results that
+players haven't memorized.</p>
+
+<p>Our league uses IRC as the way to play the games -- the players connect to
+the server we host and then play games out using a bot that rolls dice
+and communicating with each other via text. Very old school.</p>
+
+<p>Making things a little more player-friendly will help the league get
+team owners up to speed quicker, so naturally I turned to automation
+and programming as a way to do it.</p>
+
+<p>I chose Python because it had been a while since I had done <em>anything</em> with
+it, so why not sharpen the dull edge of my experience there a little. Thankfully
+there are lots of examples on how to work with IRC using just the default
+libraries that come with Python. In this case, the server the bot would be
+running on runs Python 3.8. I started off with <a href="https://pythonspot.com/building-an-irc-bot/">this blog post</a>
+and went from there.</p>
+
+<h2 id="initial-implementation">Initial implementation</h2>
+
+<p>From a high level, we are doing the following</p>
+
+<p>1) connect to the IRC server
+2) loop endlessly while grabbing any responses from the server
+3) examine those responses for my chosen chartbot trigger
+4) if triggered, then look for dice rolls
+5) display results in-channel</p>
+
+<p>Now, I am sure there are better implementations for what I am trying
+to do here involving more commonly-accepted design patterns. In fact,
+the code analysis tools I am using are already complaining that the
+<a href="https://en.wikipedia.org/wiki/Cyclomatic_complexity">cyclomatic complexity</a>
+is too high.</p>
+
+<p>So, here is an example of what I have been doing</p>
+
+<pre><code class="python">while True:
+    text = irc.get_response()
+
+    if "PRIVMSG" in text and ".c ifr" in text:
+        details = text.split(' ')
+        msgChannel = details[-4].strip()
+        batterHand[msgChannel] = details[-1].strip()
+        lookForIfrRoll[msgChannel] = "yes"
+</code></pre>
+
+<p>An example command that this would look for would be '.c ifr rsp'.
+This maps to:</p>
+
+<ul>
+<li>.c is "activate chartbot"</li>
+<li>ifr is "Infield Range"</li>
+<li>rsp is "right-spray hitter", with other options available</li>
+</ul>
+
+<p>Early on I realized that I needed to have some kind of "state"
+in here because it was a two-step process. Once it knew which
+chart it was supposed to refer to, it then needed to wait to
+get a die roll. Again, this feels like a brute-force method
+but I could not think of any other way. Maybe, again, there
+is a better pattern for keeping track of this.</p>
+
+<p>So, having figured out we want to refer to the "infield range chart"
+(commonly known as IFR in game terms), we tell the bot "the next roll
+in this channel should be checked to see if it works with the IFR chart."</p>
+
+<p>Here is a sample of the code that watches for an IFR roll:</p>
+
+<pre><code class="python">    if "rolled" in text:
+        details = text.split(' ')
+        msgChannel = details[-4].strip()
+        roll = details[-1].strip()
+
+    if (msgChannel in lookForIfrRoll and
+                batterHand[msgChannel] in validBatterHand and
+                len(roll) == 2):
+        irc.send(
+             msgChannel, ifrChart.lookup(batterHand[msgChannel], roll)
+        )
+        del lookForIfrRoll[msgChannel]
+        del batterHand[msgChannel]
+
+</code></pre>
+
+<p>All rolls for the IFR chart will be from 00-99, so we make sure the rollbot
+returned something 2 characters in length. We also make sure that the
+batter hand type matches our expectations. If that is all good, then
+we call an object that contains our chart information, do a lookup, and
+then send the results of that lookup into the channel.</p>
+
+<p>Here is a sample of what the IFR chart object looks like:</p>
+
+<pre><code class="python">class IFRChart:
+    chart = {}
+
+    def __init__(self):
+        self.chart = {
+            'lp': {
+                "00": "Up the middle P",
+                "01": "High chopper P",
+                "02": "Line drive P",
+                "03": "Down the line 1B",
+                "04": "Down the line 1B",
+                "05": "Down the line 1B",
+                # more results snipped
+            }
+        }
+
+    def lookup(self, bats, roll):
+        return self.chart[bats][roll]
+
+</code></pre>
+
+<p>I will say that creating this chart objects helped me get my muscle
+memory for Emacs in a better place. So much cut-and-pasting-and-replacing
+of things!</p>
+
+<p>So there you have it, a small example of how I have started writing an
+IRC bot that:</p>
+
+<ul>
+<li>reads responses for a trigger</li>
+<li>figures out what chart to read</li>
+<li>waits for a die roll that matches expectations</li>
+<li>spits out the lookup result in channel</li>
+</ul>
+
+<p>As always, I am happy to get some advice on better ways to refactor
+and implement solutions for this code.</p>
+
+        </div>
+                    <p class="categories">
+            Categories:
+                        <a class="p-category" href="https://grumpy-learning.com/blog/categories/tools">tools</a>                        </p>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2022/12/13/current-neovim-setup/" title="Current NeoVim setup"><span class="title">Current NeoVim setup</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
                 </div>
                 <div class="col-sm-5 sidebar">
                     <div class="card bg-light">
