@@ -3,7 +3,7 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="https://grumpy-learning.com/blog/categories/tools.xml" rel="self"/>
     <link href="https://grumpy-learning.com/"/>
-    <updated>2022-12-31T17:20:36+00:00</updated>
+    <updated>2022-12-31T17:45:46+00:00</updated>
     <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
             <entry>
@@ -88,14 +88,14 @@ in this channel should be checked to see if it works with the IFR chart."</p>
         msgChannel = details[-4].strip()
         roll = details[-1].strip()
 
-    if (msgChannel in lookForIfrRoll and
+        if (msgChannel in lookForIfrRoll and
                 batterHand[msgChannel] in validBatterHand and
                 len(roll) == 2):
-        irc.send(
-             msgChannel, ifrChart.lookup(batterHand[msgChannel], roll)
-        )
-        del lookForIfrRoll[msgChannel]
-        del batterHand[msgChannel]
+            irc.send(
+                 msgChannel, ifrChart.lookup(batterHand[msgChannel], roll)
+            )
+            del lookForIfrRoll[msgChannel]
+            del batterHand[msgChannel]
 
 </code></pre>
 

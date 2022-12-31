@@ -134,14 +134,14 @@ in this channel should be checked to see if it works with the IFR chart."</p>
         msgChannel = details[-4].strip()
         roll = details[-1].strip()
 
-    if (msgChannel in lookForIfrRoll and
+        if (msgChannel in lookForIfrRoll and
                 batterHand[msgChannel] in validBatterHand and
                 len(roll) == 2):
-        irc.send(
-             msgChannel, ifrChart.lookup(batterHand[msgChannel], roll)
-        )
-        del lookForIfrRoll[msgChannel]
-        del batterHand[msgChannel]
+            irc.send(
+                 msgChannel, ifrChart.lookup(batterHand[msgChannel], roll)
+            )
+            del lookForIfrRoll[msgChannel]
+            del batterHand[msgChannel]
 
 </code></pre>
 
