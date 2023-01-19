@@ -1,67 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://grumpy-learning.com</loc>
-    <lastmod>2023-01-09</lastmod>
+    <loc></loc>
+    <lastmod>2023-01-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
     <url>
-    <loc>https://grumpy-learning.com/blog/2022/12/31/python-irc-bot/</loc>
+    <loc>/blog/2023/01/19/monkeypatching-in-php/</loc>
+    <lastmod>2023-01-19T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+    <url>
+    <loc>/blog/2022/12/31/python-irc-bot/</loc>
     <lastmod>2022-12-31T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
     <url>
-    <loc>https://grumpy-learning.com/blog/2022/12/13/current-neovim-setup/</loc>
+    <loc>/blog/2022/12/13/current-neovim-setup/</loc>
     <lastmod>2022-12-13T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
     <url>
-    <loc>https://grumpy-learning.com/blog/2022/12/06/testing-decoupled-code/</loc>
+    <loc>/blog/2022/12/06/testing-decoupled-code/</loc>
     <lastmod>2022-12-06T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
     <url>
-    <loc>https://grumpy-learning.com/blog/2022/11/22/why-isnt-testing-ubiquitous/</loc>
+    <loc>/blog/2022/11/22/why-isnt-testing-ubiquitous/</loc>
     <lastmod>2022-11-22T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
     <url>
-    <loc>https://grumpy-learning.com/blog/2022/11/18/a-grumpy-posse/</loc>
+    <loc>/blog/2022/11/18/a-grumpy-posse/</loc>
     <lastmod>2022-11-18T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
     <url>
-    <loc>https://grumpy-learning.com/blog/2022/11/12/federating-yourself/</loc>
+    <loc>/blog/2022/11/12/federating-yourself/</loc>
     <lastmod>2022-11-12T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
     <url>
-    <loc>https://grumpy-learning.com/blog/2022/01/14/asking-companies-about-testing/</loc>
+    <loc>/blog/2022/01/14/asking-companies-about-testing/</loc>
     <lastmod>2022-01-14T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
     <url>
-    <loc>https://grumpy-learning.com/blog/2022/01/05/solving-problems-with-profiling/</loc>
+    <loc>/blog/2022/01/05/solving-problems-with-profiling/</loc>
     <lastmod>2022-01-05T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
     <url>
-    <loc>https://grumpy-learning.com/blog/2022/01/02/better-outcomes/</loc>
+    <loc>/blog/2022/01/02/better-outcomes/</loc>
     <lastmod>2022-01-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
     <url>
-    <loc>https://grumpy-learning.com/blog/2021/12/30/repeatable-dev-environments/</loc>
+    <loc>/blog/2021/12/30/repeatable-dev-environments/</loc>
     <lastmod>2021-12-30T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>

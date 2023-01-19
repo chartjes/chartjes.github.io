@@ -1,16 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title><![CDATA[Grumpy Learning]]></title>
-    <link href="https://grumpy-learning.com/atom.xml" rel="self"/>
-    <link href="https://grumpy-learning.com/"/>
-    <updated>2023-01-09T22:31:23+00:00</updated>
-    <id>https://grumpy-learning.com/</id>
+    <link href="/atom.xml" rel="self"/>
+    <link href="/"/>
+    <updated>2023-01-19T20:34:29+00:00</updated>
+    <id>/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
             <entry>
+            <title type="html"><![CDATA[Monkey patching in PHP]]></title>
+            <link href="/blog/2023/01/19/monkeypatching-in-php/"/>
+            <updated>2023-01-19T00:00:00+00:00</updated>
+            <id>/blog/2023/01/19/monkeypatching-in-php/</id>
+            <content type="html"><![CDATA[<h2 id="what-is-monkey-patching%3F">What is monkey patching?</h2>
+
+<p>I first learned about <a href="https://en.wikipedia.org/wiki/Monkey_patch">monkey patching</a> via the Ruby community. Due to how
+the language worked, Rubyists tended to override dependencies in their
+tests at run-time, rather than using <a href="https://en.wikipedia.org/wiki/Test_double">test doubles</a>.
+Personally I find the ability to redefine <em>any</em> part of the language to be interesting. It 
+certainly does make testing easier.</p>
+
+<p>Now, PHP doesn't support the sort of <a href="https://en.wikipedia.org/wiki/Metaprogramming">metaprogramming</a> that lends
+itself to making monkey patching easy. Sure, you used to be able to use the Runkit extension but
+these days, it's not being maintained. So, when we run into a situation where you need to redefine
+some functionality at run time, your options are limited.</p>
+
+<h2 id="when-to-use-it%3F">When to use it?</h2>
+
+<p>Like I said before, it can be an alternative to using test doubles. But there are also some
+interesting scenarios where, due to both PHP's behaviour and the architecture of an application,
+we can make a change at run time.</p>
+
+<p>At my <a href="https://smartours.com">current gig</a> I was adding some functionality
+to verify some objects representing the prices of objects are configured
+correctly. One of my tests was to ensure that a specific exception was
+being triggered, and that meant creating a new exception object that
+extended a "loggable" one.</p>
+
+<p>This is code that is being implemented as a <a href="https://wordpress.org/plugins/">plugin</a>
+for WordPress and the logging object I needed to use had some very
+WordPress-specific functionality in it. But I didn't want to have to use all
+the WordPress-specific stack just for this test. On top of this, the logging
+object wasn't in a namespace that my <a href="https://phpunit.de">PHPUnit</a> tests could
+even see.</p>
+
+<p>So what were my options? My first was to modify the <a href="https://getcomposer.org">Composer</a>
+autoloading configuration and add the namespace to it. I then had a way to
+"force" logging into "test mode" but I wasn't entirely happy with it. The
+tests passed, the exception was being triggered, but I had worries in the back
+of my mind about whether or not we'd have to do something to the WordPress
+side of the application in order to support this.</p>
+
+<p>A co-worker showed me how they were already overriding some things at run-time,
+so it was better to go with what was already working. Introducing uncertainty
+into our application was not the end goal. Here was their solution:</p>
+
+<p>There was an existing <code>test/bootstrap.php</code> file so it was suggested to add a run-time
+check to see if the application was attempting to instantiate our logging
+object via an autoloader and then instead tell it to use a different one.</p>
+
+<p>First, a replacement logger was created...</p>
+
+<pre><code class="php">&lt;?php
+
+namespace Smartours\Log;
+
+use Monolog\Handler\NullHandler;
+use Monolog\Logger;
+
+class Log
+{
+    public static function logger(): Logger
+    {
+        $logger = new Logger('generic');
+        $logger-&gt;pushHandler(new NullHandler());
+
+        return $logger;
+    }
+}
+
+</code></pre>
+
+<p>...and then we just included it in our bootstrap file.</p>
+
+<pre><code>require __DIR__ . '/bootstrap/SmartoursLog.php';
+</code></pre>
+
+<p>Now, my code that is calling an exception...that needs that
+base <code>Log</code> object...will use my <a href="https://en.m.wikipedia.org/wiki/Mock_object">fake</a>
+instead.</p>
+
+<p>The test passes and all is in order again.</p>
+
+<h2 id="what-are-some-alternatives%3F">What are some alternatives?</h2>
+
+<p>In a more testable world, what logging object the code is
+expecting to use could be done via a configuration file. We'd
+still be creating a fake logger, but the mechanism to load it
+would be different. Most "modern" PHP web application frameworks
+support the use of <a href="https://en.m.wikipedia.org/wiki/Service_locator_pattern">service locaters</a>
+and they can be leveraged to make sure your tests have access
+to the dependencies they need.</p>
+
+<p>In the future, if we ever needed to add tests for things like making
+sure the message the exception we throw shows up in the correct log
+file, this solution will have to adapt to those needs.</p>
+
+<p>As always, everyone's testing situation is different and finding
+one that fits your need is more important than being perfect..</p>
+]]></content>
+        </entry>
+            <entry>
             <title type="html"><![CDATA[How a grumpy programmer writes Python IRC bots]]></title>
-            <link href="https://grumpy-learning.com/blog/2022/12/31/python-irc-bot/"/>
+            <link href="/blog/2022/12/31/python-irc-bot/"/>
             <updated>2022-12-31T00:00:00+00:00</updated>
-            <id>https://grumpy-learning.com/blog/2022/12/31/python-irc-bot/</id>
+            <id>/blog/2022/12/31/python-irc-bot/</id>
             <content type="html"><![CDATA[<h2 id="why-python-and-why-irc%3F">Why Python and why IRC?</h2>
 
 <p>My longest-running hobby is being a member of <a href="https://www.ibl.org">tabletop simulation baseball league</a>
@@ -148,9 +251,9 @@ and implement solutions for this code.</p>
         </entry>
             <entry>
             <title type="html"><![CDATA[Current NeoVim setup]]></title>
-            <link href="https://grumpy-learning.com/blog/2022/12/13/current-neovim-setup/"/>
+            <link href="/blog/2022/12/13/current-neovim-setup/"/>
             <updated>2022-12-13T00:00:00+00:00</updated>
-            <id>https://grumpy-learning.com/blog/2022/12/13/current-neovim-setup/</id>
+            <id>/blog/2022/12/13/current-neovim-setup/</id>
             <content type="html"><![CDATA[<h2 id="grumpiness-and-neovim">Grumpiness and NeoVim</h2>
 
 <p>I have been a <a href="https://vim.org">Vim</a> user since the early 2000's.
@@ -616,9 +719,9 @@ setup useful.</p>
         </entry>
             <entry>
             <title type="html"><![CDATA[Testing decoupled PHP code?]]></title>
-            <link href="https://grumpy-learning.com/blog/2022/12/06/testing-decoupled-code/"/>
+            <link href="/blog/2022/12/06/testing-decoupled-code/"/>
             <updated>2022-12-06T00:00:00+00:00</updated>
-            <id>https://grumpy-learning.com/blog/2022/12/06/testing-decoupled-code/</id>
+            <id>/blog/2022/12/06/testing-decoupled-code/</id>
             <content type="html"><![CDATA[<p>One of the reasons many experienced developers encourage the concept of
 "decoupling your code" is so that it makes testing your code straightforward.
 I wanted to share an example of how I went about writing some tests for
@@ -892,9 +995,9 @@ out Matthias Noback's <a href="https://leanpub.com/recipes-for-decoupling">"Reci
         </entry>
             <entry>
             <title type="html"><![CDATA[Why isn&#039;t testing ubiquitous?]]></title>
-            <link href="https://grumpy-learning.com/blog/2022/11/22/why-isnt-testing-ubiquitous/"/>
+            <link href="/blog/2022/11/22/why-isnt-testing-ubiquitous/"/>
             <updated>2022-11-22T00:00:00+00:00</updated>
-            <id>https://grumpy-learning.com/blog/2022/11/22/why-isnt-testing-ubiquitous/</id>
+            <id>/blog/2022/11/22/why-isnt-testing-ubiquitous/</id>
             <content type="html"><![CDATA[<p>Over on Twitter Mathias Verraes tweeted something that immediately 
 triggered some feelings:</p>
 
@@ -972,9 +1075,9 @@ and hope they find it as useful as I have.</p>
         </entry>
             <entry>
             <title type="html"><![CDATA[A Grumpy POSSE]]></title>
-            <link href="https://grumpy-learning.com/blog/2022/11/18/a-grumpy-posse/"/>
+            <link href="/blog/2022/11/18/a-grumpy-posse/"/>
             <updated>2022-11-18T00:00:00+00:00</updated>
-            <id>https://grumpy-learning.com/blog/2022/11/18/a-grumpy-posse/</id>
+            <id>/blog/2022/11/18/a-grumpy-posse/</id>
             <content type="html"><![CDATA[<p>One of the main reasons I have decided to embrace more of
 the <a href="https://indieweb.org">IndieWeb</a> ethos is out of a desire
 to have more control over where the various things I create
@@ -1221,9 +1324,9 @@ the things you share online, I highly recommend looking into the IndieWeb. I hop
         </entry>
             <entry>
             <title type="html"><![CDATA[Federating Yourself]]></title>
-            <link href="https://grumpy-learning.com/blog/2022/11/12/federating-yourself/"/>
+            <link href="/blog/2022/11/12/federating-yourself/"/>
             <updated>2022-11-12T00:00:00+00:00</updated>
-            <id>https://grumpy-learning.com/blog/2022/11/12/federating-yourself/</id>
+            <id>/blog/2022/11/12/federating-yourself/</id>
             <content type="html"><![CDATA[<p>As I write this blog post, Twitter is convulsing as it's new
 owner Elon Musk is trying to treat a huge cruise ship like
 it's a jetski. Having cut a ton of staff and literally workshopping
@@ -1247,9 +1350,9 @@ will be syndicated out to other platforms.</p>
         </entry>
             <entry>
             <title type="html"><![CDATA[Asking Companies About Testing]]></title>
-            <link href="https://grumpy-learning.com/blog/2022/01/14/asking-companies-about-testing/"/>
+            <link href="/blog/2022/01/14/asking-companies-about-testing/"/>
             <updated>2022-01-14T00:00:00+00:00</updated>
-            <id>https://grumpy-learning.com/blog/2022/01/14/asking-companies-about-testing/</id>
+            <id>/blog/2022/01/14/asking-companies-about-testing/</id>
             <content type="html"><![CDATA[<p>This post could also be subtitled "The Grumpy Programmer's Guide to Getting Rejected at Interviews".</p>
 
 <p>Someone tagged me in a tweet...</p>
@@ -1362,9 +1465,9 @@ have an automated test suite catching issues before your users do.</p>
         </entry>
             <entry>
             <title type="html"><![CDATA[Solving Problems With Profiling]]></title>
-            <link href="https://grumpy-learning.com/blog/2022/01/05/solving-problems-with-profiling/"/>
+            <link href="/blog/2022/01/05/solving-problems-with-profiling/"/>
             <updated>2022-01-05T00:00:00+00:00</updated>
-            <id>https://grumpy-learning.com/blog/2022/01/05/solving-problems-with-profiling/</id>
+            <id>/blog/2022/01/05/solving-problems-with-profiling/</id>
             <content type="html"><![CDATA[<p>I was presented with a problem that was occurring in the <a href="https://grumpy-learning.com/blog/2021/12/30/repeatable-dev-environments/">virtual machine</a>
 I was using for client development work -- the PHP-based acceptance test suite was running
 extremely slowly. Normally it takes 12-13 minutes to run outside of the 
@@ -1484,9 +1587,9 @@ be problems, it would've taken a lot longer to come to an effective solution.</p
         </entry>
             <entry>
             <title type="html"><![CDATA[Better Outcomes]]></title>
-            <link href="https://grumpy-learning.com/blog/2022/01/02/better-outcomes/"/>
+            <link href="/blog/2022/01/02/better-outcomes/"/>
             <updated>2022-01-02T00:00:00+00:00</updated>
-            <id>https://grumpy-learning.com/blog/2022/01/02/better-outcomes/</id>
+            <id>/blog/2022/01/02/better-outcomes/</id>
             <content type="html"><![CDATA[<p>I’m not a New Year’s resolution type but here are some suggestions for my fellow devs of things I believe can lead to better outcomes:</p>
 
 <p>Learn your IDE/editor better: I spent a lot of 2021 refining my <a href="https://neovim.org">Vim</a> setup and I plan on adding increased use of <a href="https://vimwiki.github.io/">VimWiki</a> for making notes and linking things together.</p>
@@ -1500,157 +1603,6 @@ be problems, it would've taken a lot longer to come to an effective solution.</p
 <p>Remember that what people call “luck” is often you having the skills to take advantage of an opportunity.</p>
 
 <p>(This was originally posted as a Twitter thread starting with <a href="https://twitter.com/grmpyprogrammer/status/1477326886766362626">https://twitter.com/grmpyprogrammer/status/1477326886766362626</a>)</p>
-]]></content>
-        </entry>
-            <entry>
-            <title type="html"><![CDATA[Repeatable Development Environments]]></title>
-            <link href="https://grumpy-learning.com/blog/2021/12/30/repeatable-dev-environments/"/>
-            <updated>2021-12-30T00:00:00+00:00</updated>
-            <id>https://grumpy-learning.com/blog/2021/12/30/repeatable-dev-environments/</id>
-            <content type="html"><![CDATA[<p>If you have used <a href="https://docker.com">Docker</a> on a Mac
-laptop, you have likely ran into the "crossing file systems"
-issue that can lead to really poor performance in your containers.
-This becomes frustrating if you are recreating a development environment 
-for applications that rely on a lot of services (micro or otherwise)
- to run. If you are a Windows or Linux user, this sort of thing is pretty much
-a non-issue.</p>
-
-<p>It seemed like I had two choices on how to potentially deal with this.
-Choice number one was to switch to a different operating system (I have been looking
-at <a href="https://frame.work">Framework</a> laptops) but I was (LOL) grumpy about
-getting a new laptop when the 2020 13" MacBook pro I have as I write this is only slightly
-more than a year old. Okay, I could sell it. But that seems like a bunch
-of busy work.</p>
-
-<p>The second choice was to see if I could create a development environment
-that was faster and still allowed me to use Docker, which is 100% a requirement
-for the client work I am currently doing.</p>
-
-<p>In the past, other people online had hinted at the possibility of doing the development
-work inside a virtual machine. Basically like connecting to another machine
-via SSH and then doing my work in there. Good thing I am already a member of the 
-Cult of Vim.</p>
-
-<p>Okay, I think I could work with this. The next issue was HOW to do this all. I've played
-around enough with <a href="https://www.vagrantup.com/">Vagrant</a>, <a href="https://vmware.com">VMWare</a> and
-Virtual Private Servers to know that the steepest part of the curve with using
-this solution is getting configured and in a state where it useful rather than
-a time-sink or a toy.</p>
-
-<p>I am always one to extol the virtues of "better lucky than good" and I happened to
-stumble across a tweet from Mitchell Hashimoto (one of the creators of Vagrant)
-where he talked about how he does all his development work inside a VM running
-on a Mac laptop. I can't find the original tweet, but I made a note about it
-and then he did another tweet about it:</p>
-
-<blockquote>
-  <p><em>My NixOS configurations for my dev VM setup are finally sanitized and open source. They work for both Intel and Apple Silicon. And I put together a video showing how I setup a new machine!</em>
-  (originally posted at <a href="https://twitter.com/mitchellh/status/1452721115009191938">https://twitter.com/mitchellh/status/1452721115009191938</a>)</p>
-</blockquote>
-
-<p>In that tweet he also shared a link to a <a href="https://www.youtube.com/watch?v=ubDMLoWz76U">YouTube video</a> and
-the <a href="https://github.com/mitchellh/nixos-config">GitHub repo</a> that he was publicly sharing
-that you could use as a template.</p>
-
-<p>Again, in a big coincidence, Mr. Hashimoto was also using <a href="https://nixos.org">NixOS</a> as his
-VM's operating system. NixOS is a Linux distribution based on <a href="https://nixos.org/manual/nix/stable/introduction.html">Nix package manager</a>.
-Which doesn't mean much if you're not a fan of their approach.</p>
-
-<p>The reason to like Nix is that it bills itself as a <em>purely functional package manager</em>.
-If you've ever come across the "functional style" of programming then you might know
-how powerful it is to have code that has no "side effects". This means that your
-code is not doing things like writing to the file system, or updating records in a database.
-In a functional world (unless the code is supposed return something random) it is easy
-to test code because the same input should always generate the same output.</p>
-
-<p>If you apply this to package management, it means your are choosing and installing dependencies
-in such a way that you can isolate them from each other. It can be difficult to have, for example,
-two different versions of PHP installed for your use unless you are relying on third party tools
-to keep track of what version should be active.</p>
-
-<p>Nix handles this by forcing you to declare any dependencies explicitly. No more
-worrying about globally-installed libraries causing incompatibility problems. 
-Want to see if your PHP project runs on 7.4, 8.0, and 8.1? You can do that easily
-with NixOS and it's tooling.</p>
-
-<p>I guess you can tell I am a fan of NixOS and look forward to using it a lot more.</p>
-
-<p>The idea from a high level is this: given a NixOS VM running in VMWare (I am using
-VMWare Fusion) it should take less than 10 minutes to create a development
-environment configured with my preferred tools installed from scratch.</p>
-
-<p>The repo he provides is definitely not ready to go as-is. You will need to modify
-a lot of the things in there -- I know I did. It took about a week of poking at it,
-creating and destroying lots of VM's, and learning how NixOS wants to do things to
-get it to the point where I could get it up and running and actually use it.</p>
-
-<p>I ended up removing a bunch of tools that are related to Mitchell's work on Docker
-and added a few things I knew I was going to need for my work with this client. It
-also took me a while to figure out how to generate a hash for the password for the 
-user account the build-and-configure process can create for you. But in the
-end I had a VM up and running (that I could also SSH into if I wanted to)</p>
-
-<p>By default, the VM uses a graphical interface with a <a href="https://i3wm.org/">tiling window manager</a>
-and you type Command-N on your Mac and it opens up a terminal session in 
-<a href="https://sw.kovidgoyal.net/kitty/">Kitty</a> and you are ready to go!.</p>
-
-<p>I also had modified the configuration to install Docker and the related
-command-line tools. Once I cloned the client repo all I had to do was
-<code>make build</code> to create the Docker containers the development environment
-needed and <code>make unit</code> to run the unit test suite in less than half the time.</p>
-
-<p>So what is the point of doing all this work? Let's go back to my original
-problem. Running a test suite that used a development environment consisting
-of multiple Docker containers was incredibly slow. Running on my Mac (and giving
-Docker half the cores and half the available memory) it takes about 80 seconds.
-Running inside a VM that has access to the same resources takes about 35 seconds.</p>
-
-<p>If you've never done a development work flow of "make a change, run a process to 
-verify the change works as expected" for a large chunk of your work day then perhaps
-you don't think this is a big deal. Every loop also has come context switching
-as you try and figure out what happened. If you do this 100 times in a day, you
-probably want this loop to run as quickly as possible.</p>
-
-<p>I don't know if there is a phrase or concept or "law" about this sort of perception-versus-reality
-issue, but I find myself wanting to get things done FASTER when the process by
-which results are determined gets SLOWER. When my test suite runs in 30 seconds,
-I feel like I have lots of time to solve the problem. When it takes a minute-and-a-half
-I get...anxious? Maybe that's the wrong emotion. I know something takes too long 
-when I start muttering to myself "this is taking too <insert preferred swear word> long.".</p>
-
-<p>With the "happens faster than before" issue solved, I find the next benefit to be 
-as I learn how to use Nix to build repeatable environments, a major mistake can be 
-solved by deleting the VM and trying again. Maybe 20 minutes tops to get back to 
-where I was. When I mess up my development environment
-on my MacBook (OS update or maybe <a href="https://brew.sh/">Homebrew</a> updates an underlying
-dependency) it can be a whole afternoon spent trying to "fix whatever I broke."</p>
-
-<p>It's not clear there will ever be any kind of solution for the "crossing file systems"
-issue that leads to Docker performing so poorly. My fellow programmers who are
-running the newer MacBooks that use Apple's new chips tell me performance is 
-quite good. Spending another CAD$3k so Docker runs faster seems like a waste of 
-money to me, but that is just a personal opinion.</p>
-
-<p>I used to be someone who lived on the bleeding edge when it came to their software.
-As I got older and grumpier I started to value stability and repeatability in my 
-software more. A development environment that can be built using <a href="https://www.gnu.org/software/make/">Make</a>
-and a VM is one I can rely on to start me off at a known point, exhibiting
-behaviour I am expecting. Almost like the benefits of a test suite!</p>
-
-<p>Doing this NixOS-in-a-VM stuff relies on you having some experience with Linux 
-environments. I did run Linux as my desktop environment for several years 
-before I started buying Apple hardware (which I've done since 2002) and 
-MacOS's "<a href="https://en.wikipedia.org/wiki/Berkeley_Software_Distribution">BSD</a> with a pretty window manager" approach also let me use those
-command-line skills.</p>
-
-<p>I highly recommend watching Mitchell's YouTube video as he explains how the
-whole process works. I found it useful because he explains the philosophy of 
-his approach. Understanding WHY someone does things can often lead you to 
-quicker insights as to what needs to change to fit your needs.</p>
-
-<p>If you do get it all set up, let me know your experiences. With some effort
-I can probably create a more generic version of my set up and create a GitHub
-repo with all the files in it.</p>
 ]]></content>
         </entry>
     </feed>

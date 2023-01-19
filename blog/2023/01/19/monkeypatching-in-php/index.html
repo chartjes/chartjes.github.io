@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head lang="en">
-        <title>About &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <title>Monkey patching in PHP &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
         <meta charset="utf-8">
         <meta name="theme-color" content="#ffffff">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-                    <meta name="robots" content="noindex, follow">
-                <link rel="stylesheet" href="/build/app.css">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="/build/app.css">
 
         <link rel="apple-touch-startup-image" href="/build/2048x2048.png">
         <meta name="mobile-web-app-capable" content="yes">
@@ -52,18 +52,120 @@
         <main role="main" class="container">
             <div class="row">
                 <div class="col-sm-7">
-                    <h1 id="about-chris-hartjes">About Chris Hartjes</h1>
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Monkey patching in PHP</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <h2 id="what-is-monkey-patching%3F">What is monkey patching?</h2>
 
-<p>I've been building web sites of all shapes and sizes, mostly in PHP
-since 1998. Around 2003 I discovered unit testing and automated testing
-and haven't stopped trying to tell everyone about it since.</p>
+<p>I first learned about <a href="https://en.wikipedia.org/wiki/Monkey_patch">monkey patching</a> via the Ruby community. Due to how
+the language worked, Rubyists tended to override dependencies in their
+tests at run-time, rather than using <a href="https://en.wikipedia.org/wiki/Test_double">test doubles</a>.
+Personally I find the ability to redefine <em>any</em> part of the language to be interesting. It 
+certainly does make testing easier.</p>
 
-<p>These days I am doing full-time consulting work mostly using PHP with a focus on quality code
-and automated testing. You can get in touch with me
-through email at <a href="mailto:chartjes@grumpy-learing.com">chartjes@grumpy-learning.com</a>.</p>
+<p>Now, PHP doesn't support the sort of <a href="https://en.wikipedia.org/wiki/Metaprogramming">metaprogramming</a> that lends
+itself to making monkey patching easy. Sure, you used to be able to use the Runkit extension but
+these days, it's not being maintained. So, when we run into a situation where you need to redefine
+some functionality at run time, your options are limited.</p>
 
-<p>If you're interested in my work background, feel free to take a look
-at my profile up on <a href="https://www.linkedin.com/in/chris-hartjes-20774a1a4/">LinkedIn</a>.</p>
+<h2 id="when-to-use-it%3F">When to use it?</h2>
+
+<p>Like I said before, it can be an alternative to using test doubles. But there are also some
+interesting scenarios where, due to both PHP's behaviour and the architecture of an application,
+we can make a change at run time.</p>
+
+<p>At my <a href="https://smartours.com">current gig</a> I was adding some functionality
+to verify some objects representing the prices of objects are configured
+correctly. One of my tests was to ensure that a specific exception was
+being triggered, and that meant creating a new exception object that
+extended a "loggable" one.</p>
+
+<p>This is code that is being implemented as a <a href="https://wordpress.org/plugins/">plugin</a>
+for WordPress and the logging object I needed to use had some very
+WordPress-specific functionality in it. But I didn't want to have to use all
+the WordPress-specific stack just for this test. On top of this, the logging
+object wasn't in a namespace that my <a href="https://phpunit.de">PHPUnit</a> tests could
+even see.</p>
+
+<p>So what were my options? My first was to modify the <a href="https://getcomposer.org">Composer</a>
+autoloading configuration and add the namespace to it. I then had a way to
+"force" logging into "test mode" but I wasn't entirely happy with it. The
+tests passed, the exception was being triggered, but I had worries in the back
+of my mind about whether or not we'd have to do something to the WordPress
+side of the application in order to support this.</p>
+
+<p>A co-worker showed me how they were already overriding some things at run-time,
+so it was better to go with what was already working. Introducing uncertainty
+into our application was not the end goal. Here was their solution:</p>
+
+<p>There was an existing <code>test/bootstrap.php</code> file so it was suggested to add a run-time
+check to see if the application was attempting to instantiate our logging
+object via an autoloader and then instead tell it to use a different one.</p>
+
+<p>First, a replacement logger was created...</p>
+
+<pre><code class="php">&lt;?php
+
+namespace Smartours\Log;
+
+use Monolog\Handler\NullHandler;
+use Monolog\Logger;
+
+class Log
+{
+    public static function logger(): Logger
+    {
+        $logger = new Logger('generic');
+        $logger-&gt;pushHandler(new NullHandler());
+
+        return $logger;
+    }
+}
+
+</code></pre>
+
+<p>...and then we just included it in our bootstrap file.</p>
+
+<pre><code>require __DIR__ . '/bootstrap/SmartoursLog.php';
+</code></pre>
+
+<p>Now, my code that is calling an exception...that needs that
+base <code>Log</code> object...will use my <a href="https://en.m.wikipedia.org/wiki/Mock_object">fake</a>
+instead.</p>
+
+<p>The test passes and all is in order again.</p>
+
+<h2 id="what-are-some-alternatives%3F">What are some alternatives?</h2>
+
+<p>In a more testable world, what logging object the code is
+expecting to use could be done via a configuration file. We'd
+still be creating a fake logger, but the mechanism to load it
+would be different. Most "modern" PHP web application frameworks
+support the use of <a href="https://en.m.wikipedia.org/wiki/Service_locator_pattern">service locaters</a>
+and they can be leveraged to make sure your tests have access
+to the dependencies they need.</p>
+
+<p>In the future, if we ever needed to add tests for things like making
+sure the message the exception we throw shows up in the correct log
+file, this solution will have to adapt to those needs.</p>
+
+<p>As always, everyone's testing situation is different and finding
+one that fits your need is more important than being perfect..</p>
+
+        </div>
+                    <p class="categories">
+            Categories:
+                        <a class="p-category" href="/blog/categories/testing">testing</a>,                         <a class="p-category" href="/blog/categories/PHP">PHP</a>                        </p>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                                                <li>Previous: <a class="previous" href="/blog/2022/12/31/python-irc-bot/" title="How a grumpy programmer writes Python IRC bots"><span class="title">How a grumpy programmer writes Python IRC bots</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
                 </div>
                 <div class="col-sm-5 sidebar">
                     <div class="card bg-light">
