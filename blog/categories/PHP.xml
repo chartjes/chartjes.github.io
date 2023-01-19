@@ -3,7 +3,7 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="/blog/categories/PHP.xml" rel="self"/>
     <link href="/"/>
-    <updated>2023-01-19T20:34:29+00:00</updated>
+    <updated>2023-01-19T20:55:32+00:00</updated>
     <id>/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
             <entry>
@@ -50,7 +50,7 @@ tests passed, the exception was being triggered, but I had worries in the back
 of my mind about whether or not we'd have to do something to the WordPress
 side of the application in order to support this.</p>
 
-<p>A co-worker showed me how they were already overriding some things at run-time,
+<p>A <a href="https://phpc.social/@omerida">co-worker</a> showed me how they were already overriding some things at run-time,
 so it was better to go with what was already working. Introducing uncertainty
 into our application was not the end goal. Here was their solution:</p>
 
