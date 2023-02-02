@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>How a Grumpy Programmer wires their home for internet &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">How a Grumpy Programmer wires their home for internet</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>Back at the beginning of August my long-suffering wife and I packed
+up our possessions and moved almost 2 hours away to a small village
+of ~2500 people into a house on a street that doesn't seem to show
+up on a lot of major GPS systems. Luckily it shows up both on Apple
+and Google maps, and there is a <a href="https://en.wikipedia.org/wiki/Tim_Hortons">Tim Hortons</a>
+close by to act as a known landmark and guide people in.</p>
+
+<p>With the move came an opportunity to Do Something Different with the
+home wireless setup. In the past, I used a good, consumer-grade home
+wireless router and it was usually good enough. Sometimes my oldest
+daughter (her room was the furthest away from the wifi router) would
+complain about poor signal, so I bought some <a href="http://www.tp-link.com/us/home-networking/network-extenders/range-extenders">wifi extenders</a>
+and those did the trick.</p>
+
+<p>So this sort of thing was great...but I felt like I was not prepared
+for the near-future, which is a home filled with all sorts of devices
+that will connect via wifi to do things. I got a <a href="https://nest.com/thermostats/nest-learning-thermostat/overview/">Nest thermostat</a> and was going to have an <a href="https://www.amazon.com/dp/B06Y6FSV5Q/?tag=thewire06-20&amp;linkCode=xm2&amp;ascsubtag=AgEAAAAAAAAAAMEe">awesome TV</a> that needed a network connection. I also would have an older <a href="https://www.roku.com">Roku</a>
+device that would want to be on the network. Not to mention my own
+devices for work...and my wife's iPad and iPhone...and devices my
+kids were going to be using.</p>
+
+<p>In short, I wanted to future-proof my network somewhat and try and
+anticipate an explosion of devices that would need to be connected
+to it. Yes, I am aware of some security implications and I am going
+to be working on minimizing the exposure these things will have to
+my network.</p>
+
+<p>At some point I came across Troy Hunt's great blog post explaining
+how he <a href="https://www.troyhunt.com/wiring-a-home-network-from-the-ground-up-with-ubiquiti/">helped wire his brother's home</a>
+with some great networking hardware. I clearly am not re-inventing
+the wheel here -- Troy's template is one that I would absolutely
+follow...if you have the ability to run wires in your home.</p>
+
+<p>In my case, it was not going to be a problem. The previous owner had
+been using VoIP for their phones so there were already several wired
+connections backed by cat5. I was going to need some other lines run
+throughout the house but it was not going to be an issue.</p>
+
+<p>So I ended up with most of the hardware Troy recommended in his blog
+post:</p>
+
+<ul>
+<li>7 in-wall 802.11ac access points throughout the house</li>
+<li>1 24-port Power-over-ethernet switch</li>
+<li>1 security gateway device that I am slowly learning how to configure correctly</li>
+<li>4 cat5 connections for the access points</li>
+<li>3 cat6 connections for the other access points</li>
+<li>6u server cabinet (helpfully mounted on the wall) for all the equipment</li>
+</ul>
+
+<p>I kept my existing <a href="https://www.netgear.com/home/products/networking/wifi-routers/R6400.aspx">wifi router</a>,
+converted it to an access point, and plugged
+it into the switch because my youngest's Netbook refused to connect to the new hardware.</p>
+
+<p>But why go to all this trouble and expense (it cost me CDN$2k for hardware and another CDN$1.5k for the cabling work) for
+my home network? Flexibility. This setup will be great for as long as gigabit
+ethernet remains faster than anything I can get at my home. Right now our
+<a href="http://quadro.net">local internet provider</a> provides me with 50Mbps down / 5 Mbps
+up over coax -- the modem is mounted on the wall next to the cabinet.
+At some point they will be upgrading connections around here -- less than 1km 
+away they are building a brand new subdivision with gigabit fiber being run to
+homes. When the time comes, I'll just have to update the modem...and nothing
+else. Maybe at some point <a href="https://www.ubnt.com">Ubiquiti</a> releases some nicer in-room access points.
+I can just swap my old ones for the new ones and everything else will just still
+work great.</p>
+
+<p>Each room has an access point now that covers a small area. The equipment smoothly
+handles transitions from one location to another, and I can get to see some
+cool reports about who is doing what (how much is my youngest watching YouTube?!?)
+and adding and removing hardware for this setup is easy.</p>
+
+<p>I highly recommend this type of setup for your home:</p>
+
+<ul>
+<li>centralized location of a switch near where your modem / internet connection enters</li>
+<li>wired connections to multiple locations, terminating near the switch</li>
+<li>in-wall or very small, unobtrusive access points</li>
+</ul>
+
+<p>I realize not everyone can do this -- apartments and older homes make this very
+impractical. I would recommend looking into mesh networks (Ubiquiti's consumer
+line of Amplifi look really good) to give yourself sufficient capacity. The
+number of network-aware or even network-required devices is only to go up, not down. If you can get out in
+front of it a little bit you'll be in a great spot to take advantage of it.</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2018/01/05/what-a-grumpy-programmer-uses-2018-edition/" title="What A Grumpy Programmer Uses - 2018 Edition"><span class="title">What A Grumpy Programmer Uses - 2018 Edition</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2017/09/06/who-coaches-the-coaches/" title="Who Coaches The Coaches?"><span class="title">Who Coaches The Coaches?</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

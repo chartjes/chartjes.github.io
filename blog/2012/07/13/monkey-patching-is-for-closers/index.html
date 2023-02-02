@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Monkey-patching is for closers &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Monkey-patching is for closers</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>My co-worker <a href="http://jtreminio.com">Juan Treminio</a> brought to my attention this interesting
+blog post by someone advocating <a href="http://antecedent.github.com/a-time-and-place-for-monkey-patching.html">monkey-patching strtotime in order to test his code</a>.</p>
+
+<p>For those not familiar with the term, first I suggest you go read what <a href="https://en.wikipedia.org/wiki/Monkey_patch">Wikipedia says about it</a>
+and then try and understand why it is, in 99.999% of cases, a practice best left to 
+real experts at dynamic languages that allow redefinition of methods at run time.
+And definitely a terrible practice to recommend for testing purposes.</p>
+
+<p>The use of monkey-patching is extremely prevalent in the Ruby community and
+also to a certain extent in Python usage. I'm not going to go into length
+about their use of it except to say that it seems quite common and I think
+most developers are using it as a shortcut to counter what might be poor
+code architecture decisions. Perhaps some Rubyists could provide me with
+some good examples of why it is so popular amongst them. I don't hate
+Ruby, let's be extremely clear about that.</p>
+
+<p>So, our blog post author submits some code that needs testing:</p>
+
+<pre><code>function deleteOldPosts()
+{
+    $threshold = strtotime("-1 year");
+    # Fetch all posts older than $threshold from the database
+    $oldPosts = Post::findAll(["timestamp" =&gt; ["&lt;" =&gt; $threshold]]);
+    foreach ($oldPosts as $oldPost) {
+        $oldPost-&gt;delete();
+    }
+}
+</code></pre>
+
+<p>Quite correctly he points out that this code would be difficult to test...so he
+then goes on to explain that using <a href="http://php.net/manual/en/book.runkit.php">runkit</a> to
+monkey-patch strtotime and what is this I don't even...</p>
+
+<p>I will start of by showing a subtle set of refactorings that would make this 
+code testable, and then explode into a rant afterwards.</p>
+
+<p>First, the threshold should be injected.</p>
+
+<pre><code>function deleteOldPosts($threshold)
+{
+    # Fetch all posts older than $threshold from the database
+    $oldPosts = Post::findAll(["timestamp" =&gt; ["&lt;" =&gt; $threshold]]);
+    foreach ($oldPosts as $oldPost) {
+        $oldPost-&gt;delete();
+    }
+}
+</code></pre>
+
+<p>Second, you replace the static method call with an object instantiation
+and a normal method call.</p>
+
+<pre><code>function deleteOldPosts($threshold)
+{
+    # Fetch all posts older than $threshold from the database
+    $post = new Post();
+    $oldPosts = $post-&gt;findAll(["timestamp" =&gt; ["&lt;" =&gt; $threshold]]);
+    foreach ($oldPosts as $oldPost) {
+        $oldPost-&gt;delete();
+    }
+}
+</code></pre>
+
+<p>Third, you inject your Post object into your function.</p>
+
+<pre><code>function deleteOldPosts(Post $post, $threshold)
+{
+    $oldPosts = $post-&gt;findAll(["timestamp" =&gt; ["&lt;" =&gt; $threshold]]);
+    foreach ($oldPosts as $oldPost) {
+        $oldPost-&gt;delete();
+    }
+}
+</code></pre>
+
+<p>No runkit. No monkey-patching. No justification for doing stuff like this
+instead of the correct, long, hard, difficult slog through a legacy code base
+to do things the right way this time instead of compounding the problem.</p>
+
+<p>The other day on Twitter I commented that I felt that any blogger who does
+a post that contains code in ANY programming language needs to understand
+a few things:</p>
+
+<ul>
+<li>your code might be wrong</li>
+<li>your approach might be wrong</li>
+<li>people will take your advice as being canonical or idiomatic</li>
+</ul>
+
+<p>I am all for people sharing knowledge that they have gained. Hell, it's 
+how I've made my entire career. But don't go advocating solutions to
+problems when there are much more straight-forward solutions available.</p>
+
+<p>The issue with that original method isn't that you need to monkey-patch
+strtotime(). The issue is the coding decisions that led you to think that
+monkey-patching ANYTHING was the way to do it.</p>
+
+<p>There are no shortcuts to testing things. It's extra work during development 
+to save you extra work at deployment. Unless you start off a project doing
+TDD, you will have to refactor your code to make it work. Do not pretend
+otherwise, and do not advocate the use of something that should only be
+used in specific, well-understood circumstances as a shortcut for testing
+your code without modifying it.</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2012/07/27/php-application-testing-bootcamp/" title="PHP Application Testing Bootcamp"><span class="title">PHP Application Testing Bootcamp</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2012/06/20/yummy-sauce-on-my-behat/" title="Yummy sauce on my Behat"><span class="title">Yummy sauce on my Behat</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

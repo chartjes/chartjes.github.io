@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Deployment Rule #5: The only difference between environments should be data sets &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Deployment Rule #5: The only difference between environments should be data sets</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>One of the 6 "rules" I came up with for my talk on application deployment at <a href="http://www.openwebvancouver.ca">Open Web Vancouver</a> was that the only difference between your development environment and your production environment should be data sets.  My friend Juan, who works as the software architect at the adult dating site I used to work for, talked with me via IM about how that rule isn't always true.
+</p>
+
+<p>
+A little background on this is necessary.  They are still using the same development setup today that was in place when I was there, in that they have given each developer a server that uses jails (this is a FreeBSD thing) to simulate having all the servers they would have in production.  A great solution, one that is still great today.  It made writing architecture-specific code (i.e. testing that an application server could talk to a queue processing server for a specific task) very simple.  So, in this case I believe that they had a development environment that matches production as closely as you can get.
+</p>
+
+<p>
+But then Juan mentioned that they are using <a href="http://www.zend.com/en/products/platform/">Zend Platform</a> on their production servers, and it wasn't possible to give everyone a copy of Zend Platform on their development servers due to licensing.  While Zend Platform is a great product, well, you've just introduced an extra variable into your application development and deployment process.  Now, your development environment will never be the same as production and you are increasing the likelihood that you will encounter "production-only" bugs, which are the hardest to solve.
+</p>
+
+<p>I have great respect for Juan (he's near the top of my list of the smartest developers I've worked with), but rule #5 still the best one to follow.  While you gain from using something like Zend Platform in production because of all the extras you get, you end up with a development environment very far from what is using in production. Just make sure that you understand the implications of that decision.
+</p>
+
+<p>
+Also, there is something else hidden inside rule #5.  If you have differences between environments, make sure you understand what those differences are and take steps to minimize their impact.  For example, I run Apache2 + PHP 5.2.5 compiled from source + Postgres 8.25 from a package for OS-X & MySQL 5.0.45  from a package for OS-X on my laptop, which is my main development environment.  On my VPS (which hosts this blog) I'm running Nginx + PHP 5.2.5 modified under Gentoo with USE flags + MySQL 5.0.54 under Gentoo.  So, that means I'm running mod_php on my dev, but using FastCGI on my "production".
+</p>
+
+<p>
+Has this been a problem?  Nothing yet *but* if I ever got serious about running something other than my blog I would definitely consider configuring my VPS to use Apache 2 and PHP with the same configuration options as I have in dev, so that I have consistency in environments.  Django is recommending Apache + mod_python so I may be doing this sooner rather than later.
+</p>
+
+<p>
+So, remember, the goal is to have your dev and production environments the same.  But if you can't have the same, you better be damn sure you understand what the differences are so you don't end up saying stuff like <a href="https://www.littlehart.net/workz-for-me-u-must-b-dum.jpg">this</a>.
+</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2008/05/02/whats-in-chris-brain-may-2008-edition/" title="What&#039;s In Chris&#039; Brain - May 2008 Edition"><span class="title">What&#039;s In Chris&#039; Brain - May 2008 Edition</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2008/04/23/c7y-podcast/" title="C7Y Podcast"><span class="title">C7Y Podcast</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

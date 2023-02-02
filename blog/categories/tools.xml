@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title><![CDATA[Grumpy Learning]]></title>
-    <link href="/blog/categories/tools.xml" rel="self"/>
-    <link href="/"/>
-    <updated>2023-01-19T20:55:32+00:00</updated>
-    <id>/</id>
+    <link href="https://grumpy-learning.com/blog/categories/tools.xml" rel="self"/>
+    <link href="https://grumpy-learning.com/"/>
+    <updated>2023-02-02T18:35:45+00:00</updated>
+    <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
             <entry>
             <title type="html"><![CDATA[How a grumpy programmer writes Python IRC bots]]></title>
-            <link href="/blog/2022/12/31/python-irc-bot/"/>
+            <link href="https://grumpy-learning.com/blog/2022/12/31/python-irc-bot/"/>
             <updated>2022-12-31T00:00:00+00:00</updated>
-            <id>/blog/2022/12/31/python-irc-bot/</id>
+            <id>https://grumpy-learning.com/blog/2022/12/31/python-irc-bot/</id>
             <content type="html"><![CDATA[<h2 id="why-python-and-why-irc%3F">Why Python and why IRC?</h2>
 
 <p>My longest-running hobby is being a member of <a href="https://www.ibl.org">tabletop simulation baseball league</a>
@@ -148,9 +148,9 @@ and implement solutions for this code.</p>
         </entry>
             <entry>
             <title type="html"><![CDATA[Current NeoVim setup]]></title>
-            <link href="/blog/2022/12/13/current-neovim-setup/"/>
+            <link href="https://grumpy-learning.com/blog/2022/12/13/current-neovim-setup/"/>
             <updated>2022-12-13T00:00:00+00:00</updated>
-            <id>/blog/2022/12/13/current-neovim-setup/</id>
+            <id>https://grumpy-learning.com/blog/2022/12/13/current-neovim-setup/</id>
             <content type="html"><![CDATA[<h2 id="grumpiness-and-neovim">Grumpiness and NeoVim</h2>
 
 <p>I have been a <a href="https://vim.org">Vim</a> user since the early 2000's.

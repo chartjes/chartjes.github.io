@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Chris&#039; Brain - May 2009 Edition &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Chris&#039; Brain - May 2009 Edition</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <h2>Book Update</h2>
+
+<p>
+For those not following along on Twitter, the first month of sales of my <a href="https://littlehart.net/book">CakePHP book</a> have been a success:  70 PDF's and 5 print-on-demand copies via <a href="http://www.lulu.com/content/paperback-book/refactoring-legacy-applications-using-cakephp/6626981">Lulu.com</a>.  A big thanks to everyone who has purchased a copy.  My next thought has been a book about doing Test Driven Development using CakePHP, but perhaps that is just wishcasting.
+</p>
+
+<h2>Deployment Thoughts</h2>
+
+<p>
+At work I've been tweaking the deployment process for an <a href="http://www.sportsdb.org/sd/sportscaster">open source project</a> that talks to our infrastructure and came upon an interesting problem.  Like many projects, we have some configuration files that would be different from environment to environment (i.e. different database access credentials, paths to archived files) so we've chosen to instead create sample versions of those configuration files and include them in the  application when you either download it (as external clients of ours do) or update from SVN (like we do).  
+</p>
+
+<p>
+Since I like to use <a href="http://capify.org">Capistrano</a> to do deployment, I needed a way to make sure that the configuration files that are currently being used by the application get copied into the proper place.  Lucky for me, it was easy enough to add this in as a task in my Capfile:
+~~~
+  # Do nothing (To restart apache, run 'cap deploy:apache:restart')
+  task :restart do
+    run "cp /var/www/settings/sportscaster/gateway/php/config.php #{deploy_to}/current/gateway/php"
+    run "cp /var/www/settings/sportscaster/gateway/php_ci/config/gateway.config.php #{deploy_to}/current/gateway/php_ci/config"
+    run "cp /var/www/settings/sportscaster/engine/_application/config/database.php #{deploy_to}/current/engine/_application/config"
+    run "cp /var/www/settings/sportscaster/engine/_application/config/config.php #{deploy_to}/current/engine/_application/config"
+  end
+~~~
+As you can see, I've placed the configuration files in their own directory (off the web root I know, might make more sense to put them some place else but they can live there for now) and then simply copy them in place once I've deployed the latest code.  I'd be interested in seeing how other people handle this issue.
+</p>
+
+<h2>Getting paid to do open source work</h2>
+
+<p>
+I feel like I'm very fortunate to have an employer who (mostly for business reasons) has decided to make some of their projects open source so that others can use it without cost.  Sure, some of it is niche software to be sure (a web service that only works with our pay-to-use infrastructure) but still, d00d, I'm getting paid to write open source code!  We also have another project in the works, helping <a href="http://www.phpffl.com">these guys</a> create a newer, more generic version of their fantasy league management application that has hooks to allow users to pull in data from our own web services.  Sure, it's helping to drive our business but isn't that the point?  I create something that helps my company make money, and in exchange I get to share it with everyone else.  Sounds like a pretty good deal to me.
+</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2009/05/08/digging-through-the-bookmarks/" title="Digging Through The Bookmarks"><span class="title">Digging Through The Bookmarks</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2009/04/23/cakephp-application-rfc-follow-up/" title="CakePHP Application RFC Follow-Up"><span class="title">CakePHP Application RFC Follow-Up</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

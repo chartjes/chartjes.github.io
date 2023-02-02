@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Letting Emacs into your grumpy heart &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Letting Emacs into your grumpy heart</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>Yes, the rumours are true. Your grumpy blogger, a long-time and generally
+satisfied <a href="https://vim.org">Vim</a> user has decided to embrace some fear,
+turn on <a href="https://www.emacswiki.org/emacs/Evil">EVIL mode</a> and give Emacs
+a fair evaluation.</p>
+
+<p>To be truthful, I had used Emacs before. Back in 2002 I was using Linux as
+my working environment and used it because the guy sitting next to me
+(hi Kemo, wherever you are!) was using it and showed me the basics. All I
+retained over the years was C-x C-f to load files and C-x C-c to quit.</p>
+
+<p>Over the years I tried all sorts of editors -- <a href="https://www.eclipse.org/">Eclipse</a>,
+<a href="http://jedit.org/">JEdit</a>, <a href="https://macromates.com/">TextMate</a>, <a href="https://www.sublimetext.com/">Sublime Text</a> --
+before finally settling on Vim and builidng the request muscle memory along
+with the proper superior attitude.</p>
+
+<p>I also have used <a href="https://www.jetbrains.com/pycharm/">PyCharm</a> and <a href="https://www.jetbrains.com/phpstorm/">PhpStorm</a>
+because sometimes you need an IDE to help you when you are learning new languages
+beyond the beginner stage or dealing with a <a href="https://github.com/opencfp/opencfp">really complicated code base you let spin out of control</a>.
+Right tool for the right job is a real thing, not just advice that developers
+who are bitter you don't like the tool they think is "right" give.</p>
+
+<p>Vim is a great modal editor -- really powerful, and has a ridiculous amount
+of plugins that can extend Vim to make it even more useful. I've been able
+to get quite productive with it. At the same time, I can also get frustrated
+with how some stuff seemed really hard to get just right with plugins and
+how weird <a href="http://learnvimscriptthehardway.stevelosh.com/">Vimscript</a> is.</p>
+
+<p>All the while I would see Emacs stuff bubble up to the surface on Twitter or
+YouTube would recommend that I watch a video about it. I came to realize that
+Emacs is very powerful and can do pretty much everything that Vim can do.
+Plus there is EVIL mode, which allows me to use Emacs with all the HJKL goodness
+I have come to expect from Vim.</p>
+
+<p>I thought it might be constructive for me to go over my .emacs file as it
+currently stands and explain my choices. Honestly, it hasn't been that hard a
+transition using Emacs at this point. Retraining my brain to remember new
+key combinations is the harder part.</p>
+
+<pre><code>;;; Code:
+(package-initialize)
+
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("marmalade" . "https://marmalade-repo.org/packages/")
+             ("melpa-stable" . "https://stable.melpa.org/packages/")
+                       ("melpa" . "http://melpa.org/packages/")))
+</code></pre>
+
+<p>All I am gonna say here is that Emacs packaging is interesting.</p>
+
+<pre><code>;;; EVIL mode to help me transition from Vim to Emacs
+(require 'evil)
+(evil-mode 1)
+</code></pre>
+
+<p>EVIL mode is a really good Vim emulation mode for Emacs. It allows me to
+use most of the keystrokes I am comfortable with to move around within
+Emacs buffers.</p>
+
+<pre><code>;;; Some general settings
+(setq make-backup-files nil)
+(define-coding-system-alias 'UTF-8 'utf-8)
+(setq inhibit-startup-message t)
+(set-language-environment 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-selection-coding-system 'utf-8)
+(set-locale-environment "en.UTF-8")
+(prefer-coding-system 'utf-8)
+</code></pre>
+
+<p>I took these from Some Random Person's Emacs Settings. Mostly it's to make
+sure we do everything in UTF-8 and to not have my filesystem littered with
+all sorts of back-up files.</p>
+
+<pre><code>;;; Set up autocomplete
+(require 'auto-complete-config)
+(setq-default ac-sources (add-to-list 'ac-sources 'ac-source-dictionary))
+(ac-config-default)
+(global-auto-complete-mode t)
+</code></pre>
+
+<p>Autocompletition that works! Before you get all mad, I have used autocompletion
+in Vim for a long time but sometimes it wouldn't quite work properly. I have found
+Emacs autocomplete to be programming language sensitive, something I did not notice happening
+in Vim.</p>
+
+<pre><code>;;; YaSnippet
+(yas-global-mode 1)
+</code></pre>
+
+<p><a href="https://www.emacswiki.org/emacs/Yasnippet">YASnippet</a> is an Emacs mode that allows
+you to create language-specific templates to allow you to quickly generate code for
+things like for loops or if-then statements.</p>
+
+<pre><code>;;; PHP settings
+(require 'php-mode)
+(require 'php-auto-yasnippets)
+(define-key php-mode-map (kbd "C-c C-y") 'yas/create-php-snippet)
+(payas/ac-setup)
+(setq php-auto-yasnippet-php-program "/Users/chartjes/.emacs.d/Create-PHP-YASnippet.php")
+</code></pre>
+
+<p>Still gotta do PHP work despite all my Python QA work! The PHP mode is pretty solid,
+and I like being able to generate snippets for my work. Remember kids, we only have so
+many keystrokes in our fingers.</p>
+
+<pre><code>;;; Some file mappings
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+</code></pre>
+
+<p>Just telling Emacs what file endings map to what languages. Some programming-language
+modes can figure this out, Emacs wanted me to be specific about Markdown and Python</p>
+
+<pre><code>;;; Modeline
+(defvar sml/theme)
+(setq sml/theme 'powerline)
+(sml/setup)
+</code></pre>
+
+<p>If you're a Vim user who liked <a href="https://github.com/Lokaltog/vim-powerline">a cool status line</a>?
+Check out <a href="https://github.com/Malabarba/smart-mode-line/">smart-mode-line</a></p>
+
+<pre><code>;;; Flycheck
+(require 'flycheck)
+(global-flycheck-mode t)
+(setq flycheck-phpcs-standard "psr2")
+(add-to-list 'flycheck-disabled-checkers 'python-pylint)
+(add-hook 'python-mode-hook #'flycheck-mode)
+(add-hook 'python-mode-hook
+      (lambda () (flycheck-select-checker 'python-flake8)))
+(require 'flycheck-color-mode-line)
+(eval-after-load "flycheck"
+  '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
+</code></pre>
+
+<p><a href="https://github.com/flycheck/flycheck">Flycheck</a> will do on-the-fly syntax checking
+of your code. Just hook into the proper modes and you'll be good to go. Works great
+with PHP code too.</p>
+
+<pre><code>;;; JEDI autocompletion for Python
+(add-hook 'python-mode-hook 'jedi:setup)
+(defvar jedi:complete-on-dot)
+(setq jedi:complete-on-dot t)
+</code></pre>
+
+<p><a href="https://github.com/davidhalter/jedi">JEDI</a> is a cool tool for doing Python-specific
+static analysis and syntax checking for your Python code. Highly recommend it.</p>
+
+<pre><code>;;; Mageit for Git
+(require 'magit)
+(global-set-key (kbd "C-x g") 'magit-status)
+</code></pre>
+
+<p>The only Emacs mode you will ever need to do work with Git</p>
+
+<pre><code>;;; Elm-specific settings
+(require 'elm-mode)
+</code></pre>
+
+<p>Maybe one day I can do Elm for money.</p>
+
+<pre><code>;;; We will also need web mode stuff
+(require 'web-mode)
+(setq web-mode-ac-sources-alist
+  '(("php" . (ac-source-yasnippet ac-source-php-auto-yasnippets))
+    ("html" . (ac-source-emmet-html-aliases ac-source-emmet-html-snippets))
+    ("css" . (ac-source-css-property ac-source-emmet-css-snippets))))
+(add-hook 'web-mode-before-auto-complete-hooks
+          '(lambda ()
+             (let ((web-mode-cur-language
+                    (web-mode-language-at-pos)))
+               (if (string= web-mode-cur-language "php")
+                   (yas-activate-extra-mode 'php-mode)
+                 (yas-deactivate-extra-mode 'php-mode))
+               (if (string= web-mode-cur-language "css")
+                   (setq emmet-use-css-transform t)
+                 (setq emmet-use-css-transform nil)))))
+</code></pre>
+
+<p><a href="http://web-mode.org/">Web mode</a> is intended to make working with web-centric
+languages easier in that it can recoginze when you have HTML and CSS code
+mixed in with your scripting language of choice, applying different syntax
+highlighting and styling rules to them. Really neat stuff</p>
+
+<pre><code>;;; Python settings
+(require 'virtualenvwrapper)
+(venv-initialize-interactive-shells)
+(setq venv-location '("/Users/chartjes/Kinto/kinto-integration-tests/venv-kit"))
+</code></pre>
+
+<p>Did I mention that you can make Emacs aware of virtual Python environments?</p>
+
+<pre><code>;;; Settings for Corral (surrounding text with stuff)
+(global-set-key (kbd "M-9") 'corral-parentheses-backward)
+(global-set-key (kbd "M-0") 'corral-parentheses-forward)
+(global-set-key (kbd "M-[") 'corral-brackets-backward)
+(global-set-key (kbd "M-]") 'corral-brackets-forward)
+(global-set-key (kbd "M-{") 'corral-braces-backward)
+(global-set-key (kbd "M-}") 'corral-braces-forward)
+(global-set-key (kbd "M-\"") 'corral-double-quotes-forward)
+</code></pre>
+
+<p>I have relied heavily on <a href="https://github.com/tpope/vim-surround">surround.vim</a> in the past,
+<a href="https://github.com/nivekuil/corral">Corral</a> seems to be a great solution to do the same thing in Emacs.</p>
+
+<p>So there you have it! My early experiences with Emacs are good, I am slowly learning
+new keystrokes to do new things and trying to get Emacs to intelligently help me be
+a better developer.</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2017/09/06/who-coaches-the-coaches/" title="Who Coaches The Coaches?"><span class="title">Who Coaches The Coaches?</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2017/04/26/async-api-testing-in-python/" title="Async API testing in Python"><span class="title">Async API testing in Python</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

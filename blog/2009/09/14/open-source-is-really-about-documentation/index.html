@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Open Source Is Really About Documentation - Twisted vs. Tornado &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Open Source Is Really About Documentation - Twisted vs. Tornado</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>I think I can give you an executive summary of this blog post:  if the documentation for an open source project sucks, nobody but the most hardcore developers will use it.</p>
+
+<p>
+What has prompted this incredibly brilliant stating-of-the-obvious?  The reaction by those in the <a href="http://twistedmatrix.com/trac/">Twisted</a> community over Facebook's pre-emptive strike in the non-blocking Python-based web server space by open sourcing a framework they are using internally called <a href="http://www.tornadoweb.org">Tornado</a>.  Why are the Twisted folks getting all twisted (look how funny I am!) up about this?  Like any good Open Source project for people who are interested in Getting Things Done, Tornado is dissing Twisted by basically saying "yeah, we thought about using Twisted but it wasn't easy enough for us to use and we think it sucks".  I'm pretty sure I'm paraphrasing here, but you get the idea.
+</p>
+
+<p>
+Now, I have looked at Twisted and have come to the following conclusions:
+<ul>
+<li>It looks awesome</li>
+<li>It is built for people who are supposed to understand what they are doing</li>
+<li>The documentation sucks</li>
+<li>The examples on how to build anything of any significance are, to this developer, non-existant and/or difficult to find without shelling out for a possibly very-outdated book</li>
+</ul>
+Contrast this with Tornado.  I've looked at Tornado and have come to the following conclusions:
+<ul>
+<li>It looks awesome</li>
+<li>It is built for people who are supposed to understand what they are doing</li>
+<li>The documentation is inside the comments on the code which sucks only if you're not into reading the code</li>
+<li>It includes a sample application so you can see something other than Hello World</li>
+</ul>
+</p>
+
+<p>
+Am I biased towards Tornado?  You bet.  Why?  Because as hard as I tried, I could not find USEFUL documentation on how to build things using Twisted.  Maybe I didn't use the right search terms.  Maybe I didn't dig down enough links deep on the Twisted site.  Maybe I didn't fully understand the terminology or architecture of Twisted and how they different components speak to each other.
+</p>
+
+<p>
+I'll tell you this though:  I am not having any such problems with Tornado.  This is coming across as a criticism aimed towards Twisted, and I suppose that's fair.  I've noticed complaints from the Twisted community which really amount to whining.  I understand that attitude totally.  I've been there, when faced with competition that just might be doing a better job then I am doing.  But complaining that Facebook should've simply fixed up Twisted instead of writing their own is not productive.  Productive is understanding that Facebook looking at Twisted and said "this is not for us because *we* don't find it easy enough to use" is a sign that something serious is wrong with Twisted's documentation.   You could have the most awesome non-blocking web server available, but if people with who WANT to use it can't figure out HOW to use it, well, what can you say to that?  Only the most dedicated open source contributors would've done that.  Most will say "meh, I want to do this myself so I understand it" and then Twisted will die an obscure death while Tornado plunges forward gaining mindshare amongst people interested in the type of applications you can build with this technology.  In my opinion, it's all because of the lack of clear, freely available documentation for Twisted.
+</p>
+
+<p>
+If there is an online source BETTER than the Twisted site, please share the link love in the comments so I can try and do a better comparison of the two at a documentation level.  For someone like me, who is new to Python but old to the idea of web frameworks, I think that would be the fairest comparison.
+</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2009/09/24/chris-brain-almost-october-2009-edition/" title="Chris&#039; Brain - Almost October 2009 Edition"><span class="title">Chris&#039; Brain - Almost October 2009 Edition</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2009/09/10/lazyweb-help-busting-out-of-frames/" title="Lazyweb Help: Busting out of frames"><span class="title">Lazyweb Help: Busting out of frames</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

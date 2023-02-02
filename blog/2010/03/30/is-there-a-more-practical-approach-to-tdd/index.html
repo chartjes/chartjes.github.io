@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Is There A More Practical Approach To TDD? &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Is There A More Practical Approach To TDD?</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>One of the things I (foolishly perhaps) promised myself when I started up a new project at work was that I was going to use Test Driven Development (or TDD for short).  I advocated using a <a href="http://framework.zend.com">web application framework that supports good testing practices</a> and discussed how it would be beneficial when trying to track down and solve bugs to have a set of tests.  I ran through the impact of my horrible decision to use a framework without a good culture of testing in a previous project:  fixing things became tedious as I could not run automated tests to verify that things were working properly.
+</p>
+
+<p>But a funny thing has happened while building the new application.  Sadly, there are no automated tests, and the question I've been asking myself is "other than being lazy as hell, why did you not write tests?".  The answer I seem to have come up with (or justified is probably the better word) is "I don't see anything complicated in what I'm doing that I need to write a test for."  Before you dismiss my thoughts on this, consider the architecture of what I've built:
+</p>
+
+<p>
+We have a backend consisting of MySQL with two distinct databases on it:  one containing raw stats for sporting events, the other summarized records about fantasy points accumulated by players.  My thought was to make the database do all the work of crunching the numbers for me as a daily cron job and then the web front end only needs to do reads.  With proper indexing of the tables, performance is at an acceptable level with a full season's set of test data.  Sounds like a pretty decent strategy to me.
+</p>
+
+<p>
+The scripts that collect the raw data and pre-calculate fantasy point totals are written in Python.  The web site that displays the fantasy points info was done with Zend Framework.  So what sort of tests should I have written for this.  I've come around to the idea that you should write tests for things that are non-trivial.  Then you get into the problem of deciding what is non-trivial:
+<ul>
+<li>Verify that point totals are being calculated correctly</li>
+<li>Verify that when players are assigned to teams in our admin panel they actually end up, you know, being on the proper team</li>
+</ul>
+Every else seems to me to be, well, not worth testing.  Make sure teams are sorted in order of total fantasy points?  Database does that for me.  Make sure list of players for a specific team contain expected players for a team?  Um, database does that for me(?).  I can verify that players are properly changing teams in the admin panel by hand.  Of course, I shouldn't be testing things by hand, but I'm wondering if I'm either missing the point or have stumbled upon something here.
+</p>
+
+<p>
+<b>Am</b> I missing something here?  Am I doing it wrong? I do believe I need some tests, but only for the things that are not super-obvious.  I'd appreciate people's thoughts on this.  Maybe I just need someone else to look at it the app as a whole and say "we should be testing for the following things".  The curse of the lone programmer maybe?
+</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2010/04/14/you-asked-for-it-chris-awesome-but-short-guide-to-deployment-using-phing/" title="You Asked For It:  Chris&#039; Awesome But Short Guide To Deployment Using Phing"><span class="title">You Asked For It:  Chris&#039; Awesome But Short Guide To Deployment Using Phing</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2010/03/19/u-r-doin-it-wrong-adventures-with-flexible-forms-in-zend-framework/" title="\&quot;U R Doin It Wrong\&quot; - Adventures with flexible forms in Zend Framework"><span class="title">\&quot;U R Doin It Wrong\&quot; - Adventures with flexible forms in Zend Framework</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

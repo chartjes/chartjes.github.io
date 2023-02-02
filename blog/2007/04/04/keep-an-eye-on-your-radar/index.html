@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Keep An Eye On Your RADAR &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Keep An Eye On Your RADAR</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>Over at the PragDave blog (written by Dave Thomas of the Pragmatic Programmers) he has a very interesting article about a <a href="http://pragdave.pragprog.com/pragdave/2007/03/the_radar_archi.html">new architecture for web applications</a> that he calls RADAR for RESTful Application, Dumb-Ass Recipient.  Why do I think this is important?  Because it makes so much sense. :)</p>
+
+<p>
+In a nutshell, he is advocating that you build the core of your web application to supply information via a REST application server, then create a proxy server that can serve up the information in HTML format for clients that can't easily speak REST's language of XML responses, like a web browser.  He has a great section in there:
+
+<blockquote>
+Does that mean I'm down on the RESTful, CRUD based approach to application development? Not at all. For some categories of application, I think it's a great way of structuring your code. But REST isn't designed for talking to people. So let's accept that fact when creating applications. And, while we're at it, let's take advantage of the fact that HTTP is such a flexible transport. Rather than trying to design one monolithic application than has both the CRUD functionality and the smarts to be able to talk HTML to end users, why not split it into two smaller and simpler applications?
+</blockquote>
+
+So, you can still serve up your data with REST for "smart clients" that can directly manipulate the XML resulting from a REST call, but why not filter the REST response through some code that can then output a much-easier-for-humans-to-read version in HTML?
+</p>
+
+<p>
+This isn't really a radical concept, as most people are doing something similar to this already in their code.  He is just advocating doing this on a more defined level instead of just in your code.  See, in Ruby on Rails you have the ability to specify what controller / action pair you want for different output types using something called 'respond_to'.  Now, I've used it a tiny bit and while it is a very neat bit of code, it does look kind of hackish to me as well.
+</p>
+
+<p>
+Instead, continue to use a REST service as the core application server and then have, for example, an HTML application server that will read data from the REST service and manipulating so it looks real-pretty-like for display purposes.  Ironically, before I read this article I had been structuring the new IBL web site along these lines.  That site is kicking me in the ass because it's PHP 4 only, and PHP 4's XML parsing is just terrible.  Give me SimpleXML or give me death!  Nate has been helping me figure out how to use the XML object in CakePHP, but I have to do a lot of work on the data before it's in a presentable format.  Maybe I will do as Nate suggested and try pushing the XML stuff into the new Set object and see what happens.  You never know.
+</p>
+
+<p>
+Anyhow, check out the article on RADAR and see what sort of ideas it gives you in terms of restructuring the architecture of your application.  Simple is good, and this looks like a very simple architecture to understand.
+</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2007/04/05/lazyweb-need-a-t-shirt-artist/" title="Lazyweb: Need a t-shirt artist"><span class="title">Lazyweb: Need a t-shirt artist</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2007/03/31/what-do-you-mean-you-havent-had-a-code-review/" title="What Do You Mean You Haven&#039;t Had A Code Review?!?"><span class="title">What Do You Mean You Haven&#039;t Had A Code Review?!?</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Tutorial: Integrating PHP/SWF Charts with CakePHP &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Tutorial: Integrating PHP/SWF Charts with CakePHP</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>Many thanks to the CakePHP mailing list for pointing out some really dumb errors I made along the way getting this stuff to work.  It turns out that case-sensitivity does actually matter at time. :)
+</p>
+
+<p>
+Okay, for a project at <a href="http://www.verticalscope.com">work</a> I was asked to add graphs to some of the reports I'd already created.  So I looked around for solutions for graphing in PHP and stumbled upon <a href="http://www.maani.us/charts/">PHP/SWF Charts</a> as a solution.  Basically, it comes in two parts:  a Flash movie that generates the charts for you and a PHP library that sends data to the Flash movie to create those great charts.
+</p>
+
+<p>
+So, first thing I did was download the package from the PHP/SWF Charts site.  I then dumped everything into a /graphs directory in my web root.  Why?  Well, that's the only way I could get the thing working and I am a disciple who worships at the altar of Get It Done because there are other things I'd rather deal with.  I'm sure one of the CakePHP people who runs across this tutorial can correct things for me so it's all inside the framework itself.
+</p>
+
+<p>
+Now, that the library is unzipped and in it's own directory, we go and start altering the code I need to make this work.   First thing I did was add a subdirectory to my app/views directory called graphs and added in users.thtml
+~~~
+<?php
+vendor('charts');
+$chart['chart_data'] = array($header, $member_data, $visitor_data);
+$chart['chart_type'] = 'stacked area';
+$chart['axis_category'] = array('size' => 9);
+$chart['chart_grid_h'] = array('thickness' => 1);
+$chart['chart_grid_v'] = array('thickness' => 1);
+SendChartData($chart);
+?>
+~~~
+This code will pass the info I've passed to my view to the flash component.  This is the part that will spit out the chart, but I also had to add in some code to the main view for the report itself so the graph will show up
+
+~~~
+<div align = "center">
+    <br /><br />
+    Users Online For Entire Network For Last 24 Hours
+    <br /><br />
+    < ?php vendor("charts") ?>
+    < ?php echo InsertChart ('/verticalscope_stats/img/charts.swf', "/graphs/charts_library", '/verticalscope_stats/graphs/users/' . uniqid(rand(), true), 800, 250, 'FFFFFF') ?>
+</div>
+~~~
+As you can tell, I omitted a step above.  When I downloaded the charts package I stuck the charts.swf Flash movie in app/webroot/img so I can find it later.  The uniqid stuff is to make sure it doesn't get cached by your browser.
+</p>
+
+<p>
+Okay, so now here's the code I created to pull results from our database, munge the data and pass it over to the view:
+~~~
+class GraphsController extends AppController
+{
+    var $name = 'Graphs';
+    var $uses = array('OnlineUser');
+    
+    public function users()
+    {
+        // create graph for charts based on users online for the past 24 hours
+        $members = array();
+        $visitors = array();
+        $total_users = array();
+        $header = array();
+        $member_data = array();
+        $visitor_data = array();
+        
+        $this->OnlineUser->recursive = -1;      
+        $temp = $this->OnlineUser->findBySQL("SELECT MAX(ou_date) as max_ou_date FROM online_users");
+        $max_ou_date = $temp[0][0]['max_ou_date'];      
+        $result = $this->OnlineUser->findAll("DATE_SUB('$max_ou_date', INTERVAL 1 DAY) < = ou_date");
+        
+        foreach ($result as $data) {
+            // Now we have to find the top value for each hour within
+            // all the data for an hour
+            $hour = date("H:00", strtotime($data['OnlineUser']['ou_date']));
+            $site_id = $data['OnlineUser']['site_id'];
+
+            if (!isset($members[$site_id][$hour])) {
+                $members[$site_id][$hour] = 0; 
+            }
+
+            if ( $members[$site_id][$hour] < $data['OnlineUser']['members']) {
+                $members[$site_id][$hour] = $data['OnlineUser']['members'];
+            }
+
+            if (!isset($visitors[$site_id][$hour])) {
+                $visitors[$site_id][$hour] = 0;
+            }
+
+            if ( $visitors[$site_id][$hour] < $data['OnlineUser']['visitors']) {
+                $visitors[$site_id][$hour] = $data['OnlineUser']['visitors'];
+            }
+
+        }
+
+        // Phew, that's a lot of dating munging.  Okay, now we need to cycle through
+        // the raw data and create totals for each hour
+        $member_data = array( );
+        $visitor_data = array( );
+
+        foreach ($members as $site_id => $member) {
+            foreach ($member as $hour => $count) {
+                
+                if (!isset($member_count[$hour])) $member_count[$hour] = 0;
+                
+                $member_count[$hour] += $members[$site_id][$hour];
+            }
+        }
+
+        foreach ($visitors as $site_id => $visitor) {
+            foreach ($visitor as $hour => $count) {
+                if (!isset($visitor_count[$hour])) $visitor_count[$hour] = 0;
+                
+                $visitor_count[$hour] += $visitors[$site_id][$hour];
+            }
+        }
+
+        $header[] = "";
+        $member_data[] = "Members";
+        $visitor_data[] = "Visitors";
+        
+        foreach ($member_count as $hour => $count) {
+            $header[] = $hour;
+            $member_data[] = $count;
+            $visitor_data[] = $visitor_count[$hour];
+        }
+
+        $this->set('header', $header);
+        $this->set('member_data', $member_data);
+        $this->set('visitor_data', $visitor_data);
+        $this->layout = 'ajax';
+    }
+}
+
+?>
+~~~
+</p>
+
+<p>
+So, I think that's all you need in order to get your code working and talking nicely with PHP/SWF charts.  I'll go over this stuff again to look for any errors and clear up anything that looks confusing.
+</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2006/09/27/there-is-such-a-thing-as-bad-agile-software-development/" title="There Is Such A Thing As Bad Agile Software Development"><span class="title">There Is Such A Thing As Bad Agile Software Development</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2006/09/20/it-was-a-good-day-for-a-tutorial/" title="It was a good day for a tutorial..."><span class="title">It was a good day for a tutorial...</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

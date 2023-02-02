@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>\&quot;Lies I Told My Kids\&quot; -- Python + Flask + GAE &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">\&quot;Lies I Told My Kids\&quot; -- Python + Flask + GAE</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>As many of my readers know, I've been slowly expanding my Python skills over the last 18 months or so.  First, I fooled around with Django on my laptop, really liking what I saw. Next, I started using it to write scripts for pre-calculating fantasy point totals at my <a href="http://xmlteam.com">old job</a>. Finally, I had been looking at Google App Engine and seeing what it would take to put a very simple Python site up there. I had a few options.
+</p>
+
+<p>
+I could use the web application framework Google provided in Python called <a href="http://code.google.com/appengine/docs/python/gettingstarted/usingwebapp.html">webapp</a>, but I decided I wanted to learn a framework I could use outside of GAE as well. I really like Django but, until recently, there were a whole bunch of hoops you had to jump through in order to get it to play nicely with GAE. It's easier now, but I started this project a while ago and it's been bitrotting on my laptop. Also, I was frustrated with Django because the application I was trying to build with it just wasn't a good fit and <a href="https://mapalong.com/hello">someone beat me to it</a>. Not Django's fault, and I would gladly use it again to build something else.
+</p>
+
+<p>
+Finally, I decided I wanted to use a very lightweight framework because I felt that my lack of Python expertise meant a lot of the magic going on in Django (like any awesome full-stack framework) was difficult for me to understand as a PHP guy who was trying not to write Python code like a PHP guy. So, after hashing things out via IM with my friend <a href="http://chiggsy.com/">Kevin</a> I chose <a href="http://flask.pocoo.org/">Flask</a>, which bills itself as a "microframework for Python based on Werkzeug, Jinja 2 and good intentions.".
+</p>
+
+<p>
+I found Flask very easy to use, and the documentation helpful to a beginner like me. I could easily start to see where a more advanced developer could create things just the way he wanted. Once I found <a href="https://github.com/kamalgill/flask-appengine-template">an awesome template for running Flask on GAE</a> I was off and running.
+</p>
+
+<p>
+The application itself was very straight-forward: collect user submissions about the little white lies parents tell their kids, and show them in a paginated fashion. The twists? I was going to store them in the GAE datastore (so I had to learn their API) and I also wanted to use <a href="https://github.com/defensio/defensio-python">Defensio</a> to pre-filter submissions and identify ones that might be spammers trying to get stuff in there. Pro-tip for you developers out there: if the library you want to use has tests, that is the first place you should go to see how to actually use the library.
+</p>
+
+<p>
+So, in bits and pieces over a few months (basically whenever inspiration struck and there was nothing I wanted to watch on TV with the wife) I put the application together.  It's functioning the way I want it to (although I admit I didn't do a ton of testing of the pagination, so maybe I'll hack at that later) but needs some help on the UI side. Feel free to <a href="http://liesitoldmykids.appspot.com">check it out</a> and add your submission.
+</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2011/02/27/wordpress-to-jekyll/" title="WordPress to Jekyll -- Adventures in Static Page Generation"><span class="title">WordPress to Jekyll -- Adventures in Static Page Generation</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2011/02/07/the-grumpy-programmers-guide-to-zend-framework/" title="The Grumpy Programmer&#039;s Guide To Zend Framework"><span class="title">The Grumpy Programmer&#039;s Guide To Zend Framework</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

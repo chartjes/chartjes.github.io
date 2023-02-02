@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Have A &#039;Strategy&#039; &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Have A &#039;Strategy&#039;</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>Yesterday on Twitter I got into a nerdfight with a blogger who posted a
+blog entry about <a href="http://odino.org/use-the-strategy-to-avoid-the-switch-case-antipattern/">using the Strategy pattern to avoid switch-case</a>.
+At first glance, I was convinced that he was using <a href="http://ca.php.net/manual/en/language.variables.variable.php">variable variables</a>
+which I feel is a big <a href="https://en.wikipedia.org/wiki/Code_smell">code smell</a>.</p>
+
+<p>So natually I started arguing. I was rude. He was rude, slapping me in the twitter face with a blog link that seemed
+to indicate he thought I had no idea about variables in PHP. To be fair I earned that by not paying attention.
+Once I realized what he was doing, I realized that the Strategy pattern was applicable in this case...but his
+chosen example was dumb and one that I wouldn't have used to demonstrate things. As expected, he told me to supply
+a sample of a better way. I did, telling him that the sample would be better if he didn't mash the logging level
+together with the message.</p>
+
+<p>Anyway, I'm not going to do that bit of work here. Instead, I want to show that it is not enough to teach an idea
+to someone. You have to show them how to test their idea once it's been refactored to make sure nothing has changed.
+First, let's start with a working example of his logging class, using the dreaded switch-case.</p>
+
+<pre><code>&lt;?php
+
+// Sample logger class that uses a switch-case
+require_once 'LoggingException.php';
+
+class LoggerSwitch
+{
+    public function logMessage($message = "CRITICAL::The system encountered a problem")
+    {
+        $parts = explode('::', $message);
+        $level = strtolower($parts[0]);
+        $logMessage = $parts[1];
+
+        switch ($level) {
+            case 'notice':
+                return $this-&gt;_writeToLog($level, $logMessage);
+            case 'critical':
+                $this-&gt;_writeToLog($level, $logMessage);
+                return $this-&gt;_emailOps($message);
+            case 'catastrophe':
+                $this-&gt;_writeToLog($level, $logMessage);
+                $this-&gt;_emailOps($logMessage);
+                return $this-&gt;_textCeo($message);
+        }
+
+        throw new LoggingException("Unknown logging level {$level}");
+    }
+
+    protected function _writeToLog($level, $logMessage)
+    {
+        return "Wrote {$logMessage} to {$level} file";
+    }
+
+    protected function _emailOps($logMessage)
+    {
+        return "Sent email to Ops";
+    }
+
+    protected function _textCeo($message)
+    {
+        return "Sent text to CEO";
+    }
+}
+</code></pre>
+
+<p>Here's the tests for it</p>
+
+<pre><code>&lt;?php
+
+// PHPUnit test for logger-switch.php
+
+require '../logger-switch.php';
+
+class LoggerSwitchTest extends PHPUnit_Framework_TestCase
+{
+    public $logger;
+
+    public function setUp()
+    {
+        $this-&gt;logger = new LoggerSwitch();
+    }
+
+    /**
+     * Data provider for testing our logging object
+     */
+    public function loggerTestingScenarios() 
+    {
+        return array(
+            array(
+                'NOTICE::test notice message',
+                'Wrote test notice message to notice file'
+            ),
+            array(
+                'CRITICAL::test notice message',
+                'Sent email to Ops'
+            ),
+            array(
+                'CATASTROPHE::test notice message',
+                'Sent text to CEO'
+            ),
+        );
+    }
+
+    /**
+     * @test
+     * @dataProvider loggerTestingScenarios
+     * @param $message          string
+     * @param $expectedResponse string
+     */
+    public function testReturnsExpectedResponseBasedOnMessage(
+        $message,
+        $expectedResponse)
+    {
+        $response = $this-&gt;logger-&gt;logMessage($message);
+        $this-&gt;assertEquals(
+            $expectedResponse,
+            $response,
+            'Did not get expected response'
+        );
+    }
+
+    /**
+     * @test
+     */ 
+    public function testThrowsExceptionWhenUnknownLevelSubmitted()
+    {
+        $this-&gt;setExpectedException('LoggingException', 'Unknown logging level test');
+        $response = $this-&gt;logger-&gt;logMessage('TEST:: test message');
+    }
+}
+</code></pre>
+
+<p>These tests give us 100% test coverage, in case you were wondering.</p>
+
+<p>Okay, so the next step is to refactor our incredibly stupid logging class to
+use the <a href="https://en.wikipedia.org/wiki/Strategy_pattern">Strategy pattern</a>.</p>
+
+<pre><code>&lt;?php
+
+// Logging class that uses the strategy pattern
+require_once 'LoggingException.php';
+
+class LoggerStrategy
+{
+    public function logMessage($message = "CRITICAL::The system encountered a problem")
+    {
+        $parts = explode('::', $message);
+        $level = strtolower($parts[0]);
+        $method = sprintf('_log%sMessage', ucfirst($level));
+
+        if (!method_exists($this, $method)) {
+            throw new LoggingException('Unknown logging level ' . $level);
+        }
+
+        return $this-&gt;$method($parts[1]);
+    }   
+
+    protected function _logNoticeMessage($message)
+    {
+        return $this-&gt;_writeToLog('notice', $message);
+    }
+
+    protected function _logCriticalMessage($message)
+    {
+        $this-&gt;_writeToLog('critical', $message);
+        return $this-&gt;_emailOps($message);  
+    }
+
+    protected function _logCatastropheMessage($message)
+    {
+        $this-&gt;_writeToLog('catastrophe', $message);
+        $this-&gt;_emailOps($message);
+        return $this-&gt;_textCeo($message);
+    }
+
+    protected function _writeToLog($level, $logMessage)
+    {
+        return "Wrote {$logMessage} to {$level} file";
+    }
+
+    protected function _emailOps($logMessage)
+    {
+        return "Sent email to Ops";
+    }
+
+    protected function _textCeo($message)
+    {
+        return "Sent text to CEO";
+    }
+}
+</code></pre>
+
+<p>The thing that lept out at me was that this refactor worked, but resulted in
+more code. The good characteristic is all the small methods without lots of
+code in them. Even better is that we don't have to change any of our tests,
+everything worked the same! All we had to do was change which object we
+were using for $this->logger.</p>
+
+<p>If you want to see the code for this blog post for yourself (it does work
+and run using PHPUnit) you can grab it from <a href="https://github.com/chartjes/blog-strategy">Github</a>.
+Also, feel free to take a look at the <a href="http://www.grumpy-testing.com/strategy/tests/coverage/">code coverage report</a>
+as proof that I did cover everything I should have.</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2012/05/16/test-all-the-things/" title="Test All The Things?"><span class="title">Test All The Things?</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2012/05/14/why-i-began-testing/" title="Why I Began Testing"><span class="title">Why I Began Testing</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

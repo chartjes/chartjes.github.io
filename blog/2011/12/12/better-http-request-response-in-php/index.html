@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Better HTTP Request/Response in PHP &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Better HTTP Request/Response in PHP</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>I just started up a podcast called <a href="http://devhell.info">Developer Hell</a> with
+my fellow piss-and-moan-driven-development practitioner <a href="http://funkatron.com">Ed Finkler</a>
+. It basically consists of Ed and I sitting down and just having an open and
+unedited discussion about whatever programming-related topic we feel like
+rambling on and on about. Our first episode covered the always-riveting
+topic of <a href="http://devhell.info/post/2011-12-10/what-we-hate-about-php/">"What We Hate About PHP"</a>.</p>
+
+<p>Now even though it is just us complaining about stuff in PHP that we don't
+like, regardless of the true merits of our complaints, it sparked a discussion
+on Twitter about just what should be done to make handling PUT and DELETE
+requests better in PHP.</p>
+
+<p>$&#95;POST and $&#95;GET are workhorses of the PHP world, used in any application
+that accepts web requests from somewhere. Sometimes accessing them is wrapped
+inside objects or filtered out using the filter() extension of even <a href="https://github.com/funkatron/inspekt">Inspekt</a>
+but I think this illustrates the problem.</p>
+
+<p><a href="http://twitter.com/lxt">Laura Thompson</a> made the suggestion that PHP should
+look to port the concept of the Request object that Python uses over to PHP.
+As a cryptopythonista I think that is an excellent idea. <a href="http://twitter.com./auroraeosrose">Elizabeth Smith</a>
+did ask for some constructive ideas on solving this problem. While my C skills
+are non-existent, I thought I'd delve a bit into more higher-level thoughts
+about this.</p>
+
+<p>I think the fact that we have $&#95;POST and $&#95;GET lulls some of us into the
+false sense that we should have $&#95;PUT and $&#95;DELETE objects, since that
+would map to the commonly-desired set of HTTP verbs that REST likes to use.
+But what should be inside those things, or should we be moving towards a more
+Pythonesque solution where a Request object, as part of core or via a only-really-for-the-brave-
+PECL extension?</p>
+
+<p>What I'm really after is for an easy way to detect that a PUT or DELETE
+request has been made. Existing solutions for these are not pretty and (
+in my opinion) non-intuitive. With my thoughts that PHP is quickly turning
+into a tool used for web service API end points that don't require insane
+levels of concurrency, the idea that there is no native support for figuring
+out if you're been given a PUT or DELETE request is disheartening.</p>
+
+<p>The <a href="http://www.php.net/http">PECL HTTP extension</a> is a step in the correct
+direction, but it too has some rough edges and would require a lot of
+polishing before it could be moved into the core where it really belongs.</p>
+
+<p>Again, what I'm looking for is an easy way for PHP to be able to know what
+type of request it is dealing with so I can make my PHP applications more
+aware of what it being asked of them. It seems that pretty much every
+framework implements their own Request/Response objects, so that should be an
+indication that this kind of code abstraction is a desired core PHP feature.</p>
+
+<p>Share your thoughts with me in the comments.</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2011/12/30/the-year-of-the-struggle/" title="The Year of the Struggle"><span class="title">The Year of the Struggle</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2011/12/05/war-room-driven-deployment/" title="War-room Driven Deployment"><span class="title">War-room Driven Deployment</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

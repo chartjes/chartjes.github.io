@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Building a Gimmebar Sidebar &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Building a Gimmebar Sidebar</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>One of the interesting side effects of getting involved in your programming
+language community of choice is that you often get access to cool projects
+being done by your community buddies before the rest of the riffraff (aka 
+the general public). One such project is <a href="http://gimmebar.com">Gimme Bar</a>,
+a "capture anything you want and read later" web site. Created by the fine
+folks at <a href="http://fictivekin.com/">Fictive Kin</a>, <a href="http://twitter.com/coates">Sean Coates</a>
+and <a href="http://twitter.com/funkatron">Ed Finkler</a> were kind enough to not only
+give me access to their application (My user type apparantly is "The Betanaut") but
+also an early peek at their API.</p>
+
+<p>Now, it's changed a bit since their earliest work but now they are starting to promote
+not only the site but showing how easy it is to use their API to play around with
+not only your content but other's public-facing content too. I fooled around with
+the API and tried to write some Python stuff but lots patience when trying to work
+with OAuth from the command line. Hey, it's not their fault that I couldn't be bothered
+to slog through it all.</p>
+
+<p>Funkatron was kind enough to put together a blog post about <a href="http://funkatron.com/posts/building-a-tumblelog-with-gimme-bar-and-php.html">building a Tumblelog with 
+Gimmer Bar and PHP</a>
+so I told him I would write up what I did on my own blog.</p>
+
+<p>One of my intents was to use the <a href="https://gimmebar.com/api/v0">Gimme Bar API</a> to pull
+in a list of my latest Gimmies for the sidebar on this blog. Ed had posted a very
+simple example in Javascript (I cannot remember where it is) so I took it and ran with
+it to modify it to work with <a href="http://octopress.org">the blogging software</a> used here.</p>
+
+<p>I went and asked some questions in the Freenode IRC channel for Octopress and found out
+that they recommended the use of JS libraries that are compatible with <a href="http://dustindiaz.com/ender">Ender.js</a>.
+Okay, so that was no problem. So what to use to make the actual AJAX request call to
+the API? <a href="https://github.com/ded/reqwest">Reqwest</a> was mentioned by some as the best
+fit for using with Ender. Reqwest is an easy-to-use JS AJAX library that the #octopress
+guys suggest I use since jQuery doesn't currently play nice with all the other JS
+libraries that Octopress is using.</p>
+
+<p>Finally, I used <a href="https://github.com/documentcloud/underscore">Underscore</a> to 
+help with templating.</p>
+
+<p>Even though I'm not much of a JS whiz, I was able to take Ed's example and very quickly
+modify it to work exactly the way I wanted it to. Below is the code I used to putt in 
+my 10 latest Gimmes and insert them into the DOM exactly where I wanted them.</p>
+
+<pre><code>&lt;section&gt;
+  &lt;h1&gt;My Latest Gimmies&lt;/h1&gt;
+  &lt;ul id="gb_assets"&gt;&lt;/ul&gt;
+  &lt;script type="text/javascript"&gt;
+  reqwest({
+      url: 'https://gimmebar.com/api/v0/public/assets/grumpycanuck.js?jsonp_callback=?',
+      type: 'jsonp',
+      success: function(data){
+          var list_tpl = "&lt;% _.each(records, function(record) { %&gt; &lt;li&gt;&lt;a href='https://gimmebar.com/view/&lt;%=record.id%&gt;'&gt;&lt;%=record.title%&gt;&lt;/li&gt;&lt;/a&gt; &lt;% }); %&gt;";
+          var list_html = _.template(list_tpl, data);
+          $('#gb_assets').html(list_html);
+      }
+  });
+  &lt;/script&gt;                                                                                                                                                     
+&lt;/section&gt;
+</code></pre>
+
+<p>For those who aren't JS-savvy, I'll explain what goes on here:</p>
+
+<ul>
+    <li>Execute an AJAX call that...</li>
+    <li>calls the Gimme Bar public API to get the latest 10 public posts...</li>
+    <li>and on success generate an unordered list of posts...</li>
+    <li>linking to the item on Gimme Bar and show the title...</li>
+    <li>and insert it into the DOM where I asked it to</li>
+</ul>
+
+<p>Easy peasy, lemon squeezy. Ender.js + Reqwest + Underscore + 15 lines of markup and JS
+gives me the latest 10 posts. Hope this inspires you to play with the Gimme Bar API
+yourself.</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2011/11/25/scope-is-not-mouthwash/" title="Scope is not a mouthwash"><span class="title">Scope is not a mouthwash</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2011/11/03/infrastructure-debt/" title="Infrastructure Debt"><span class="title">Infrastructure Debt</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

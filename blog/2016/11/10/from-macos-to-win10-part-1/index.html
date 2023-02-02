@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>From macOS to Windows 10 - Part 1 &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">From macOS to Windows 10 - Part 1</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>Those who follow me on <a href="https://twitter.com/grmpyprogrammer">Twitter</a> noticed
+a tweetstorm about my unhappiness regarding the news of Apple updating their
+line of laptops. I've been using Mac laptops for almost 13 years now (I'm
+on my third one personally and used ones provided by employers), I own an old
+iPad 3 and are on my 3rd iPhone (4S, to 6, to 6S+).</p>
+
+<p>I was not impressed at all by Apple's offerings. I am currently using a mid-2012
+MacBook Air. I have been happy with it but it no longer fits the needs of the
+type of work I do. I need to use <a href="https://www.vagrantup">Vagrant</a> and <a href="https://docker.io">Docker</a>
+and they like having lots of memory. 8GB just isn't enough to run virtual machines
+and containers and modern web browsers and whatever other applications I need
+open to do my job.</p>
+
+<p>But the price of the latest Apple offering has jumped immensely. To buy a new
+MacBook Pro with 13" screen, the OLED touch bar, 16GB of RAM,a 512GB SSD drive, and AppleCare will cost me
+about CDN$3200 including taxes. Holy crap that is a lot of money. When I bought
+my MacBook Air I payed just a little under CDN$2000 and felt I got a good
+price.</p>
+
+<p>Now, some of my friends have quite correctly pointed out that this is a device
+that I will use every day to make myself a lot of money. I cannot argue with
+that but I can state that I feel like that is an awful lot of money. But that's
+not what really bothered me.</p>
+
+<p>What bothered me was a feeling that Apple no longer cares about the group of
+customers that I belong to -- the web developers who adopted their hardware
+in droves and recommended it to all their non-technical friends. Heck, even
+my mother bought a Mac after me telling her she'd have a lot less headaches.</p>
+
+<p>So that got me to thinking -- could I do my job on a Windows laptop? To get this
+out of the way, I won't switch to Linux. I need to record my half of podcasts
+and want to create screen casts for my <a href="https://grumpy-learning.com">side gig</a>.
+Doing that on Linux just isn't feasible.</p>
+
+<p>Now, I also want a laptop with some of the same aesthetics as a Mac one -- the
+hardware needs to look nice and feel like the company that made it actually
+cares how everything goes together. I could easily go with a more utilitarian
+PC laptop. I don't want to.</p>
+
+<p>So I took a look at the new Surface Book from Microsoft. In the wake of some
+recent hardware announcements it looks like they have been paying attention
+to how Apple's line of laptops and desktops has been are changing and are
+making a play to get more developers back to using their hardware.</p>
+
+<p>The Surface Studio looks amazing. The Surface Pro looks like a weird hybrid
+tablet and computer. But the Surface Book looks...very enticing.</p>
+
+<p>I have considered it even with costing about $200 more than a similarly-equipped
+MacBook Pro. It has a touch screen and the screen itself detaches for use
+like a tablet. My old iPad is showing it's age and I would love a tablet that
+is responsive and bigger than my iPhone 6S+.</p>
+
+<p>So at TrueNorthPHP 2016 I managed to play around with one of the older generation
+Surface Books that <a href="https://twitter.com/auroraeosrose">Elizabeth Smith</a> uses.
+It reminded a lot of a MacBook. The detachable screen is incredibly light.
+I was starting to think "this could work".</p>
+
+<p>Luckily for me, my friend Mickey MacDonald from Microsoft has hooked me up
+with a 30 day loaner of a Surface Book with 16GB of RAM and a 512GB hard drive.
+I'm going to take one of these for a spin and see if I like it enough to
+plunk down some money for one of my own.</p>
+
+<p>I got a few days ago and have just started trying to configure it the way that
+I need it to be. I want to share some of these early thoughts.</p>
+
+<h2 id="operating-system-choices">Operating System Choices</h2>
+
+<p>Yes, I remember how much better OS-X was than previous versions of Windows.
+Now, I'm just not sure it matters to me. I'm not a power user of any of my
+systems any more. I prefer a stable experience. Yes, I've used Windows 10
+recently -- my wife and oldest daughter have laptops with it on it. To me,
+it's not a problem.</p>
+
+<p>I also ran Windows 10 for a while via Bootcamp on my MacBook Air. Again, I
+didn't have any problems. It worked fine. So the OS won't be the issue.</p>
+
+<h2 id="linux%2Fbsd-underneath">Linux/BSD underneath</h2>
+
+<p>Now, <em>this</em> could be a problem. Luckily it seems I can get a nice Bash shell
+and a flavour of Ubuntu that works. <a href="https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux">Windows Subsystem for Linux</a> provides
+me <a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">Bash</a> along with all the Ubuntu tools I expect (like apt-get).
+After doing the Windows update dance I was able to get it up-and-running with
+no problems. I haz Bash now.</p>
+
+<h2 id="hybrid-approaches">Hybrid Approaches</h2>
+
+<p>After seeking some advice from my fellow PHP developers who use Windows
+full-time it was suggested I use a hybrid approach. First, I should use Bash
+for everything I normally use the terminal for on OS-X. This means 99% of the
+time I'm doing stuff in Python with <a href="http://docs.pytest.org/en/latest/">pytest</a>.
+I did check out some of my work-related code and got it working. Again, that
+won't be an obstacle.</p>
+
+<p>I was then told to store my Linux-related stuff not in /home/chartjes but in
+on the C drive. This is so that the Windows apps I would use (like <a href="https://atom.io">Atom</a>)
+would be able to read the files there. This makes total sense to me, and it
+worked like a charm.</p>
+
+<p>To be clear, it's still very early days. But I feel like I've passed the first
+hurdle. I have installed a VPN client so I can connect to things at work, and
+next up will be to install some other tools I need (like our <a href="http://www.vidyo.com/">video conferencing software</a>).</p>
+
+<p>This weekend I plan on spending some time using the screen in tablet mode. The
+Surface Book came with a pen, so it should be interesting to see how that works
+in conjunction with the touch screen.</p>
+
+<p>Next week I'll have another update about actually using it for work!</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2016/11/18/from-macos-to-win10-part-2/" title="From macOS to Windows 10 - Part 2"><span class="title">From macOS to Windows 10 - Part 2</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2016/11/07/true-north-php-is-done/" title="True North PHP Is Done"><span class="title">True North PHP Is Done</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

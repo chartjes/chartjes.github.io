@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Sending data via HTTP-PUT using Basic Authentication &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Sending data via HTTP-PUT using Basic Authentication</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>(This is another problem I solved with the help of <a href="http://stackoverflow.com"</a>Stack Overflow</a> and some <a href="http://en.wikipedia.org/wiki/Rubber_duck_debugging">rubber duck debugging</a>)
+</p>
+
+<p>
+While cleaning up some code I noticed a function that was sending data via an HTTP-PUT had stopped working.  A classic example of code "accidentally working".  So, this was the perfect opportunity to (a) write a test to verify that it worked and (b) clean up the code so that it was doing the job properly.  It had been using cURL, but I was using PHP streams elsewhere so I decided to be consistent.
+</p>
+
+<p>
+So here's what we had to do:
+<ul>
+<li>Pass the code a URL of where the file was going to end up on the eXist DB server</li>
+<li>Pass the name of the temporary file that contained the info</li>
+<li>Send the file via HTTP-PUT to eXist, along with the username and password it requires.</li>
+</ul>
+</p>
+
+<p>
+The old code was sending the username and password as part of the URL, but that simply was not working any more.  Why it stopped working isn't all that important except to say that passing the username and password the *proper* way, which is via the HTTP header in the request, is the correct way to go.
+</p>
+
+<p>
+So, I googled around, looked at my existing code (including an <a href="https://www.littlehart.net/atthekeyboard/2008/01/11/how-to-http-put-a-file-somewhere-using-php/">old blog post</a>) I tried a few things and just couldn't get it to work.  The problem?  I kept getting a "401 Authorization denied" message.  I was positive I was sending the header in the correct format.  So, I asked Stack Overflow to help me while I looked at the code with my trusty stuffed Grumpy Dwarf doll (you know, from the Disney Movie) in my lap looking at the screen while I went over the code.
+</p>
+
+<p>
+You know, I never figured that "rubber duck debugging" worked, but in this instance by explaining what I'm doing I figured out a few things:
+<ul>
+<li>Don't blindly trust code examples you find on the internet</li>
+<li>Sometimes taking the time to explain how something is supposed to work someone actually makes it easier for you to figure it out.</li>
+</ul>
+</p>
+
+<p>
+Lo and behold, I <a href="http://stackoverflow.com/questions/1691530/sending-a-file-via-http-put-in-php">figured it out</a>.  I'll repost the code here too:
+<br />
+~~~
+$params = array(
+    'http' => array(
+        'method' => 'PUT',
+        'header' => "Authorization: Basic " . base64_encode($this->ci->config->item('ws_login') . ':' . $this->ci->config->item('ws_passwd')) . "\r\nContent-type: text/xml\r\n",
+        'content' => file_get_contents($tmpFile)
+             )
+         );
+$ctx = stream_context_create($params);
+$response = @file_get_contents($url, false, $ctx);
+
+return ($response == '');
+~~~
+</p>
+
+<p>
+My mistake?  For some reason unbeknownst to me I was passing an array of values as the header.  Dunno why I did it, must've got it from an example somewhere.  Now I have code that successfully sends my file to eXist via HTTP-PUT.  The only thing I do not like is that I have to suppress the output of file_get_contents() because it throws a warning while also reporting the successful 201 HTTP response code.  Perhaps there is another way to do it, but I know with 100% certainty that this code does work.
+</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2009/11/09/why-i-dont-want-to-use-tools-written-for-php-4/" title="Why I Don&#039;t Want To Use Tools Written For PHP 4"><span class="title">Why I Don&#039;t Want To Use Tools Written For PHP 4</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2009/11/05/next-gen-work-projects/" title="Next-Gen Work Projects"><span class="title">Next-Gen Work Projects</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Handling Multiple Environments In Your PHP Application &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Handling Multiple Environments In Your PHP Application</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>In anticipation of my <a href="http://conf.phpquebec.com/en/session#deployment_is_not_a_4_letter_word">talk at PHP Quebec 2009</a> I've been going over my slides and thinking about what I'm going to update for it.  One little nugget I'd thought I'd share is one way of handling having multiple environments your code must run in.
+</p>
+
+<p>
+For a work application, I have *three* environments that the code must run in:  'dev' (which is my laptop), 'staging' (which is where I look for the infamous "bug does not exist in production" type of errors), and 'production'.  For all these environments, there are different web services that they need to speak to so I tried to think of an easy way to handle this.  I have a configuration file that is used, so it seemed to me that this would be a logical place to do the *check* for what environment we are in.  But *how* to define where we are?  That turned out to be easy.
+</p>
+
+<p>
+If you are using Apache, you have the ability to define server variables that can be read in using $_SERVER.  I'm sure you can do the same thing with other web servers, but this example is Apache-specific.  So, I figured the best way to handle this problem was to define a server variable and have a unique value for each environment.  Then, I added in code that checks the contents of that server variable and reacted accordingly.  Here's an example:
+</p>
+
+<p>
+~~~
+<?php
+// In Apache, add SetEnv APP_ENV "<unique environment value>" somewhere in your http.conf file
+// e.g. SetEnv APP_ENV 'dev'
+
+switch ($_SERVER['APP_ENV']) {
+    case 'dev':
+        $config['webservice'] = 'http://admin@localhost:8008';
+        $config['putfeed'] = 'http://dev.domain.com:8080/put/sml';
+        break;
+    case 'production':
+        $config['webservice'] = 'http://admin|password@ws.domain.com:8080';
+        $config['putfeed'] = 'http://in.domain.com/put/sml';
+        break;
+}
+?>
+~~~
+</p>
+
+<p>(NOTE:  <a href="http://snook.ca/jonathan/">Jonathan Snook</a> asked me to add an example on how to configure SetEnv)</p>
+
+<p>
+Then, in your Apache httpd.conf file you add the SetEnv directive.  Here's a snippet of how I did it for a work project:
+~~~
+<virtualhost *:80> 
+     ServerName local.sportso.com 
+     DocumentRoot /Users/chartjes/Sites/sportso.com 
+     SetEnv SPORTSO_ENV "dev" 
+  
+     <directory /Users/chartjes/Sites/sportso.com> 
+         Options Indexes FollowSymLinks MultiViews 
+         AllowOverride None 
+         Order allow,deny 
+         Allow from all 
+          
+         RewriteEngine on 
+         RewriteCond %{QUERY_STRING} ^last-accessed=(.*)$ 
+         RewriteRule ^(.*)$ $1/last-accessed/%1? 
+         RewriteRule ^$ /index.php [L] 
+         RewriteRule ^/$ /index.php [L] 
+         RewriteCond $1 !^(index\.php|images|styles|js|robots\.txt) 
+         RewriteRule ^(.*)$ /index.php/$1 [L] 
+     </directory> 
+      
+     LogLevel warn 
+     ErrorLog /opt/local/apache2/logs/sportso.com-error.log 
+     CustomLog /opt/local/apache2/logs/sportso.com-access.log combined 
+</virtualhost> 
+~~~
+</p>
+
+<p>
+Hope that helps out any other developers struggling to think of an elegant way to determine what environment you are in.  As opposed to the lazy method of checking a production version of the config file into your version control system and then simply not checking back in the hacked-up dev version of it. ;)
+</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2008/12/04/converting-legacy-apps-to-cakephp-part-2/" title="Converting Legacy Apps to CakePHP, Part 2"><span class="title">Converting Legacy Apps to CakePHP, Part 2</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2008/11/27/converting-legacy-apps-to-cakephp-part-1/" title="Converting Legacy Apps to CakePHP, Part 1"><span class="title">Converting Legacy Apps to CakePHP, Part 1</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

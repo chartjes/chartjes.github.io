@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Brain Dump for June 2011 &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Brain Dump for June 2011</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>Wow, it's been almost a month since I blogged anything. So I was
+inspired to ask my twitter peeps to suggest some topics:</p>
+
+<p>PHP legend Derick Rethans suggested I talk about
+<a href="https://twitter.com/#!/derickr/statuses/86103879980302336">food</a>,
+specifically biscuits. Well, I must confess, that I do love a good
+biscuit. Every time I visit the US I always check to see if the
+restaurant I'm in serves biscuits and gravy. Mmm, mmm, good.
+Biscuits and gravy is something you just don't see on most Canadian
+menus.</p>
+
+<p>But all joking aside, I wanted to share some thoughts that have
+been rattling around in my brain this past month.</p>
+
+<p>PHP is undergoing what I think could only be described as a
+personality crisis. First we had
+<a href="http://www.xarg.org/2011/06/php-hacking/">a well-intentioned guy making a bunch of patches he did to PHP available</a>.
+The reaction to this was predictable: the internals team responses
+ranged from meh to outright dismissal due to his outsider status.
+Predictably, users of PHP liked a lot of what he proposed. It's no
+secret to those who have followed PHP internals, even sporadically,
+that there is some dysfunction there. It's understandable: it's an
+open source project without a real
+<a href="http://en.wikipedia.org/wiki/BDFL">BDFL</a> and the goals and desires
+of the internal PHP core team are very different from those, like
+me, who just use the language and are not in a position to
+contribute any meaningful changes at the implementation level.</p>
+
+<p>Next we had the &#35;phpneeds meme that made the rounds on Twitter,
+culminating in the boys at Orchestra.io putting together a page
+<a href="http://phpneeds.orchestra.io/">outlining some of those requests</a>.
+Again, much of what was being said there makes sense but the same
+old friction came up: the people with the ideas they want to see
+implemented are not in a position where they can implement them. My
+C and C++ skills are non-existent (although I have hopes that Zed
+Shaw's proposal to do "Learn C The Hard Way" sees the light of day)
+so all I can do is complain about my inability to effect real
+change to PHP.</p>
+
+<p>I even made my own
+<a href="http://twitter.com/#!/chartjes/status/83945075394088960">contribution to &#35;phpneeds</a>
+that I thought now correctly puts PHP in the proper light: it is a
+server-side solution that needs to decide if it wants to be bold or
+meek. Look, I am not going to hash out all the old arguments here,
+but I think there are some important issues to discuss. The big one
+that I think gets ignored is that the core of PHP needs to decide
+if PHP is going to continue to try and stay at the front of the
+pack when it comes to it's suitability as a modern solution, or end
+up like (don't hate me for saying this) Perl. By this I mean that
+it's still a really good language, but it's been pushed aside and
+left to those who either have to support legacy applications or is
+being used by people who are strong enough to ignore the catcalls
+from everyone else. Perl can still get the job done, but it's no
+longer a consideration for anyone starting a new project...unless
+they have many, many years of Perl experience and don't give a shit
+about how it "looks" to be using a particular tool.</p>
+
+<p>I'm not immune to this sort of thing either: I wish to branch out
+and build applications using other languages and tools, but PHP is
+the thing I know the best. I worry about the future: can I build
+what I call Web Pi sites (Web 3.14159, get it?) full of real-time
+information and distributed across multiple machines (cloud or
+otherwise) using PHP as the server-side solution? What changes have
+to occur at the bottom of the stack to keep PHP as a viable choice
+for building web apps? Can I figure out how all this shit works so
+I can actually build something like this?!?</p>
+
+<p>PHP gets the job done, of that there is no doubt. Sometimes I yearn
+for elegance in the languages I use, but then I realize it makes me
+sound a lot like a whiny douchebag who hasn't shipped anything but
+is quick to criticize other people's choices. I criticize my
+choices all the time, whenever I find myself fighting the
+components used to build the applications I work on. A good author
+once said "write what you know" and for me that continues to be
+PHP. Perhaps it's time to focus less on the language and more on
+the problem you're trying to solve. I've taken to heart the concept
+that the language you use for your application is simply an
+implementation detail, because you can build shitty apps in any
+number of languages. Because at some point it may be another
+language that is the one that I know. Things change fast (says the
+man looking warily at the marshalling forces of Node.js) so be
+ready to make a paradigm shift when the time is right.</p>
+
+<p>Which brings us back via rambling path to PHP. I think PHP 5.3
+actually represented a large improvement for PHP itself: it
+encouraged people who build things around PHP to re-examine what
+they were doing and make things better. Witness all the new 5.3+
+frameworks being built. Rather than being annoyed by there being
+100+ PHP framework like I have in the past, I should look at this
+as evidence of progress. I might never use one of those new
+frameworks, but it's evidence that those who guide the future of
+the language are trying to make things better. It may not be
+happening at a pace that people are happy with, but it is
+happening.</p>
+
+<p>Now where did I put my copy of "Creating Web Pi Architectures"...</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2011/08/09/a-day-in-the-life-at-moontoast/" title="A Day in the Life At Moontoast"><span class="title">A Day in the Life At Moontoast</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2011/05/30/book-review-cakephp-cookbook/" title="Book Review -- CakePHP 1.3 Application Development Cookbook"><span class="title">Book Review -- CakePHP 1.3 Application Development Cookbook</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

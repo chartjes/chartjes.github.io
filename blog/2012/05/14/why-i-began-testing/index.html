@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Why I Began Testing &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Why I Began Testing</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>In the run-up to <a href="http://tek.phparch.com">php|tek 2012</a> next week I wanted to
+do a blog entry every day this week. Since I am supremely lazy I made sure to
+ask my followers on Twitter what they would like me to blog about. There were
+some interesting suggestions but I will start out with one that I think
+explains a lot about me.</p>
+
+<p>I've spent quite a bit of time in the last few years helping to spread the word
+that having automated test suites and testable applications is a good thing.
+I know it's not easy and I've had conversations with many other developers who
+still think that writing tests is a waste of time, not appropriate for their
+unique situation, and so on and so forth.</p>
+
+<p>If I were to make some sweeping generalizations about those people who feel
+that test-driven development is a waste of time, I would call them supremely
+overconfident in their own abilities in the face of plenty of evidence that
+suggests otherwise. Many developers that I respect immensely still seem to
+think that Getting Shit Done Does Not Include Writing Tests.</p>
+
+<p>I will return to that topic later.</p>
+
+<p>I don't remember when it was that I exactly discovered <a href="http://simpletest.org">SimpleTest</a> while
+working at an online dating site. I do remember it was in 2003. If I had to make an educated guess it was
+because I had gotten tired of testing everything through a browser. Loading
+the same pages OVER AND OVER AND OVER again, hoping I had covered all the
+scenarios for the incredibly crummy code I was writing (this was quite early
+in my programming career) in my manual testing. Only to find that I had 
+missed something and it was causing problems on the live site.</p>
+
+<p>Once I discovered unit testing, it was like a bit was flipped in my brain.
+I immediately understood the benefits of a test suite that we could run from
+the browser AND provide proof that all was good. No more manual testing unless 
+absolutely necessary!</p>
+
+<p>It took some time and some lobbying but not too long before I left, the
+application architect they had hired decided that we needed to write a bunch
+of tests using SimpleTest as part of progressing towards a refactoring and
+rewrite of the application itself, since it really was the type of spaghetti
+PHP application the language is derided for encouraging.</p>
+
+<p>I don't know what happened to all those tests after I left. I would keep
+running into people who I worked with there and new hires and would sometimes
+ask what was going on. Never did ask about tests though, as I assumed that
+they were either still there but not being used, or ripped out under the
+guise of Getting Shit Done Does Not Include Writing Tests.</p>
+
+<p>So why am I still in the minority that values testing? I think it's because
+many people blind themselves to the reality of how much work they are really
+getting done. Writing tests as part of the development process, in my opinion,
+simply moves the debugging of your application from after you've written the
+code to while you are still writing it.</p>
+
+<p>Look, it still takes the same amount of time to write code + debug whether you
+use TDD or GSDDNIWT. Be honest with yourself. Every time you are up until the
+early hours of the morning trying to fix a problem is an opportunity to be
+really honest with yourself and say "how can I avoid this?" instead of saying
+"oh well, this is how it really is." I believe that having tests will reduce
+the amount of time you spend trying to understand why things are not working 
+the way that you expect them to.</p>
+
+<p>If anything, the rise of startup worship makes the job of people like me
+even tougher. Minimum Viable Product goes hand-in-hand with GSDDNIWT. I cringe
+when people forward me conversations with their bosses and co-workers that
+seem to imply that only inexperienced developers really need tests. "Rockstars
+have the codebase memorized and can intuitively make changes that won't break
+anything." Really?</p>
+
+<p>I can only speak for myself, but testing is my way of not having to remember
+the entire code base. It lets me examine discrete modules of code and see
+clear examples of how they work and how they are supposed to interact with
+other modules. When it's crunch time and something absolutely needs to work,
+my memory is the last thing I want to be relying on to tell me where to look
+for the problem.</p>
+
+<p>I could write a very long ranty blog post about testing but I will save my
+energy for those ready to be converted instead of those who have decided to
+rely on their immense programming skills and eidetic memory about their
+application. Lesser mortals like me will knit themselves a comfy blanket
+using tests and simplified application models and hopefully be sound asleep
+while my rockstar compatriots are up at 2am debugging their application 
+after a painful production launch.</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2012/05/15/have-a-strategy/" title="Have A &#039;Strategy&#039;"><span class="title">Have A &#039;Strategy&#039;</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2012/05/09/grumpy-programmers-like-pair-programming/" title="Grumpy Programmers Like Pair Programming"><span class="title">Grumpy Programmers Like Pair Programming</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

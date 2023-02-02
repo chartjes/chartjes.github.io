@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Snakes and Elephants Playing Nice Together: PHPUnit and py.test with Hudson &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Snakes and Elephants Playing Nice Together: PHPUnit and py.test with Hudson</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>These days, it's becoming increasingly harder to find web applications that are homogenous in terms of the tools they use to Get Things Done.  The ability to build the web front-end of your site using PHP but a critical part that requires asynchronous processing using <a href="http://nodejs.org">Node.js</a> is something that is both exciting and, well, practical.  Loosely coupled components, passing messages to each other, is great architecture to try and build if you have both the skills and patience to make it work.
+</p>
+
+<p>
+For a project at work, I am using PHP (specifically Zend Framework) for the front-end but are using Python scripts run as a cron-job (and also on-demand when statistical corrections occur) to collect raw stats for a variety of sports, and then generate fantasy point totals for the games we run.  I'm already using <a href="http://phpunit.de">PHPUnit</a> for tests of the front end, and I decided to to use <a href="http://codespeak.net/py/dist/test/index.html">py.test</a> to test my Python scripts.
+</p>
+
+<p>
+Setting up tests in Python was pretty simple.  Here's one of my test scripts:
+~~~
+import py
+import baseball_scoring
+
+def test_batter_empty_data_set():
+    expected_points = 0
+    test_data = dict() 
+    test_points = baseball_scoring.batter_points(test_data)
+    assert expected_points == test_points 
+
+def test_batter_simple():
+    test_data = {
+        'hits': 4,
+        'doubles': 1,
+        'triples': 1,
+        'home_runs': 1,
+        'runs_scored': 1,
+        'rbi': 1,
+        'stolen_bases': 1,
+        'league': 'bluejays2010'
+    }
+    expected_points = 11
+    test_points = baseball_scoring.batter_points(test_data)
+    assert expected_points == test_points
+
+def test_pitcher_empty_data_set():
+    expected_points = 0
+    test_data = dict() 
+    test_points = baseball_scoring.pitcher_points(test_data)
+    assert expected_points == test_points 
+
+def test_pitcher_simple():
+    test_data = {
+        'wins': 1,
+        'losses': 0,
+        'saves': 0,
+        'strikeouts': 7,
+        'complete_games': 1,
+        'shutouts': 1,
+        'league': 'bluejays2010'
+    }
+    expected_points = 25 
+    test_points = baseball_scoring.pitcher_points(test_data)
+    assert expected_points == test_points
+~~~
+</p>
+
+<p>Very similar to tests with PHPUnit, right?  So now that I had both PHPUnit tests and py.tests tests (hrm, is there are better way to say that?) to run, I had to figure out how to automatically run them.  More specifically, how to get our installation of <a href="http://hudson-ci.org">Hudson</a> to run them.
+</p>
+
+<p>
+Getting PHPUnit to play nice with Hudson was relatively easy.  I installed the NUnit plugin for Hudson, made sure I installed phpunit, and then I added it's use to my build scripts.  However, the strength of Hudson is that  with the use of another plugin I could read reports of all those tests.  So when things failed, I would not have to look at the console output to figure things out.  There's a place in the Hudson config where you can configure this:
+<img src="http://cakebook.s3.amazonaws.com/atthekeyboard/wp-content/uploads/2010/07/phpunit-hudson1-300x99.jpg" alt="PHPUnit configuration in Hudson" title="phpunit-hudson" width="300" height="99" class="alignnone size-medium wp-image-755" />
+<br />
+Now, I figured that the same thing could be done with py.test.  It had an option so that at run-time you could tell it where to put JUnit-compatible test result files.  After a little tinkering, I got it to work.  First step was adding execution of it to my build script.  Here is the latest-and-greatest version of that script:
+<pre>
+mkdir /var/www/games-hudson/${BUILD_ID}
+cd ${WORKSPACE}/games
+/usr/local/zend/bin/php doctrine-cli migrate
+cd ${WORKSPACE}/games/tests
+/usr/local/zend/bin/phpunit --log-junit=${WORKSPACE}/build/logs/phpunit-results.xml
+cd ${WORKSPACE}/games/scripts
+/usr/bin/py.test --junitxml=${WORKSPACE}/build/logs/pytest-xmlrunner.xml
+cp -R /var/lib/hudson/jobs/${JOB_NAME}/workspace/games/* /var/www/games-hudson/${BUILD_ID}
+chmod 777 /var/www/games-hudson/${BUILD_ID}/tmp
+rm -rf /var/www/games-hudson/current
+ln -sf /var/www/games-hudson/${BUILD_ID} /var/www/games-hudson/current
+</pre>
+<br />
+</p>
+
+<p>
+Next, I then told Huson where it could find the JUnit-compatible files generated by py.test:
+<br />
+<img src="http://cakebook.s3.amazonaws.com/atthekeyboard/wp-content/uploads/2010/07/pytest-hudson-300x42.jpg" alt="Telling Hudson where to find the py.test output" title="pytest-hudson" width="300" height="42" class="alignnone size-medium wp-image-756" />
+</p>
+
+<p>
+So there you have it.  Now, when I do a commit and trigger a Hudson build, both my PHPUnit and Python tests get run.  And there is output to check, so I don't have to dig through console output to figure things out.
+[topicblocks id="/en/phpunit" comment="When you publish this post, this WordPress shortcode will display the TopicBlock you created about 'PHPUnit'."]
+</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2010/08/16/zend_application-and-zend_acl/" title="Zend_Application and Zend_Acl"><span class="title">Zend_Application and Zend_Acl</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2010/07/21/coding-lessons-learned/" title="Coding Lessons Learned"><span class="title">Coding Lessons Learned</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

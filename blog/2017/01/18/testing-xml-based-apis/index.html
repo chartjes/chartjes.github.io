@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Testing XML-based API&#039;s &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Testing XML-based API&#039;s</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>At the <a href="https://mozilla.org">day job</a> I deal with making sure that a number
+of different services
+get tested sufficiently that we have confidence that what's being deployed and
+then used by Firefox is correct. This is a big change from what I did before
+I got to Mozilla - I mostly wrote unit tests and integration tests for code.
+These services are like black boxes as far as QA is concerned -- I do have
+some insight into the code itself by being involved in code reviews to make
+sure unit and integration tests are still in place but my task is to make sure
+the service is functioning as expected.</p>
+
+<p>Since it's 2017, most of the services around here are returning JSON-based
+responses but <a href="https://github.com/mozilla/balrog">Balrog</a> returns XML that
+is consumed by Firefox itself to let you know any updates that need to be
+made to Firefox itself or any add-ons you've installed.</p>
+
+<p>Normally I would write some <a href="https://pytest.org">pytest</a> scripts that use the
+<a href="https://pypi.python.org/pypi/requests">Requests</a> library and then parse the
+XML responses. These days I like to create what I call "API contract" tests
+that look at the API responses and verify not that the contents of the
+response make sense, but we look at the "shape" of the responses to make sure
+we are getting expected fields and other content. This helps us catch any
+unexpected changes to the body of the response and also verify the documented
+calls to API's are still correct.</p>
+
+<p>So I was all set to dive into parsing XML in Python (shoutout to <a href="http://lxml.de/">lxml</a>)
+when my co-worker <a href="https://ziade.org/">Tarek</a> suggested an easier path is to
+use DTD (Document Type Definition) files instead. "It would be easier than
+what you are trying to do and probably faster." Tarek is very wise.</p>
+
+<p>So the process for the test would become something like this:</p>
+
+<ul>
+<li>make a request to a known Balrog API endpoint</li>
+<li>grab the XML response</li>
+<li>validate it against the DTD</li>
+<li>assert that the validation worked</li>
+<li>profit!</li>
+</ul>
+
+<p>I know I mentioned I am using Python for this but the same principles apply to
+any language where there are tools available to manipulate and validate XML
+using a DTD.</p>
+
+<p>So, after conversing with the main developer on the project I got a list of
+sample URL's and got some details about what fields where required, what ones
+were optional, and some potential different responses. Next I needed to
+create some DTD's that act as our validation set. For example, here's a
+typical response from Balrog:</p>
+
+<pre><code class="xml">&lt;updates&gt;
+    &lt;update type="minor" displayVersion="50.1.0" appVersion="50.1.0" platformVersion="50.1.0" buildID="20161208153507" detailsURL="https://www.mozilla.org/en-US/firefox/50.1.0/releasenotes/"&gt;
+        &lt;patch type="complete" URL="http://download.mozilla.org/?product=firefox-50.1.0-complete&amp;os=win64&amp;lang=en-US&amp;force=1" hashFunction="sha512" hashValue="1c2cea9770c814c58058c66ad9f99c678bf1612c8e05960fe415772383c4ab5e293eafef51b8b574307667a880c567d71b0d32c89d2c65dae02f68967991f8f7" size="56892755"/&gt;
+        &lt;patch type="partial" URL="http://download.mozilla.org/?product=firefox-50.1.0-partial-50.0.1&amp;os=win64&amp;lang=en-US&amp;force=1" hashFunction="sha512" hashValue="52dab15fb6cbfb3a324a117fb5f1576a0b5947555d1a4535e0f5735a918e817d7c03f5300b3624883758b3a9300a9061a0e190087f1653fef39eb77b81311f69" size="13185929"/&gt;
+    &lt;/update&gt;
+&lt;/updates&gt;
+</code></pre>
+
+<p>(Apologies for the long line lengths)</p>
+
+<p>FYI I used <a href="http://www.w3schools.com/xml/xml_dtd.asp">this documentation</a> to
+figure out what I needed to do to make the DTD work.</p>
+
+<p>Now, what does the DTD look like?</p>
+
+<pre><code>&lt;!ELEMENT updates (update*) &gt;
+&lt;!ELEMENT update (patch+) &gt;
+&lt;!ATTLIST update
+type CDATA #REQUIRED
+displayVersion CDATA #REQUIRED
+appVersion CDATA #REQUIRED
+platformVersion CDATA #REQUIRED
+buildID CDATA #REQUIRED
+detailsURL CDATA #IMPLIED
+licenseURL CDATA #IMPLIED
+showPrompt CDATA #IMPLIED
+showNeverForVersion CDATA #IMPLIED
+actions CDATA #IMPLIED
+openURL CDATA #IMPLIED
+notificationUrl CDATA #IMPLIED
+alertUrl CDATA #IMPLIED
+promptWaitTime CDATA #IMPLIED
+backgroundInterval CDATA #IMPLIED &gt;
+&lt;!ELEMENT patch (#PCDATA)&gt;
+&lt;!ATTLIST patch
+type CDATA #REQUIRED
+URL CDATA #REQUIRED
+hashFunction CDATA #REQUIRED
+hashValue CDATA #REQUIRED
+size CDATA #REQUIRED &gt;
+</code></pre>
+
+<p>There is a lot going on in here so let's break it down. This DTD describes
+the elements and attributes I am expecting to find in this type of response
+from the service.</p>
+
+<ul>
+<li>There needs to be a top element <em>updates</em></li>
+<li>It has zero or more <em>update</em> elements (the &#42; indicates that)</li>
+<li>Each <em>update</em> has a bunch of attributes that are required or optional (that's what #IMPLIED refers to)</li>
+<li>Each <em>update</em> should have one or more <em>patch</em> elements</li>
+<li>Each <em>patch</em> element has some required attributes</li>
+</ul>
+
+<p>The Python code for a test is pretty simple. Again, substitute your own
+preferred tools in your own language of choice.</p>
+
+<pre><code class="python">'''
+We're using lxml for the XML parsing and validating
+url contains the full URL to the API endpoint
+'''
+repsonse = requests.get(url)
+root = etree.XML(response.text)
+# Load our DTD file
+f = open('./api-tests/updates.dtd')
+dtd = etree.DTD(f)
+
+# Validate the response against the DTD and show the errors if it fails
+valid = dtd.validate(root)
+
+if valid:
+    assert True
+else:
+    print(dtd.error_log.filter_from_errors())
+    assert False
+</code></pre>
+
+<p>As a rule I try and find libraries and tools that solve problems for me rather
+than write my own. In this case, lxml and the use of DTD's was the right
+choice than my initial thoughts of using <a href="https://en.wikipedia.org/wiki/XPath">XPath</a>
+to hunt for attributes inside the elements.</p>
+
+<p>Hope this gives you a different perspective on strategies for testing API's.</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2017/03/12/fighting-fear-and-loathing-in-crested-butte/" title="Fighting Fear and Loathing In Crested Butte"><span class="title">Fighting Fear and Loathing In Crested Butte</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2017/01/09/how-a-grumpy-programmer-secures-their-laptop/" title="How A Grumpy Programmer Secures Their Laptop"><span class="title">How A Grumpy Programmer Secures Their Laptop</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Tricorder: a testing helper for PHP &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Tricorder: a testing helper for PHP</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>I've hacked together a little CLI script that I think will be of use to many
+people who are trying to answer the question "just what should I do to test
+this thing anyway?" as they learn how to write PHPUnit tests to go along with
+their code.</p>
+
+<p>While I as at php|tek 2012 I had a conversation with <a href="https://twitter.com/DragonBe">Michelangelo van Dam</a>
+about an idea I had for a testing tool: something that could look at your code
+and give you suggestions on what you should be testing. In no time flat he
+hooked me up with one of the core guys on the <a href="http://phpdoc.org">phpDocumentor</a> project,
+<a href="https://twitter.com/mvriel">Mike van Riel</a> and in the course of one short Skype
+chat I knew I had the right tools for the job.</p>
+
+<p>I've created something that I am calling <a href="https://github.com/chartjes/php-tricorder/">PHP-Tricorder</a>, a CLI
+utility that can be used in conjunction with phpdoc structure.xml files to make
+suggestions on testing scenarios. It's at a 0.1 release right now, so I anticipate
+it will grow and add more features as time goes on. I'd like to think right now
+that it's pretty useful for people who are just beginning down the road of
+writing tests for their code.</p>
+
+<p>Here's some sample output from a run of PHP-Tricorder:</p>
+
+<pre><code>chartjes@php-vm:~/php-tricorder$ php tricorder.php ../building-testable-applications/lib/IBL/structure.xml 
+Reading in phpDocumentor structure file...
+
+FranchiseMapper.php
+
+Scanning FranchiseMapper
+
+__construct -- make sure to mock $conn as \PDO
+
+createFranchiseFromRow -- make sure to test $row using an empty array()
+
+delete -- make sure to mock $franchise as \IBL\Franchise
+
+findAll -- make sure to test method returns \IBL\Franchise instances
+findByConference -- make sure to test $conference using null or empty strings
+
+findByConferenceDivision -- make sure to test $conference using null or empty strings
+
+findByNickname -- make sure to test $nickname using null or empty strings
+
+findById -- make sure to test $id using non-integer values
+
+generateMap -- make sure to test $teamsTable using null or empty strings
+
+save -- make sure to mock $franchise as \IBL\Franchise
+
+_insert -- non-public methods are difficult to test in isolation
+_insert -- make sure to mock $franchise as \IBL\Franchise
+
+_update -- non-public methods are difficult to test in isolation
+_update -- make sure to mock $franchise as \IBL\Franchise
+</code></pre>
+
+<p>So check the project out on Github, pull requests and patches are welcome
+and I look forward to building this tool out to meet the needs of other
+PHP developers.</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2012/06/06/dic-vs-service-locator/" title="DIC vs. Service Locator"><span class="title">DIC vs. Service Locator</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2012/05/17/how-the-testing-sausage-gets-made/" title="How The Testing Sausage Gets Made"><span class="title">How The Testing Sausage Gets Made</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

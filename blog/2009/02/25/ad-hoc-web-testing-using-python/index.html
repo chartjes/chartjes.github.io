@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Ad-hoc Web Testing using Python &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Ad-hoc Web Testing using Python</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>
+"But Chris, I thought you were a PHP guy?"  Yes, in my day-to-day work I use a lot of PHP.  However, I am branching out as required by my desire to learn new things.  One of those new things is <a href="http://www.python.org">Python</a>, both on the web and the server side.  I thought I would share with you a tool I whipped together to do some testing of webservices at work built using <a href="http://www.sportsdb.org/sd/sportscaster">an application front-end that we have released under the GPL</a>.  Of course, you need to be using our non-free sports data feed fetching software, but that's not the point.
+</p>
+
+<p>
+So, as of March 1 we are turning off an old server that uses an older, Perl-using-CGI web service and redirecting those customers using it to one built using PHP (Code Igniter specifically.  Again, this decision was made before I started at that job.)  As the lead engineer on the project (okay, the only one) I had to make sure that all the old queries would work on the new server.  When my boss told me to "manually check them" I scoffed and said "manual checking is for suckers, I'm going to write a script to do it.".
+</p>
+
+<p>
+The methodology is as follows:
+<ol>
+<li>Make sure that calls to the old web service return properly formed XML *or* HTML with a certain string  in it when we are doing XSLT transforms</li>
+<li>Do the same thing with the new web service</li>
+<li>Tell me when something isn't right</li>
+</ol>
+</p>
+
+<p>
+I could do more work in this script, to do things like look for certain tags in the XML document to be populated but we can skip that for now.  The new web service has been tested quite well and we are getting back results as expected via some other tests I've written using PHPUnit.</p>
+
+<p>
+With help from online Python resources like <a href="https://comparite.ch/python-cs">this Python cheat-sheet</a> and some judicious online searching, I came up with this script.  As far as I can tell, the only outside dependency was me using <a href="http://www.crummy.com/software/BeautifulSoup/">Beautiful Soup</a> to read in the HTML output.  Maybe I could've used Beautiful Soup for both the XML and HTML, but this still works just fine.
+</p>
+
+<pre><code>#!/usr/bin/python 
+
+import urllib2
+from xml.dom import minidom
+import fileinput
+from BeautifulSoup import BeautifulSoup
+
+host = 'http://w04.foo.com';
+host2 = 'http://w05.foo.com';
+users = ["foo", "bar", "baz", "alpha", "omega"] 
+passwords = ['xxxxx', 'xxxxxx', 'xxxxxx', 'xxxxx', "xxxxx"]
+key = 0
+
+for username in users:
+    print "Doing check for " + username
+    password = passwords[key]
+    password_mgr = urllib2.HTTPPasswordMgrWithDefaultRealm()
+    password_mgr.add_password(None, host, username, password)
+    handler = urllib2.HTTPBasicAuthHandler(password_mgr)
+    opener = urllib2.build_opener(handler)
+    urllib2.install_opener(opener)
+    password_mgr.add_password(None, host2, username, password)
+    handler = urllib2.HTTPBasicAuthHandler(password_mgr)
+    opener2 = urllib2.build_opener(handler)
+    urllib2.install_opener(opener2)
+
+    for line in fileinput.input(username + "_url.txt"):
+        try:
+            data = urllib2.urlopen(line)
+
+            try:
+                xmldoc1 = minidom.parse(data)
+            except:
+                html = urllib2.urlopen(line).read()
+                soup = BeautifulSoup(html)
+
+                if not soup.find(text="XML Team Solutions"):
+                    print "Bad XML+HTML:" + line
+
+        except:
+            print "Could not load " + line
+
+    key = key + 1
+</code></pre>
+
+<p>
+URL's that I wished to test were stored in text files that this script then read in.  Using a little grep + awk magic I was able to extract URL's from our web server access log in order to test.  I'd appreciate any tips from Pythonistas out there on how to make this code conform more to the "Python way" if there is such a thing.
+</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2009/03/03/what-ill-be-doing-at-php-quebec/" title="What I&#039;ll Be Doing At PHP Quebec"><span class="title">What I&#039;ll Be Doing At PHP Quebec</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2009/02/18/chris-brain-2009-02-18/" title="Chris&#039; Brain - 2009-02-18"><span class="title">Chris&#039; Brain - 2009-02-18</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

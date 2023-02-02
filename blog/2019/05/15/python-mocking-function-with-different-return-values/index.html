@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Mocking a function with different return values in Python &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Mocking a function with different return values in Python</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>For the first half of 2019 I was borrowed by the Performance Team
+at Mozilla and asked to help them implement a way to measure the
+performance of various browsers on Android platforms. This has
+involved me getting familiar with several tools and environments
+that I had not touched before:</p>
+
+<ul>
+<li>Mozilla's tooling for use with <a href="https://hg.mozilla.org/mozilla-central">mozilla-central</a></li>
+<li>Rooting Android devices for testing purposes</li>
+<li><a href="https://developer.android.com/studio/">Android Studio</a> and it's device emulation tools</li>
+<li>Executing and parsing shell commands</li>
+</ul>
+
+<p>Of course, I am using <a href="https://docs.pytest.org/en/latest/">pytest</a> as well to make sure
+that I had thought about testing scenarios and giving whomever
+supports this code once I am back at my previous role a chance
+to figure out what is going on.</p>
+
+<p>One of the testing scenarios I came up with was handing the fact that I
+had designed the code to have a fallback mode in case the
+shell command I was using did not work on that particular
+device. Some code reviews from other developers revealed
+some differences in how the <a href="https://www.unixtutorial.org/commands/top"><code>top</code> command</a>
+works on different phones.</p>
+
+<p>So, drawing  on my own experiences with using test
+doubles in PHP, I asked myself "how can I create
+a mock that has different return values?". In
+pytest this functionality is called <code>side_effect</code>.</p>
+
+<p>So, here is some of the code in question that I needed
+to test:</p>
+
+<pre><code class="python">try:
+    cpuinfo = raptor.device.shell_output("top -O %CPU -n 1").split("\n")
+    raptor.device._verbose = verbose
+    for line in cpuinfo:
+    data = line.split()
+            if data[-1] == app_name:
+                cpu_usage = data[3]
+except Exception:
+    cpuinfo = raptor.device.shell_output("dumpsys cpuinfo | grep %s" % app_name).split("\n")
+    for line in cpuinfo:
+        data = line.split()
+        cpu_usage = data[0].strip('%')
+</code></pre>
+
+<p>I wrapped the first call in a try-catch construct because
+an exception is thrown if anything is up with that <code>top</code>
+call. If that call doesn't work, I then want to use that
+<code>dumpsys</code> call.</p>
+
+<p>In the test itself, I would need the <code>shell_output</code> call
+to first throw an exception (as expected for the scenario)
+and then return some output that I can then parse and use.</p>
+
+<p>In the PHP world, most test doubling tools allow you to
+create a mock and have it return different values on
+consecutive calls. Pytest is no different, but it took
+me a while to figure out the correct search terms to find
+the functionality I wanted.</p>
+
+<p>So, here is how I did it:</p>
+
+<pre><code class="python">def test_usage_with_fallback():
+    with mock.patch('mozdevice.adb.ADBDevice') as device:
+        with mock.patch('raptor.raptor.RaptorControlServer') as control_server:
+            '''
+            First we have to return an error for 'top'
+            Then we return what we would get for 'dumpsys'
+            '''
+            device.shell_output.side_effect = [
+                OSError('top failed, move on'),
+                ' 34% 14781/org.mozilla.geckoview_example: 26% user + 7.5% kernel'
+            ]
+            device._verbose = True
+
+            # Create a control server
+            control_server.cpu_test = True
+            control_server.test_name = 'cpuunittest'
+            control_server.device = device
+            control_server.app_name = 'org.mozilla.geckoview_example'
+            raptor = Raptor('geckoview', 'org.mozilla.geckoview_example', cpu_test=True)
+            raptor.device = device
+            raptor.config['cpu_test'] = True
+            raptor.control_server = control_server
+
+            # Verify the response contains our expected CPU % of 34
+            cpuinfo_data = {
+                u'type': u'cpu',
+                u'test': u'usage_with_fallback',
+                u'unit': u'%',
+                u'values': {
+                    u'browser_cpu_usage': '34'
+                }
+            }
+            cpu.generate_android_cpu_profile(
+                raptor,
+                "usage_with_fallback")
+            control_server.submit_supporting_data.assert_called_once_with(cpuinfo_data)
+</code></pre>
+
+<p>Let me break down what I did (as always, I am open to
+suggestions on better ways to write this test).</p>
+
+<p>The first double is for a class that communicates with the
+Android device. Then the next double I needed was for the
+"control server", which is what is used to control the
+browser and execute tests.</p>
+
+<p>My first "side effect" is to generate an error so it
+triggers the first condition of the scenario that
+'top should not work'. The second "side effect" is
+the response I am expecting to get from the shell
+command in my fallback area of the code.</p>
+
+<p>Then I continue with the "arrange" part of the <a href="http://wiki.c2.com/?ArrangeActAssert">Arrange-Act-Assert</a>
+testing pattern I like to use -- I configure my
+"control server" to be the way I want it.</p>
+
+<p>I finish up with creating what I expect the data
+that is to be submitted to our internal systems
+looks like.</p>
+
+<p>I execute the code I am testing (the "act" part)
+and then use a <a href="https://github.com/testdouble/contributing-tests/wiki/spy">spy</a>
+to make sure the control server would have submitted
+the data I was expecting to have been generated.</p>
+
+<p>The ability to have a method return different values
+is powerful in the context of writing tests for code
+that has conditional behaviour. I hope you find this
+example useful!</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2019/05/15/getting-things-done-while-remote/" title="Mocking a function with different return values in Python"><span class="title">Mocking a function with different return values in Python</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2019/04/27/watch-me-get-grumpy-event-sourcing-refactor/" title="Watch me get grumpy - event sourcing refactor"><span class="title">Watch me get grumpy - event sourcing refactor</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

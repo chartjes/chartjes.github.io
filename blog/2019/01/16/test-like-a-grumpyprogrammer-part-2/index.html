@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Learn To Test Like A Grumpy Programmer - Part 2 &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Learn To Test Like A Grumpy Programmer - Part 2</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>(If you use PHP, you can learn how to write automated tests for your code via my <a href="https://leanpub.com/c/learntotest">"Learn To Test Like A Grumpy Programmer" course</a> over at LeanPub)</p>
+
+<p>In this blog post I wanted to talk about some of the lessons I've
+learned at the <a href="https://mozilla.com">day job</a> about how to use tools and techniques
+we are familiar with in the developer world to make our job of
+testing things easier.</p>
+
+<h2 id="mozilla%27s-push-notification-service">Mozilla's Push Notification Service</h2>
+
+<p>One of the projects I do QA work for is the <a href="https://support.mozilla.org/en-US/kb/push-notifications-firefox">push notification service</a>
+that Mozilla runs. Yes, I know a lot of people get supremely annoyed
+by push notifications. Yes, they are heavily abused by people. Mozilla
+tries to use them in a way not designed to annoy you. But this is the
+Internet after all, where everything annoys somebody somehow.</p>
+
+<p>My work for that team involves doing testing of the service whenever
+a new version is ready to be released. The process goes like this:</p>
+
+<ul>
+<li>the development team tags a new release along with a <a href="https://en.wikipedia.org/wiki/Changelog">changelog</a></li>
+<li>the operations team deploys this new release to the staging environment</li>
+<li>I create a <a href="https://bugzilla.mozilla.org/">BugZilla</a> ticket to track the deployment and testing results</li>
+<li>I run a series of tests against the service on staging, recording my progress there</li>
+</ul>
+
+<p>If all my tests pass on staging, I give approval to deploy that version
+of the service to production. The process for that is:</p>
+
+<ul>
+<li>the operations team deploys the new release to production</li>
+<li>I create another ticket to track the deployment process and testing results</li>
+<li>I run the same tests and add an additional set of load tests to make sure the service is responsive</li>
+</ul>
+
+<p>So what tests do I run?</p>
+
+<h2 id="api-contract-tests">API Contract Tests</h2>
+
+<p>I wrote some tests using <a href="https://pytest.org">pytest</a> that make API
+calls using known values and verify that we are getting the responses
+that we expect.</p>
+
+<p>These tests usually are not difficult to write and I did experiment
+with making them asynchronous using <a href="https://github.com/pytest-dev/pytest-asyncio">pytest-asyncio</a>
+so I could learn how asynchronous code works in Python. If you had
+a very large test suite, I could see it being useful to speed up the
+process. This particular test suite is not big enough to warrant that.</p>
+
+<p>For my fellow PHP folks, there are some plugins for <a href="https://phpunit.de">PHPUnit</a>
+that can run your tests in parallel. For one example check out <a href="https://github.com/jwage/phpchunkit">PHPChunkit</a></p>
+
+<h2 id="load-tests">Load Tests</h2>
+
+<p>I only run the load tests on the production version of the service because
+the number of nodes that handle push notification requests is higher in
+production. These tests are designed to put some non-trivial load onto
+the system and examine the output from the nodes for any error messages.</p>
+
+<h2 id="vapid-testing">VAPID Testing</h2>
+
+<p>I use two different Android devices for these tests. Each device has
+latest stable and nightly releases of Firefox on them. One device
+is configured to point at staging, the other at production.</p>
+
+<p>A web page is loaded that uses Javascript to generate <a href="https://blog.mozilla.org/services/2016/08/23/sending-vapid-identified-webpush-notifications-via-mozillas-push-service/">VAPID-based notifications</a>.</p>
+
+<p>In the summer of 2018 I did experiment with seeing if I could automate
+these tests so I could use an online service offering cloud-accessible
+Android images. I did make some progress but it seems like some of the
+pieces needed to do things like make sure I don't have to click on the
+browser to accept notifications are either really brittle or don't exist,
+depending on what automation tools you are using.</p>
+
+<h2 id="desktop-notification-tests">Desktop Notification Tests</h2>
+
+<p>The person who did this testing work before me created a Nodejs app that
+serves up an web page with some forms and buttons on them. You fill in
+some values and it creates a series of push notifications that you
+visually verify work. He then put it inside a Docker container to make
+it easier for others to run those tests.</p>
+
+<p>This test used to be on a personal web page of a (now-former) Mozilla
+employee.</p>
+
+<h2 id="desktop-webpush-tests">Desktop WebPush Tests</h2>
+
+<p>These tests are to make sure that a feature of the service where you
+can group WebPush messages together by topic, only displaying the last one,
+works correctly.</p>
+
+<p>The process for these tests are:</p>
+
+<ul>
+<li>checkout a <a href="https://github.com/jrconlin/topics">GitHub repo</a> that contains the test</li>
+<li>configure everything according to the documenation</li>
+<li>start up the "topic server" via the CLI, which is serving up a one-page <a href="https://cyclone.io">Cyclone</a> web application</li>
+<li>click on a button fire up a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API">service worker</a> that receives requests to send a WebPush notification</li>
+<li>then use another CLI tool to fire off notifications (with or without a topic)</li>
+<li>visually verify that the notifications appeared</li>
+</ul>
+
+<p>Given that I already had a Docker-based solution, I decided it was time
+to turn this test into something where I only have to click a few buttons
+instead of running things via the CLI.</p>
+
+<p>The first step was to update the existing one page app to have two more
+buttons. So I edited the HTML to add some buttons and then added some
+JavaScript that made calls to two new URL's for the app.</p>
+
+<p>I then added those two URL's to the Cyclone app, porting over code from
+the CLI "topic pusher" tool to generate the notifications.</p>
+
+<p>There was already a Dockerfile for the application, so I used that and
+then spent some time building and rebuilding and debugging the application
+to make sure it did actually make it so all I had to do was the following:</p>
+
+<ul>
+<li>download the Docker image</li>
+<li>start running the image (making sure to tell Docker to forward the correct port)</li>
+<li>click on the Subscribe button and see the message that the service worker is running and the browser asks to accept notifications</li>
+<li>click on the button that sends a single notification and visually verify output</li>
+<li>click on the button that sends multiple notifications grouped by topic and visually verify output</li>
+</ul>
+
+<p>So now I have a test that I can point other folks to that they can
+use without having to install any dependencies in their local environment
+other than a web browser and Docker.</p>
+
+<h2 id="programming-skills-%2B-qa-work-%3D%3D-solving-interesting-problems">Programming Skills + QA work == Solving Interesting Problems</h2>
+
+<p>I am far from the only person who has this skill set. But having
+some ability to create your own purpose-specific tools means
+that the people around you get to benefit.</p>
+
+<p>Often the tools (and automation solutions) that folks use to
+test things are proprietary and not open to be modified. So
+you expend a lot of energy trying to bend a tool towards a
+new purpose.</p>
+
+<p>There are other folks out there like me who busy creating wrappers
+around hard-to-use tools or creating new solutions with the
+goal of making what used to be difficult a lot easier. Encourage
+those people and promote what they are doing!</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2019/01/31/docker-as-a-testing-tool/" title="Docker as a testing tool"><span class="title">Docker as a testing tool</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2018/12/18/test-like-a-grumpy-programmer-part-1/" title="Learn To Test Like A Grumpy Programmer - Part 1"><span class="title">Learn To Test Like A Grumpy Programmer - Part 1</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

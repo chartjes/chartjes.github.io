@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Expand your programming mind:  filters in Lithium &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Expand your programming mind:  filters in Lithium</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>Out of the ashes of a severe personality clash in an <a href="http://cakephp.org">open source PHP web application framework project</a> rose a new framework proclaiming that it <a href="http://rad-dev.org/lithium/wiki">simply sucks less than all the others</a>.  Lithium, otherwise known as li3, is the latest PHP application framework to come onto the scene.  I know what you're saying.  *Yawn*.
+</p>
+
+<p>
+As far as I can tell, Lithium is trying it's hardest to be fast, lightweight, and use all the features that PHP 5.3 has to offer.  I am unable to use it at work for a variety of reasons (not stable, required PHP 5.3 only, <a href="http://twitter.com/nateabele">Nate</a> is always picking on me via IM) but I am more interested in the ideas that are coming out of it.
+</p>
+
+<p>
+It is using all the newest hawtness in the PHP world:  namespaces, closures, Phar, late static binding.  I could go on, but probably most of these things mean nothing to you until you actually need them.  In the framework world, namespaces are a big deal, an essential tool to avoiding collisions with 3rd party code you might want to integrate into your project.  Closures are very familiar to those who've done work with Ruby or Javascript.  Phar allows for some unarchiving on the fly of code, even potentially distributing your application as an archive that can be run.  Late static binding is something I'm trying to comes to grips with, as I have either never come across a need for it or never realized that I did and have implemented a workaround for it not realizing there is a simpler solution.
+</p>
+
+<p>
+None of these are what I want to talk about.  I want to talk about something that I feel is a very underrated part of Lithium, the ability to define filters.  This is a concept that you find in <a href="http://en.wikipedia.org/wiki/Aspect-oriented_programming">Aspect-oriented programming</a>, and one that I imagine most programmers have never considered.  Here's why I think it's a big deal.
+</p>
+
+<p>
+Most frameworks are designed around an OOP paradigm.  Yes, some mix them together (I'm looking at *you* CodeIgniter), but by and large you get the job done by extending on a base model / controller / helper / whatever to create new functionality.  Sometimes this is not avoidable.  But what AOP says is that there is another way, a way that Lithium has adopted as well.
+</p>
+
+<p>
+Hence the creation of "filters".  As far as I can tell (and I'm sure I will be jumped upon if I am wrong) the purpose of filters in Lithium is to allow you to add functionality without extending the class itself.  When I saw that I immediately understood why that is so awesome.
+</p>
+
+<p>
+The idea of callbacks is also very similar:  if X happens, run code Y.  A staple of jQuery, Rails and probably other projects I have forgotten to mention.  The idea is still the same though.  In Garrett Woodworth's <a href="http://www.slideshare.net/gwoo/li3-ocphp">presentation about Lithium to the Orange County PHP Users Group</a> he goes  over some solid examples of filters including:
+<ul>
+<li>automatic use of the <a href="http://mirror.facebook.net/facebook/xhprof/doc.html">XHProf</a> for code profiling</li>
+<li>automatic setting of parameters upon saving a pasted bit of code</li>
+</ul>
+</p>
+
+<p>It's also been used to <a href="http://misja.posterous.com/playing-with-lithium">automatically change string record ID's into a MongoDB ID</a> and <a href="http://latestatic.com/integration-testing-or-how-i-learned-to-stop">graceful failing of an integration test suite when an error occurs</a>.
+</p>
+
+<p>
+These filters remind me of behaviors in Rails (and in CakePHP as well) and makes me wonder if signals are the same thing in the Django world.  All in all, this looks to me to be a better way to extend functionality than actually overriding existing methods or hacking at something deep inside a class.  Figure out what functionality you want, figure out where it needs to be called, and add your filter.
+</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2010/03/19/u-r-doin-it-wrong-adventures-with-flexible-forms-in-zend-framework/" title="\&quot;U R Doin It Wrong\&quot; - Adventures with flexible forms in Zend Framework"><span class="title">\&quot;U R Doin It Wrong\&quot; - Adventures with flexible forms in Zend Framework</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2010/03/12/rallyhat-lives/" title="Rallyhat lives!"><span class="title">Rallyhat lives!</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

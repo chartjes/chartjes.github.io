@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Git Mah Code From Th&#039; Repository, Ma! &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Git Mah Code From Th&#039; Repository, Ma!</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>
+In my quest to try and learn new things (more like trying to avoid being bored with stuff I'm doing) I decided to take a look at another version control system I had heard about called <a href="http://git.or.cz/">Git</a>.  According to it's <a href="http://en.wikipedia.org/wiki/Git_(software)">entry over at Wikipedia</a> it is "..a <a href="http://betterexplained.com/articles/intro-to-distributed-version-control-illustrated/">distributed revision control</a> / software configuration management project created by Linus Torvalds."  Yes, the same Linus Torvalds who created Linux.  When I first heard about Git I thought to myself "why should I care that Subversion supposedly sucks and that distributed version control is awesome?".  So I decided to dig a little further.
+</p>
+
+<p>
+I found <a href="http://video.google.com/videoplay?docid=-2199332044603874737">this video of Linus talking about Git at Google</a> and while I did laugh at Linus' professed hatred for all things CVS (and it's hip descendant SVN) I did grow to understand git.  Basically, he created the version control system *he* wanted to use for the Linux kernel after his experiences with <a href="http://www.bitkeeper.com/">BitKeeper</a> led him to stop using it, but there was no way he could go back to the old patches-and-tarballs way they used to maintain the Linux kernel.  Just too many people using it now I guess.  So, he hit on the idea of using a bunch of existing tools, hacking them together with some glue of his own and creating a distributed version control system that he could use on a daily basis.</p>
+
+<p>
+Linus had a problem with CVS/SVN because of a few things as far as I can tell:  branching and merging was terrible (I agree that branching and merging is not the easiest thing to do in SVN if you get to any level of complexity) and he disagreed with the 'you need access in order to commit things' model that CVS/SVN promotes.  As someone who has commit-level access to the CakePHP repository, I can understand why that bothers some people:  once you can commit stuff you can wreak a lot of havoc with bad commits.
+</p>
+
+<p>
+My understanding of a distributed version control system is that anyone can grab a copy of the repository and start playing with it locally, making their own commits.  Once they are happy, you can then push those changes up the chain to where yo u originally got them from and then continue merrily on your way.  The people who are working off of the source of your ORIGINAL checkout can then choose to pull your changes into their working copy whenever they are ready, and so on, and so forth.  I hope I'm not oversimplifying things here, and Linus does a really good job of explaining this in the talk.
+</p>
+
+<p>
+The main advantage seems to be that it's greatly increased the speed at which merges and commits can happen.  Also, because you have a copy of the entire repository at your fingertips you don't need to be connected to the net in order to commit stuff:  the commits happen locally and don't go anywhere until you execute a git-push, which sends those changes back to the original source of your checkout.  Randall Schwartz, who gave a <a href="http://video.google.com/videoplay?docid=-3999952944619245780">follow-up talk about git</a> talked about how nice it was that he could do stuff on his laptop on the plane, committing and reverting changes locally.
+</p>
+
+<p>
+So, I installed git both on my laptop and my VPS that hosts this blog and decided to try it out.  After fumbling around in the documentation for a while I figured out how to (a) create the repository, (b) how to get a copy of the repository, (c) how to commit and revert things and (d) how to push those changes back to the main repository.  Really, not that much different from how I use SVN these days...except I think it's neat how I can do local commits and know that if someone else was working on the project, they could mess around locally committing things and not run the risk of accidentally blowing something away.  Maybe I need to get another developer involved in the projects I'm trying out with git to see how this stuff will work.
+</p>
+
+<p>
+So, right now I've got <a href="http://www.ibl.org">the IBL web site</a> and Rallyhat using git.  No complaints, and I really do see how fast the commits and updates (in this case git-commit and git-pull on the servers where the projects are in production) are compared to SVN.  Of course, I've automated deployment of these projects using Capistrano. :)
+</p>
+
+<p>
+Now, don't take my word for it but I really think that distributed version control systems are a great idea that is starting to gain traction.  The Linux kernel uses it, and I believe the KDE project is using it as well.  I suggest you do what I did before I decide to actually use it:  watch the two videos I mentioned above, do some research into how distributed version control systems should work and then actually try it out.  You might be surprised.
+</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2007/11/14/server-shakeout/" title="Server Shakeout"><span class="title">Server Shakeout</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2007/11/07/whats-in-chris-brain-november-2007-edition/" title="What&#039;s In Chris&#039; Brain: November 2007 Edition"><span class="title">What&#039;s In Chris&#039; Brain: November 2007 Edition</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

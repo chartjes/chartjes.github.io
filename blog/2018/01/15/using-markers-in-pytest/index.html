@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Using markers in pytest &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Using markers in pytest</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>At the <a href="https://mozilla.com">current day-job</a> I use <a href="https://docs.pytest.org/en/latest">pytest</a>
+for writing what I call "configuration tests" for the various services
+and tools that I am responsible for doing QA work for.</p>
+
+<p>One of these is <a href="https://github.com/Kinto/">Kinto</a>, a "generic JSON
+document store" that we wrote (and open-sourced) at Mozilla and is
+used by a lot of services.</p>
+
+<p>These days there are three "flavours" of Kinto that I have to worry about:</p>
+
+<ul>
+<li><code>kinto-dist</code> which is the core of Kinto</li>
+<li><code>kinto-settings</code> which is the Kinto core plus a bunch of records representing settings stored for users of Firefox</li>
+<li><code>kintowe</code> which is the Kinto core and some extensions for it that we use to track records of what web extensions Firefox users have stored</li>
+</ul>
+
+<p>Whenever we have a new version of any of these "flavours" that need
+to be tested, it is deployed to a target environment (either staging
+or production) and tests that I wrote are run by our operations team's
+deployment tool making a call to a CI server run by the QA department.
+This CI server then runs all the tests I wrote.</p>
+
+<p>But I had a problem. There were some tests that needed to be run no
+matter what "flavour" we were deploying, and then some tests that
+belong only to one "flavour". Previously I just had duplicate repos
+but wanted to consolidate them.</p>
+
+<p>I enlisted the help of one of our team tool-makers <a href="https://twitter.com/davehunt82">Dave Hunt</a>
+while at our All-Hands meeting in Austin in December of 2017 to go
+over some better strategies and to make better use of our CI server.</p>
+
+<p>After scribbling a lot of stuff on a white board to get Dave up to
+speed, he suggested moving all the tests into one repo and using a 
+feature of pytest called "markers" to figure out what "flavour" we
+were testing.</p>
+
+<p>Note: at the time of writing I was doing this work with Python 3.6.3
+and pytest 3.3.2.</p>
+
+<p>Pytest makes heavy use of decorators to extend its functionality.
+Fixtures (which can be best described as helper methods for tests)
+are declared using annotations, and then these fixtures are
+available to any test method that you pass it into as a parameter
+(with some exceptions based on the scope of a fixture).</p>
+
+<p>Here's an example of a fixture that reads in a configuration file
+and returns an object that contains those values:</p>
+
+<pre><code class="python">@pytest.fixture(scope="module")
+def conf():
+    config = configparser.ConfigParser()
+    config.read('manifest.ini')
+    return config
+</code></pre>
+
+<p>To use it, I just pass it in as a parameter like this:</p>
+
+<pre><code class="python">async def test_server_info(api, conf, env):
+    res = await api.server_info()
+    data = await res.json()
+    expected_fields = aslist(conf.get(env, 'server_info_fields'))
+
+    for key in data:
+        assert key in expected_fields
+
+    for field in expected_fields:
+        assert field in data
+</code></pre>
+
+<p>To use a marker, I simply add an annotation to tell pytest "mark
+this test as belonging to <code>dist</code>" or any other "flavour" I want
+this test to belong to. Check out the annotations for this test:</p>
+
+<pre><code class="python">@pytest.mark.asyncio
+@pytest.mark.dist
+@pytest.mark.settings
+@pytest.mark.webextensions
+async def test_version(api, conf, env, apiversion):
+    res = await api.__version__()
+    data = await res.json()
+    expected_fields = aslist(conf.get(env, 'version_fields'))
+
+    # First, make sure that data only contains fields we expect
+    for key in data:
+        assert key in expected_fields
+
+    # Then make the we only have the expected fields in the data
+    for field in expected_fields:
+        assert field in data
+
+    # If we're passed an API version via the CLI, verify it matches
+    if apiversion:
+        assert apiversion == data['version']
+</code></pre>
+
+<p>There is a lot going on here, let me break it down:</p>
+
+<ul>
+<li>we are marking this test as being able to run asynchronously using Python 3's <a href="https://docs.python.org/3/library/asyncio.html">asyncio</a> module</li>
+<li>we want this test to be run any time we are testing <code>dist</code></li>
+<li>we want this test to be run any time we are testing <code>settings</code></li>
+<li>we want this test to be run any time we are testing <code>webextensions</code></li>
+<li>we are passing in an API helper as a parameter</li>
+<li>we are passing in a configuration helper as a parameter</li>
+<li>we are passing in a helper that reads a target environment parameter from the CLI</li>
+<li>we are passing in a halper that reads an API version parameter from the CLI</li>
+</ul>
+
+<p>Here's a test we only want run when we do a <code>kinto-settings</code> deployment:</p>
+
+<pre><code class="python">@pytest.mark.settings
+def test_plugins_signatures(env, conf):
+    client = Client(
+        server_url=conf.get(env, 'reader_server'),
+        bucket='blocklists',
+        collection='plugins'
+    )
+    try:
+        collection, records, timestamp = get_collection_data(client)
+        if len(records) == 0:
+            pytest.skip('blocklists/plugins has no records')
+
+        assert verify_signatures(collection, records, timestamp)
+        assert verify_signer_id(collection, 'onecrl_key')
+    except KintoException as e:
+        if e.response.status_code == 401:
+            pytest.fail('blocklists/plugins does not exist')
+        pytest.fail('Something went wrong: %s %s' % (e.response.status_code, e.response))
+</code></pre>
+
+<p>I also needed a way to figure out what markers were set so I could
+use the correct value from our configuration file (depending on the
+environemnt). Pytest has a <code>request</code> fixture that is globally available
+to any test.</p>
+
+<p>I have another helper that uses <a href="https://swagger.io/">Swagger</a> to
+parse an API spec that the developers built for me. I pass the
+<code>request</code> object to the API helper, and look for specific markers:</p>
+
+<pre><code class="python">@pytest.fixture(scope="module")
+def api(event_loop, conf, env, request):
+    api_definition = 'dist_api_definition'
+
+    if 'settings' in request.node.keywords:
+        api_definition = 'settings_api_definition'
+    elif 'webextensions' in request.node.keywords:
+        api_definition = 'webextensions_api_definitions'
+
+    return API(conf.get(env, api_definition), loop=event_loop)
+</code></pre>
+
+<p>(By the way, you can find all this code in the <a href="https://github.com/Kinto/kinto-integration-tests">GitHub repo</a>
+for these tests)</p>
+
+<p>So, when we are doing a deployment of <code>kinto-dist</code> to our staging
+environment, we can run the tests this way:</p>
+
+<pre><code class="shell">pytest -m dist --env=stage config-tests/
+</code></pre>
+
+<p>Then the tests we want to get run, get run. I'm not sure what
+other ways there are to organize your tests, but this is a method
+that works and makes sense to me. Got any comments or suggestions?
+Email me or contact me via Twitter using details in the sidebar.</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2018/10/18/codedaze-talk/" title="CodeDaze 2018 Talk"><span class="title">CodeDaze 2018 Talk</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2018/01/14/jan-2018-board-game-night/" title="January 2018 board game night"><span class="title">January 2018 board game night</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

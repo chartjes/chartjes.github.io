@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Got That Olde Thyme TDD Religion &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Got That Olde Thyme TDD Religion</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>
+This week has been kicking my ass in terms of work.  I've started a project at work which is a bit of a rush job (my boss forgot I was at PHP Quebec last week when taking into account the schedule) and I decided that there was no time like the present to start doing things right and start practicing Test Driven Development, or Behaviour Driven Development.
+</p>
+
+<p>
+See, this is much harder to do if you inherit some legacy code.  Also, as I've discovered, Code Igniter is making it difficult to actually write some useful unit tests.  The built-in testing tools are terrible (this is not the first time nor the last time I've said this) so I am unsure how to approach this.  Let me know in the comments of tools you've used to help with this in the PHP world.
+</p>
+
+<p>
+This new app I'm building using CakePHP, because (a) I'm more familiar with is given the time constraints for the project and (b) it allows me the granular caching that I want.  I did consider using Zend Framework for this but time was the enemy.  CakePHP is a project that has a culture of testing, and I've been using Cake's <a href="http://debuggable.com/posts/running-tests-from-the-commandline-in-cakephp:4821f908-da38-4987-909a-25c74834cda3">CLI test runner</a>.  Yes, I know that Zend Framework has the testing culture too, as I remember all the fun I had writing tests for Zend_Service_Audioscrobbler.  If you take one thing from this blog post, it's this:  DO NOT USE A FRAMEWORK WITHOUT A CULTURE OF TESTING.  You will regret it when you are spending tons of time fixing bugs you should've found through unit and functional testing.
+</p>
+
+<p>
+In my first week of doing TDD I've noticed a subtle change.  I'm planning things more.  Deciding the output of functions before I actually write them.  I'm only creating the functionality I need instead of stubbing out all the functionality I think I'm going to need.  I'm looking for ways to run my tests from inside the One True Editor.  All of this must be good, right?
+</p>
+
+<p>
+PHP does not have a culture of testing at it's core like Ruby and Python do.  I point you at <a href="http://gilesbowkett.blogspot.com/">Giles Bowkett</a> and some of the awesome blog posts he's done about TDD and Ruby.   Search that blog and READ THOSE POSTS.  You will not regret it.Python has the same culture of testing (<a href="http://docs.python.org/library/doctest.html">doctest</a> is one tool for that), and I don't know how PHP can get there.  Maybe it will never get there because I hazard a guess that most people who use PHP couldn't give two flying fucks about writing tests.  Until that changes (meaning all the cool kids of PHP start writing tests) then TDD will continue to simply result in blank stares in the PHP community.
+</p>
+
+<p>
+So I think what TDD is really supposed to do is NOT find bugs.  Finding bugs is a side-effect of the process.  What it does (at least it did for me) is force you to build you code in such a way that it can be modular and testable.  I found myself adding in switches to put functionality into test mode, so that I could load test fixtures instead of hitting a webservice to get my data.  You tell me:  is that good or bad?
+</p>
+
+<p>
+Now I know I haven't been doing TDD long enough to call myself an expert, but I feel I really need to give it the time and effort that it deserves.  This project is the perfect (pardon the pun) testing ground for putting some TDD principles into practice.</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2009/03/21/countdown-to-refactoring-legacy-applications-using-cakephp/" title="Countdown to &quot;Refactoring Legacy Applications Using CakePHP&quot;"><span class="title">Countdown to &quot;Refactoring Legacy Applications Using CakePHP&quot;</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2009/03/07/slides-from-php-quebec-2009-talk/" title="Slides from PHP Quebec 2009 talk"><span class="title">Slides from PHP Quebec 2009 talk</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

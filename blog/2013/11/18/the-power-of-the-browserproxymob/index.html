@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>The Power of the BrowserProxyMob &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">The Power of the BrowserProxyMob</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>At <a href="http://synacor.com">work</a> I have been involved with an effort to put some
+automated front-end testing in place. The combination of <a href="http://behat.org">Behat</a>,
+<a href="http://mink.behat.org">Mink</a> running tests using <a href="http://phantomjs.org">PhantomJS</a>
+is a good one for this. Open source, easy to configure, handles JavaScript-heavy
+pages reasonably well.</p>
+
+<p>There was just one wrinkle in our plans: our use of local host files.</p>
+
+<p>Somewhere back in the mists of time it was decided that in order to properly
+test our web applications without pummelling our production assets (like
+image farms, content servers, API end points) that a "hostfile generator"
+would be created and is accessible on every machine in our development VM
+network.</p>
+
+<p>You hit <hostname>/hosts and it spits out a file that you can use on your
+laptop to alias production assets / resources / whatever to things on your
+development server. I use a program on my MacBook called <a href="http://www.clockwise.ee/gasmask/">Gas Mask</a>
+that lets me quicky switch between host files when testing out sites on
+various development boxes. I am sure a similar tool exists for Windows and
+Linux users.</p>
+
+<p>So, initially the only way to make Behat play nicely with the host files was
+to manually over-write the /etc/hosts file on the development server with
+the host-specific one the generator gives us. That way all the host aliases
+in place.</p>
+
+<p>This is fine and all, but I am pretty sure our sysadmins would never allow
+the user that runs our continuous integration jobs have the proper permissions
+to  overwrite the host files. If a test run were to crash and generate fatal
+errors, we would end up with a machine with a bad host file in place.</p>
+
+<p>So clearly what was needed was a proxy. After doing a little bit of digging
+around I found a solution: <a href="http://bmp.lightbody.net/">BrowserMobProxy</a>. While
+it bills itself as a tool for helping web developers "watch and manipulate
+network traffic from their AJAX applications" it also has a feature that
+is of great interest to our problem: it supports the ability to create aliases
+to hosts...oddly enough just like we do with our host files at work.</p>
+
+<p>So, BrowserMobProxy is great in that you can send requests to REST-style but
+I didn't want to mess around with manual calls, so I was happy to find that
+my friend <a href="http://element34.ca">Adam Goucher</a> had written a PHP library for
+interacting with it. I forked his code, cleaned it up a little and it's
+now available via <a href="https://packagist.org/packages/chartjes/php-browsermob-proxy">Packagist</a>
+and ready to install via <a href="http://getcomposer.org">Composer</a>.</p>
+
+<p>So, let's get started with what I did.</p>
+
+<p>Here's my composer.json file for the project</p>
+
+<pre><code>{
+    "require": {
+        "behat/behat": "2.4.*@stable",
+        "behat/mink": "1.4@stable",
+        "behat/mink-extension": "*",
+        "behat/mink-goutte-driver": "*",
+        "behat/mink-selenium2-driver": "*",
+        "chartjes/php-browsermob-proxy" "dev-master",
+        "sauce/connect": "&gt;=3.0",
+        "sauce/sasuage": "&gt;=0.5",
+    },
+    "config": {
+        "bin-dir": "bin/"
+    }
+}
+</code></pre>
+
+<p>We are experimenting with using <a href="http://sauce.io">SauceLabs</a> for testing our
+sites on mobile devices (in case you were wondering).</p>
+
+<p>With that stuff installed, I next downloaded a copy of BrowserMobProxy (herafter referred to as BMP) and
+copied the CLI runner and JAR files into the 'bin' directory. Next, I installed
+PhantomJS in /usr/local/bin on my server.</p>
+
+<p>Next, we setup our Behat configuration file to point to PhantomJS when doing
+our tests using Selenium2's web driver capabilities:</p>
+
+<pre><code>phantomjs:
+    context:
+        class: "FeatureContext"
+    extensions:
+        Behat\MinkExtension\Extension:
+            default_session: selenium2
+            javascript_session: 'selenium2'
+            base_url: http://synacor.com
+            selenium2:
+                wd_host: http://127.0.0.1:4444/wd/hub
+</code></pre>
+
+<p>Now, we get to the tricky part.</p>
+
+<p>BMP requires you to connect to it first to get it to start a
+proxy connection running on a <em>different</em> port than the one the main service
+runs on. In my Behat test runner script I use the PHP BMP library to create
+a connection, and it assigns it to the first available port in a range you
+can specify at run time.</p>
+
+<p>Because I can count on this value to be the same all the time, I then start
+up an instance of PhantomJS telling it to run in "accept requests like I am
+WebDriver compatible" proxy all requests through BMP</p>
+
+<pre><code>/usr/local/bin/phantomjs --webdriver=4444 --proxy=http://localhost:9091
+</code></pre>
+
+<p>In my Behat context class I add in a step that reads in the host file via
+our host file generator and assigns the host aliases to BMP so that when
+Behat uses PhantomJS to load web pages, it will use the host aliases set
+within BMP.</p>
+
+<p>I know that it's pretty convoluted, but I know with 100% certainty that it
+works.</p>
+
+<p>If you spot anything here that doesn't make sense, let me know and I will
+update the post.</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2013/12/27/test-spies-and-mockery/" title="Test Spies and Mockery"><span class="title">Test Spies and Mockery</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2013/10/26/data-providers-and-arrays/" title="Data providers and arrays"><span class="title">Data providers and arrays</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

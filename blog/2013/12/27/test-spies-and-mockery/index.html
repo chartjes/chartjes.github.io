@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Test Spies and Mockery &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Test Spies and Mockery</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>While recording some screencasts I was struggling to figure out how to
+get PHPUnit's built-in object mocking tools to allow me to create what is
+known as a "test spy". I talk about them briefly in my <a href="http://grumpy-phpunit.com">PHPUnit Cookbook</a>
+but I think that what I wanted to do in this instance was beyond what PHPUnit
+could give me.</p>
+
+<p>I had some code-under-test that had a conditional statement inside a foreach()
+loop (aggravating my desire to use <a href="http://www.slideshare.net/rdohms/bettercode-phpbenelux212alternate">object calisthenics</a>)
+and I wanted to make sure that both branches of the conditional statement got
+executed.</p>
+
+<p>I first tried something like this:</p>
+
+<pre><code>    // $db is our mocked database object based off stdClass for testing
+    $db-&gt;expects($this-&gt;once())
+        -&gt;method('query')
+        -&gt;with($update, ['id' =&gt; 1]);
+    $db-&gt;expects($this-&gt;once())
+        -&gt;method('query')
+        -&gt;with($delete, ['id' =&gt; 5]);
+</code></pre>
+
+<p>I was using <a href="http://auraphp.com/manuals/v1/en/sql/">Aura.Sql</a> and it's Update
+and Delete objects. I wanted to be sure that I was using both objects.</p>
+
+<p>I also tried using <em>$this->at(0)</em> and <em>$this->at(1)</em> as well, I got errors
+ranging from "method query was not mocked" to problems complaining about
+expected values not showing up at the expected sequence.</p>
+
+<p>I knew there had to be a better way, but I really wanted just to use PHPUnit's
+built-in mocking. I couldn't figure it out. So instead I turned to a mocking
+library that I knew supported test spies: <a href="https://github.com/padraic/mockery">Mockery</a>.</p>
+
+<p>The code reads a lot smoother:</p>
+
+<pre><code>    // m is an alias to \Mockery
+    $db = m::mock('stdClass');
+    $db-&gt;shouldReceive('query')-&gt;with($update, ['id' =&gt; 1])-&gt;once();
+    $db-&gt;shouldReceive('query')-&gt;with($delete, ['id' =&gt; 5])-&gt;once();
+</code></pre>
+
+<p>The first thing that jumps out at me is that the Mockery version looks cleaner.
+Well, really, it's only one less chained call. But looks do count for something.</p>
+
+<p>More importantly, my test worked the first time with no weird error messaging
+about unexpected behaviour.</p>
+
+<p>So the next time you are writing a unit test and need to create spies on
+methods of a mocked object, I cannot recommend enough that you take a look
+at Mockery.</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2014/10/31/web-acceptance-tools-suck/" title="Web Acceptance Tools Suck"><span class="title">Web Acceptance Tools Suck</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2013/11/18/the-power-of-the-browserproxymob/" title="The Power of the BrowserProxyMob"><span class="title">The Power of the BrowserProxyMob</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

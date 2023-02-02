@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Web Acceptance Tools Suck &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Web Acceptance Tools Suck</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>Wow. Almost a whole year since I posted something. Time to change that.</p>
+
+<p>It is not a coincidence that I write this blog post on Halloween 2014. Because
+I want to talk about something that should make your skin crawl and want to 
+turn all the lights on in the location where you are reading this.</p>
+
+<p>I am talking, of course, about writing automated web acceptance tests.</p>
+
+<p>At ZendCon2014 I did a talk about how to use <a href="http://behat.org">Behat</a> and
+<a href="http://mink.behat.org">Mink</a> to write some automated acceptance tests for
+your web sites. You know, the type of thing where you drive a browser using
+some code and it pretends to click on things...and you lie to yourself about
+what value all this work is giving you.</p>
+
+<p>I also made the classic mistake of waiting too long to go over my slides for
+this talk and realized I was using versions of these tools that were extremely
+out of date. I then spent 6 hours updating the code, instead of watching my
+friends give awesome talks about PHP and complementary technologies.</p>
+
+<p>This sucked. Sucked big time.</p>
+
+<p>As far as I can tell, we are currently at the point in the PHP community with 
+these tools like unit testing tools were 10 years ago when I first decided I
+needed to find ways to never work 120 hours of overtime in 6 weeks leading
+up to Christmas ever again.</p>
+
+<p>Behat and Mink are both very powerful tools, but their documentation is
+lacking and the code samples review what I think is a very large disconnect
+between how the creators of these tools use them and how the rest of us use
+them. I have no idea if there is even any blame to be handed out, unless you
+subscribe to the theory that shitty documentation is the fault of the people
+who created the projects in question.</p>
+
+<p>I am not diminishing the work of those who created these things. They are
+great programmers, and I am just a grumpy guy who wants things to work a
+certain way and not act like obstacles. I like my tools to be complementary
+and easy to figure out how to bend to my will.</p>
+
+<p>But when I look at how brittle these things are, and how slow they are, it
+makes me wonder if I wasted my time learning how to use them.</p>
+
+<p>For those who don't understand what I am getting at, or think I am acting like
+the drama queen they secretly hope I am, consider this -- the best way to
+identify elements on a web page is to use tools that expect you to either
+fully understand CSS and also how XPath works.</p>
+
+<p>Folks, this is a shit show.</p>
+
+<p>Now, it is entirely possible I am simply Doing It Wrong, and will be happy
+to be corrected. Take a look at the code in <a href="https://github.com/chartjes/wat-zendcon14">this repo</a>
+AND DESPAIR. This code is brittle, has to maintain state between test steps
+manually, and the tests take forever to run because you have the overhead
+of starting up a browser and painfully crawling through the DOM to find things.</p>
+
+<p>(By the way, who is the person that decided the DOM was the best way to internally
+represent elements on a web page? If it was Tim Berners-Lee, well, it strikes me
+as a decision that is biting us in the ass now but was probably totally logical
+at the time)</p>
+
+<p>I am hopeful that someone out there is working on a better set of abstractions
+and tools that will make the types of things we are asking Behat and Mink and
+Page Objects and PhantomJS to do a lot better.</p>
+
+<p>Send me your thoughts and ideas on Twitter or to chartjes@grumpy-learning.com
+and I will do a follow-up post.</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2014/12/14/stop-telling-me-to-refactor/" title="Stop Telling Me To Refactor"><span class="title">Stop Telling Me To Refactor</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2013/12/27/test-spies-and-mockery/" title="Test Spies and Mockery"><span class="title">Test Spies and Mockery</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Trusting Magic Methods &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Trusting Magic Methods</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>One of the reasons I use <a href="http://www.cakephp.org">CakePHP</a> (well, other than the fact I get paid to :) ) is that I'm a believer in full-stack frameworks, and learning to build your application within the rules that the framework lays down is an exercise in understanding the problem domain and then figuring out how to solve it with the tools at hand.  Most full-stack frameworks rely on what I call "magic methods", complex functionality that has been reduced to a simple API for the developer to use.  A good example of this is the ability to create relationships between models.  If you say "Foo has many Bar" and create that relationship in the model, you can access all the Bars that belong to Foo with a simple command:
+~~~
+$bars = $this->Foo->Bar->findAll();
+~~~
+<br />
+Talk about magic methods.  All sorts of complexity in terms of writing your own SQL code to pull this information out is totally hidden from the developer and you are left with an easy-to-use API for getting that information.  But, like anything, this comes with a price.</p>
+
+<p>
+A common message that I see on the CakePHP <a href="http://groups.google.com/group/cake-php">mailing list</a> is one from a user who is examining the SQL generated by command like the one I showed above.  They question why it's being done this way.  "The SQL isn't efficient, why does it have joins, etc".  All valid arguments but reveal a huge problem that goes unspoken in programmer circles:  trust is an issue when using someone else's code.
+</p>
+
+<p>Look at this code:
+~~~
+$this->Media->hasAndBelongsToMany['Tag']['conditions'] = array('Tag.name' => $tag);
+$media = $this->paginate('Media', array('AND' => array('Media.approved' => 1, 'Media.published' => 1)));
+~~~
+<br />
+That's a lot of serious complexity in two lines of code.  This is part of some code I'm writing for a CDC project where I'm trying to paginate over a result set of media that have been given a particular tag.  The current pagination method wasn't able to do what I wanted, so with some help from gwoo I found out what magic I needed to make things work the way I wanted.  That code is amazing when you think about it, but do you trust it?  If you use CakePHP you have no choice but to trust that the model methods are doing things the best way they can.</p>
+
+<p>
+Being open source, there is nothing stopping people who have gripes about certain functionality to go in and fix it themselves, but how many people really do?  1% of the users?  1% of 1% of the users?  It's a very, very small percentage, small enough that it becomes daunting at times to contemplate contributing to a popular open source project.  So, instead you sit back, curse the developers and trust that whatever problem you want fixed will be fixed.
+</p>
+
+<p>
+Adoption of any library or framework depends so hugely on trust, I'm surprised that it never comes up in the discussion.  I guess it's so obvious that nobody has seen it.  If I don't trust a tool to do what I want it to do, I won't use it.  Witness my retreat (once again) from <a href="http://www.vim.org">vim</a> to <a href="http://www.activestate.com/Products/komodo_ide/">Komodo</a>.  I don't *trust* my ability to make vim do the things I can do in Komodo, so I go back to using a tool that I do trust.  Recently, it was the ease with which I was able to debug some code using <a href="http://xdebug.org">XDebug</a> and Komodo.  It's something I could never do with vim because I don't trust myself with vim.
+</p>
+
+<p>
+I'm not saying you need to have blind faith in a particular bit of software, because that's dangerous and leads to a lot of unfulfilled expectations.  The path from fanboy to intense critic is a very short one, especially if you bought into the promise of something and it didn't deliver the way you wanted.  I trust CakePHP for very different reasons, ones that obviously make me a fanboy.  I liked what the framework was about, trusted that the magic methods were doing what they were supposed to be doing after getting to know the core development team, and now I earn a living off of trusting that CakePHP can do the job that I want.</p>
+
+<p>
+The biggest lesson I've learned from thinking about this idea of trust is that you have to do your research and learn how the magic methods interact with each other.  Could I have possibly come up with that line of code above that sets the hasAndBelongsToMany relationship in order for me to find all tags associated with a particular media file?  I would have to say that before I asked gwoo about it, I was thinking I was going to have to set *some* value in $this->Media to get the pagination functionality to work but didn't know where to start.  But now that I see the code I understand why it works.  It's the dynamic setting of conditions for the hasAndBelongsToMany that forces the Media model (when used by the pagination functions) to pull in the associated Tag records.  It's the ultimate hindsight:  "Of *course* that's what you should do, it makes perfect sense in front of my grumpy face!";
+</p>
+
+<p>
+So next time you are evaluating a piece of technology that you wish to start using, ask yourself if the reason you are reluctant to use it is because you don't trust it to work the way you are expecting it.</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2007/08/28/when-do-you-take-your-ball-and-go-home/" title="When Do You Take Your Ball And Go Home?"><span class="title">When Do You Take Your Ball And Go Home?</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2007/08/17/cakephp-resources/" title="CakePHP Resources"><span class="title">CakePHP Resources</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

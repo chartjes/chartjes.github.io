@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>War-room Driven Deployment &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">War-room Driven Deployment</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>For a long time I have been an advocate of the philosophy that organizations
+as a whole, not just the engineering team (if there is such a thing where
+you work) should be striving towards the goal of treating any deployment
+of your code into production as a non-event. Sadly, there is much work to be
+done from both ends of the spectrum.</p>
+
+<p>When deployments do go wrong the reaction is fairly predictable. It's almost 
+like the five stages of grief, sometimes known as the Kuebler-Ross model. 
+You've probably heard about them: Denial, Anger, Bargaining, Depression, 
+and Acceptance.</p>
+
+<p>The common thing that happens during those two first stages is that people are 
+chewed out for their role in the deployment failure, and in many cases the anger
+is legitimate. If you haven't written code that spectacularly failed in a 
+production environment I will happily call you a liar.</p>
+
+<p>What also then happens is that the non-technical people push for what I call a
+war-room environment for dealing with deployments. By this I mean that, for
+lack of a better phrase, orders come down from on-high that whenever a 
+production push is going to be done that everyone needs to stick around and be
+there "just in case" something goes wrong.</p>
+
+<p>At the news of the new directive, the engineering staff roll their eyes and
+mumble to each other about how the other side "doesn't get it" and how "this
+won't solve these problems".</p>
+
+<p>Both sides are right, but only up to a point.</p>
+
+<p>I'm sure that some of my readers are familiar with the concept of perception
+vs. reality. When you apply this to deployment failures, the perception
+becomes that the entire team responsible for building the application
+is to blame and that by making sure that everyone should be there it fixes
+the problem. In my opinion, the reality is that the failure occurred due to 
+the actions of one or two individuals and making the whole team suffer is 
+counterproductive. I feel this way especially when I am directly responsible
+for what has happened.</p>
+
+<p>Finding bugs in development are magnitudes cheaper to fix than production ones,
+and you will feel less pressure to fix them than if they are discovered in
+production. To paraphrase Darth Vader, you know in your heart that this true.
+Therefore the engineering side of the equation really needs to push back hard
+on the idea that ALL HANDS ON DECK WE ARE DEPLOYING is not just making the
+problem worse before it can get better.</p>
+
+<p>I've had my fair share of time with war-room driven deployment. I understand
+why it is viewed as a solution to the problem of failed deployments. It seems
+very logical. By having everyone there when it happens you are more likely
+to be able to quickly solve any problems you find. However, I feel like it is
+masking the true problem in that everything that you find yourself doing when
+practicing war-room driven deployment can be done before you even get to that 
+point.</p>
+
+<p>It also becomes an issue of trust. Frequent failed deployments results in the
+engineering side of things to be labeled as sloppy, uncaring, not understanding
+the cost of lost opportunities. All of those things may or may not be clear, but
+I think forcing everyone to stick around "just in case" makes the situation worse.</p>
+
+<p>By using war-room driven deployment you are making all stakeholders nervous about
+deployments. Everyone will be exhorted to think of everything that could go wrong
+with the deployment and if something does go wrong, the stress level gets cranked
+up to 11 and there is frantic activity to try and solve the problem.</p>
+
+<p>It is often hard to explain to non-technical people that they should stay calm
+and understand that the engineering team knows what went wrong and has a real-world
+solution in mind to fix whatever problem happened to minimize the chances that
+it happens again in the future. I don't have any easy answers on how to solve
+that problem other than staying calm yourself and offering real-world, practical
+solutions to the problems.</p>
+
+<p>If you put all the effort into making production pushes a non-event, then you will
+not need war-room driven deployment. All you need is one person to push a button
+and then everyone can go home.</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2011/12/12/better-http-request-response-in-php/" title="Better HTTP Request/Response in PHP"><span class="title">Better HTTP Request/Response in PHP</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2011/11/25/scope-is-not-mouthwash/" title="Scope is not a mouthwash"><span class="title">Scope is not a mouthwash</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

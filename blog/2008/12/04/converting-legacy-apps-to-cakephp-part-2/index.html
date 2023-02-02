@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Converting Legacy Apps to CakePHP, Part 2 &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Converting Legacy Apps to CakePHP, Part 2</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>
+<i>(Note: after being schooled by Nate Abele via IM about the various ways you can deal with schemas without built-in relationships, I have altered the post)</i>
+</p>
+
+<p>
+Now you've decided to convert your legacy app over to CakePHP, you will run into the first serious obstacle:  your database schema. If your schema does not already account for relationships between multiple tables you are in for a lot of extra work.  If the tables already have foreign keys pointing to other tables, you're in pretty good shape.
+</p>
+
+<p>
+If you're still looking at not having foreign keys in the existing schema, all is not lost.  You can set the foreignKey property in a model association to false and then create a custom query that pulls in the joined records, which I imagine is useful if you need to use multiple foreign keys or something.  So despite my previously hard line stance on this, you *can* deal with tables that don't have bulit-in foreign keys.  It's just extra work. 
+</p>
+
+<p>
+Without a database schema that contains relationships, you will not be able to use CakePHP's awesome associated data mapping abilities that are offered as part of the model.  Basically, given a set of conditions and knowing the relationships between the tables it will generate fairly well-tuned SQL queries and then return the results to you as nested arrays.  Is this perfect ORM?  No, but it's very easy to pass these result sets to your views for iterating over.
+</p>
+
+<p>
+In my case, this was going to be the easiest part: the schema already contained relationships between the tables so I was able to use the Cake console and in under an hour I had used 'cake bake' to create all my models.  I did go back after the fact and tweak some of the relationships because they weren't *perfect* matches with the Cake conventions, but that was the exception rather than the rule.  Had there been no relationships between the tables, or extreme denormalizing of the data, I am unsure what I would've done.
+</p>
+
+<p>
+On the topic of working with denormalized data, I'll late Nate speak for himself here:
+<blockquote>
+"Again, you can get this to work fine, it just takes a bit of extra effort.  It's nice when you can move this effort down to the database (i.e. cascading foreign key updates) but if not, you just have to write a little extra callback code."
+</blockquote>
+</p>
+
+<p>
+What Nate is referring to here is that you will have to some work in your models to create functions as "callbacks" that are executed when performing updates or saves.  For example, a site I worked on had broken out user profile information into 4 different tables depending on what type of search you were doing.  In this case, I'd be writing a callback function that would go and update all the other search tables whenever I updated the master record.  That's the "cascading foreign key updates" thing Nate is referring to.
+</p>
+
+<p>
+Now that I had my models, it was time to start thinking about how to switch over old queries.  In order to understand how to turn old SQL queries into results you get from Cake, I think you have to understand the following things (all of this applies to Cake PHP 1.2):
+<ul>
+<li>Understanding how relationships (i.e. hasMany, hasAndBelongsToMany) work in CakePHP.</li>
+<li>How to use the <a href="http://book.cakephp.org/view/474/Containable">Containable behavior</a> so you limit what comes back in the result set</li>
+<li>Pretty solid SQL skills so you can decipher legacy code that might be using JOINS and subselects</li>
+</ul>
+</p>
+
+<p>
+I think that if you are really good at those three things, you will be able to quickly determine how to turn that legacy SQL code into the proper parameters that need to be passed to your models to get back the results you need.
+</p>
+
+<p>
+So now armed with the tools needed to convert those old queries over, I was onto the next and probably most difficult part of this particular project:  converting the old page controllers that used a token-replacement system for the templates over to Cake controllers and views.
+</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2008/12/18/cakephp-12rc4-released/" title="CakePHP 1.2RC4 Released"><span class="title">CakePHP 1.2RC4 Released</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2008/11/28/handling-multiple-environments-in-your-php-application/" title="Handling Multiple Environments In Your PHP Application"><span class="title">Handling Multiple Environments In Your PHP Application</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

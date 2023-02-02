@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Rallyhat: Playing with CouchDB and Python &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Rallyhat: Playing with CouchDB and Python</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>Many thanks to <a href='http://twitter.com/janl'>Jan Lehnardt</a> for helping me out via IM to understand some concepts that I was having problems wrapping my mind around.</p>
+
+<p>
+Rallyhat is for the most part a programming experiment for me, designed to learn Python *and* produce an web application that is actually usable by someone other than me.  One of the technologies I'm using is <a href="http://couchdb.apache.org/">CouchDB</a> to store things.  I was having some problems getting both <a href="http://code.google.com/p/couchdb-python/">couchdb-python</a> working with permanent views (meaning views stored in CouchDB itself) as opposed to temporary views (meaning views generated in the code).
+</p>
+
+<p>
+Now, couchdb-python looks to be a nice, simple interface to use.  The problem I found was the documentation is, what's the word I'm looking for?  Lacking.  Since Jan is an amazing teacher, he was patient with me and showed me that I could look at the documentation for couchdb-python via the Python REPL (aka the Python shell).  So, armed with this "how the hell could I not realize this" knowledge I figured out how to use it.  Yet another reason why I'm warming up to Python.  
+</p>
+
+<p>It was as simple as starting up the Python shell and then doing the following:
+~~~
+import couchdb
+help(couchdb.client)
+~~~
+In there you will find code examples for each method, and then explanations of the parameters for each method.  All you really need in this case.  So I take back what I said about the documentation for couchdb-python being lacking.  I was just looking in the wrong place.
+</p>
+
+<p>
+So, task #1 was to create the view I needed.  I decided to use Futon, the built-in interface to create my permanent view:
+~~~
+{
+   "_id": "_design/searches",
+   "_rev": "3-e7f43cfdd5a8ef62ae338bd1f19b3e95",
+   "views": {
+       "by_user": {
+           "map": "function (doc) { emit(doc.user, {'date': doc.date, 'locations': doc.loations});}"
+       }
+   }
+}
+~~~
+</p>
+
+<p>This view would then live at http://couchdb.server//rallyhat/_design/searches/_view/by_user is you want to get every doc for every user.  To get just the docs belong to a specific user, you append ?key=<user> to the URL above.  Is that easy to understand or what?  As an aside, I am finding the <a href="http://books.couchdb.org/relax/">online version of CouchDB: The Definitive Guide</a> to be an awesome reference guide (once you remember to actually use it, thanks again Jan). With the view then created, the next step was to create the Python code to read in those views.</user></p>
+
+<p>
+~~~
+     def get_by_user(self, username):
+         my_searches = []
+ 
+         if username:
+             for row in db.view('searches/by_user', None, key=username):
+                 info = db.get(row.id)
+                 locations = json.loads(info['locations'])                                                
+                 my_search = {'date': info['date'], 'locations': locations}
+                 my_searches.append({'id': row.id, 'date': info['date'],
+                                     'locations': locations})
+     
+         return my_searches
+~~~          
+</p>
+
+<p>
+With *any* Python library that you use, make sure to see if the author added help files to the package.  You'd be surprised to see what's in there...
+</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2010/01/27/creating-usable-forms-with-zend-framework/" title="Creating Usable Forms With Zend Framework"><span class="title">Creating Usable Forms With Zend Framework</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2010/01/08/who-cares-what-i-think/" title="Who Cares What I Think?"><span class="title">Who Cares What I Think?</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

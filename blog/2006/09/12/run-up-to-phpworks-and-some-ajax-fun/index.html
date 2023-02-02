@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Run-up To php|works and some AJAX fun &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Run-up To php|works and some AJAX fun</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>
+Ah, only one more day of work (today) then I'm off to <a href="http://www.phparch.com/works">php|works</a> for three days, and hopefully not embarassing myself during my talk "What Can PHP Learn From Rails".  I hope to run into some people I met before and make some new friends.  It's weird going to a conference where you really don't know anyone and no co-workers are coming with you.  Luckily I'm not shy, so I'm sure I'll make some friends while I'm there.
+</p>
+
+<p>
+I spent some time yesterday adding some code to the stats reporting system I created for <a href="http://www.verticalscope.com">work</a> to display an animated graphic (stolen from <a href="http://ajaxpatterns.org">AjaxPatterns</a>, a site I find myself going to more and more as I expand my l33t skillz to include practical Ajax stuff).  Using the Yahoo YUI, here's all the javascript code I'm using to make it happen:
+
+~~~
+<script type="text/javascript">
+
+    // Object that handles response from XmlHttpRequest
+    var responseObj = {
+        success: function (o) {
+            YAHOO.util.Dom.setStyle("progress", "visibility", "hidden");
+            YAHOO.util.Dom.setStyle("hiddenDIV", "visibility", "visible");
+            response = o.responseText;
+            YAHOO.util.Dom.get ("hiddenDIV").innerHTML = response;
+        },
+        
+        failure: function (o) {
+            alert ("ERROR -- Could not get data for your report!");
+        }
+    }
+    
+    // process request to get page views information
+        
+    function getpageviews(field, start_date, finish_date) {
+        YAHOO.util.Dom.setStyle("hiddenDIV", "visibility", "hidden");
+        YAHOO.util.Dom.setStyle("progress", "visibility", "visible");
+        YAHOO.util.Connect.asyncRequest('GET', "/verticalscope_stats/reports/getpageviews/" + field + "/" + start_date + "/" + finish_date, responseObj);
+    }
+    
+    YAHOO.util.Dom.setStyle('progress", "visibility", "visible");
+    getpageviews("page_views", "< ?php echo $start_date ?>", "< ?php echo $finish_date ?>");
+    
+</script>
+
+~~~
+
+</p>
+
+<p>
+This example is from a report that scrapes Google Analytics and then presents the data.  I wish I could say I was smart enough to figure out the Google Analytics stuff on my own, but I wasn't.  It's a made-for-CakePHP solution and you can find it <a href="http://www.thinkingphp.org/2006/06/19/google-analytics-php-api-cakephp-model">here at ThinkingPHP</a>.  Man, I love it when people smarter than me have figured stuff out. ;)</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2006/09/12/slides-for-my-phpworks-presentation-what-can-php-learn-from-ruby-on-rails/" title="Slides For My php|works Presentation &quot;What Can PHP Learn From Ruby On Rails?&quot;"><span class="title">Slides For My php|works Presentation &quot;What Can PHP Learn From Ruby On Rails?&quot;</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2006/09/08/tgif/" title="TGIF"><span class="title">TGIF</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

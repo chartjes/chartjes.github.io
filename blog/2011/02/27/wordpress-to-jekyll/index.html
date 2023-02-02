@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>WordPress to Jekyll -- Adventures in Static Page Generation &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">WordPress to Jekyll -- Adventures in Static Page Generation</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p><em>(I would like to apologize for blasting all my RSS readers with EVERY SINGLE POST on this blog when I set things up. The new template for the feed is different and I guess it forced changes on everyone. I didn't intend to do it that way, and I'm sorry for any problems it causes my readers)</em></p>
+
+<p>I've been using WordPress for a long time. It's served up 5+ years
+of blog content with very few problems. But with each release of
+WordPress, I find myself asking the question "is it worth dragging
+all this extra functionality around with me?" I've come to the
+conclusion that the answer is no.</p>
+
+<p>Code generation is a programming technique that I think is both
+unappreciated and under-utilized by programmers. Naturally, when I
+started looking into turning my blog into static pages (I feel like
+it's a really good fit for what I'm doing) I looked at solutions in
+both Python and Ruby. In the end, I settled on
+<a href="https://github.com/mojombo/jekyll">Jekyll</a>.</p>
+
+<p>Then I headed to my
+<a href="http://duckduckgo.com">favourite search engine</a> and looked for
+examples of how to convert a WordPress blog into a Jekyll blog. I
+ended up finding this
+<a href="http://paulstamatiou.com/how-to-wordpress-to-jekyll">awesome blog post by Paul Stamatiou</a>
+that provided me with pretty much all the information I needed. His
+"here's all the things I wanted to do and how I achieved them"
+worked out really well for me. I even used his
+<a href="https://github.com/stammy/jekyll">own fork of Jekyll</a> to build the
+new version of this blog. If you follow his instructions and
+advice, I don't think you can go wrong.</p>
+
+<p>Not everything went 100% smoothly of course. I had to tweak things
+because I was running my blog out of a subdirectory instead of out
+of the root. That meant I had to pay attention to the value for
+base&#95;url in the Jekyll configuration file, and I also had to be
+careful of what I put in my Nginx configuration.</p>
+
+<p>The big changes were to the WordPress migration tool that was
+provided. I hacked it to automatically add a header to the post and
+to also play with the
+<a href="http://wiki.github.com/mojombo/jekyll/yaml-front-matter">YAML Front Matter</a>
+details inside each post. I had decided to use
+<a href="http://disqus.com">Disqus</a> for my comments and it took me a while
+to figure out how to provide the proper reference values for the
+Disqus javascript to find the comments since they had originally
+been imported via a WordPress plugin.</p>
+
+<p>I also had to deal with needing to change how syntax highlighting
+worked. I had been using a plugin that supported
+<a href="http://qbnz.com/highlighter/">GeSHi</a> but Jekyll has support
+out-of-the box for using <a href="http://pygments.org/">Pygments</a>, a
+Python-based syntax highlighter. Armed with a little Perl one-liner
+skills I quickly search-and-replaced all the old syntax
+highlighting tags with the new pairs that I needed.</p>
+
+<p>Now, my blog sits on my laptop and I edit the posts in Vim. When
+I'm ready to check things out, I get jekyll to generate the blog
+pages for me and I check them out using the local development
+server. When I'm happy, I then fire up the deploy shell script that
+I use (which runs jekuyll and then uses rsync to push the files up
+to my blog) and BOOM I'm done.</p>
+
+<p>I'll be keeping an eye out for any weirdness with the blog and I
+hope to make some subtle changes going forward. Doing it as a
+static site means I can experiment with the layout from
+time-to-time like
+<a href="http://blog.peepcode.com/tutorials/2010/about-this-blog">PeepCode has done</a>.
+It's always good to learn new skills, and now I can add "static
+page generation" to the toolkit.</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2011/03/15/embrace-the-ideas-of-march/" title="Embrace the Ideas of March!"><span class="title">Embrace the Ideas of March!</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2011/02/17/lies-i-told-my-kids-python-flask-gae/" title="\&quot;Lies I Told My Kids\&quot; -- Python + Flask + GAE"><span class="title">\&quot;Lies I Told My Kids\&quot; -- Python + Flask + GAE</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

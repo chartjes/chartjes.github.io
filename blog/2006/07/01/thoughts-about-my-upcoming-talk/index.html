@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Thoughts About My Upcoming Talk &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Thoughts About My Upcoming Talk</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>As you can see from the graphic in the upper-right-hand corner of my blog, the php|works conference isn't that far off.  I've been working on the outline for my talk "What Can PHP Learn From Rails?" and have settled upon the basics for it.</p>
+
+<p>But it begs a bigger question:  is it possible to take what is really great about Rails (and by definition that means some great features of Ruby) and make it work in PHP?  When going to my friend <a href="http://derekmartin.ca">Derek's</a> goodbye party (he's switching jobs to work for a company next door to his old one) I was talking to my old co-workers about my talk.  And they raised a good question: what are PHP's strengths.</p>
+
+<p>I opened my mouth to say something and then closed it.  Maybe it was the beer that made me pause.  I'll be honest:  I really like Ruby and there are some really neat things being done.</p>
+
+<p>The biggest problem with being able to duplicate a lot of what Rails is doing is, well, PHP isn't Ruby.  Ruby's method of treating everything like an object is something that PHP just can't do.  ActiveRecord in Ruby works so well because Ruby can examine it's own properties (I believe that is called reflection), and ActiveRecord takes full advantage of that.  One of the thrusts of my talk is that developers who are creating tools for other developers to use (I'm not talking about creating applications) have to use the strengths of PHP instead of railing (heh) against PHP's perceived limitations.</p>
+
+<p>I've probably posted things like this before, but ActiveRecord is able to do things like this:</p>
+
+<pre><code><br />person = new FamilyMember
+data = person.find_by_last_name_and_sex('Hartjes', 'female')
+
+</code></pre>
+
+<p>Without me doing <em>anything</em>, ActiveRecord knows to translate this into "SELECT * FROM familymembers WHERE last_name = 'Hartjes' AND sex = 'female'</p>
+
+<p>Can you do that in PHP? I do know that <a href=http://www.cakephp.org>CakePHP</a> (which has been getting lots of favourable reviews) has their own ActiveRecord implementation.  Can it do the above?  Not quite yet.  It does handle something like this: (taken from the CakePHP website):</p>
+
+<pre><code><br />$this-&gt;Post-&gt;findByTitle('My First Blog Post');
+$this-&gt;Author-&gt;findByLastName('Rogers');
+$this-&gt;Property-&gt;findAllByState('AZ');
+$this-&gt;Specimen-&gt;findAllByKingdom('Animalia');
+
+</code></pre>
+
+<p>I can see how this behaviour would be easier to implement in PHP 5, and I will have to take a look at CakePHP to see how they do it in PHP 4.  With a little bit of effort I'm sure you can add multiple terms to a PHP ActiveRecord implementation to mimic how ActiveRecord works in Ruby.</p>
+
+<p>We, as PHP developers, should hesitate to take good ideas from other programming languages and see if there is a way to make an implementation that is just as easy to use as the original.  Object Relational Mapping works not just with ActiveRecord in Ruby, but with other items in Ruby as well.  I saw a slide show of David Heinemeier Hansson's presentation he gave at a Ruby conference in Japan.  He showed an item called ActiveResource that acts just like ActiveRecord but will work on all sorts of things.</p>
+
+<p>Where are the people who are creating things like that in PHP 5?  Maybe people are doing that work, but they aren't as eager to share that info with the rest of the world as DHH (and the rest of the Rails crowd in general).  Maybe this is what happens when the core group of people working on a language gets to the point where one person can't drive the language my the sheer will of their ego.  This isn't a bad thing, by any means.  It shows that PHP has gotten a huge level of acceptance and that there are now many people capable of contributing to it.</p>
+
+<p>Anyway, I should save some of this for my presentation instead of sharing it on the blog. :)</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2006/07/13/back-at-the-keys/" title="Back At The Keys"><span class="title">Back At The Keys</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2006/06/27/static-members/" title="Static Members"><span class="title">Static Members</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

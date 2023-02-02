@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Organizing Slim Framework Applications &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Organizing Slim Framework Applications</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>Influenced by discussion with <a href="https://twitter.com/funkatron">Ed</a> I have
+decided to use <a href="http://www.slimframework.com/">Slim</a> as the framework
+for a PHP application I am building that is an addition to what is found
+on the web site for the <a href="http://www.ibl.org">simulation baseball league</a> I
+have belonged to for 14 seasons. I've never really used a microframework
+in PHP before. I used <a href="http://flask.pocoo.org">Flask</a> for a Python
+<a href="https://github.com/chartjes/liesitoldmykids">project</a> that I did to experiment
+with using Google App Engine. The principles seem to be quite similar 
+(although I will admit that having decorators in PHP would be ineresting)
+but the trade-off with a microframework is that you usually have to figure
+out an application layout for yourself.</p>
+
+<p>I decided to use the following things for this app:</p>
+
+<ul>
+<li>Slim (using latest stable version, 1.5.0 at this writing)</li>
+<li><a href="http://pimple.sensiolabs.org">Pimple</a> as a dependency injection container</li>
+<li><a href="http://twig.sensiolabs.org">Twig</a> for a templating engine</li>
+</ul>
+
+<p>I also decided to use <a href="http://packagist.org/about-composer">Composer</a> as a way
+to install the above dependencies. Slim is not in <a href="http://packagist.org">Packagist</a>
+so I was forced to do a little reorganizing work after getting some help in
+IRC from <a href="https://twitter.com/jakefolio">Jake Smith</a>. Here's what I did to get
+all three of those things playing nicely together with Composer's autoloader:</p>
+
+<ul>
+<li>moved the directory that contains Slim into the vendor directory</li>
+<li>altered vendor/.composer/autoload&#95;namespaces.php to look for Slim</li>
+</ul>
+
+<pre><code>// autoload_namespace.php generated by Composer
+
+$vendorDir = dirname(__DIR__);
+
+return array(
+    'Twig_Extensions_' =&gt; $vendorDir . '/twig/extensions/lib/',
+    'Twig_' =&gt; $vendorDir . '/twig/twig/lib/',
+    'Pimple' =&gt; $vendorDir . '/pimple/pimple/lib/',
+    'Slim' =&gt; $vendorDir .'/slim/slim'
+);
+</code></pre>
+
+<p>I've come to the opinion that if you are using a tool that provides an autoload
+you are probably better off using the one they provide rather then trying to make
+those two co-exist. I'm sure I could've used the autoloader from the <a href="http://phix-project.org">Phix project</a>
+but I didn't feel like screwing around with it. The composer one works and it was
+easy to tell it to use Slim. Once I start creating the models that I will use for 
+this application I will add their location to that file too.</p>
+
+<p>With that out of the way, it came time to discuss how to actually organize this
+application. I have a templates directory for my Twig templates, which totally
+makes sense. But what to do with the index.php file that Slim relies on. Like
+any front-controller-driven application all our requests, after being folded
+and mutilated by a web server rewrite rule, go through index.php. In the sample
+Slim app they have something like this in their index.php file:</p>
+
+<pre><code>$app = new Slim();
+$app-&gt;get('/hello/:name', function ($name) {
+    echo "Hello, $name!";
+});
+$app-&gt;run();
+</code></pre>
+
+<p>This might be all Kool and the Gang if you only have a bunch of really small 
+actions. This app will be interacting with models a lot, and I'm positive that
+despite my best efforts to roll with a "fat models, skinny controllers" paradigm
+that some of those actions will end up being lots of code. Smashing all that stuff
+together in one file strikes me as an abomination against best coding practices.
+Ed told me how the <a href="http://fictivekin.com/">FictiveKin</a> folks are organizing their
+Slim apps, so I have created something similar to it.</p>
+
+<p>All my routes are going to go into a routes directory and then I will
+specifically include the routes I want via require calls. One route per file and
+I will try and name them something sensible.</p>
+
+<pre><code>&lt;?php
+
+require './bootstrap.php';
+
+// Load all our routes
+require './routes/main.php';
+require './routes/hello.php';
+
+$app-&gt;run();
+</code></pre>
+
+<p>Inside each one of these files will be an app->get|post|whatever call</p>
+
+<pre><code>&lt;?php
+
+$app-&gt;get('/', function() {
+    echo 'MAIN PAGE';
+});
+</code></pre>
+
+<p>Yes, that default route sucks but getting the structure in place was more 
+important to me than having something useful stubbed out.</p>
+
+<p>I'm sure there is more than one way to organize a Slim application, but this
+is one that I think works best for me.</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2012/02/22/thoughts-on-testing-apis/" title="Thoughts on testing APIs"><span class="title">Thoughts on testing APIs</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2012/02/13/baby-steps-with-node-js/" title="Baby Steps with Node.js"><span class="title">Baby Steps with Node.js</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

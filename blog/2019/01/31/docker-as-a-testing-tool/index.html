@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Docker as a testing tool &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Docker as a testing tool</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>Yes, <a href="https://docker.com">Docker</a> can be used as a tool to help
+you out with some testing problems. Let me show an example of
+how it makes some load testing easier.</p>
+
+<p>One of the projects I support at <a href="https://mozilla.com">Mozilla</a> is
+the push notification service that we run. Among the tests that
+I do for them is a load test using an <a href="https://github.com/mozilla-services/autopush-loadtester">internal tool</a> 
+that the developers of the service created. It is a <a href="https://twistedmatrix.com/trac/">Twisted</a> application that runs using <a href="https://pypy.org">PyPy</a>.</p>
+
+<p>No, I do not know why they made those choices. Further more, it
+doesn't matter because I have to use it so I roll with the weirdness.</p>
+
+<p>Installing it locally on my MacBook Pro was straightforward --
+the docs even cover expected weirdness with some support libraries.
+But now that I have switched over to using Windows at work I
+ran into some difficulties getting all the dependencies installed
+in <a href="https://docs.microsoft.com/en-us/windows/wsl/about">Windows Subsystem for Linux</a>.</p>
+
+<p>In fact, one of the developers uses Windows...and told me of
+the experience he had at failing to get it to work. "I just use
+VMWare Player and an Ubuntu VM".</p>
+
+<p>I tried to get that working...and ran into a bunch of issues
+where I had to disable something called "Windows Defender Credential Guard". Which bugged me because I like to keep security mechanisms in place
+normally. I followed instructions FROM MICROSOFT on how to do it
+and VMWare Player still wouldn't run. Kept giving me the same
+error.</p>
+
+<p>Okay, on to plan B -- Docker.</p>
+
+<p>The first question was "how do I make this work?". I theorized
+I needed to do something like this:</p>
+
+<ul>
+<li>find a base container of Ubuntu 18</li>
+<li>get inside a running version of that image</li>
+<li>install all the required dependencies</li>
+<li>verify that the load testing tool works</li>
+<li>make a copy of that container</li>
+<li>push that copy up to Docker hub for teammates to use</li>
+</ul>
+
+<p>Some searching revealed that I could get a running Ubuntu
+container and connect with it:</p>
+
+<pre><code>docker run --rm --it ubuntu
+</code></pre>
+
+<p>This downloaded the image and gave me access to it via
+a <a href="https://www.gnu.org/software/bash/">Bash</a> shell.</p>
+
+<p>With that shell, I started installing all the packages
+I would need to install the load testing tool, including
+adding the package repository for PyPy so I could install
+it with the package manager.</p>
+
+<p>Once I got all the dependencies installed, I made sure that
+the tests could run. I even found out that there was a bug
+in the documenation. ;)</p>
+
+<p>With a Docker image that had a working installation of the
+load testing tool, the next step turned out to be more
+straight forward than I had thought.</p>
+
+<p>The Docker feature I needed was called snapshots. Here is
+what I did.</p>
+
+<p>With the Docker container still running, I opened up
+another shell (in this case I am using <a href="https://docs.microsoft.com/en-us/powershell/">Powershell</a>) and used the command <code>docker ps</code>
+to get the name that had been assigned by Docker to my
+running container.</p>
+
+<p>With that name I used the following command to save
+a version of that container:</p>
+
+<pre><code>docker commit name_of_container ubuntu:ap-loadtester 
+</code></pre>
+
+<p>Then I tagged the container so I can push up to Docker
+hub under my account:</p>
+
+<pre><code>docker tag ubuntu:ap-loadtester chartjes/ap-loadtester
+</code></pre>
+
+<p>Last, I pushed it up to Doker hub</p>
+
+<pre><code>docker push chartjes/ap-loadtester
+</code></pre>
+
+<p>So now I have:</p>
+
+<ul>
+<li>an Ubuntu container I can share</li>
+<li>that has all the dependencies installed</li>
+<li>can be used by teammates to load test the push service</li>
+</ul>
+
+<p>Again, I emphasize that a tester with some programming
+experience can create some really useful testing tools
+by leveraging the same tools and environments used to
+build whatever you are testing.</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2019/03/17/zend-expressive-doctrine-configuration/" title="Watch Me Get Grumpy -- Zend Expressive Doctrine Configuration"><span class="title">Watch Me Get Grumpy -- Zend Expressive Doctrine Configuration</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2019/01/16/test-like-a-grumpyprogrammer-part-2/" title="Learn To Test Like A Grumpy Programmer - Part 2"><span class="title">Learn To Test Like A Grumpy Programmer - Part 2</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

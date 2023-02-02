@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>You need tests...just not yet &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">You need tests...just not yet</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>Every once in a while I come across a blog post or a presentation that helps
+me figure out something that has been bothering but I was having problems
+articulating. Lately I've been struggling to come up with strategies to help
+developers figure out when they should REALLY be writing tests for their code.</p>
+
+<p>If you believe in the power of TDD, then the answer is "you write tests from
+the beginning of the project and forever after." I am a believer that TDD can
+be a very powerful design tool for building things at the unit / module / component
+level.</p>
+
+<p>Then some people asked me my thoughts on the comments by the creator of the
+Rails project about the usefulness of dependency injection. As happens when
+I am feeling frustrated, I started firing out the tweets on my feelings on
+testing and the lonely Crusade that I am on.</p>
+
+<p>Then I saw a talk by Dan North called <a href="http://www.infoq.com/presentations/Decisions-Decisions">"Decisions, Decisions"</a> at the recommendation of <a href="https://twitter.com/ianbarber">Ian Barber</a> that made me realize that someone else has articulated my feelings on
+when you should be doing testing. Slides for the presentation can be found
+<a href="http://qconlondon.com/dl/qcon-london-2012/slides/DanNorth_DecisionsDecisions.pdf">here</a>.</p>
+
+<p>You should watch the whole presentation. So many decisions about programming
+are made without understanding, REALLY understanding the trade-offs involved
+when making one decision vs. another.</p>
+
+<p>Let's look at TDD vs. Test whenever. The trade-off being made here is not
+about quality of code or guarding against regressions. It's about opportunity cost.
+This had occurred to me but I had dismissed it as being "anti-testing".</p>
+
+<p>But I think I was wrong, and here's why.</p>
+
+<p>In that awesome presentation he talks about "patterns" he observed on the team
+he was working with at the time. He was amazed at how much work this team was
+getting done, so he spent time analyzing what they were doing and trying to
+turn some of their activities into patterns of behaviour. Repeatable processes
+are good, right?</p>
+
+<p>The one that he saw being related to writing was a pattern he called "Spike
+and Stabilize." Basically, you write code without any tests until it becomes
+a solid part of your application's architecture. Once this code has proven
+it's usefulness, you start writing comprehensive tests in order to verify
+that it is in fact doing the job and doesn't break going forward.</p>
+
+<p>This is so obvious to me now. Clearly, you are leaving yourself open to the
+potential of writing not just application code but testing code that gets
+tossed away if the idea you are implementing is unable to prove it's value.</p>
+
+<p>Opportunity cost is huge and often dismissed by developers too. If you have
+some prototype code, or even functionality with a half-life measured
+in 3-month-increments, what else could be worked on while tests for this
+code are being written?</p>
+
+<p>Could this hybrid approach be an easier sell to skeptical managers or
+other stakeholders? That's hard to say. The "too busy to write tests"
+camp still has many members, and is still seems that it takes catastrophic
+failures before many people join the Testing Crusade.</p>
+
+<p>To be perfectly clear: I find great value in prototyping code and then
+committing to tests once the prototype is ready to move to a more stable
+environment.</p>
+
+<p>I try and do prototyping before I commit to writing code, because I often
+feel that way. My prototypes are usually command-line scripts that try
+and accomplish the task I've been assigned. That way, it's easier to
+actually write some tests once I know what I'm doing and guard against
+regressions later.</p>
+
+<p>The key to all this is being able to identify at what stage in this particular
+pattern your code is at. Is it still a spike, meaning you are working out
+implementation details and trying to figure out if it will even have the
+desired result? Or is it stable, providing solid value to the application 
+as a whole and ready to be wrapped in tests to protect against regressions?</p>
+
+<p>Next time you are thinking about "I need some tests for this", consider the
+Spike and Stabilize pattern. The answer might be "you need tests...but not yet."</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2013/01/11/one-year-of-grumpy-testing/" title="One year of Grumpy Testing"><span class="title">One year of Grumpy Testing</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2012/12/31/2012-review/" title="2012 Review"><span class="title">2012 Review</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

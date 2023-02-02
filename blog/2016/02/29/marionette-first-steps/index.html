@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Marionette -- First Steps &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Marionette -- First Steps</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>(I'm not sure I've ever done a post on a Leap Day...)</p>
+
+<p>At Mozilla a lot of folks make use of automation tools in order to write tests.
+There's even an entire IRC channel devoted to discussions about it. As I get
+depper and deeper into my time at Mozilla I now have to think about how to use
+these tools to accomplish my testing goals. Like my post about <a href="https://littlehart.net/atthekeyboard/2016/02/03/containers-and-the-grumpy-tester/">using Docker</a>
+I wanted to share my first steps in using Marionette, a set of automation tools
+that focus on driving a browser much in the same way <a href="http://behat.org">Behat</a> does.
+It's an essential tool for testing all the various versions of the FireFox broswers
+that Mozilla releases.</p>
+
+<p>In this case I'm going to be highlighting the use of <a href="https://pypi.python.org/pypi/marionette_driver/1.1.0">Marionette Driver</a>. This is a Python
+library that allows you to control a browser that has <a href="https://developer.mozilla.org/en-US/docs/Mozilla/QA/Marionette/Builds">support for Marionette built in</a>.</p>
+
+<p>As an aside, I find it very encouraging that the major browser companies are
+starting to build hooks right in to support tools that use the <a href="https://github.com/w3c/webdriver">WebDriver API</a>.</p>
+
+<p>As the link to Marionette-enabled builds states, support for interacting with
+Marionette is in every recent (as of February 29, 2016) build of Firefox that is
+available to the public but is not turned on by default. To enable it, you will
+need to start Firefox from the command line and add a <code>--marionette</code> switch.</p>
+
+<p>My examples were done on Mac OS-X El Capitan. Specific steps might be different
+for your environment. So let me run your through a very quick example of how
+Marionette does it's stuff.</p>
+
+<p>First, I opened another terminal window and started up a copy of <a href="https://www.mozilla.org/en-US/firefox/developer/">Firefox Developer Edition</a> and started it up:</p>
+
+<p><code>/Applications/FirefoxDeveloperEdition.app/Contents/MacOS/firefox --marionette</code></p>
+
+<p>Once it started, there was a notice that it was ready and listening for connections
+on port 2828, which is the default. Next I proceeded to use <a href="https://github.com/pypa/virtualenv">Virtualenv</a> to create a sandboxed environment
+for my code to run in. Once inside this new virtual environment
+I installed the Marionette driver using the version of <a href="https://pip.pypa.io/en/stable/">pip</a>
+that Virtualenv had thoughtfully installed:</p>
+
+<p><code>pip install marionette_driver</code></p>
+
+<p>With the Marionette driver installed, it was time to do a simple test to make
+sure everything was working. I fired up a Python interpreter (2.7.1) and
+tried to load a web page up the same way the <a href="http://marionette-client.readthedocs.org/en/latest/interactive.html">old documentation for Marionette client</a></p>
+
+<p>Here's a very simple example of how to use it:</p>
+
+<pre><code>Python 2.7.11 (default, Jan 22 2016, 08:29:18)
+[GCC 4.2.1 Compatible Apple LLVM 7.0.2 (clang-700.1.81)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+&gt;&gt;&gt; import marionette_driver
+&gt;&gt;&gt; from marionette_driver import marionette
+&gt;&gt;&gt; client = marionette.Marionette(host='localhost', port=2828)
+&gt;&gt;&gt; client.start_session()
+{u'rotatable': False, u'raisesAccessibilityExceptions': False, u'takesScreenshot': True, u'acceptSslCerts': False, u'appBuildId': u'20160225004014', u'XULappId': u'{ec8030f7-c20a-464f-9b0e-13a3a9e97384}', u'browserVersion': u'46.0a2', u'specificationLevel': u'1', u'platform': u'DARWIN', u'browserName': u'Firefox', u'version': u'46.0a2', u'device': u'desktop', u'proxy': {}, u'platformVersion': u'15.3.0', u'takesElementScreenshot': True, u'platformName': u'Darwin'}
+&gt;&gt;&gt; client.execute_script("alert('o hai there!');")
+&gt;&gt;&gt; client.navigate("http://www.mozilla.org")
+&gt;&gt;&gt; client.get_url()
+u'https://www.mozilla.org/en-US/'
+&gt;&gt;&gt; from marionette_driver import By
+&gt;&gt;&gt; first_link = client.find_element(By.TAG_NAME, "a")
+&gt;&gt;&gt; first_link.click()
+</code></pre>
+
+<p>What did I do?</p>
+
+<ul>
+<li>loaded the Marionette-driver library</li>
+<li>from that library I wanted to use some functionality that's part of <code>marionette</code></li>
+<li>create a <code>client</code> that's connected to a browser running on <code>localhost</code> and port 2828</li>
+<li>start a session</li>
+<li>cause the browser to execute some arbitrary Javascript (an alert in this case)</li>
+<li>navigate to a specific page</li>
+<li>verify the URL</li>
+<li>grab a helper for identifying elements in a page</li>
+<li>find the first <code>a</code> tag on the page</li>
+<li>click that link</li>
+</ul>
+
+<p>I am just at the beginning of my work using Marionnette (how the heck can I click
+on things that are part of the brower itself and not on the HTML page). Hope
+this little example helps you get started too.</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2016/03/29/choosers-not-losers/" title="We&#039;re choosers, not losers"><span class="title">We&#039;re choosers, not losers</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2016/02/03/containers-and-the-grumpy-tester/" title="Containers And The Grumpy Tester"><span class="title">Containers And The Grumpy Tester</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

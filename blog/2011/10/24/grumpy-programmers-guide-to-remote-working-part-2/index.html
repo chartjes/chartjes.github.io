@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>The Grumpy Programmer&#039;s Guide To Remote Working, Part 2 &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">The Grumpy Programmer&#039;s Guide To Remote Working, Part 2</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>As mentioned in the previous post about remote working, you do have to work a lot harder when you're not in the same office as your co-workers in order to simply get things done. If you took my advice you've got yourself a sweet setup at home, with a comfy chair and a nice desk. But that is only the first battle in the on-going war that is successful telecommuting. In this post I want to talk about some tools that I use that I feel help me Get Shit Done when working from home.</p>
+
+<p>First, since you don't have the instant feedback loop of a fellow cubicle dweller or even office-sharing partner, you need tools that can act as a second set of eyes for you before you open what is often an expensive communication channel to your co-workers. Not expensive in terms of money (unless you have to call people long distance and don't either use VOIP at home or Skype) but expensive in terms of time. Making that initial "communication handshake" is expensive in time and commitment.</p>
+
+<p>So for me, the first set of eyes I use are <a href="http://getfirebug.com/">Firebug</a> or Chrome's web developer tools, depending on which browser I'm using. Those let me peek at the HTML being generated and debug any Ajax calls your application is making. It used to be my primary tool until <a href="http://twitter.com/ramsey">my boss</a> asked me why I wasn't using <a href="http://www.charlesproxy.com/">Charles</a>, an awesome debugging proxy application for OS-X, Windows and Linux.</p>
+
+<p>Charles acts like what it says: it's a web debugging proxy. It sits between your browser and your next work connection, monitoring and showing you what connections you are making. Why is this awesome you might ask? I can record an entire series of clicks on a web page and play them back later for testing purposes.
+I like Charles for a few reasons. This is helpful because one of our main applications at Moontoast is a flash-based store and Charles will show me the request that the flash SWF is making <em>and</em> I can see the response that is coming back. I am not a flash developer, but I do need to make sure that code I write that is supposed to talk back to the SWF (via AMF) is returning correct values. I like to record Ajax calls and repeat them over and over until I am happy with the response coming back. Please, please, PLEASE check out Charles. It is worth every penny.</p>
+
+<p>So now that I have someone else helping me debug my Ajax and AMF calls, what other tools do I find useful. Well, if you don't have your editor already tricked out to reduce the amount of work you have to do <em>outside</em> of your editor to get things done then I advise you to actually learn your editor inside and out. As a vim user I spend a lot of time evaluating plugins that can help me out. I use <a href="https://github.com/scrooloose/syntastic">Syntastic</a> to run my code through a <a href="http://en.wikipedia.org/wiki/Lint_programming_tool">code linter</a> every time I save it. I use <a href="https://github.com/tpope/vim-fugitive">Fugitive</a> to work on my Git commits and merges. All in all, it's important that you be as productive as possible using the tool you write your code with day in and day out.</p>
+
+<p>Of course, it goes without saying that you should be probably be writing your own tests for your code that you can automate. Don't worry, this is not going to turn into another sales job for automated testing. PHPUnit, PHPSpec, Selenium, please use something that acts as an automated tester for you. I mean, it seems to work for me so maybe it can work for you.</p>
+
+<p>So that's really it in terms of tools that I have found that I used more and more as I telecommuted more and more. My criteria for evaluating any tools is this: is it easy to use, can it automate something I don't want to do manually, and does it easily integrate into my existing workflow. Firebug and Charles fit that criteria. Plugins for my editor fit that criteria. CLI test runners fit that criteria.</p>
+
+<p>In other words, any tool that can make you more productive in an office setting is even more important when working remotely with a team. Anything that you can do to reduce the testing and integration step benefits you and your team, and helps to convince management that their decision to allow you to continue to work remotely is a good one.</p>
+
+<p>I'm interested in hearing other people's experiences telecommuting and tools that they have found to be helpful. Comment in this post, send me some email (chartjes AT this domain) or hit me up on Twitter.</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2011/11/03/infrastructure-debt/" title="Infrastructure Debt"><span class="title">Infrastructure Debt</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2011/10/10/grumpy-programmers-guide-to-remote-working-part-1/" title="The Grumpy Programmer&#039;s Guide To Remote Working, Part 1"><span class="title">The Grumpy Programmer&#039;s Guide To Remote Working, Part 1</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Component Architecture -- Follow-up &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Component Architecture -- Follow-up</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>After posting my thoughts on
+<a href="https://www.littlehart.net/atthekeyboard/2011/03/31/component-architecture">component architectures</a>
+I asked Stu Herbert to provide me with any comments he had on this
+particular topic, having been the original inspiration. He was kind
+enough to do so and I have extracted some of his thoughts and
+weaved them into this post along with some other thoughts I've
+had.</p>
+
+<p>First of all, I did a
+<a href="http://en.wikipedia.org/wiki/Facepalm">facepalm</a> when I realized
+there were things I wanted to talk about in the original post that
+I had missed. In his presentation at PHP UK Conference Stu pointed
+out that PHP has not made the commitment to reusable components
+like the other major scripting languages used currently for web
+development, Ruby and Python. Ruby has it's excellent
+<a href="http://en.wikipedia.org/wiki/Ruby_gems">Ruby gems</a> system to allow
+the installation and distribution of components written in Ruby.
+Python has two solutions that I am aware of in
+<a href="http://en.wikipedia.org/wiki/EasyInstall">EasyInstall</a> and the
+<a href="http://en.wikipedia.org/wiki/Python_Package_Index">Python Package Index</a>.
+They both serve the same purpose: allowing the installation and
+distribution of 3rd party components. In PHP
+<a href="http://pear.php.net/">PEAR</a> is the system we should all be using
+for doing this. The reasons why are interesting, and I'd like to
+share my thoughts before we see what Stu had to say.</p>
+
+<p>It seems to me that the difference between PEAR and the solutions
+offered in Ruby and Python can be thrown into one of two piles:
+cultural and technical. On the cultural side, both Python and Ruby
+have encouraged developers to use these 3rd party systems as the
+primary means of distributing code. I think if you look at the
+popular components available in something like Rails, I think you
+would be hard-pressed to find one that did not exist as a gem. My
+early experiments with Rails back in 2004 made me think that the
+gem system was the perfect way to handle it. Sure, you can end up
+in dependency hell trying to figure out what gems go with what
+other gems, but I do not think there is ever an easy solution to
+that problem.</p>
+
+<p>When you look at the technical issues, this is where I think PEAR
+breaks down. As far as I can tell, to make your component available
+to install with PEAR you have to create your own PEAR channel.
+What? Really?!? Am I the only one who thinks that this is an
+unnecessary limitation? When I added
+<a href="https://github.com/chartjes/djaml">Djaml</a> to PyPi, all I had to do
+was create two metadata files in a specific format and then push it
+up to PyPi using tools that are provided by the same CLI utility
+you install other packages with. Bingo presto, my package was now
+available to anyone who wanted to use it. I didn't have to set up
+my own channel. To me, this the main reason why PEAR is not the
+dominant installation tool that it should be.</p>
+
+<p>In a perfect world I would like to see all the major PHP frameworks
+make themselves available via PEAR as their main method of
+distribution. Wishful thinking, I know.</p>
+
+<p>Okay, so now time for us to hear from Stu:</p>
+
+<blockquote>
+  <p>Your question "how do you decide what stuff can be extracted out
+  and built into a component?" merits more than just an email ... I'm
+  sure this is a conference talk / tutorial day topic in its own
+  right :) Would you say that most developers could recognise a
+  component if they saw one? &#42; Clearly-defined purpose &#42;
+  Clearly-defined API &#42; Clearly-defined data structures &#42;
+  Separation of concerns &#42; Reusable &#42; Re-installable on multiple
+  computers &#42; Replaceable / substitutable</p>
+  
+  <p>But seeing one when designing (or refactoring!) software is
+  something fewer PHP developers have had the opportunity to
+  practice?</p>
+</blockquote>
+
+<p>Stu is, of course, absolutely right. It is impossible to extract
+code into a reusable component if you don't even know how to
+identify it. Like many, MANY skills in programming, the ability to
+refactor and extract code is a skill that needs to be cultivated
+and learned. I myself have run into this many times during a coding
+session while refactoring. Does this sound familiar?</p>
+
+<ul>
+<li>implement some functionality</li>
+<li>get a request to add something</li>
+<li>realize that the new request is similar to something you've
+already done</li>
+</ul>
+
+<p>The trick is realizing that the next step in this chain is not
+"cut-and-paste the previous functionality because we supposedly
+have no time". The next step is to extract that functionality into
+something that can be re-used. Usually this in the context of the
+application itself (ie extracting that code into a helper method if
+you're using a framework) but it is worth thinking about how to
+make that a component that can exist OUTSIDE of the application
+itself.</p>
+
+<p>More from Stu:</p>
+
+<blockquote>
+  <p>I think you hit the nail on the head towards the end of your
+  article, when you started talking about services. A component could
+  be defined as being: &#42; a self-contained set of code &#42; that
+  provides a reusable service &#42; to a larger body of code &#42; by being
+  aggregated into that code</p>
+  
+  <p>This differentiates it from a service-oriented architecture in one
+  crucial detail: a component runs as part of your app - same address
+  space, same process ID - whereas a service runs outside your app,
+  and is contacted either locally via IPC or remotely via
+  networking.</p>
+  
+  <p>But none of that helps the first-time component writer, I fear!
+  This is big-picture stuff, or perhaps better described as 20/20
+  hindsight stuff - things that developers can only see after they've
+  learned how to do it :) What they need is their first step to
+  making a component - an additive process that builds on that first
+  step until components are as natural a strategy as factories, DI,
+  and the like. This is very similar to how one teaches martial arts,
+  where we start from the floor (how a fighter stands, how they step)
+  and work upwards.</p>
+</blockquote>
+
+<p>Stu goes on to share some super sekret info with me surrounding his
+plans in this area and I look forward to seeing them come to
+fruition. Thanks Stu!</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2011/04/11/book-review-epwzf/" title="Book Review -- Easy PHP Websites with the Zend Framework"><span class="title">Book Review -- Easy PHP Websites with the Zend Framework</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2011/03/31/component-architecture/" title="Component Architecture -- Why Are You Not Doing This?!?"><span class="title">Component Architecture -- Why Are You Not Doing This?!?</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

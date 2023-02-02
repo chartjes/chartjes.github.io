@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Form Validation with jQuery &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Form Validation with jQuery</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>Now that I have to actually design interfaces for other people, I am learning the finer details of Javascript.  Specifically, I'm using <a href="http://jquery.org">JQuery</a> as my library of choice.  I won't go into why I'm using, just go to the site and see it for yourself.  One of the things I've had to build recently is a playlist editor for the IPTV project.  I decided to be user-friendly for once, and make it Ajax-powered.  So this meant a lot of work creating small little actions in my Zend Framework code to accept form posts, etc.  Still cleaning things up, but I wanted to share some of the coolness from using a <a href="http://www.malsup.com/jquery/form/">jQuery form plugin </a>.</p>
+
+<p>
+So, never having really done any Javascript form validation (I know you're shocked) I unleashed my inner "programmer" to go and hack away at it so I can figure it out, then call back my inner "developer" to make the code elegant and compact.  It took me all morning but I figured it out thanks to Google and just hacking away at it.  One of the neat things about Javascript is that it supports the ability to dynamically define functions in your code.  With it's extensive use of callbacks, jQuery leverages this to the hilt. I believe this is what the Ruby crowd refers to as "blocks and closures".  Please correct me if I'm wrong.  Okay, so here's some code that illustrates how I was doing validation of the form:
+<br />
+~~~
+function saveBinary(playlist) {
+    var options = {
+        beforeSubmit: validateBinary,
+        success: function() {
+            $("div#media").load("/elostv/getBinaries/playlist/" + playlist);
+            $("div#editMedia").html('<div align = "center"><br />Added media </div>'
+                + '<a onclick="addBinaries(\'' + playlist + '\')">Add media</a>');
+        }
+    }
+
+    $("#addMedia").ajaxSubmit(options);
+}
+~~~
+</p>
+
+<p>
+Isn't that nice?  Compact, simple, readable.  All the things a developer strives for.  In summary, the .ajaxSubmit() method lets you define a bunch of callback functions as part of the submission process.  The 'beforeSubmit' is used to handle validation, while the 'success' is stuff that gets triggered if the form submission comes back ok.  Here's the validation code (again, very simple and I'll save the advanced regex matching for the beta).  Here's the validation callback:
+<br />
+~~~
+function validateBinary(formData, jqForm, options) {
+    var allFields = true;
+
+    for (var i=0; i < formData.length; i++) {
+        if (!formData[i].value) {
+            allFields = false;
+        }
+    }
+
+    if (!allFields) {
+        alert('Please fill out every field in the form!');
+        return false;
+    }
+}
+~~~
+</p>
+
+<p>
+Now that I've done this once, I imagine the second time around will be much easier.  Trying to keep things simple when you're on a very tight schedule can be difficult, and I think I've done that despite a few missteps while trying to figure out what jQuery plugin to use to handle my form stuff.</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2007/05/08/where-are-the-good-development-tools-for-php/" title="Where Are The Good Development Tools For PHP?"><span class="title">Where Are The Good Development Tools For PHP?</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2007/05/02/carpenter-or-sculptor/" title="Carpenter or Sculptor?"><span class="title">Carpenter or Sculptor?</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>How A Grumpy Programmer Secures Their Laptop &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">How A Grumpy Programmer Secures Their Laptop</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>On the <a href="https://devhell.info">/dev/hell podcast</a> episode I recorded with <a href="https://twitter.com/funkatron">Ed</a>
+last night, I got the chance to talk at length about my early experiences with
+my new laptop. According the 'About This Mac':</p>
+
+<ul>
+<li>MacBook Pro (13-inch, 2016, Four Thunderbolt 3 Ports)</li>
+<li>Processor 2.9 GHz Inetl Core i5</li>
+<li>Memory 16 GB 2133 MHz LPDDR3</li>
+<li>Startup Disk Macintosh HD</li>
+<li>Graphics Intel Iris Graphics 550 1536 MB</li>
+<li>Pretentious Level High</li>
+</ul>
+
+<p>Thanks to a focus by Apple on People Not Like Me, I was able to get up and
+running really quickly on my new laptop. The Migration Assistant worked
+perfectly except for not copying over some saved game files for a Steam
+game that I play quite a bit (<a href="https://en.wikipedia.org/wiki/Football_Manager_2016">Football Manager 2016</a>).
+Especially when I have a setup that requires the use of SSH keys and applications
+all configured to my liking, this was awesome.</p>
+
+<p>My next thought turned to security. Clearly we are in a era where attempts to
+access people's computers is on the rise. Not that I am thinking I am the
+target of a shady cabal of l33t hax0rs being paid by shadowy security forces
+of governments that don't like my politics, but I want to at least make them
+work a bit. So I want to share what I decided to do.</p>
+
+<p>I've been using <a href="https://en.wikipedia.org/wiki/FileVault">FileVault</a> for a long
+time (in fact, it was a requirement for me if I wished to use my own equipment
+while working for Mozilla).</p>
+
+<p>After that, you have all sorts of options. After seeing a Tweet from someone
+mentioning a bunch of tools that can help increase the security of your laptop
+I decided to take the plunge.</p>
+
+<p>First, I installed <a href="https://www.obdev.at/products/littlesnitch/index.html">Little Snitch</a>.
+It monitors all my network connections and provides me with a bunch of options
+to allow or deny the connection, forever or just for a limited time. Starting
+with this tool I had to (and still are, to a minor extent) acknowledge and
+decide what to do about a ridiculous number of connection attempts by all sorts
+of programs. For the older crowd, I feel like I am playing some new version of
+Everquest. So. Much. Furious. Clicking.</p>
+
+<p>Not content to develop repetitive stress injuries to my right hand, I installed
+<a href="https://www.littleflocker.com/">Little Flocker</a>. It's a good complement
+to Little Snitch -- it watches for any interactions with files, looks for
+keystroke loggers, and checks for malware. More. Clicking.</p>
+
+<p>Next up was to install <a href="https://obdev.at/products/microsnitch/index.html">Micro Snitch</a>
+to tell me any time my webcamera and microphones were being used. More alerts
+to acknowledge but at least my microphone only turns on when I need it to. So far.</p>
+
+<p>Finally I installed <a href="https://objective-see.com/products/blockblock.html">BlockBlock</a>
+to let me know if something keeps trying to install malware in known locations.
+Just another layer of security for someone to overcome. They clearly indicate
+that the application is in beta, so keep that in mind.</p>
+
+<p>With those apps installed and running and configured, I massaged my very sore
+wrist and started reading <a href="https://github.com/drduh/macOS-Security-and-Privacy-Guide">this awesome document</a> at the
+suggestion of a kind soul on Twitter. Lots of great stuff in there that you
+can do and raises interesting points about deciding what type of threats you
+are looking to protect yourself from. Here's a list of the advice from it that
+I followed:</p>
+
+<ul>
+<li>patch everything when updates are available</li>
+<li>frequent system backups (shoutout to <a href="https://www.backblaze.com/">Backblaze</a>)</li>
+<li>full-volume encryption</li>
+<li>third-party firewalls</li>
+<li>Disable Spotlight Suggestions</li>
+<li>Use <a href="http://brew.sh/">Homebrew</a></li>
+<li>turn off captive portal</li>
+<li>use <a href="https://www.privoxy.org/">Privoxy</a> as a local web proxy</li>
+</ul>
+
+<p>I plan on implementing some of the other recommendations, but that's what I
+started with. For Mac users, please read through that document. So much good
+stuff along with explanations of why you should do it.</p>
+
+<p>Hope that helps!</p>
+
+<p><em>UPDATE February 1, 2018</em></p>
+
+<p>I received two emails recently pointing out a few things about the tools above.</p>
+
+<p>The first was that the company that sponsors the work of Privoxy has a link on their web site to 
+some very sketchy financial trading software. The person who informed me of
+this was trying to get me to link to a free VPN solution they were promoting.
+My personal view is that people running free VPN's are sniffing the hell out
+of your traffic selling what you're are doing to someone. Make the decision to
+use a free VPN service with your eyes wide open.</p>
+
+<p>Secondly, I used to recommend the dnsmasq/DNSSEC/DNSCrypt combo but DNSCrypt is no longer available, so I
+suggest you look for some other tools for encrypting your DNS traffic. The
+person who emailed me about DNSCrypt pointed to a blog post they wrote about
+about <a href="https://thebestvpn.com/dnscrypt-best-alternatives/">DNSCrypt alternatives</a>.
+Either way, encrypting your DNS is a good idea so please consider it.</p>
+
+<p>I used to recommend <a href="https://www.littleflocker.com/">Little Flocker</a> but it looks
+like the project has become an F-Secure product and is no longer free. Check out
+it's successor <a href="https://campaigns.f-secure.com/xfence/">F-Secure XFENCE</a></p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2017/01/18/testing-xml-based-apis/" title="Testing XML-based API&#039;s"><span class="title">Testing XML-based API&#039;s</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2016/11/28/from-macos-to-win10-part-3/" title="From macOS to Windows 10 - Part 3"><span class="title">From macOS to Windows 10 - Part 3</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

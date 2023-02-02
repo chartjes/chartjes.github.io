@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title><![CDATA[Grumpy Learning]]></title>
-    <link href="/blog/categories/automation.xml" rel="self"/>
-    <link href="/"/>
-    <updated>2023-01-19T20:55:32+00:00</updated>
-    <id>/</id>
+    <link href="https://grumpy-learning.com/blog/categories/automation.xml" rel="self"/>
+    <link href="https://grumpy-learning.com/"/>
+    <updated>2023-02-02T18:35:45+00:00</updated>
+    <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
             <entry>
             <title type="html"><![CDATA[Better Outcomes]]></title>
-            <link href="/blog/2022/01/02/better-outcomes/"/>
+            <link href="https://grumpy-learning.com/blog/2022/01/02/better-outcomes/"/>
             <updated>2022-01-02T00:00:00+00:00</updated>
-            <id>/blog/2022/01/02/better-outcomes/</id>
+            <id>https://grumpy-learning.com/blog/2022/01/02/better-outcomes/</id>
             <content type="html"><![CDATA[<p>I’m not a New Year’s resolution type but here are some suggestions for my fellow devs of things I believe can lead to better outcomes:</p>
 
 <p>Learn your IDE/editor better: I spent a lot of 2021 refining my <a href="https://neovim.org">Vim</a> setup and I plan on adding increased use of <a href="https://vimwiki.github.io/">VimWiki</a> for making notes and linking things together.</p>
@@ -28,9 +28,9 @@
         </entry>
             <entry>
             <title type="html"><![CDATA[Repeatable Development Environments]]></title>
-            <link href="/blog/2021/12/30/repeatable-dev-environments/"/>
+            <link href="https://grumpy-learning.com/blog/2021/12/30/repeatable-dev-environments/"/>
             <updated>2021-12-30T00:00:00+00:00</updated>
-            <id>/blog/2021/12/30/repeatable-dev-environments/</id>
+            <id>https://grumpy-learning.com/blog/2021/12/30/repeatable-dev-environments/</id>
             <content type="html"><![CDATA[<p>If you have used <a href="https://docker.com">Docker</a> on a Mac
 laptop, you have likely ran into the "crossing file systems"
 issue that can lead to really poor performance in your containers.

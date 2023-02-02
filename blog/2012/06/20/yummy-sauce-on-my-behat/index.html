@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Yummy sauce on my Behat &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Yummy sauce on my Behat</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>At <a href="http://www.kaplanproffessional.com">work</a> we have started creating a suite of
+automated user acceptance tests, using <a href="http://behat.org">Behat</a>, <a href="http://mink.behat.org">Mink</a>
+using selenium <a href="http://zombie.labnotes.org/">Zombie.js</a> and <a href="http://seleniumhq.org/">Selenium</a>
+as our browser drivers.</p>
+
+<p>I will be honest: I have been less-than-happy with Zombie.js' performance. It has a feel
+of being unfinished and newer versions of it don't work correctly with the Behat + Mink
+combo. Given that we already had some <a href="http://en.wikipedia.org/wiki/Smoke_testing">smoke tests</a>
+that use Selenium, we decided to have some of our AUAT's use Zombie and some use Selenium.
+After a while, I get tired of seeing a test run just fine using Selenium but fail using
+Zombie.js.</p>
+
+<p>I have been pushing us every-so-slightly towards using VM's for doing our development. Getting
+Zombie.js installed and available for running Behat tests isn't a big problem, but given how
+flaky it has been for me and the proven use of Selenium for our tests that require the use
+of Javascript I wanted people to be able to use Selenium even though they are using a 
+Linux VM.</p>
+
+<p>Enter <a href="http://saucelabs.com">Sauce Labs</a>, a software-as-a-service product that allows you to 
+use Selenium to run tests in browsers that are running on VM's in Sauce Lab's own infrastructure.
+Basically, if you could use Selenium on your local machine you could do the same thing using
+Sauce Labs.</p>
+
+<p>For us, we're interested in using their Even better is that you can make it work using Behat + Mink 
+and the Selenium RC1 drivers. The <a href="http://seleniumhq.org/docs/03_webdriver.html">WebDriver</a> stuff for 
+Selenium 2 does not work with the Sauce Labs On Demand service. If I've understood correctly what
+the lead developer being Behat <a href="https://twitter.com/everzet">@everzet</a> said to me, Sauce Labs is
+working on a Selenium 2 / Webdriver extension for use with Behat. I'm sure I'll be corrected if
+I am wrong.</p>
+
+<p>So what did we do in order to get our tests running on Sauce Labs? These instructions already
+assume that you have installed Behat, Mink and any other support libraries and tools you need.
+Check out <a href="http://sauceio.com/index.php/2012/01/adding-sauce-to-behat/">this blog post from Sauce Labs</a>
+for details on how to get that all sorted out.</p>
+
+<h2 id="step-1%3A-go-create-an-account-with-sauce-labs">Step 1: Go create an account with Sauce Labs</h2>
+
+<p>I created the free one, contains plenty of testing minutes to allow you to play
+with it.</p>
+
+<p>I'll wait here while you go and do that.</p>
+
+<h2 id="step-2%3A-go-download-sauce-connect">Step 2: Go download <a href="https://saucelabs.com/connect">Sauce Connect</a></h2>
+
+<p>From their web site:</p>
+
+<blockquote>
+  <p>Sauce Connect securely proxies browser traffic between Sauce Labs' 
+  cloud-based VMs and your local servers. Connect uses ports 443 and 80 for 
+  communication with Sauce's cloud. Most companies allow this without 
+  special exceptions.</p>
+</blockquote>
+
+<p>As far as I can tell, Sauce Connect sets things up so that when you tell Behat + 
+Mink to run some tests on a Selenium browser located at 'ondemand.saucelabs.com'
+that Sauce Lab's infrastructure knows how to connect with the application you're
+testing. This sort of architecture is incredibly important if you are having to test
+things (like we do) only exist on a VPN and have no public-facing URLs.</p>
+
+<p>Follow the directions on the web site on how to install it, run it, and
+some tips for troubleshooting. Can't say I agree with their suggested method of monitoring
+and making sure it stays up (c'mon people, just use <a href="http://supervisord.org/">Supervisor</a>)
+but otherwise the instructions are easy to follow.</p>
+
+<h2 id="step-3%3A-modify-your-behat-configuration-files-to-use-sauce-labs-on-demand-service">Step 3: Modify your Behat configuration files to use Sauce Labs On Demand service</h2>
+
+<p>Of course, your behat config file looks different, but here's how ours looked
+(scrubbed to remove any sensitive info)</p>
+
+<pre><code>default:
+  paths:
+    features:   %%BEHAT_CONFIG_PATH%%/features
+    bootstrap:  %%BEHAT_CONFIG_PATH%%/features/bootstrap
+  context:
+    parameters:
+      base_url: "https://cannot-tell-you.com"
+      zombie:
+          port: 9124
+          host: localhost
+          auto_server: true
+          node_bin: 'node'
+      selenium:
+          host: ondemand.saucelabs.com
+          port: 80
+          browser: &gt;
+            {
+                "username": "chartjes",
+                "access-key": "like-i-would-tell-you-bro",
+                "browser": "iexplore",
+                "browser-version": "8.",
+                "os": "Windows 2003",
+                "name": "Kaplan Behat Selenium Testing"
+            }
+  formatter:
+    parameters:
+      verbose: true
+      time: true
+      decorated: true
+      language: 'en'
+      output_styles:
+          comment: ['black', 'yellow', ['bold']]
+</code></pre>
+
+<p>As far as I can tell, we can only run things under Windows 2003 but I do not
+know if that is a limitation because of the free account I have. It sure would
+suck to not be able to test things on Windows XP.</p>
+
+<h2 id="step-4%3A-automate-all-the-things">Step 4: AUTOMATE ALL THE THINGS</h2>
+
+<p>Now we can run all your Behat tests that use Selenium on Sauce Labs infrastructure.
+Why is that such a big deal? Because Sauce Labs very thoughtfully records videos
+of all your tests, along with screenshots and nice, easy-to-read log of your
+tests.</p>
+
+<p>I cannot emphasize how useful having this information is. Why? Because it gives
+you something to look at when things go wrong, as Behat itself will give you
+some very terse info when tests fail. The <a href="https://twitter.com/FreshWillisms">other test engineer</a> and
+I let out a little squee when we saw all those things.</p>
+
+<p>If you truly want to build a modern QA department, tools like Sauce Labs are
+the standard to aim for. It's not enough to just run your automated tests using
+Behat, you need to also be able to record things so you can go back and check
+them out when things go wrong.</p>
+
+<p>I mean, really, it's more important to know why a test failed than to know that
+everything passed. Passing tests are boring, failing tests are a call to action
+to find out why it doesn't work.</p>
+
+<p>Anyway, I hope this blog post helps you get your own Behat + Mink environment
+configured to use Sauce Labs.</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2012/07/13/monkey-patching-is-for-closers/" title="Monkey-patching is for closers"><span class="title">Monkey-patching is for closers</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2012/06/18/why-dont-you-trust-your-developers/" title="Why Don&#039;t You Trust Your Developers?"><span class="title">Why Don&#039;t You Trust Your Developers?</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

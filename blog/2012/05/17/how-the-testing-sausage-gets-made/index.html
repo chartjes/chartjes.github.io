@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>How The Testing Sausage Gets Made &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">How The Testing Sausage Gets Made</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>So how does the Grumpy Programmer write code, TDD style? It starts with 
+using a set of tools that reduce the amount of friction required.</p>
+
+<p>First, I do almost all my work from a terminal. On my Macbook I use
+<a href="http://www.iterm2.com/#/section/home">iTerm 2</a> instead of the stock
+Terminal.app. Until recently you could not get 256 colours without
+some external hacking and since I like my editor to have purty colours
+I needed a terminal to match it. I might take a look at Terminal.app
+again, but iTerm 2 fits the bill.</p>
+
+<p>Why the terminal? PHPUnit is a CLI application. Yes, many popular
+editors and IDE's can do things like execute PHPUnit for you, but they
+are limited in what flexibility they provide. At Kaplan we have several
+different configurations under which we can run our tests. Again, reduce
+the friction between the tools and you using them.</p>
+
+<p>Then we have the <a href="http://www.vim.org">One True Editor</a>. While I do use
+other editors from time to time (I do like <a href="http://www.sublimetext.com/2">Sublime Text 2</a> 
+a lot because it has Vim bindings), I stick with Vim. Why? The plugins.</p>
+
+<p>Here's what I use:</p>
+
+<ul>
+<li><a href="https://github.com/tpope/vim-pathogen">Pathogen</a> to make loading other plugins easy</li>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=102">DiffDir</a> for making code review and test reviews easier</li>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=2423">Gist.vim</a></li>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=13">closetag</a></li>
+<li><a href="https://github.com/AndrewRadev/inline_edit.vim">inline_edit.vim</a></li>
+<li><a href="https://github.com/scrooloose/nerdtree">nerdtree</a></li>
+<li><a href="https://github.com/ervandew/supertab">supertab</a></li>
+<li><a href="https://github.com/vim-scripts/surround.vim">surround.vim</a> - it has ruined me for using other editors</li>
+<li><a href="http://vimcasts.org/episodes/aligning-text-with-tabular-vim/">Tabular.vim</a></li>
+<li><a href="https://github.com/majutsushi/tagbar">tagbar</a> - INDISPENSABLE</li>
+<li><a href="https://github.com/tpope/vim-repeat">vim-repeat</a></li>
+<li><a href="https://github.com/thisivan/vim-taglist">vim-taglist</a></li>
+<li><a href="https://github.com/tpope/vim-unimpaired">vim-unimpaired</a></li>
+</ul>
+
+<p>There is nothing specific to doing TDD in these plugins, but what they
+do for me is allow me to slice and dice text as quickly as possible, along
+with providing me with easy ways to navigate through the code base. Remember,
+reducing friction is a big thing to me. If the tool makes it tough for me
+to do what I want, it will be the target of grumpy ranting.</p>
+
+<p>One of the reasons I like Sublime Text 2 is that you can jump all over the
+place in the code base in similar ways. If you editor doesn't allow you to
+do that, you need to get rid of that editor and use something that does.
+NO EXCUSES.</p>
+
+<p>A typical coding session has me using two terminal windows. One has Vim running
+in it, the other is used to run PHPUnit or other testing framework of choice as
+I venture in the world of BDD and testing in other languages. Then I do the 
+following:</p>
+
+<ul>
+<li>figure out HOW to test the code I'm writing</li>
+<li>write the tests required</li>
+<li>write code until the tests pass</li>
+<li>refactor code as required</li>
+<li>refactor tests as required.</li>
+</ul>
+
+<p>That's really all their is to it. The actual work flow of when you are using
+TDD isn't magical. I will admit that experience is the only teacher for how
+to actually write the tests, but luckily I have an awesome <a href="https://twitter.com/FreshWillisms">co-worker</a>
+who bellows obscenities at me while guiding me down the path to total testing
+mastery. I know Will, you only hate me because you love me.</p>
+
+<p>Every time I make a change to a test or the code, I re-run the tests. I find that
+this lets me get more done while actually slowing down the pace. You end up
+more focussed on the bit of code that really needs your attention, instead of
+getting drawn into blind alleys.</p>
+
+<p>I also frequently run code-coverage reports to make sure that I'm getting
+maximum coverage for my efforts, while ignoring writing tests specifically
+for methods with very low CRAP indexes. Again, I'm making sure that I am
+targeting the parts of my code that need to be tested.</p>
+
+<p>I know I've written about this before, but when you approach things from a
+TDD perspective, you find that using things like dependency injection
+become second nature.</p>
+
+<p>If there is a lesson to be learned from this, it's to make sure that every
+tool that you use reduces the friction that is generated when building
+your application using TDD.</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2012/05/31/tricorder-a-testing-helper-for-php/" title="Tricorder: a testing helper for PHP"><span class="title">Tricorder: a testing helper for PHP</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2012/05/16/test-all-the-things/" title="Test All The Things?"><span class="title">Test All The Things?</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

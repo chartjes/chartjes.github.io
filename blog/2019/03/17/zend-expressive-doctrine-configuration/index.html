@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Watch Me Get Grumpy -- Zend Expressive Doctrine Configuration &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Watch Me Get Grumpy -- Zend Expressive Doctrine Configuration</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>I am in the process of starting the dreaded Rewrite Of An Existing Application
+That Works. In this case, it is time that I turned <a href="https://github.com/opencfp/opencfp">OpenCFP</a>
+from a install-it-yourself web application into a Software-As-A-Service offering.</p>
+
+<p>As part of this rewrite I have decided to use <a href="https://www.martinfowler.com/bliki/CQRS.html">CQRS</a>
+and <a href="https://www.martinfowler.com/eaaDev/EventSourcing.html">Event Sourcing</a> instead
+of the traditional CRUD-backed-with-a-DB architecture that most of the
+web is built on.</p>
+
+<p>I believe that an application that has so many domain-specific events associated
+with it will benefit greatly from the ideas underpinning CQRS and Event Sourcing.
+Anyway, the architecture is not up for debate since I'm the one doing it!</p>
+
+<p>This app is going to replace what I already created at <a href="https://opencfp-central.com">OpenCFP Central</a>
+and I will cut over to this new one once I have implemented the two existing
+features:</p>
+
+<ul>
+<li>allowing people to register accounts</li>
+<li>allowing people who are running OpenCFP to use OpenCFP Central for single-sign-on</li>
+</ul>
+
+<p>Because there is so much reworking to be done with the OpenCFP code base to make it
+a SaaS capable of hosting multiple events, I felt it was better to start fresh
+with the code base. Especially because I now need to add all the CQRS+ES implementation.</p>
+
+<p>The existing version of the application is a standard CRUD-backed-with-a-DB that was
+built using <a href="https://laravel.com">Laravel</a>. My research into figuring out how to
+add CQRS+ES led me to believe that I did not have the requisite knowledge of the
+framework to figure out how to make it work. Laravel is great in that it has lots
+of packages and add-ons to allow you to quickly build something. I felt like this
+was not going to help me in this case. Laravel is good! But not a great fit for
+someone with my level of expertise with it.</p>
+
+<p>So I decided to use <a href="https://zendframework.github.io/zend-expressive/">Zend Expressive</a>
+as the framework to build this app. My online network of friends includes many 
+people who have used the framework, and one of the best and most thorough examples
+of how to build an application using CQRS+ES was done by <a href="https://twitter.com/ocramius">Marco Pivetta</a>
+and it was backed by Zend Framework and uses <a href="http://getprooph.org/">Prooph</a> for
+CQRS+ES functionality.</p>
+
+<p>(As an aside, using Zend Expressive has reminded me how much I have relied
+on 'batteries included' frameworks in recent years. Forcing myself to also
+write glue code is actually a good thing for me)</p>
+
+<p>So, I knew the framework, I knew what I could use for CQRS+ES. Now it was time
+to install some other tools to help me build out this version of OpenCFP.</p>
+
+<p>I was going to require some sort of tool to create database migrations
+as the app gets built. I was also learning towards trying not to use
+an ORM but instead something like <a href="https://www.doctrine-project.org/projects/dbal.html">Doctrine DBAL</a>
+so I decided to also use <a href="https://www.doctrine-project.org/projects/migrations.html">Doctrine Migrations</a>
+since it can be used with our without the ORM.</p>
+
+<p>I found some great examples of how to set things up...and it just
+wouldn't work for me. The steps seemed straightforward and I highly
+recommend watching Adam Culp's Beachcasts tutorial on <a href="https://www.youtube.com/watch?v=pFvh5ZNhdOQ">configuring Doctrine ORM and DBAL</a>. I had my database configured and working.
+I added in the code to allow the Zend Service manager to locate
+Doctrine as required. The examples said "this should work just
+fine with DBAL." 
+I had the 'migrations.php' and 'migrations-db.php' file and it Just
+Wouldn't Work.</p>
+
+<p>Until I realized the key critical thing I had hand-waved and did not
+think anything off -- environment variables.</p>
+
+<p>The app is going to be deployed to Heroku, where I can set environment
+variables that can be accessed by code, both in a CLI and web environment.
+I use environment variables in my work at <a href="https://mozilla.com">the day job</a>
+so why wouldn't I do that here?</p>
+
+<p>This is what my 'migrations-db.php' file looked like:</p>
+
+<pre><code class="php">&lt;?php
+declare(strict_types=1);
+
+return [
+    'driver' =&gt; 'pdo_pgsql',
+    'dbname' =&gt; \getenv('DB_DATABASE'),
+    'user' =&gt; \getenv('DB_USER'),
+    'password' =&gt; \getenv('DB_PASSWORD'),
+    'host' =&gt; \getenv('DB_HOST')
+];
+</code></pre>
+
+<p>When I would run the migration tool it would spit out errors telling me
+it could not read the database configuration file and a bunch of other
+noise that just made me grumpier and grumpier as I struggled to figure
+out what was wrong.</p>
+
+<p>Eventually I decided to see what as actually inside those environment
+variables. To my surprise there were empty! Ugh. But I did know what
+I could do to fix it. I would make use of Vance Lucas' <a href="https://github.com/vlucas/phpdotenv">dotenv</a>
+tool to make sure the contents of my own '.env' file would be
+available.</p>
+
+<p>After installing it using <a href="https://getcomposer.org">Composer</a> as per
+the documentation, I added this code to my 'migrations-db.php' file:</p>
+
+<pre><code class="php">use Dotenv\Dotenv;
+
+if (file_exists(__DIR__ . '/.env')) {
+    $dotenv = Dotenv::create(__DIR__);
+    $dotenv-&gt;load();
+}
+</code></pre>
+
+<p>Now the migrations tool worked just fine, and I was on my way towards
+the first step of the app -- building the user registration system
+and making sure authentication worked correctly.</p>
+
+<p>If you have any comments or suggestions, please reach out to me via
+Twitter (my preferred way) or you can email me at chartjes@grumpy-learning.com.</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2019/04/27/watch-me-get-grumpy-event-sourcing-refactor/" title="Watch me get grumpy - event sourcing refactor"><span class="title">Watch me get grumpy - event sourcing refactor</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2019/01/31/docker-as-a-testing-tool/" title="Docker as a testing tool"><span class="title">Docker as a testing tool</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>First steps in Node testing &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">First steps in Node testing</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>As I've been promising, I wanted to share my thoughts as I am starting to
+brush up on my JavaScript and learn how to do something non-trivial with
+<a href="http://nodejs.org">Node.js</a>. Of course, I want to use tests to
+help me drive my work, and also as a way to keep me focused on small iterations
+of work.</p>
+
+<p>I am intending to write some code to act as an API for the <a href="http://www.ibl.org">site that runs my simulation baseball league</a>
+and refactor the existing PHP code to consume that API instead of speaking
+to the database through CakePHP (really OLD CakePHP at that too) models.</p>
+
+<p>So, it took me a while to search around and find enough information to create
+my first integration test. In the end, the stack is <a href="http://visionmedia.github.com/mocha/">Mocha</a>
+to do the testing, with <a href="https://github.com/visionmedia/supertest">SuperTest</a> to handle
+all the HTTP testing.</p>
+
+<p>So, the app itself is built on <a href="http://expressjs.com/">Express</a> and 
+talking to a Postgres database using <a href="https://github.com/brianc/node-postgres">node-postgres</a>.
+It seemed to me that express was the best solution for a newcomer to Node but
+familiar with MVC / modern web application paradigms.</p>
+
+<p>So, let's take a look at some of the code:</p>
+
+<pre><code>// Front controller for our API
+
+var application_root = __dirname;
+var express = require("express");
+var path = require("path");
+var pg = require('pg');
+var app = express();
+var model = require('./transactionmodel');
+
+// Create our database connection
+var connectionString = "pg://chartjes:@localhost:5432/ibl_stats";
+
+pg.connect(connectionString, function(err, client) {
+  if (err) {
+    console.log(err);
+  }
+});
+var client = new pg.Client(connectionString);
+var tm = new model.TransactionModel(client);
+
+// Config things we need to get the app going
+app.configure(function() {
+  app.use(express.bodyParser());
+  app.use(express.methodOverride());
+  app.use(app.router);
+  app.use(express.static(path.join(application_root, "public")));
+  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+});
+
+app.get('/transactions/archived', function(req, res) {
+  var done = function (err, transactions) {
+    if(err) {
+      res.send("Error querying transactions", 500);
+    } else {
+      res.send(transactions);
+    }
+
+  };
+
+  var currentTransactions = tm.getArchived(done);
+});
+
+app.get('/transactions/current', function(req, res) {
+  var done = function (err, transactions) {
+    if(err) {
+      res.send("Error querying transactions", 500);
+    } else {
+      res.send(transactions);
+    }
+  };
+
+  var currentTransactions = tm.getCurrent(done);
+});
+
+module.exports = app;
+</code></pre>
+
+<p>I am also using the awesome <a href="http://postgresapp.com/">Postgress.app</a>
+while working on this app on my laptop.</p>
+
+<p>One of the things I learned while I started to build my tests was that if I
+wanted to test stuff in isolation, I needed to alter things slightly and
+export my Express "app" as a module instead of including the command 
+necessary to make it run and listen for requests on a specific port.</p>
+
+<p>Now, I did find some blog posts about how to write integration tests, but
+they either wanted to use <a href="http://coffeescript.org/">CoffeeScript</a>
+or was using custom modifications to the testing tools. I am not familiar
+enough to write stuff like that (not in JavaScript anyway) so out of
+frustration I looked at the source code of Express since <a href="http://brianstoner.com/blog/testing-in-nodejs-with-mocha/">this blog post</a>
+mentioned how he created a custom version of something used to help in 
+testing.</p>
+
+<p>When I looked at the source of Express, the author had replaced a bunch
+of stuff with code that simply imported SuperTest. I think I swore
+really loudly at myself for not looking sooner.</p>
+
+<p>Armed with the knowledge that I had my missing piece for the integration
+test, I wrote a simple one.</p>
+
+<pre><code>var app = require('../app');
+var request = require('supertest');
+var assert = require('assert');
+
+describe('Transaction API', function() {
+  it('GET /transactions/current should return 200', function(done) {
+    request(app)
+      .get('/transactions/current')
+      .expect('Content-Type', /json/)
+      .expect(200, done);
+  });
+});
+</code></pre>
+
+<p>It worked, which is the first step. How about another test? Let's make
+sure that if we do that call to /transactions/current and verify that
+we are getting back a result we expect</p>
+
+<pre><code>it('GET /transactions/current should return expected results', function(done) {                                                                    
+    var fs = require('fs');                                                     
+    var currentData = fs.readFile('./current', 'utf8', function(err, data) {    
+      if (err) { throw err; }                                                   
+      return data;                                                              
+    });                                                                         
+    request(app)                                                                
+      .get('/transactions/current')                                             
+      .expect(currentData, done);                                               
+  });                     
+</code></pre>
+
+<p>For this test, I am reading in a text file that contains, for a known database,
+a JSON representation of that data. Then I do a call to my API call, and
+compare the result I get back to my fixture. Just like any test I would 
+write in PHP. Compare the expected to the actual.</p>
+
+<p>In <a href="http://devhell.info/post/2012-10-06/the-grace-hopper-rape-whistle/">episode 21 of /dev/hell</a>
+I talked a bit about how I felt that testing skills from one language are
+transferrable to another. I think the fact that once I figured out that SuperTest
+was the missing tool, it took me less than 30 minutes to write those two tests.
+That includes research time reading the documentation for both Mocha and SuperTest.</p>
+
+<p>More tests are sure to come, but I think I've found the right set of tools
+for the time being.</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2012/10/18/phpspec-and-the-new-wave-of-testing/" title="PHPSpec and the new wave of testing"><span class="title">PHPSpec and the new wave of testing</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2012/10/12/grumpy-phpunit/" title="The Grumpy Programmer&#039;s PHPUnit Cookbook"><span class="title">The Grumpy Programmer&#039;s PHPUnit Cookbook</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

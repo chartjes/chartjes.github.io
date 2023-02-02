@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Fun with API&#039;s -- FRAPI and django-tastypie &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Fun with API&#039;s -- FRAPI and django-tastypie</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>Throughout my career as a programmer I've had moments that I call "why the hell didn't I see that earlier" moments when it comes to embracing new technologies and techniques.  The first such moment was when I discovered frameworks.  I mean, how many times did I write PHP apps with page and/or front controllers.  And all that mixing of business logic and display logic.  It was madness!
+</p>
+
+<p>
+The next such time was when my friend Kevin convinced me to throw away my GUI shackles and learn to use the <a href="http://www.vim.org">One True Editor</a>.  Given how often the advanced features of the never-ending parade of IDE's I used were not being used, vim turned out to be exactly the tool I needed.
+</p>
+
+<p>
+Well folks, I've had another one of these moments.  What is it?  Repeat after me:  THOU SHALL BUILD YOUR APPLICATION AS AN API FIRST, AND FRONT END SECOND.  I've been toying with this idea for a while, but a recent side project and these <a href="http://phpadvent.org/2010/first-class-apis-by-helgi-%C3%9Eormar-%C3%9Eorbj%C3%B6rnsson">three</a> <a href="http://phpadvent.org/2010/the-thing-with-the-two-heads-by-ed-finkler">awesome</a> <a href="http://phpadvent.org/2010/building-mobile-apps-with-php-by-jonathan-stark">articles</a> finally convinced me that my instincts were right, and that the extra work involved with API-first development (wow, maybe I've coined a new term) pays off in our new world of multiple devices wanting to slurp up online content.</p>
+
+<p>
+So, here are two tools that I think my readers should know about.  For those working with PHP, I cannot recommend enough the use of <a href="http://getfrapi.com">FRAPI</a> if you have a legacy application that you need to provide an API for.  Now, I will admit that the installation procedure is not for the faint-of-heart (you have to install packages via PEAR, PECL, and perhaps even adding packages for your operating system) but once you have it installed, you now have a tool to allow you to quickly create an API.  
+</p>
+
+<p>
+In a nutshell, FRAPI is a framework for creating a REST API.  Using the admin panel, you define the URL's you want for your API and it generates some code for you.  Then you edit the generated code to provide the actual output from your API, and reaction based on your GET/POST/PUT/DELETE request.   From when I downloaded it, it took me about 30 minutes to get FRAPI installed and create my first API call, including a customized output template.
+</p>
+
+<p>The documentation via the wiki isn't that great, but it gives you everything you really need to get started.  Kudos to the boys at <a href="http://twitter.com/echolibre">echolibre</a> for creating a super-useful tool.</p>
+
+<p>
+Now, if you're using Django there is an awesome add-on called <a href="https://github.com/toastdriven/django-tastypie">django-tastypie</a> that allows you to quickly create a REST API for your Django models.  Again, from the time I downloaded it, it took me about 30 minutes to create an API for one of my models.  Now, I can create the front-end for the project either in Django or take the leap of faith and create it using Javascript and have it call the API.
+</p>
+
+<p>The documentation for django-tastypie is good, and <a href="http://joshbohde.com/2010/11/25/backbonejs-and-django/">this article on JS on the front, scripting language on the back</a> shows you a practical use for it.
+</p>
+
+<p>
+So don't be afraid to build your application from the API out, now that there are plenty of tools to allow for easy integration with your application.
+</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2011/01/17/codemash-2011-round-up/" title="CodeMash 2011 Round-Up"><span class="title">CodeMash 2011 Round-Up</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2010/12/07/slides-from-my-pragmatic-tdd-talk/" title="Slides from my &quot;Pragmatic TDD&quot; talk"><span class="title">Slides from my &quot;Pragmatic TDD&quot; talk</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

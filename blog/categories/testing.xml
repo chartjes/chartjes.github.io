@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title><![CDATA[Grumpy Learning]]></title>
-    <link href="/blog/categories/testing.xml" rel="self"/>
-    <link href="/"/>
-    <updated>2023-01-19T20:55:32+00:00</updated>
-    <id>/</id>
+    <link href="https://grumpy-learning.com/blog/categories/testing.xml" rel="self"/>
+    <link href="https://grumpy-learning.com/"/>
+    <updated>2023-02-02T18:35:45+00:00</updated>
+    <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
             <entry>
             <title type="html"><![CDATA[Monkey patching in PHP]]></title>
-            <link href="/blog/2023/01/19/monkeypatching-in-php/"/>
+            <link href="https://grumpy-learning.com/blog/2023/01/19/monkeypatching-in-php/"/>
             <updated>2023-01-19T00:00:00+00:00</updated>
-            <id>/blog/2023/01/19/monkeypatching-in-php/</id>
+            <id>https://grumpy-learning.com/blog/2023/01/19/monkeypatching-in-php/</id>
             <content type="html"><![CDATA[<h2 id="what-is-monkey-patching%3F">What is monkey patching?</h2>
 
 <p>I first learned about <a href="https://en.wikipedia.org/wiki/Monkey_patch">monkey patching</a> via the Ruby community. Due to how
@@ -111,9 +111,9 @@ one that fits your need is more important than being perfect..</p>
         </entry>
             <entry>
             <title type="html"><![CDATA[Testing decoupled PHP code?]]></title>
-            <link href="/blog/2022/12/06/testing-decoupled-code/"/>
+            <link href="https://grumpy-learning.com/blog/2022/12/06/testing-decoupled-code/"/>
             <updated>2022-12-06T00:00:00+00:00</updated>
-            <id>/blog/2022/12/06/testing-decoupled-code/</id>
+            <id>https://grumpy-learning.com/blog/2022/12/06/testing-decoupled-code/</id>
             <content type="html"><![CDATA[<p>One of the reasons many experienced developers encourage the concept of
 "decoupling your code" is so that it makes testing your code straightforward.
 I wanted to share an example of how I went about writing some tests for
@@ -387,9 +387,9 @@ out Matthias Noback's <a href="https://leanpub.com/recipes-for-decoupling">"Reci
         </entry>
             <entry>
             <title type="html"><![CDATA[Why isn&#039;t testing ubiquitous?]]></title>
-            <link href="/blog/2022/11/22/why-isnt-testing-ubiquitous/"/>
+            <link href="https://grumpy-learning.com/blog/2022/11/22/why-isnt-testing-ubiquitous/"/>
             <updated>2022-11-22T00:00:00+00:00</updated>
-            <id>/blog/2022/11/22/why-isnt-testing-ubiquitous/</id>
+            <id>https://grumpy-learning.com/blog/2022/11/22/why-isnt-testing-ubiquitous/</id>
             <content type="html"><![CDATA[<p>Over on Twitter Mathias Verraes tweeted something that immediately 
 triggered some feelings:</p>
 
@@ -467,9 +467,9 @@ and hope they find it as useful as I have.</p>
         </entry>
             <entry>
             <title type="html"><![CDATA[Asking Companies About Testing]]></title>
-            <link href="/blog/2022/01/14/asking-companies-about-testing/"/>
+            <link href="https://grumpy-learning.com/blog/2022/01/14/asking-companies-about-testing/"/>
             <updated>2022-01-14T00:00:00+00:00</updated>
-            <id>/blog/2022/01/14/asking-companies-about-testing/</id>
+            <id>https://grumpy-learning.com/blog/2022/01/14/asking-companies-about-testing/</id>
             <content type="html"><![CDATA[<p>This post could also be subtitled "The Grumpy Programmer's Guide to Getting Rejected at Interviews".</p>
 
 <p>Someone tagged me in a tweet...</p>

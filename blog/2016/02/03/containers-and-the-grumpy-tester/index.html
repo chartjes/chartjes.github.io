@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Containers And The Grumpy Tester &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Containers And The Grumpy Tester</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>Even with my personal focus on promoting Test-Driven Development I still end up
+doing a lot of functional testing. For clarification purposes I want to define
+a functional test as one where I create an automated test that treats the system
+I'm testing as a black box.</p>
+
+<p>In this case I needed to write some functional tests for <a href="https://github.com/Kinto/kinto">Kinto</a>.
+Kinto is a lightweight storage server that is designed to be distributed-friendly
+and is being used at Mozilla in production RIGHT NOW to handle the SSL certificate
+revocation list that Firefox uses.</p>
+
+<p>Being a big fan of automation, I started to brainstorm ideas on what the ideal
+environment for running these tests would look like. So I set on the following
+ideas:</p>
+
+<ul>
+<li>we should be able to easily start up however many instances of Kinto we need</li>
+<li>the test script itself needs to know if it's own dependencies are all set</li>
+<li>someone other than me needs to be able to easily use this tool</li>
+</ul>
+
+<h2 id="docker-as-a-new-qa-tool">Docker as a new QA tool</h2>
+
+<p>Before we go any further, please go and buy Chris Tankersley's <a href="https://leanpub.com/dockerfordevs">awesome book about Docker</a>. Chris is a friend of mine (and current
+PHP Magic: The Gathering champion) and his help in going from knowing nothing
+about Docker to knowing enough to create something useful was invaluable.</p>
+
+<p>For the uninitiated, I will give a gross over-simplification of what Docker is.
+Docker is a set of tools that allow you to create small containers inside which
+you can run applications. The theory behind this is that is allows you to run
+multiple applications on the same server. I'm not sure how it works it's magic
+on Linux-based systems but on OS-X the tools have you using a Vagrant VM to
+host all these containers for you. I'm not always comfortable with using tools
+that appear to be magical to me, but I'm okay with what Docker is doing.</p>
+
+<p>In many ways this reminds me of a tool that FreeBSD provided called <a href="https://www.freebsd.org/doc/handbook/jails.html">jails</a>. Back in 2003-2004 the
+company I was working for gave us development boxes that worked on that used
+jails to simulate what our production environment looked like. I thought it was
+a very interesting bit of technology that solved a real problem -- how to
+provide developers with a solid development environment.</p>
+
+<p>Lucky for me the Kinto project already has a <a href="https://hub.docker.com/r/kinto/kinto-server/">Docker image we can use</a>
+so it seems like a natural thing to try and use. After some conversations with
+<a href="https://twitter.com/dragonmantank">Mr. Tankersley</a> it appeared what I needed
+was to use <a href="https://docs.docker.com/compose/">Docker Compose</a>. Docker Compose
+lets you start multiple containers at once, create links with them, and do
+all sorts of other interesting things with them.</p>
+
+<p>Initially I had a grand plan for using Docker Compose. I was going to spin up
+containers for two different Kinto instances and then two <a href="http://postgresql.org">PostgeSQL</a>
+servers and then they can talk to each other and then it's going to be awesome
+and I will look like a goddamn genius!</p>
+
+<p>Like so many of plans, things started off super complicated and then eventually
+got pared down to what I really needed. I ran into all sorts of problems with
+my initial scheme because I ended up with basically what amounted to a race
+condition happening.</p>
+
+<p>I need to spin up the database containers FIRST and then run some database
+migrations and OH MY GOD WHY IS THIS ALL SO COMPLICATED.</p>
+
+<p>After banging my head unsuccessfully against this problem, I took a step back
+and figured out what it was I really needed to create this environment. After
+calming down and telling imposter syndrome to hit the road, I took a closer look
+at what the Kinto containers were doing and realized it was fine to use the
+default of creating a small in-memory database for storing things.</p>
+
+<p>This is a test that is designed to be run in a continuous integration
+environment so it doesn't really need any permanence. So with that issue out
+of the way, I tweaked my Docker Compose configuration file until I was happy
+with it:</p>
+
+<pre><code>master:
+  image: kinto/kinto-server
+  ports:
+   - "8888:8888"
+read-only:
+  image: chartjes/kinto-read-only
+  ports:
+   - "8889:8889"
+</code></pre>
+
+<p>I created a <a href="https://hub.docker.com/r/chartjes/kinto-read-only/">custom Docker image</a>
+for this. I suppose it has a terrible name because it's not <em>really</em> a read-only
+instance but it's playing the role of the "only read by Firefox" side of the
+testing environment.</p>
+
+<p>Do when you run <code>docker-compose</code> in the directory with this docker-compose.yml
+file, it will spin up two containers that are running two different Kinto
+servers.</p>
+
+<h2 id="semi-intelligent-testing-scripts">Semi-intelligent testing scripts</h2>
+
+<p>Next up was to write some tests. Right now we do our tests in Python using the
+awesome <a href="https://github.com/pytest-dev/pytest">pytest</a> testing tool. I wanted
+to make sure that the test would gracefully fail if our Docker containers
+weren't up and running so I hacked together some code that goes in the
+<code>setup</code> method for the test.</p>
+
+<pre><code>def setUp(self):
+    # Figure out what the IP address where the containers are running
+    f = os.popen('which docker-machine')
+    docker_machine = str(f.read()).strip()
+
+    if string.find(docker_machine, "/docker-machine") == -1:
+        print("Could not find docker-machine in our path")
+        exit()
+
+    f = os.popen('%s ip default' % docker_machine)
+    ip = str(f.read()).strip()
+
+    # Set our master and read-only end points and create our test bucket
+    self.master_url = "http://%s:8888/v1/" % ip
+    self.read_only_url = "http://%s:8889/v1/" % ip
+    self.credentials = ('testuser', 'abc123')
+    self.master = Client(server_url=self.master_url, auth=self.credentials)
+    self.read_only = Client(server_url=self.read_only_url, auth=self.credentials)
+    self.bucket = self.get_timestamp()
+    self.master.create_bucket(self.bucket)
+    self.read_only.create_bucket(self.bucket)
+</code></pre>
+
+<p>As with all code examples I put up here, I'm open to feedback and corrections.</p>
+
+<h2 id="time-for-that-test">Time for that test</h2>
+
+<p>The scenario I'm going to share is a very simple one that accurate duplicates
+a use case: someone alters the collection of data and those changes need to
+get replicated over to a different server.</p>
+
+<p>The test should make sense because I made sure to add comments</p>
+
+<pre><code>def test_sync(self):
+    # Generate some random records
+    collection = self.get_timestamp()
+    self.master.create_collection(collection, bucket=self.bucket)
+    self.read_only.create_collection(collection, bucket=self.bucket)
+    for x in range(10):
+        self.read_only.create_record(
+            data=self.generate_record(),
+            bucket=self.bucket,
+            collection=collection)
+
+    # Pause and generate some more random records on the master end-point
+    time.sleep(3)
+    for x in range(5):
+        self.master.create_record(
+            data=self.generate_record(),
+            bucket=self.bucket,
+            collection=collection)
+
+    # Get the timestamp of our last record by doing an HTTP query of the
+    # read-only collection and grabbing the value from the header
+    response = self.read_only.get_records(bucket=self.bucket, collection=collection)
+    last_record = response[-1]
+    since = last_record['last_modified']
+
+    # Query the master using that value for all the records since that one
+    new_records = self.master.get_records(bucket=self.bucket, collection=collection, _since=since)
+
+    # Add those records to our read-only end-point
+    for data in new_records:
+        new_data = {'internal_id': data['internal_id'], 'title': data['title']}
+        self.read_only.create_record(data=new_data, bucket=self.bucket, collection=collection)
+
+    master_records = self.master.get_records(bucket=self.bucket, collection=collection)
+    read_only_records = self.read_only.get_records(bucket=self.bucket, collection=collection)
+
+    # We should have 5 records in master and 15 in read-only
+    self.assertEquals(5, len(master_records))
+    self.assertEquals(15, len(read_only_records))
+
+    # Clean up our collections
+    self.master.delete_collection(collection, bucket=self.bucket)
+    self.read_only.delete_collection(collection, bucket=self.bucket)
+</code></pre>
+
+<p>Again, very straight forward. Like I've told people many times -- writing tests
+is just like writing code, and the test code doesn't need to be fancy. It just
+needs to accurate execute the test scenario you have in mind.</p>
+
+<h2 id="always-be-evaluating">Always Be Evaluating</h2>
+
+<p>As a tester I'm always looking for tools that I think can provide real value to
+me and help with testing scenarios. It's still early days with Docker and it
+(along with associated tools) are only getting better. If you've been struggling
+with a way to try and build a reasonably-sandboxed environment to run functional
+tests in, I encourage you to take a look at what I've done here and copy it to
+your advantage.</p>
+
+<p>The tests I've been working on can be found inside <a href="https://github.com/mozilla-services/services-test">this GitHub repo</a></p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2016/02/29/marionette-first-steps/" title="Marionette -- First Steps"><span class="title">Marionette -- First Steps</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2016/01/28/metatesting/" title="Metatesting"><span class="title">Metatesting</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

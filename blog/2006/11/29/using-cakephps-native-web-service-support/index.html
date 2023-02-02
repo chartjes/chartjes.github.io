@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Using CakePHP&#039;s Native Web Service Support &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Using CakePHP&#039;s Native Web Service Support</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>
+Recently there was a posting on the <a href="http://cakephp.org">CakePHP</a> mailing list from someone complaining that CakePHP's native web service support didn't work, mainly because he couldn't figure out how to get it to work.  So, I took up the challenge and sent out an email to the list showing that you can indeed use them.  Might I add that until I tried this, I had never built a web service with CakePHP before.  I found that by turning on the debug mode and actually following the instructions that were in the error messages (best undocumented feature of CakePHP if you ask me) I was able to build it.  Oh yeah, a big shout-out to Samuel DeVore for his near-simultaneous reply to the original message showing an ever simpler example than mine.  Which I promptly stole and used it in this example. :)
+</p>
+
+<p>
+This example works with the latest stable version of CakePHP (1.1.10.3825) running on a Gentoo Linux box with PHP 5.1.2 and Apache 2.  It's my understanding that the native web service stuff was originally built for Cake 1.2 (not released yet) and back-ported to Cake 1.1.  Perhaps some key parts are missing, hence the need for some hackery mentioned below.
+</p>
+
+<p>
+First, open up /app/config/core.php and turn on support for internal web services:
+~~~
+/**
+ *  The define below is used to turn cake built webservices
+ *  on or off. Default setting is off.
+ */
+    define('WEBSERVICES', 'on');
+~~~
+</p>
+
+<p>
+Now, you have to understand that CakePHP won't magically spit out your content as XML, or SOAP, or as REST or whatever.  The internal web services support provides built-in URLs for spitting out your content in whatever alternate format you want.  This concept will become clear as we continue on here.  Basically it lets you do the following:
+<ul>
+<li>mydomain/controller/action for regular content</li>
+<li>mydomain/xml/controller/action to spit out your content formatted as XML</li>
+</ul>
+</p>
+
+<p>Okay, so first thing I did was create a test controller:
+~~~
+<?php
+
+/**
+ * Test controller for built-in web services
+ *
+ * @author Chris Hartjes
+ *
+ */
+ 
+class TestController extends AppController
+{
+    var $name = 'Test';
+    var $uses = "";
+    var $components = array('xml');
+    
+    function index()
+    {
+        $message = "This is a test of built-in web services";
+        $this->set('message', $message);
+    }
+}
+
+?>
+~~~
+Those of you who are observant about CakePHP will notice that I've dragged in a component to be used.  Currently, you need to create a component *and* a helper to make the web service stuff work.  This is hackish, and hopefully goes away.
+</p>
+
+<p>
+You need to create an XML component and put it in /app/controllers/components/xml.php
+~~~
+<?php
+
+class XMLComponent extends Object
+{
+    // Blank for now as we're not doing anything weird
+}
+
+?>
+~~~
+and then create an XML helper, placing that in /app/views/helpers/xml.php
+~~~
+<?php
+
+class XmlHelper extends Helper
+{
+    // blank for now
+}
+
+?>
+~~~ 
+</p>
+
+<p>
+Now we need to generate a bunch of thtml files to display our output.  Of course, we have to create the default view for our action in the controller.  Put this in /app/views/test/index.thtml
+~~~
+Content generated via regular view<br />
+< ?php echo $message ?>
+~~~
+Next is the XML stuff.  There are two files we need to create.  One is /app/views/layouts/xml/default.thtml, which simply tells CakePHP to use whatever data is passed into it.
+~~~
+< ?php echo $content_for_layout ?>
+~~~
+and then we create /app/views/test/xml/index.thtml to spit out our data in XML
+~~~
+< ?php e('<?xml version="1.0" encoding="utf-8" ?>' . "\n"); ?>
+<foo>
+<bar>< ?php echo $message ?></bar>
+</foo>
+~~~
+I believe the e(blah) function is a built-in helper for CakePHP.
+</p>
+
+<p>
+So, now when we go to mydomain/test we get the following output generated:
+~~~
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>CakePHP Web Services Test</title>
+<link rel="stylesheet" type="text/css" href="/css/cake.generic.css" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /></head>
+<body>
+    <div id="container">
+        <div id="content">
+            Content generated via regular view<br />
+This is a test of built-in web services     </div>
+
+        <div id="footer">
+            &nbsp;
+        </div>
+    </div>
+    </body>
+</html>
+~~~
+and when we go to mydomain/xml/test we get the following output generated
+~~~
+<?xml version="1.0" encoding="utf-8" ?>
+<foo>
+<bar>This is a test of built-in web services</bar>
+</foo>
+~~~
+</p>
+
+<p>
+Like I said before, a lot of hoops to jump through and hopefully those go away when CakePHP 1.2 comes out.
+</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2006/12/05/rallyhatcom-baby-steps/" title="Rallyhat.com -- baby steps"><span class="title">Rallyhat.com -- baby steps</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2006/11/24/adventures-with-jquery/" title="Adventures with jQuery"><span class="title">Adventures with jQuery</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

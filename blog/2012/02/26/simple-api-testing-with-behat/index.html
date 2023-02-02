@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Simple API testing using Behat &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Simple API testing using Behat</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>I've recently started using <a href="http://behat.org">Behat</a> as my testing framework
+of choice. Why? I like the idea of writing tests in a format that is as close
+to English as I can get. This also makes it easier for non-technical people
+to write tests for you as well, making sure they "have some skin in the game"
+as you build out your automated test suite.</p>
+
+<p>I have been trying to push my JavaScript skills lately by first playing around
+with Node.js to get a feel for event-driven server-side coding and by trying
+to build something semi-useful using <a href="http://knockout.js">Knockout</a>. Knockout
+is a client-side Model-View-View-Model framework that promotes four really
+good principles: declarative bindings, automatic UI refreshing, dependency
+tracking and templating. Check out the documentation on the Knockout web site
+for a great explanation of why those are good thigns.</p>
+
+<p>A typical Knockout-out powered site is one where the client-side code talks
+to a server-side API. My experimental site for this is one that uses an 
+API written in PHP using <a href="http://slimframework.com">Slim</a>. Of course, I cannot
+do this without writing some tests. My first set of tests are for the calling
+of the API itself.</p>
+
+<p>After working with PHPUnit's "assert that the result matches expectations" 
+philosophy, switching to using a behavioural approach has changed how I decide
+to approach actually testing something. Let me show you what I mean.</p>
+
+<p>Here's a test for an API call to get our "current" set of transactions, which
+is hard-coded in the system to be all trades that have occurred in the past
+3 weeks.</p>
+
+<pre><code>Feature: transactions API 
+
+Scenario: 
+    Given I call "/transactions/current"
+    Then I get a response
+    And the response is JSON
+    And the response contains at least one transaction
+    And the first transaction contains a transaction ID
+    And the first transaction contains two teams
+    And the first transaction contains a description
+</code></pre>
+
+<p>If you read that out loud it sounds like how you would describe to a co-worker
+what you were expecting to happen on an API call, albeit a little more stilted
+and formalized.</p>
+
+<p>When you first write a feature like this and then ask Behat to run all the
+tests on it, if there is no code to execute a specific step it will give you
+the skeleton of code to make it happen. Then it is up to you to implement
+the actual code that will make the tests run.</p>
+
+<p>Here's the final product:</p>
+
+<pre><code>&lt;?php
+
+use Behat\Behat\Context\ClosuredContextInterface,
+    Behat\Behat\Context\TranslatedContextInterface,
+    Behat\Behat\Context\BehatContext,
+    Behat\Behat\Exception\PendingException;
+use Behat\Gherkin\Node\PyStringNode,
+    Behat\Gherkin\Node\TableNode;
+
+//
+// Require 3rd-party libraries here:
+//
+//   require_once 'PHPUnit/Autoload.php';
+//   require_once 'PHPUnit/Framework/Assert/Functions.php';
+//
+
+/**
+ * Features context.
+ */
+class FeatureContext extends BehatContext
+{
+    /**
+     * Initializes context.
+     * Every scenario gets it's own context object.
+     *
+     * @param   array   $parameters     context parameters (set them up through behat.yml)
+     */
+    public function __construct(array $parameters)
+    {
+        // Initialize your context here
+    }
+
+    /**
+     * @Given /^I call "([^"]*)"$/
+     */
+    public function iCall($argument1)
+    {
+        $client = new Guzzle\Service\Client();
+        $request = $client-&gt;get('http://local.ibl-delphi' . $argument1)-&gt;send();
+        $this-&gt;response = $request-&gt;getBody(true);
+    }
+
+    /**
+     * @Then /^I get a response$/
+     */
+    public function iGetAResponse()
+    {
+        if (empty($this-&gt;response)) {
+            throw new Exception('Did not get a response from the API');
+        }
+    }
+
+    /**
+     * @Given /^the response is JSON$/
+     */
+    public function theResponseIsJson()
+    {
+        $data = json_decode($this-&gt;response);
+
+        if (empty($data)) {
+            throw new Exception("Response was not JSON\n" . $this-&gt;response);
+        }
+    }
+
+    /**
+     * @Given /^the response contains at least one transaction$/
+     */
+    public function theResponseContainsAtLeastOneTransaction()
+    {
+        $data = json_decode($this-&gt;response);
+
+        if (count($data) &lt; 1) {
+            throw new Exception("Response did not contain at least one transaction");
+        }
+    }
+
+    /**
+     * @Given /^the first transaction contains a transaction ID$/
+     */
+    public function theFirstTransactionContainsATransactionId()
+    {
+        $data = json_decode($this-&gt;response, true);
+        $transaction = $data[0];
+
+        if (!isset($transaction['id'])) {
+            throw new Exception("First transaction did not contain a transaction id");
+        }
+    }
+
+    /**
+     * @Given /^the first transaction contains two teams$/
+     */
+    public function theFirstTransactionContainsTwoTeams()
+    {
+        $data = json_decode($this-&gt;response, true);
+        $transaction = $data[0];
+
+        if (!isset($transaction['tradePartner1']) &amp;&amp; !isset($transaction['tradePartner2'])) {
+            throw new Exception("First transaction did not contain two teams");
+        }
+    }
+
+     /**
+     * @Given /^the first transaction contains a description$/
+     */
+    public function theFirstTransactionContainsADescription()
+    {
+        $data = json_decode($this-&gt;response, true);
+        $transaction = $data[0];
+
+        if (!isset($transaction['description'])) {
+            throw new Exception("First transaction is missing a description");
+        }
+    }
+}
+</code></pre>
+
+<p>Notice how Behat uses annotations that describe what type of scenario the
+method uses. It also uses regular expressions to extract specific values
+that you are wishing to test. Those are typically values inside quotes
+in the actual features.</p>
+
+<p>If you are wondering what the skeletons (or stubbs depending on what
+terminology you like to use) looked like <em>before</em> I wrote code to implement
+them, you can simply cut-and-paste the scenario file at the top of this
+post into a feature file (don't forget to give a .feature extension) and it
+will show you all of them.</p>
+
+<p>I liked this method because it meant I could easily add more tests and
+Behat would tell me what code woudl be needed to run it.</p>
+
+<p>So what does the output look like for the test?</p>
+
+<pre><code>-&gt; % bin/behat
+Feature: transactions API
+
+  Scenario:                                             # features/transactions.feature:3
+    Given I call "/transactions/current"                # FeatureContext::iCall()
+    Then I get a response                               # FeatureContext::iGetAResponse()
+    And the response is JSON                            # FeatureContext::theResponseIsJson()
+    And the response contains at least one transaction  # FeatureContext::theResponseContainsAtLeastOneTransaction()
+    And the first transaction contains a transaction ID # FeatureContext::theFirstTransactionContainsATransactionId()
+    And the first transaction contains two teams        # FeatureContext::theFirstTransactionContainsTwoTeams()
+    And the first transaction contains a description    # FeatureContext::theFirstTransactionContainsADescription()
+
+1 scenario (1 passed)
+7 steps (7 passed)
+0m0.362s
+</code></pre>
+
+<p>I have obviously only scratched the surface of what can be done with Behat.
+I myself have questions about how to prevent the FeatureContext.php file, 
+which contains all the functionality that drives the tests, from getting
+too large. I can also see the lure of endlessly tweaking the scenarios to
+reduce the amount of code required to run them all.</p>
+
+<p>What about code-coverage reports? Easily available in PHPUnit but is it
+possible using Behat? It's still early days for some of the alternatives to
+PHPUnit.</p>
+
+<p>The example above is only the first of numerous tests that will be written
+for this side project, as it needs to cover displaying archived transactions
+to be voted on, user authentication, and the voting process itself.</p>
+
+<p>I think that the BDD approach maps better to a results-oriented methodology
+when it comes to testing: you are using real-life scenarios to make sure that
+you are getting back the results you are expecting. In the end. that is still
+the goal of testing.</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2012/03/09/moving-on-and-a-testing-mini-manifesto/" title="Moving on, and a Testing Mini-Manifesto"><span class="title">Moving on, and a Testing Mini-Manifesto</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2012/02/22/thoughts-on-testing-apis/" title="Thoughts on testing APIs"><span class="title">Thoughts on testing APIs</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>The Grumpy Programmer&#039;s Guide To Building Testable PHP Applications &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">The Grumpy Programmer&#039;s Guide To Building Testable PHP Applications</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>After the middling success of my first <a href="https://www.littlehart.net/book">programming book</a>
+I had been thinking about writing another book. When the end of October rolled
+around and <a href="https://en.wikipedia.org/wiki/National_Novel_Writing_Month">National Novel Writing Month</a>
+was about to happen I decided to take the plunge and write something.</p>
+
+<p>It didn't turn out to be The Great Canadian Novel but I did collect my thoughts on
+what goes into building PHP applications in such a way that they are easily
+testable. I called it "The Grumpy Programmer's Guide To Building Testable PHP Applications".</p>
+
+<p>When I wrote my first book I did everything in <a href="http://www.apple.com/iwork/pages/">Pages</a> but
+that was before the rise of e-readers. This time I wanted to offer my book in
+PDF, epub and mobi formats. So I started up using <a href="http://www.methods.co.nz/asciidoc/">AsciiDoc</a>
+since I felt it gave me the most options for converting the text into other formats
+with a little bit of programming work. I created a Makefile (old school, baby!)
+that took the text and turned it into a PDF.</p>
+
+<p>I had thought about doing the book directly in <a href="http://docbook.org/">Docbook</a> as
+it provided the best way for conversion purposes, but I found all the XML to
+be getting in the way of, you know, actually writing the thing. Plain text
+with a little bit of mark-up seemed to be the best fit for my brain.</p>
+
+<p>As my self-imposed deadline got closer I felt like I was in for a lot of late
+nights fiddling around with layouts to get things to an acceptable level. Lucky
+for me an alternative came along.</p>
+
+<p>I follow Reg Braithwaite (better known as @raganwald) and saw that he had a new
+ebook out called <a href="http://leanpub.com/shippingsoftware">"What I've Learned From Failure"</a> which he published with some
+help from <a href="http://leanpub.com">Leanpub</a>. The system looked awesome: write your
+book in Markdown (which I already use for this blog) and then it would create
+ebooks in PDF/epub/mobi for you, handling all the distribution and payment
+collection for you. Holy fuck, this is what I wanted.</p>
+
+<p>So I took the plunge and signed up for an account. I started tweaking my text
+to use the Markdown-specific formats the system requires and little by little
+the book is being massaged into it's new shape.</p>
+
+<p>I've gotten some great feedback from my technical reviewers and will be
+incorporating those changes into the book as soon as I've converted it over
+to the Leanpub structure. I'm giving a talk on the topic the book covers at
+<a href="http://codemash.org">Codemash 2012</a> and will launch the book while I'm
+there, offering those who attend my talk a discount as a way of thanking
+them for travelling to the shores of Lake Erie in the middle of winter.</p>
+
+<p>So please visit the <a href="http://leanpub.com/grumpy-testing">home of my book online</a>
+and until the book is published feel free to add your name to the mailing list.
+As soon as it's available you will be notified. I'm still tweaking the pricing
+so feel free to suggest to me how much you'd be willing to pay for such a beast.
+It will probably come in between 40 and 50 pages in length.</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2012/01/05/better-remote-code-development/" title="Better Remote Code Development"><span class="title">Better Remote Code Development</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2011/12/30/the-year-of-the-struggle/" title="The Year of the Struggle"><span class="title">The Year of the Struggle</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Smarter DB Migrations Using Zend Framework and Doctrine 1.2 &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Smarter DB Migrations Using Zend Framework and Doctrine 1.2</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>This posting is a lesson on the value of actually looking at the source code of a third-party library when you are trying to figure something out...</p>
+
+<p>
+I'm using Doctrine 1.2 for a Zend Framework project (loving the power of DQL) and I'm also big on continuous integration...which relies on being able to automate things.  Consequently, I was using Doctrine's <a href="http://www.doctrine-project.org/projects/orm/1.2/docs/manual/migrations/en">migrations</a> system to handle making changes to the database.  But I was frustrated.  The solution I had was running <b>each and every migration each time</b> and causing a lot of noise in the form of warnings about changes that had already been applied.  Was it hurting anything?  Just my pride and sense of Having Done Things Right.</p>
+
+<p>So, I started searching around for solutions.  There seemed to be something missing in everything I found, some sort of smug assumption that the system was smart enough to know which migrations had already been done so you could double check.  Totally frustrated I decided to look at the source code for Doctrine itself...
+</p>
+
+<p>
+"Hrm, this method seems to allow you to write a value to a table in a database...what table is that...goddamn it Chris, you are such a dumb-ass for not seeing this earlier!"
+</p>
+
+<p>I had noticed that there was a table in the database for this project called 'migration_version' but I kept ignoring it, thinking it was an artifact of an earlier attempt by me to implement roll-your-own migrations.  Little did I know that was the actual table I was supposed to use.  After some experimentation, I confirmed that I was indeed a dumb-ass and needed to start using this table properly.</p>
+
+<p>
+Next step was then to create a new PHP script to handle the migrations.  Keeping in mind that I'm using Zend Framework, here's what it looks like:
+~~~
+< ?php
+define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/application'));
+
+if (!defined('APPLICATION_ENV')) {
+    define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'testing'));
+}
+
+set_include_path(implode(PATH_SEPARATOR, array(
+    realpath(APPLICATION_PATH . '/library'),
+    get_include_path(),
+)));
+ 
+require_once 'Zend/Application.php';
+ 
+$application = new Zend_Application(
+    APPLICATION_ENV,
+    APPLICATION_PATH . '/configs/application.ini'
+);
+ 
+$application->getBootstrap()->bootstrap('doctrine');
+
+Zend_Loader_Autoloader::getInstance()->registerNamespace('Doctrine')->pushAutoloader(array('Doctrine', 'autoload'));  
+$config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', APPLICATION_ENV);
+$manager = Doctrine_Manager::getInstance();  
+
+foreach ($config->doctrine->attr as $key => $val) {
+    $manager->setAttribute(constant("Doctrine::$key"), $val);  
+}  
+
+$migration = new Doctrine_Migration(APPLICATION_PATH . '/migrations');
+$latestVersion = $migration->getLatestVersion();
+$currentVersion = $migration->getCurrentVersion();
+
+if ($latestVersion > $currentVersion) {
+    echo "Migrating from v{$currentVersion} to v{$latestVersion}\n";
+
+    try {
+        $nextVersion = $currentVersion + 1;
+        $migration->migrate($nextVersion);
+        $migration->setCurrentVersion($latestVersion);
+    } catch (Exception $e) {
+        echo 'Caught exception: ', $e->getMessage() . "\n";
+    }
+} else {
+    echo "No migrations were performed\n";
+}
+~~~
+I will explain the logic a little bit here
+</p>
+
+<p>
+First, we have to do a bunch of stuff to load in our Zend Framework application.  I'm using autoloading of modules so I never have to worry about including something so long as I've followed the proper naming conventions.  Next, I create an instance of the Doctrine_Migration object, then determine whether or not we need to actually perform a migration by comparing the value in the 'migration_version' table to what the latest migration class says.
+</p>
+
+<p>
+See, Doctrine is smart enough to look at all the classes you've written to do migrations and figure out which one is the latest.  The easiest way to do this is prefix the name of the file with a number, or if you are dealing with multiple developers you could go with YYYYMMDDHHMM or even a timestamp (if you're feeling l33t) as the prefix.  Anything you can do to make sure that the order of migrations is the way you want is good.  I went with a 4-digit number as the prefix.  We're currently at migration 0016.  I figure that if we get to 9999 migrations then I've probably done something wrong. ;)
+</p>
+
+<p>
+Armed with the info about the last migration and the current migration, it's simple to determine if we actually need to run the migrations or not.  Problem solved in an elegant way, and no more unnecessary noise in the output from my continuous integration builds.
+</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2011/01/24/moving-on-and-shooting-for-the-moontoast/" title="Moving on and shooting for the Moon(toast)"><span class="title">Moving on and shooting for the Moon(toast)</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2011/01/17/codemash-2011-round-up/" title="CodeMash 2011 Round-Up"><span class="title">CodeMash 2011 Round-Up</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

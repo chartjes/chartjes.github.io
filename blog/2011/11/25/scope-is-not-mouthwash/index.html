@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Scope is not a mouthwash &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Scope is not a mouthwash</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <p>One of the worst-kept secrets now is that I have started working on a book
+about some practical techniques for building testable applications. I'd
+say I'm about half done, and the book will be ready for sale
+when I give my talk at <a href="http://codemash.org">CodeMash 2012</a> on the same topic.</p>
+
+<p>Why do I care about all this stuff that causes friction for programmers?
+Because there is so much I want to learn and fragile, untestable applications
+get in the way of me becoming the programmer I want to be. Naturally I am also
+working on an application that will serve as a companion to the book, a hand-crafted
+web application that will embody the techniques I describe in the book. It is also
+very humbling to "eat your own dogfood", meaning build you applications using
+the practices you are espousing.</p>
+
+<p>So, I set out to show people in my chapter of the book about decoupling objects
+via the magic of dependency injection how to use this awesome thing known as a
+dependency injection container. Although they are more suited for very large
+complex applications like web application frameworks but I thought "I could
+see someone like a younger version of me wanting to mess around with something
+like this even though it might be totally inappropriate for the application.
+Let's do it!"</p>
+
+<p>For this I am using <a href="http://pimple.sensiolabs.org">Pimple</a>, an incredibly small
+but effective dependency injection container. Easy to use, simple and effective
+documentation, just what I was looking for. I also noticed that Pimple supported
+the use of closures (or anonymous functions) as a way of storing a dependency.</p>
+
+<p>Then things got stupid.</p>
+
+<p>I altered the bootstrap file for my application (it's using the <a href="http://toys.lerdorf.com/archives/38-The-no-framework-PHP-MVC-framework.html">no-framework framework approach</a>) and set up an instance of Pimple and wrote this cool-looking code that stores
+a mapper for one of my models in it:</p>
+
+<pre><code>$container = new \Pimple();
+$container['db_connection'] = function ($c) {
+    return new PDO(
+        'pgsql:host=localhost;dbname=ibl_stats', 
+        'login',
+        'pass'
+    );
+};
+$container['franchise_mapper'] = function ($c) {
+    return new IBL\FranchiseMapper($c['db_connection']);
+};
+</code></pre>
+
+<p>What you don't see in this snippet is that before this happens, I am using a PSR-0
+compliant autoloader. Go Google for it, it's hard to explain in a few short words
+and I am also using namespaces to show people just how easy they are to use. I 
+love autoloading. Spares me dealing with 'require&#95;once' and 'include&#95;once' and also worrying
+about if I've required or included a file somewhere else.</p>
+
+<p>I reload my test page and...what the hell? "Cannot find class IBL\FranchiseMapper"</p>
+
+<p>That...that...that cannot be! It's RIGHT THERE! I have unit tests that run just fine
+and the autoloader grabs it there too!</p>
+
+<p>So I start asking for help on Twitter. "It must be Pimple causing the problem." Pimple's
+creator <a href="https://twitter.com/#!/fabpot/status/139706391777648640">smacks me down</a> and
+I look at the code and say "of course it can't be Pimple. Keep looking!"</p>
+
+<p>Next I figure there is something specific to closures that is causing the problem. I reach
+out for more help, trying things willy-nilly to try and figure it out. I contemplate using
+Xdebug to trace what is going on in the autoloader. Not very easy to debug autoloaders. 
+Finally I see something (of course I cannot find the link now) that talks about closures
+and scope. That is when I realize how fucking stupid I have been.</p>
+
+<p>So, let's talk about scope for a second. Besides being the brand name for a mouthwash, scope
+is a topic that some programmers get tripped up on. Despite my 14 years of PHP experience I often
+feel like it is 1 year repeated 14 times. Scope deals with variables (and in this case namespaces)
+and where they can be accessed from.</p>
+
+<p>You have global scope, meaning that the variable/object/function can be accessed from anywhere.
+Then you have the scope of something inside a standalone function. Unless (mind you, this is PHP
+and I cannot speak for other languages) you mark it as global, it can only be accessed from 
+inside that function. Now, you can declare a variable/object/whatever as being accessible inside
+that object via the use of (for example) $this->foo but that variable, and you can also slap
+public/protected/private to decide who can see it when you interact with that object.</p>
+
+<p>To roll back to me, my problem was not one of variable scope. It was one of namespace scope. With
+the introduction of namespaces to PHP you now have the concept of the "global namespace", which is
+where all the existing PHP functions and objects live. If you want to be pedantic (and Wotan knows
+I sometimes enjoy pedant status) you should be prefixing all your calls to things like 
+mysql&#95;query() with a backslash. Try it out and see if I'm telling the truth.</p>
+
+<p>So I'm scratching my head looking at this code. "What the hell, dude. I've got nothing to lose
+by adding a backslash in front of IBL." Of course it worked. But why did it work?</p>
+
+<p>(Grumpy developer's note: I was asked on Twitter to expand a bit on the reasons behind why
+things work this way. I am not a PHP internals guy so everything I say here is
+just an educated guess)</p>
+
+<p>With the introduction of namespaces, PHP has to operate under some assumptions. If
+you are going to remain backwards-compatible with a lot of code and support namespaces
+then you have to make some rules too. As far as I can tell, when PHP encounters an object
+or function, it assumes that it is in the global namespace first. This is how you can do
+things like $query = mysql&#95;query() and have it not complain. No prepended backslash, it
+assumes it is in the global namespace.</p>
+
+<p>Now, let's say I am trying to do this:</p>
+
+<pre><code>$mapper = new IBL\FranchiseMapper($container['db\_connection']);
+</code></pre>
+
+<p>There is no pre-pended backslash but there <em>is</em> a backslash after the IBL, therefore PHP can
+assume that there are namespaces involved. Then (I think) it goes and looks to see if
+there is currently an 'IBL' namespace that it has been asked to use. Because of the autoloader
+it is aware of that namespace, so then it happily loads it.</p>
+
+<p>So why does it behave differently inside closures? I am not 100% sure, but if I had to
+make an educated guess I would say that when trying to resolve namespaces inside
+a closure, the interpretor doesn't assume that it is already inside the global namespace,
+that it is in a namespace of it's own. Hence the need to explicitly declare that you
+are starting with the global namespace (prepending the backslash) and then working
+your way down.</p>
+
+<p>If any PHP interals contributors read this blog post I would appreciate a follow-up 
+comment to confirm and/or explain how this works.</p>
+
+<p>So, it looks like closures are stricter and was reminding me, via that error message, 
+that I need to be aware
+of the current scope of the namespace (is that even the right way to put it?) 
+and prepend that backslash so my autoloader (which is hooked into spl&#95;autoload&#95;register)
+can, you know, find and create that object for me. So here's how it looks now</p>
+
+<pre><code>$container = new \Pimple();
+$container['db_connection'] = function ($c) {
+    return new \PDO(
+        'pgsql:host=localhost;dbname=ibl_stats', 
+        'login',
+        'pass' 
+    );
+};
+$container['franchise_mapper'] = function ($c) {
+    return new \IBL\FranchiseMapper($c['db_connection']);
+};
+
+$mapper = $container['franchise_mapper'];
+</code></pre>
+
+<p>Yay! I can create a mapper via the dependency injection container.</p>
+
+<p>I know that a lot of beginning to intermediate javascript programmers &#42;cough&#42;me&#42;cough&#42; have
+to pay attention to variable/function/object scope issues as well. Also, don't be like me when
+there are no tests for your code and start randomly changing things in hopes that it works.</p>
+
+<p>It usually doesn't.</p>
+
+        </div>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                            <li>Next: <a class="next" href="https://grumpy-learning.com/blog/2011/12/05/war-room-driven-deployment/" title="War-room Driven Deployment"><span class="title">War-room Driven Deployment</span></a></li>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2011/11/07/building-a-gimmebar-sidebar/" title="Building a Gimmebar Sidebar"><span class="title">Building a Gimmebar Sidebar</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>
