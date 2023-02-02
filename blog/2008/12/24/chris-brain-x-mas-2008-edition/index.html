@@ -111,6 +111,14 @@ Ever tried to design a site based off a text description from the client / boss 
                             <small>Where even the CSS is grumpy</small>                        </div>
                     </div>
                     <div class="card bg-light sidebar-nav">
+                        <div class="card-body">
+                            <form method="get" id="search" action="https://duckduckgo.com/">
+                                <input type="hidden" name="sites" value="grumpy-learning.com"/>
+                                <input type="hidden" name="k7" value="r"/>
+                                <input class="search" type="text" name="q" maxlength="300" placeholder="Search"/>
+                                <input type="submit" value="Search" style="visibility: hidden;" />
+                            </form>
+                        </div>
                         <div class="card-header">Videos to make you less grumpy</div>
                         <div class="card-body">
                             <ul class="nav flex-column">
