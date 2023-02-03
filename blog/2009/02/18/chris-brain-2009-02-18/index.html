@@ -96,11 +96,10 @@ Even if you don't use <a href="http://www.vim.org">the One True Editor</a>, chec
                     </div>
                     <div class="card bg-light sidebar-nav">
                         <div class="card-body">
-                            <form method="get" id="search" action="https://duckduckgo.com/">
-                                <input type="hidden" name="sites" value="grumpy-learning.com"/>
-                                <input type="hidden" name="k7" value="r"/>
-                                <input class="search" type="text" name="q" maxlength="300" placeholder="Search"/>
-                                <input type="submit" value="Search" style="visibility: hidden;" />
+                            <form method="get" id="search" action="/search.js">
+                                <label hidden for="search-input">Search site</label>
+                                <input type="text" id="search-input" name="query" placeholder="Type here to search">
+                                <input type="submit" value="search">
                             </form>
                             (Search might be rough for a while as engines index all the new old content)
                         </div>
@@ -136,6 +135,7 @@ Even if you don't use <a href="http://www.vim.org">the One True Editor</a>, chec
         </footer>
 
         <script src="https://grumpy-learning.com/build/app.js"></script>
+        <script src="https://unpkg.com/lunr/lunr.js"></script>
                 
         
                     </body>
