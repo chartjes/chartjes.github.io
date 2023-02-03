@@ -1,5 +1,3 @@
-alert('Search');
-
 function displayResults (results, store) {
   const searchResults = document.getElementById('results')
   if (results.length) {
@@ -18,14 +16,31 @@ function displayResults (results, store) {
 
 // Get the query parameter(s)
 const params = new URLSearchParams(window.location.search)
-const query = params.get('query')
+const query = params.get('q')
+windows.store = fetch("https://grumpy-learning.com/index.json");
 
 // Perform a search if there is a query
 if (query) {
   // Retain the search input in the form when displaying results
   document.getElementById('search-input').setAttribute('value', query)
-  const data = fetch("https://grumpy-learning.com/index.json")
-  const idx = lunr.Index.load(JSON.parse(data))
+
+  const idx = lunr(function () {
+    this.ref('uri')
+    this.field('title', {
+      boost: 15
+    })
+    this.field('body', {
+      boost: 10
+    })
+
+    for (const key in window.store) {
+      this.add({
+        id: key,
+        title: window.store[key].title,
+        content: window.store[key].content
+      })
+    }
+  })
 
   // Perform the search
   const results = idx.search(query)
