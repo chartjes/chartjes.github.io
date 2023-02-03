@@ -209,12 +209,21 @@ to hunt for attributes inside the elements.</p>
                     </div>
                     <div class="card bg-light sidebar-nav">
                         <div class="card-body">
-                            <form method="get" id="search" action="/search.js">
+                            <script>
+                                window.store = {}
+                            </script>
+                            <form method="get" id="search" action="/search">
                                 <label hidden for="search-input">Search site</label>
-                                <input type="text" id="search-input" name="query" placeholder="Type here to search">
+                                <input type="text" id="search-input" name="q" placeholder="Type here to search">
                                 <input type="submit" value="search">
                             </form>
-                            (Search might be rough for a while as engines index all the new old content)
+                            <ul id="results">
+                                <li>
+                                    Enter a keyword above to search this site.
+                                </li>
+                            </ul>
+                            <script src="https://unpkg.com/lunr/lunr.js"></script>
+                            <script src="/assets/js/search.js"></script>
                         </div>
                         <div class="card-header">Videos to make you less grumpy</div>
                         <div class="card-body">
@@ -248,7 +257,6 @@ to hunt for attributes inside the elements.</p>
         </footer>
 
         <script src="https://grumpy-learning.com/build/app.js"></script>
-        <script src="https://unpkg.com/lunr/lunr.js"></script>
                 
         
                     </body>
