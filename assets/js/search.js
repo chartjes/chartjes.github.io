@@ -17,7 +17,7 @@ function displayResults (results, store) {
 // Get the query parameter(s)
 const params = new URLSearchParams(window.location.search)
 const query = params.get('q')
-windows.store = fetch("https://grumpy-learning.com/index.json");
+window.store = fetch("https://grumpy-learning.com/index.json");
 
 // Perform a search if there is a query
 if (query) {
