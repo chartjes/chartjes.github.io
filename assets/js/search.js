@@ -1,3 +1,5 @@
+alert('Search');
+
 function displayResults (results, store) {
   const searchResults = document.getElementById('results')
   if (results.length) {
