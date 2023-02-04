@@ -17,7 +17,8 @@ function displayResults (results, store) {
 // Get the query parameter(s)
 const params = new URLSearchParams(window.location.search)
 const query = params.get('q')
-window.store = require('./index.json');
+const data = requre('./index.json')
+window.store = data
 
 // Perform a search if there is a query
 if (query) {
