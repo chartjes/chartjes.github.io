@@ -5,8 +5,7 @@
         <meta charset="utf-8">
         <meta name="theme-color" content="#ffffff">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-                    <meta name="robots" content="noindex, follow">
-                <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
 
         <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
         <meta name="mobile-web-app-capable" content="yes">
@@ -107,21 +106,13 @@ this video is the place to start.</p>
                     </div>
                     <div class="card bg-light sidebar-nav">
                         <div class="card-body">
-                            <script>
-                                window.store = {}
-                            </script>
-                            <form method="get" id="search" action="/search">
-                                <label hidden for="search-input">Search site</label>
-                                <input type="text" id="search-input" name="q" placeholder="Type here to search">
-                                <input type="submit" value="search">
-                            </form>
-                            <ul id="results">
-                                <li>
-                                    Enter a keyword above to search this site.
-                                </li>
-                            </ul>
-                            <script src="https://unpkg.com/lunr/lunr.js"></script>
-                            <script src="/assets/js/search.js"></script>
+						<form class="search" action="http://www.google.com/search" method="get">
+						<input type="hidden" name="as_sitesearch" value="grumpy-learning.com"/>
+						<input type="hidden" name="tbs" value="sbd:1,cdr:1,cd_min:1/1/1970"/>
+						<input type="search" name="q"/>
+						<button type="submit">Search</button>
+						</form>
+                        (Search results will be wonky until all the added content gets indexed)
                         </div>
                         <div class="card-header">Videos to make you less grumpy</div>
                         <div class="card-body">
