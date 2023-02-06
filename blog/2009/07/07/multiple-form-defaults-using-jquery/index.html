@@ -28,7 +28,8 @@
         <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
 
         <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
-                                    </head>
+                                <script src="/assets/js/mastodon.js"></script>
+            </head>
     <body>
         <header>
             <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -268,6 +269,16 @@ Anyway, if you've been looking for a way to create multiple sets of defaults for
                                     </ul>
             </nav>
             </article>
+                    <div id="search">
+                        <br><hr>
+                        <form class="search" action="https://www.google.com/search" method="get">
+                            <input type="hidden" name="as_sitesearch" value="grumpy-learning.com"/>
+                            <input type="hidden" name="tbs" value="sbd:1,cdr:1,cd_min:1/1/1970"/>
+                            <input type="search" name="q"/>
+                            <button type="submit">Search</button>
+                        </form>
+                        (Search results will be wonky until all the added content gets indexed)
+                    </div>
                 </div>
                 <div class="col-sm-5 sidebar">
                     <div class="card bg-light">
@@ -276,15 +287,47 @@ Anyway, if you've been looking for a way to create multiple sets of defaults for
                             <small>Where even the CSS is grumpy</small>                        </div>
                     </div>
                     <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
                         <div class="card-body">
-						<form class="search" action="https://www.google.com/search" method="get">
-						<input type="hidden" name="as_sitesearch" value="grumpy-learning.com"/>
-						<input type="hidden" name="tbs" value="sbd:1,cdr:1,cd_min:1/1/1970"/>
-						<input type="search" name="q"/>
-						<button type="submit">Search</button>
-						</form>
-                        (Search results will be wonky until all the added content gets indexed)
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
                         </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-body">
+                            <div class="tootThread" id="displayTootThread">
+                                <div class="toot" id="displayToot">
+                                    <div class="author">
+                                        <div class="avatar">
+                                            <a href="" class="authorLink" target="_blank">
+                                                <img src="" style="width: 50%; height: 50%" class="avatarImg" alt="" border="0" />
+                                            </a>
+                                        </div>
+                                        <div class="displayName">
+                                            <a href="" class="displayNameLink authorLink" target="_blank"><span class="displayNameSpan"></span></a>
+                                        </div>
+                                        <div class="userName">
+                                            <a href="" class="authorLink" target="_blank">
+                                                <span class="userNameSpan"></span><span class="instanceNameSpan"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="content"></div>
+                                <div class="createdAt">
+                                    <a href="" target="_blank" class="createdAtLink"></a>
+                                    <hr>
+                                </div>
+                            </div>
+                        <div class="tootReplies">
+                        </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
                         <div class="card-header">Videos to make you less grumpy</div>
                         <div class="card-body">
                             <ul class="nav flex-column">
@@ -298,17 +341,6 @@ Anyway, if you've been looking for a way to create multiple sets of defaults for
                                 <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
                             </ul>
                         </div>
-                    <div class="card bg-light sidebar-nav">
-                        <div class="card-header">How to get in touch</div>
-                        <div class="card-body">
-                            <ul class="nav flex-column">
-                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
-                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
-                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
-                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
             </div>
         </main>

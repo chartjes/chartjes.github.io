@@ -31,3 +31,63 @@ footer.container {
 body > main.container {
     padding: 80px 15px 0; /* 80px to make the container go all the way to the bottom of the topbar */
 }
+
+.template {
+    display:none;
+}
+.author {
+    display: grid;
+    align-items: center;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-rows: auto;
+    grid-row-gap: 2px;
+    grid-column-gap: 10px;
+    color: black;
+}
+.authorReply {
+    padding-top: 10px;
+}
+.authorLink {
+    text-decoration: none;
+}
+.avatar {
+    grid-column: 1;
+    grid-row: 1 / 4;
+}
+.displayName {
+    font-size:120%;
+    font-weight: bold;
+    text-decoration: none;
+    grid-column: 2;
+    grid-row: 1;
+    color: black;
+}
+.displayName:hover {
+    text-decoration: underline;
+}
+.displayNameSpan {
+    color: black;
+}
+.userName {
+    font-size:80%;
+    text-decoration: none;
+    grid-column: 2;
+    grid-row: 2;
+}
+.createdAt {
+    grid-column: 2;
+    grid-row: 3;
+    margin-bottom: 10px;
+}
+.avatarImg {
+    width: 50%;
+    height: 50%;
+    border-radius: 4px;
+    background-color: gray;
+}
+.avatarImgReply { width: 36px; height: 36px; border-radius: 4px; background-color: gray;}
+.createdAtLink { font-size:80%; text-decoration: none; }
+.createdAtLink:hover { text-decoration: underline; }
+.content p { margin-bottom: 20px; }
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
