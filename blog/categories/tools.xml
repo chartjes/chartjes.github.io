@@ -3,9 +3,75 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="https://grumpy-learning.com/blog/categories/tools.xml" rel="self"/>
     <link href="https://grumpy-learning.com/"/>
-    <updated>2023-02-10T20:22:14+00:00</updated>
+    <updated>2023-02-10T20:55:39+00:00</updated>
     <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[Adding search to a static blog]]></title>
+            <link href="https://grumpy-learning.com/blog/2023/02/10/adding-search-to-a-static-blog/"/>
+            <updated>2023-02-10T00:00:00+00:00</updated>
+            <id>https://grumpy-learning.com/blog/2023/02/10/adding-search-to-a-static-blog/</id>
+            <content type="html"><![CDATA[<h2 id="why-does-search-matter%3F">Why does search matter?</h2>
+
+<p>I recently decided to take all the old posts from my old blog AtTheKeyboard
+and add them to this site. Since I used the same <a href="https://getsculpin.io">blogging system</a> it
+was as simple as copying the markdown source into the correct place
+and generating static HTML for it.</p>
+
+<p>I used to have a custom Google site search configured but in this new
+age of me giving a shit about the <a href="https://indieweb.org">IndieWeb</a> I wanted
+something a little more open and a little more free. I needed something else.</p>
+
+<p>Like all things, this solution might not work one day but I will worry
+about that when the time comes.</p>
+
+<p>Since I have blog posts dating all the way back to 2005 I felt it was
+essential to allow folks to search for stuff when they come here.</p>
+
+<h2 id="outsourcing-research">Outsourcing Research</h2>
+
+<p>As someone who has been on social media for along time, the best way to find
+an answer is to just ask your devoted audience a question. Eventually someone
+will answer you. I had tried to use <a href="https://lunrjs.com">Lunr</a> but there was
+a lack of knowledge at my end on how to get the index I generated into the
+correct place onto the GitHub-pages-powered version of this web site. I had
+decided to just use a really basic "redirect-the-request-to-Google" input text
+form and rely on my site's new content getting indexed sometime soon.</p>
+
+<p>Probably not great but I am the type of person who is lazy-with-intense-bursts-of-action.</p>
+
+<p>Luckily for me, <a href="https://phpc.social/@dgoosens">Dmitri Goosens</a> found a solution
+and let me know. I under 30 minutes I had it all working. Which is stunning to me.</p>
+
+<h2 id="pagefind">Pagefind</h2>
+
+<p><a href="https://pagefind.app">Pagefind</a> is a CLI-based solution that appears to do everything
+I wanted:</p>
+
+<ul>
+<li>it can be run via the CLI</li>
+<li>it will index all your blog posts</li>
+<li>they provide you with snippets of code to embed search boxes and results</li>
+<li>it's customizable (came in handy due to some GitHub Pages limitations)</li>
+</ul>
+
+<p>Their documentation is great and I now have working static search for my blog. For those</p>
+
+<h2 id="how-i-do-it">How I Do It</h2>
+
+<p>After adding the suggested code snippets to the pages for my blog, I do the following:</p>
+
+<ul>
+<li>build the site pages</li>
+<li>run Pagefind to generate the index, specifying where my blog posts are and what directory to put Pagefind-specific stuff in</li>
+<li>copy all the stuff over to the repo for my blog</li>
+<li>add the changes, commit, and push!</li>
+</ul>
+
+<p>So, if you have a static blog and were wondering how to make it work, I highly
+recommend giving Pagefind a try.</p>
+]]></content>
+        </entry>
             <entry>
             <title type="html"><![CDATA[How a grumpy programmer writes Python IRC bots]]></title>
             <link href="https://grumpy-learning.com/blog/2022/12/31/python-irc-bot/"/>

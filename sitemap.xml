@@ -7,6 +7,12 @@
     <priority>0.8</priority>
   </url>
     <url>
+    <loc>https://grumpy-learning.com/blog/2023/02/10/adding-search-to-a-static-blog/</loc>
+    <lastmod>2023-02-10T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+    <url>
     <loc>https://grumpy-learning.com/blog/2023/01/19/monkeypatching-in-php/</loc>
     <lastmod>2023-01-19T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
