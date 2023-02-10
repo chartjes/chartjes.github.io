@@ -99,15 +99,15 @@ this video is the place to start.</p>
 <div data-thrivecart-account="grumpy-learning" data-thrivecart-tpl="v2" data-thrivecart-product="1" class="thrivecart-embeddable" data-thrivecart-embeddable="tc-grumpy-learning-1-RHLZAS"></div>
 
 <script async src="//tinder.thrivecart.com/embed/v1/thrivecart.js" id="tc-grumpy-learning-1-RHLZAS"></script>
-                    <div id="search">
                         <br><hr>
-                        <form class="search" action="https://www.google.com/search" method="get">
-                            <input type="hidden" name="as_sitesearch" value="grumpy-learning.com"/>
-                            <input type="hidden" name="tbs" value="sbd:1,cdr:1,cd_min:1/1/1970"/>
-                            <input type="search" name="q"/>
-                            <button type="submit">Search</button>
-                        </form>
-                        (Search results will be wonky until all the added content gets indexed)
+                        <link href="/_pagefind/pagefind-ui.css" rel="stylesheet">
+                        <script src="/_pagefind/pagefind-ui.js" type="text/javascript"></script>
+                        <div id="search"></div>
+                        <script>
+                            window.addEventListener('DOMContentLoaded', (event) => {
+                                new PagefindUI({ element: "#search" });
+                            });
+                        </script>
                     </div>
                 </div>
                 <div class="col-sm-5 sidebar">
