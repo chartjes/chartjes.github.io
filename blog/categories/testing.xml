@@ -3,9 +3,105 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="https://grumpy-learning.com/blog/categories/testing.xml" rel="self"/>
     <link href="https://grumpy-learning.com/"/>
-    <updated>2023-02-10T20:55:39+00:00</updated>
+    <updated>2023-03-09T16:44:24+00:00</updated>
     <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[Thinking About Testing Too Much]]></title>
+            <link href="https://grumpy-learning.com/blog/2023/03/09/thinking-about-it-too-much/"/>
+            <updated>2023-03-09T00:00:00+00:00</updated>
+            <id>https://grumpy-learning.com/blog/2023/03/09/thinking-about-it-too-much/</id>
+            <content type="html"><![CDATA[<h1 id="thinking-about-testing-too-much">Thinking About Testing Too Much</h1>
+
+<p>Back in February and had a <a href="https://www.freethegeek.fm/51">very long and fun chat</a> with
+my friend Matt Setter about the one topic I think about way too much -- testing. Rather
+than steal what Matt wrote, just go read the linked above post to get a sense of what
+we discussed. If you have followed my rantings online for any period of time, none of
+what I discussed there should be new to you.</p>
+
+<p>I mean, you can't really blame me -- my career niche has been "testing PHP code" since at
+least 2006. That is a really, really long time to be focussed on an issue. Now, I might
+not be the best programmer (a lot of times I feel like I have been doing programming for
+1 year, 25 times) but I do know a ton about what does and does not lead to good outcomes
+for long-running projects.</p>
+
+<h2 id="the-next-wave-of-testing">The Next Wave Of Testing</h2>
+
+<p>As I write this, I am at a crossroads as to what to talk about next. I'm kind of over speaking
+at conferences except in places I have not been (if you are an organizer of an event in Africa,
+South America, or Japan -- please get in touch) and I am not sure I want to put the effort
+in to write yet another book or do training courses. If I am being honest, I am getting older
+and like hanging out at home more and having unstructured time. I have two frustrating hobbies
+that can keep my mind sharp. Arguing with people about testing their code feels like a losing
+proposition and a huge waste of my time.</p>
+
+<p>So, what I have found interesting is the increasingly-growing idea that there are some code-related
+things that you can do that can reduce the amount of tests you need to write for your code
+or sometimes even eliminate them. This is, of course, at best misguided and at worst, wrong.</p>
+
+<h2 id="types-as-tests">Types As Tests</h2>
+
+<p>When they got introduced into the language, I viewed typing (I define it as declaring at creation
+what 'type' of thing an object or variable is supposed to be) as something that would get rid
+of some types of tests I found myself writing and allow the PHP interpreter to enforce rules
+about what sort of things my code was returning to other code that called it. No more tests
+verifying that a method returned an array!</p>
+
+<p>They are NOT a substitute for tests. They are a helpful tool that provides intent for your code
+and greatly reduces the likelihood of SOME types of errors happening when (for example) your
+code is expecting a list of things and instead gets a string.</p>
+
+<h2 id="static-analysis-as-tests">Static Analysis As Tests</h2>
+
+<p>Static analysis tools are something I have been using professionally for a few years. They are
+an additional layer ON TOP OF types that goes even further down the road of making sure the intent
+of your code is clear. Sure, it's annoying to have a tool say "well, actually, you said over HERE
+that you are expecting an array but you ACTUALLY are passing a list. What one is it?" but it's
+better than you trying to figure out why some code you wrote yesterday suddenly stopped working
+today when you (and this is often not reality) "didn't change anything".</p>
+
+<p>Again, these are NOT a substitute for tests. They are a COMPLEMENTARY tool for testing. Just because
+PHPStan is not reporting any errors doesn't mean your code is behaving as expected!</p>
+
+<h2 id="grumpy%27s-theory-on-tests">Grumpy's Theory On Tests</h2>
+
+<p>I am incredibly confident in saying that you should 100% have automated tests for your application
+that cover:</p>
+
+<ul>
+<li>business logic</li>
+<li>how your users will interact with your app</li>
+</ul>
+
+<p>What testing tools you use to make this happens is up to you. If you have done a decent job of
+creating a decoupled code base where you are injecting dependencies to your objects (let's be
+real, 90% of PHP code out there still running and accessible online is object oriented) then
+you should be able to write unit tests where you create the dependencies the code you are testing
+needs.</p>
+
+<p>They can be the real thing (which I prefer) or doubles (don't be scared, you probably waste more
+time on social media than it would take to keep the doubles in sync as you work on the code base)
+but you MUST have the ability to modify these dependencies at run time.</p>
+
+<p>If you also write your code in a more defensive style -- think filtering input, escaping output,
+validating things, using immutability -- your tests become easier
+to create and the testing scenarios you create become easier and easier to define and implement.</p>
+
+<p>You need tests. Your code should be easy to test. I'm not mad at you if your code isn't in a place
+where it easy to test. There are ways  to make them testable. No, I am
+not talking about end-to-end tests with browser automation. Those are brittle and I have seen too
+many of those types of test suites with weird custom helpers and step definitions that do not
+reflect how the application works AT ALL. Don't do that. Browser automation is a last, desperate
+test in my opinion.</p>
+
+<p>Write assertion-based tests using real dependencies as much as possible. I'm happy to help you
+get there. It will cost some time and some money but it will make the cost of the NEXT change so
+much easier.</p>
+
+<p>Hope you enjoyed the results of thinking too much about this stuff. There is SO much more I want
+to learn in order to make your testing tasks easier.</p>
+]]></content>
+        </entry>
             <entry>
             <title type="html"><![CDATA[Monkey patching in PHP]]></title>
             <link href="https://grumpy-learning.com/blog/2023/01/19/monkeypatching-in-php/"/>

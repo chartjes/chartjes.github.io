@@ -3,9 +3,105 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="https://grumpy-learning.com/atom.xml" rel="self"/>
     <link href="https://grumpy-learning.com/"/>
-    <updated>2023-02-10T20:55:39+00:00</updated>
+    <updated>2023-03-09T16:44:24+00:00</updated>
     <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[Thinking About Testing Too Much]]></title>
+            <link href="https://grumpy-learning.com/blog/2023/03/09/thinking-about-it-too-much/"/>
+            <updated>2023-03-09T00:00:00+00:00</updated>
+            <id>https://grumpy-learning.com/blog/2023/03/09/thinking-about-it-too-much/</id>
+            <content type="html"><![CDATA[<h1 id="thinking-about-testing-too-much">Thinking About Testing Too Much</h1>
+
+<p>Back in February and had a <a href="https://www.freethegeek.fm/51">very long and fun chat</a> with
+my friend Matt Setter about the one topic I think about way too much -- testing. Rather
+than steal what Matt wrote, just go read the linked above post to get a sense of what
+we discussed. If you have followed my rantings online for any period of time, none of
+what I discussed there should be new to you.</p>
+
+<p>I mean, you can't really blame me -- my career niche has been "testing PHP code" since at
+least 2006. That is a really, really long time to be focussed on an issue. Now, I might
+not be the best programmer (a lot of times I feel like I have been doing programming for
+1 year, 25 times) but I do know a ton about what does and does not lead to good outcomes
+for long-running projects.</p>
+
+<h2 id="the-next-wave-of-testing">The Next Wave Of Testing</h2>
+
+<p>As I write this, I am at a crossroads as to what to talk about next. I'm kind of over speaking
+at conferences except in places I have not been (if you are an organizer of an event in Africa,
+South America, or Japan -- please get in touch) and I am not sure I want to put the effort
+in to write yet another book or do training courses. If I am being honest, I am getting older
+and like hanging out at home more and having unstructured time. I have two frustrating hobbies
+that can keep my mind sharp. Arguing with people about testing their code feels like a losing
+proposition and a huge waste of my time.</p>
+
+<p>So, what I have found interesting is the increasingly-growing idea that there are some code-related
+things that you can do that can reduce the amount of tests you need to write for your code
+or sometimes even eliminate them. This is, of course, at best misguided and at worst, wrong.</p>
+
+<h2 id="types-as-tests">Types As Tests</h2>
+
+<p>When they got introduced into the language, I viewed typing (I define it as declaring at creation
+what 'type' of thing an object or variable is supposed to be) as something that would get rid
+of some types of tests I found myself writing and allow the PHP interpreter to enforce rules
+about what sort of things my code was returning to other code that called it. No more tests
+verifying that a method returned an array!</p>
+
+<p>They are NOT a substitute for tests. They are a helpful tool that provides intent for your code
+and greatly reduces the likelihood of SOME types of errors happening when (for example) your
+code is expecting a list of things and instead gets a string.</p>
+
+<h2 id="static-analysis-as-tests">Static Analysis As Tests</h2>
+
+<p>Static analysis tools are something I have been using professionally for a few years. They are
+an additional layer ON TOP OF types that goes even further down the road of making sure the intent
+of your code is clear. Sure, it's annoying to have a tool say "well, actually, you said over HERE
+that you are expecting an array but you ACTUALLY are passing a list. What one is it?" but it's
+better than you trying to figure out why some code you wrote yesterday suddenly stopped working
+today when you (and this is often not reality) "didn't change anything".</p>
+
+<p>Again, these are NOT a substitute for tests. They are a COMPLEMENTARY tool for testing. Just because
+PHPStan is not reporting any errors doesn't mean your code is behaving as expected!</p>
+
+<h2 id="grumpy%27s-theory-on-tests">Grumpy's Theory On Tests</h2>
+
+<p>I am incredibly confident in saying that you should 100% have automated tests for your application
+that cover:</p>
+
+<ul>
+<li>business logic</li>
+<li>how your users will interact with your app</li>
+</ul>
+
+<p>What testing tools you use to make this happens is up to you. If you have done a decent job of
+creating a decoupled code base where you are injecting dependencies to your objects (let's be
+real, 90% of PHP code out there still running and accessible online is object oriented) then
+you should be able to write unit tests where you create the dependencies the code you are testing
+needs.</p>
+
+<p>They can be the real thing (which I prefer) or doubles (don't be scared, you probably waste more
+time on social media than it would take to keep the doubles in sync as you work on the code base)
+but you MUST have the ability to modify these dependencies at run time.</p>
+
+<p>If you also write your code in a more defensive style -- think filtering input, escaping output,
+validating things, using immutability -- your tests become easier
+to create and the testing scenarios you create become easier and easier to define and implement.</p>
+
+<p>You need tests. Your code should be easy to test. I'm not mad at you if your code isn't in a place
+where it easy to test. There are ways  to make them testable. No, I am
+not talking about end-to-end tests with browser automation. Those are brittle and I have seen too
+many of those types of test suites with weird custom helpers and step definitions that do not
+reflect how the application works AT ALL. Don't do that. Browser automation is a last, desperate
+test in my opinion.</p>
+
+<p>Write assertion-based tests using real dependencies as much as possible. I'm happy to help you
+get there. It will cost some time and some money but it will make the cost of the NEXT change so
+much easier.</p>
+
+<p>Hope you enjoyed the results of thinking too much about this stuff. There is SO much more I want
+to learn in order to make your testing tasks easier.</p>
+]]></content>
+        </entry>
             <entry>
             <title type="html"><![CDATA[Adding search to a static blog]]></title>
             <link href="https://grumpy-learning.com/blog/2023/02/10/adding-search-to-a-static-blog/"/>
@@ -1527,128 +1623,6 @@ If we're being honest, most companies aren't doing all that stuff I listed
 above. You can always start at the bottom ("we try and manually test all changes")
 and work as hard as you are allowed to on getting to the point where you
 have an automated test suite catching issues before your users do.</p>
-]]></content>
-        </entry>
-            <entry>
-            <title type="html"><![CDATA[Solving Problems With Profiling]]></title>
-            <link href="https://grumpy-learning.com/blog/2022/01/05/solving-problems-with-profiling/"/>
-            <updated>2022-01-05T00:00:00+00:00</updated>
-            <id>https://grumpy-learning.com/blog/2022/01/05/solving-problems-with-profiling/</id>
-            <content type="html"><![CDATA[<p>I was presented with a problem that was occurring in the <a href="https://grumpy-learning.com/blog/2021/12/30/repeatable-dev-environments/">virtual machine</a>
-I was using for client development work -- the PHP-based acceptance test suite was running
-extremely slowly. Normally it takes 12-13 minutes to run outside of the 
-virtual machine but it was taking...54 minutes!</p>
-
-<p>Because I am almost never afraid to ask for help, I bugged <a href="https://twitter.com/ocramius">Marco Pivetta</a>
-to give me a hand, since he is working on the same client project. I figured if anyone knew of where to START diagnosing what
-the problem is, it would be Marco.</p>
-
-<p>Marco's suggestion after watching a smaller test suite run both in his
-local environment and in my VM was that we should run the test suite
-with a debugger enabled so we can see what is going on terms of resources
-being consumed. For PHP, this usually means using <a href="https://xdebug.org">Xdebug</a>.</p>
-
-<p>What Xdebug allows you to do is:</p>
-
-<ul>
-<li><a href="https://xdebug.org/docs/step_debug">step debugging</a></li>
-<li>see better <code>var_dump()</code> information</li>
-<li>write every function call to disk for later summarizing and reporting</li>
-<li>profile your code to look for performance bottlenecks</li>
-<li>generate code coverage when using PHPUnit (not sure if it works with other testing frameworks)</li>
-</ul>
-
-<p>I've used the step debugging feature a lot on unfamiliar
-code bases but the profiling feature was definitely what we needed.</p>
-
-<p>To ask Xdebug to profile the code we're testing, you need to have the
-Xdebug extension installed and then tell <a href="https://phpunit.de">PHPUnit</a> that you want
-to use it. The command to do it from your shell looks something like
-this:</p>
-
-<p><code>XDEBUG_MODE=profile vendor/bin/phpunit --testsuite=unit</code></p>
-
-<p>Because our test environment was configured to run these tests using a specific
-Docker container, I had to access the container directly via <code>docker-compose exec php-fpm</code>
-and then execute this command inside the container.</p>
-
-<p>This ran the test suite and generated a large number of <a href="https://valgrind.org/docs/manual/cg-manual.html">cachegrind</a>
-files. These files contain profiling data but you need a specialized
-tool to read them and get information out of them that makes sense.
-For Linux users you would likely want to use <a href="https://kcachegrind.github.io">KCachegrind</a>
-but luckily for me you can read these files using <a href="https://www.jetbrains.com/phpstorm/">PhpStorm</a>.</p>
-
-<p>The first step was to figure out which of these cachegrind files to 
-examine. Unfortunately this is more intuition than science: our test
-suite uses <code>@runInSeparateProcess</code> annotations so all the small ones
-represent single tests. These are likely not to return any meaningful 
-information. "Just pick the biggest one and let's see what happens."</p>
-
-<p>So, we both opened up cachegrind files of similar sizes and took a look
-at the data. What exactly where we looking for? In terms of bottlenecks
-we can place things in either "network" or "CPU" categories. Is the application
-waiting a lot for external resources (say, a service in a different container)
-or is it waiting for the CPU to finishing doing something before it 
-can continue.</p>
-
-<p>Sadly, I cannot share the cachegrind output here as I have NDA's surrounding
-the client work but the approach was:</p>
-
-<ul>
-<li>sort the calls by how much time was being spent on executing them</li>
-<li>figure out if it is network or CPU</li>
-</ul>
-
-<p>For network issues, we were looking for things like time spent connecting
-to a MySQL database in another container. As we scrolled through the list
-at my end together we started noticing a few things:</p>
-
-<ul>
-<li>network access wasn't the problem</li>
-<li>we were spending an awful lot of time continually parsing a configuration file written using <a href="https://toml.io/en/">TOML</a> during bootstrap (ticket filed to fix this)</li>
-<li>a lot of very simple PHP calls were taking significant amounts of CPU time</li>
-</ul>
-
-<p>The next step was to look at how much memory and CPU power I was giving to 
-the virtual machine. I was giving it half my processing cores and half the
-available memory. So that should not have been an issue.</p>
-
-<p>Marco did some searching and found some forum posts of folks complaining about
-how slow some VM's were in the latest version of <a href="https://www.vmware.com/products/fusion.html">VMWare Fusion</a>
-but their situation didn't seem to be the same as ours.</p>
-
-<p>"Hrm, Chris, open up that 'Advanced Options' section in the 'Processors &amp; Memory' configuration
-section. Aha!"</p>
-
-<p>In that section were two disabled options, both dealing with running containers
-inside the virtual machine. Given that we are heavily relying on Docker it definitely
-made sense to enable those.</p>
-
-<p>So I shut down the virtual machine, enabled those two options, and started it up.
-Much to my surprise, the acceptance test suite now ran in 10 minutes instead of
-54 minutes! Huge improvement and is also faster than how long it takes outside
-of the virtual machine.</p>
-
-<p>Afterwards, Marco was explaining to me how much Docker relies on having direct memory
-access to things so not forcing those connections to go through a different path
-in the VM would yield a huge gain. Now I'm happier with the performance of the test
-suite.</p>
-
-<p>So, in summary:</p>
-
-<ul>
-<li>the test suite was much slower than expected</li>
-<li>a decision was made to run the test suite with Xdebug profiling enabled</li>
-<li>we made an educated guess as to which profile output file to analyze</li>
-<li>the profiling output led us to believe that there was a CPU-related bottleneck</li>
-<li>the virtual machine had adequate memory and processor resources allocated to it</li>
-<li>the VM was not configured to run containerized applications optimally</li>
-<li>the VM has stopped and options pertaining to running containers inside the VM were enabled</li>
-<li>re-running the test suite saw a huge increase in performance and execution time</li>
-</ul>
-
-<p>Without the ability to profile the code to get a better idea of where there might 
-be problems, it would've taken a lot longer to come to an effective solution.</p>
 ]]></content>
         </entry>
     </feed>
