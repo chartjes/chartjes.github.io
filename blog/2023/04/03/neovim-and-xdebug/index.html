@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>NeoVim and Xdebug &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                <script src="/assets/js/mastodon.js"></script>
+            </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/uses">What Chris Uses</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">NeoVim and Xdebug</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <h1 id="neovim-and-xdebug">NeoVim and Xdebug</h1>
+
+<p>As I continue to work on the configuration for the <a href="https://neovim.io">One True Editor</a>
+I had everything working just about the way that duplicated how I use <a href="https://www.jetbrains.com/phpstorm/">PhpStorm</a>
+except for one thing -- using <a href="https://xdebug.org">Xdebug</a>.</p>
+
+<p>As I write this blog post I have an article submitted for <a href="https://www.phparch.com">php[architect]</a>
+on how I use NeoVim to do PHP development work and in that article
+I talked about the next few things I was going to work on adding
+support for ($100 a year to do enemy research on Copilot AI?!?)
+and getting the tool that I regret not embracing earlier but
+now find it indispensable.</p>
+
+<p>This is not the blog post if you are looking to figure out
+how to get Xdebug running with whatever version of PHP you
+are trying to use. The excellent documentation on the Xdebug
+web site will absolutely point you in the right direction.</p>
+
+<p>In my case, I went the route of manually compiling the 3.2.x
+series (I honestly cannot remember why) but most package
+managers for your operating system of choice can help you
+with that.</p>
+
+<h2 id="xdebug-and-dap">Xdebug and DAP</h2>
+
+<p>DAP (which is short for the <a href="https://microsoft.github.io/debug-adapter-protocol/">Debug Anywhere Protocol</a>.
+Look, you can quibble about who is behind DAP but the overarching
+goal of providing a standardized way for both debugging tools
+and programming languages to talk to each other makes a lot
+of sense. The <a href="https://microsoft.github.io/language-server-protocol/">Language Server Protocol</a>
+is a similar effort that has found a lot of traction outside
+of Microsoft.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>You to have the following before we get started:</p>
+
+<ul>
+<li>a version of PHP with Xdebug support</li>
+<li>NeoVim 0.5+ or better</li>
+<li>the ability to edit your NeoVim configuration files</li>
+<li>the ability to install NeoVim plugins</li>
+<li>Node installed (need it to install some tooling)</li>
+<li>Git CLI tools installed</li>
+</ul>
+
+<h2 id="debug-adapter-for-php">Debug Adapter for PHP</h2>
+
+<p>To start, I followed the excellent instructions found <a href="https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation#PHP">here</a>
+but to replicate them here:</p>
+
+<pre><code class="bash">git clone https://github.com/xdebug/vscode-php-debug.git
+cd vscode-php-debug
+npm install &amp;&amp; npm run build
+</code></pre>
+
+<p>Leveraging an existing tool to make it work is always galaxy-brain-level
+thinking.</p>
+
+<p>Next, I decided on which plugins I wanted to use to interact
+with Xdebug while inside NeoVim. I chose:</p>
+
+<ul>
+<li><a href="https://github.com/mfussenegger/nvim-dap">mfussenegger/nvim-dap</a> for high-level support</li>
+<li><a href="https://github.com/rcarriga/nvim-dap-ui">rcarriga/nvim-dap-ui</a> as my UI for looking at the debug details</li>
+<li><a href="https://github.com/theHamsta/nvim-dap-virtual-text">theHamsta/nvim-dap-virtual-text</a> find variable definitions</li>
+<li><a href="https://github.com/nvim-telescope/telescope-dap.nvim">nvim-telescope/telescope-dap.nvim</a> to provide compatibility with Telescope</li>
+</ul>
+
+<p>Again, I encourage people to start with a base that WORKS and
+then start experimenting to get it the way you want it.</p>
+
+<h2 id="dap-plugin-configuration">DAP Plugin Configuration</h2>
+
+<p>Again, this is for my own setup. It might be different for your
+own.</p>
+
+<p>I needed to make sure that I turn on Telescope support in my
+<code>init.vim</code> file. I need it for other plugins but make sure
+you enable it if you are using <code>telescope-dap.nvim</code>.</p>
+
+<pre><code class="bash">lua require('telescope').setup
+</code></pre>
+
+<p>Note that the above is how to load <a href="https://www.lua.org">Lua</a> files
+inside a <a href="https://devhints.io/vimscript">Vimscript</a> file. I am starting
+to work on the outline of using Lua for all my NeoVim configuration
+settings.</p>
+
+<p>Next, I have a configuration file just for DAP that I also load in
+my <code>init.vim</code> file:</p>
+
+<pre><code class="lua">local dap = require('dap')
+require('telescope').load_extension('dap')
+
+dap.adapters.php = {
+    type = "executable",
+    command = "node",
+    args = { os.getenv("HOME") .. "/vscode-php-debug/out/phpDebug.js" }
+}
+
+dap.configurations.php = {
+    {
+        type = "php",
+        request = "launch",
+        name = "Listen for Xdebug",
+        port = 9003
+    }
+}
+</code></pre>
+
+<p>In here I tell NeoVim:</p>
+
+<ul>
+<li>load the DAP extension for Telescope (it overrides the default UI)</li>
+<li>I want to use the VS Code DAP adapter</li>
+<li>what port to listen for Xdebug info on (Xdebug 3.2.x goes with 9003 as the standard port)</li>
+</ul>
+
+<p>On the Xdebug web site section <a href="https://github.com/xdebug/vscode-php-debug#supported-launchjson-settings">about VS Code</a>
+it points out that you can also add in a <code>pathMappings</code>
+value in <code>dap.configurations.php</code> to "map the files on the server to
+the right files on your local machine." and gives an example.</p>
+
+<p>I don't use <code>pathMappings</code> and my setup works just fine.</p>
+
+<p>Of course, I could not really use Xdebug from inside the editor without
+some keyboard mappings:</p>
+
+<pre><code class="lua">vim.keymap.set('n', '&lt;F5&gt;', function() require('dap').continue() end)
+vim.keymap.set('n', '&lt;F10&gt;', function() require('dap').step_over() end)
+vim.keymap.set('n', '&lt;F11&gt;', function() require('dap').step_into() end)
+vim.keymap.set('n', '&lt;F12&gt;', function() require('dap').step_out() end)
+vim.keymap.set('n', '&lt;Leader&gt;b', function() require('dap').toggle_breakpoint() end)
+vim.keymap.set('n', '&lt;Leader&gt;B', function() require('dap').set_breakpoint() end)
+vim.keymap.set('n', '&lt;Leader&gt;lp', function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
+vim.keymap.set('n', '&lt;Leader&gt;dr', function() require('dap').repl.open() end)
+vim.keymap.set('n', '&lt;Leader&gt;dl', function() require('dap').run_last() end)
+vim.keymap.set({'n', 'v'}, '&lt;Leader&gt;dh', function()
+  require('dap.ui.widgets').hover()
+end)
+vim.keymap.set({'n', 'v'}, '&lt;Leader&gt;dp', function()
+  require('dap.ui.widgets').preview()
+end)
+vim.keymap.set('n', '&lt;Leader&gt;df', function()
+  local widgets = require('dap.ui.widgets')
+  widgets.centered_float(widgets.frames)
+end)
+vim.keymap.set('n', '&lt;Leader&gt;ds', function()
+  local widgets = require('dap.ui.widgets')
+  widgets.centered_float(widgets.scopes)
+end)
+</code></pre>
+
+<p>My usual workflow for debugging is:</p>
+
+<ul>
+<li>code I am debugging open in the editor</li>
+<li>if I didn't already start debugging, hit <code>F5</code> to turn on the debugging session</li>
+<li>set breakpoints where I want them with <code>\b</code></li>
+<li>run the code, step through the breakpoints, and see what's going on</li>
+</ul>
+
+<p>Not different in any significant way than how I would do things in PhpStorm.</p>
+
+<p>So there you have it! If you are a NeoVim user and want to
+start utilizing Xdebug to help you, well, debug your code
+faster my documentation above should get you pointed in
+the correct direction.</p>
+
+        </div>
+                    <p class="categories">
+            Categories:
+                        <a class="p-category" href="https://grumpy-learning.com/blog/categories/testing">testing</a>,                         <a class="p-category" href="https://grumpy-learning.com/blog/categories/php">php</a>,                         <a class="p-category" href="https://grumpy-learning.com/blog/categories/tools">tools</a>                        </p>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2023/03/09/thinking-about-it-too-much/" title="Thinking About Testing Too Much"><span class="title">Thinking About Testing Too Much</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                    <link href="/sitesearch/pagefind-ui.css" rel="stylesheet">
+                    <script src="/sitesearch/pagefind-ui.js" type="text/javascript"></script>
+                    <div id="search"></div>
+                    <script>
+                        window.addEventListener('DOMContentLoaded', (event) => {
+                            new PagefindUI({ element: "#search" });
+                        });
+                    </script>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a></li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-body">
+                            <div class="tootThread" id="displayTootThread">
+                                <div class="toot" id="displayToot">
+                                    <div class="author">
+                                        <div class="avatar">
+                                            <a href="" class="authorLink" target="_blank">
+                                                <img src="" style="width: 50%; height: 50%" class="avatarImg" alt="" border="0" />
+                                            </a>
+                                        </div>
+                                        <div class="displayName">
+                                            <a href="" class="displayNameLink authorLink" target="_blank"><span class="displayNameSpan"></span></a>
+                                        </div>
+                                        <div class="userName">
+                                            <a href="" class="authorLink" target="_blank">
+                                                <span class="userNameSpan"></span><span class="instanceNameSpan"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="content"></div>
+                                <div class="createdAt">
+                                    <a href="" target="_blank" class="createdAtLink"></a>
+                                    <hr>
+                                </div>
+                            </div>
+                        <div class="tootReplies">
+                        </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2023 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>
