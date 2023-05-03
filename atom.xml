@@ -3,9 +3,332 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="https://grumpy-learning.com/atom.xml" rel="self"/>
     <link href="https://grumpy-learning.com/"/>
-    <updated>2023-04-03T19:15:40+00:00</updated>
+    <updated>2023-05-03T16:20:32+00:00</updated>
     <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[Deciding How To Test Bug Fixes]]></title>
+            <link href="https://grumpy-learning.com/blog/2023/05/03/deciding-how-to-test-bug-fixes/"/>
+            <updated>2023-05-03T00:00:00+00:00</updated>
+            <id>https://grumpy-learning.com/blog/2023/05/03/deciding-how-to-test-bug-fixes/</id>
+            <content type="html"><![CDATA[<h1 id="deciding-how-to-test-bug-fixes">Deciding How To Test Bug Fixes</h1>
+
+<p>"Hey Chris, I see that when Rusty went and updated his rotation for this
+week, there are two entries. Looks like a bug."</p>
+
+<p>For my <a href="https://www.ibl.org">other hobby</a> I also created a series of
+old-school-spaghetti-and-lasagna-style PHP scripts for doing the
+job of keeping track of rosters, player movement, and potential
+pitching rotations. It was a mess. I was initially inspired by
+Rasmus Lerdorf's <a href="https://toys.lerdorf.com/the-no-framework-php-mvc-framework">"The no-framework PHP MVC framework"</a>
+blog post. I did a really bad implementation.</p>
+
+<p>But that was okay, because only a few people used it and I
+had extensive domain knowledge that made figuring out what
+the expected behaviour was supposed to be.</p>
+
+<p>While I was <a href="https://www.investopedia.com/terms/f/funemployment.asp">funemployed</a> during December 2022
+I decided to go back and apply some structure to this application.
+It became a <a href="https://www.slimframework.com">Slim</a> + <a href="https://www.doctrine-project.org">Doctrine</a>
+application and I started working on refactoring it while also
+making sure existing functionality behaved as expected.</p>
+
+<p>It had very few tests and I did set about writing tests for the
+refactored versions because who wants bugs? Except I forgot to
+do some for some refactored functionality.</p>
+
+<p>At a high level, here is the bug:</p>
+
+<ul>
+<li>a user is presented with a form to add free-form text to specific rows</li>
+<li>when they click on the Save button, it is supposed to update details</li>
+<li>it was instead adding new details, not updating</li>
+</ul>
+
+<p>No problem, I can fix this (and re-learn some things I had forgotten
+about Doctrine) and will also test this.</p>
+
+<h2 id="manual-vs.-automated">Manual vs. Automated</h2>
+
+<p>As many people who have listened to me talk, in my opinion there is
+a constant tension between "testing things manually" and "writing
+an automated test". Sometimes this tension is because the people
+involved are lazy. Sometimes it is due to time constraints. Sometimes
+it's because the current system is difficult to test in an automated
+way.</p>
+
+<p>In this case I actually had two choices. I could work on code changes
+and manually test them using the application itself. This is actually
+how I normally do work on this particular application.</p>
+
+<p>(As an aside, my normal policy is "if you pay me, I will automate
+as much of the testing as I can". For hobby projects I literally
+do whatever I feel like)</p>
+
+<p>After looking at the refactored code, I realized that I would have
+to make a bunch of changes so this was a great opportunity to create
+an automated test that uses a real database.</p>
+
+<p>This is very low-risk for this project as I am doing 99% of the
+development work on this code base. There is no build server running
+a series of checks. I need the real database to be there for me to
+test out the "customer-facing" side of this application so no new
+infrastructure is needed.</p>
+
+<h2 id="real-tests">Real Tests</h2>
+
+<p>This is the actual test I wrote and what the code looks like now.
+I have been working on separating things out into Commands and Queries.
+This was a Command I had to fix.</p>
+
+<p>So, as always, I started off with a test. I still do Arrange-Act-Assert
+as a way to organize the test. I thought about dependencies, like
+a Request object and a Response object.</p>
+
+<pre><code class="php">        $req = $this-&gt;createMock(Request::class);
+        $req-&gt;expects($this-&gt;once())
+            -&gt;method('getParsedBody')
+            -&gt;willReturn([
+                'week' =&gt; 99,
+                'franchise_id' =&gt; [1],
+                'rotation' =&gt; ['Moe, Larry, Curly'],
+                'current_rotation' =&gt; [''],
+                'rotation_id' =&gt; [0],
+            ]
+        );
+
+        $response = $this-&gt;createMock(Response::class);
+        $response-&gt;expects($this-&gt;any())-&gt;method('withStatus')-&gt;will($this-&gt;returnSelf());
+        $response-&gt;expects($this-&gt;any())-&gt;method('withHeader')-&gt;will($this-&gt;returnSelf());
+</code></pre>
+
+<p>I also needed to make sure the database would work inside my test
+environment. I just cut-and-paste code from a bootstrapping section
+elsewhere in the application. Next time I write a test that needs
+to use the database, I will extract this code into a helper.</p>
+
+<pre><code class="php">        $container = new Container(require __DIR__ . '/../../config/settings.php');
+        $container-&gt;set(EntityManager::class, static function (Container $c): EntityManager {
+            $settings = $c-&gt;get('settings');
+
+            $cache = $settings['doctrine']['dev_mode'] ?
+                new ArrayAdapter() :
+                new FilesystemAdapter(directory: $settings['doctrine']['cache_dir']);
+
+            $config = ORMSetup::createAttributeMetadataConfiguration(
+                $settings['doctrine']['metadata_dirs'],
+                $settings['doctrine']['dev_mode'],
+                null,
+                $cache
+            );
+
+            return EntityManager::create($settings['doctrine']['connection'], $config);
+        });
+
+</code></pre>
+
+<p>Because the application uses a dependency injection container, I also needed to
+make sure my repository object I needed in the code would be available.</p>
+
+<pre><code class="php">        $container-&gt;set(RotationRepository::class, function (Container $c): RotationRepository {
+            return new RotationRepositoryUsingDoctrine($c-&gt;get(EntityManager::class));
+        });
+
+
+        /** @var RotationRepositoryUsingDoctrine $repo */
+        $repo = $container-&gt;get(RotationRepository::class);
+</code></pre>
+
+<p>With those all set, the test becomes:</p>
+
+<ul>
+<li>Given I have an existing rotation</li>
+<li>When I update that rotation</li>
+<li>I should only see that updated rotation in the database</li>
+</ul>
+
+<pre><code class="php">        $command = new UpdateRotationsCommand($repo);
+        $command-&gt;__invoke($req, $response);
+
+        $rotation = $repo-&gt;getByWeekAndFranchiseId(99, 1);
+
+        $req = $this-&gt;createMock(Request::class);
+        $req-&gt;expects($this-&gt;once())
+            -&gt;method('getParsedBody')
+            -&gt;willReturn([
+                'week' =&gt; 99,
+                'franchise_id' =&gt; [1],
+                'rotation' =&gt; ['Moe, Larry, Curly Joe'],
+                'rotation_id' =&gt; [$rotation-&gt;getId()],
+                'current_rotation' =&gt; ['Moe, Larry, Curly'],
+            ]
+        );
+        $command = new UpdateRotationsCommand($container-&gt;get(RotationRepository::class));
+        $command-&gt;__invoke($req, $response);
+
+        $rotation = $repo-&gt;getByWeekAndFranchiseId(99, 1);
+
+        $this-&gt;assertEquals('Moe, Larry, Curly Joe', $rotation-&gt;getRotation());
+</code></pre>
+
+<p>This test took me a bit of work to get exactly right, but I didn't go an write
+any additional code just quite yet. I needed to:</p>
+
+<ul>
+<li>update the <code>UpdateRotationsCommand</code></li>
+<li>add a new <code>getByWeekAndFranchiseId</code> method to my rotations repository object</li>
+</ul>
+
+<pre><code class="php">final class UpdateRotationsCommand
+{
+    public function __construct(private RotationRepository $repo) {}
+
+    public function __invoke(Request $req, Response $response): Response 
+    {
+        $params = $req-&gt;getParsedBody();
+        $week = (int) $params['week'];
+
+        $franchiseIds = $params['franchise_id'];
+        $rotations = $params['rotation'];
+        $rotationIds = $params['rotation_id'] ?? [];
+        $currentRotations = $params['current_rotation'];
+
+        foreach ($franchiseIds as $idx =&gt; $franchiseId) {
+            if ($rotations[$idx] !== $currentRotations[$idx]) {
+
+                if (isset($rotationIds[$idx]) &amp;&amp; (int)$rotationIds[$idx] !== 0) {
+                    $rotation = $this-&gt;repo-&gt;getById((int)$rotationIds[$idx]);
+                    $rotation-&gt;setId((int)$rotationIds[$idx]);
+                } else {
+                    $rotation = new Rotation();
+                }
+
+                $rotation-&gt;setWeek($week);
+                $rotation-&gt;setRotation($rotations[$idx]);
+                $rotation-&gt;setFranchiseId((int) $franchiseId);
+                $this-&gt;repo-&gt;save($rotation);
+            }
+        }
+
+        return $response
+            -&gt;withHeader('Location', '/rotation_management?week=' . $week)
+            -&gt;withStatus(302);
+    }
+}
+</code></pre>
+
+<p>I remain convinced I can improve that code in the <code>foreach</code> but my goal is
+always to make sure the bug no longer exists and then, if I want, go back
+and make it "nicer".</p>
+
+<pre><code class="php">    public function getByWeekAndFranchiseId(int $week, int $franchiseId): Rotation 
+    {
+        return $this-&gt;em
+            -&gt;getRepository(Rotation::class)
+            -&gt;findOneBy(['week' =&gt; $week, 'franchiseId' =&gt; $franchiseId]);
+    }
+</code></pre>
+
+<p>So now I have an automated test that verifies that the bug was reported
+no longer exists. Are there any new bugs lurking? No idea. Only three people
+use this application so there are a whole series of tests I probably will
+never have to write.</p>
+
+<p>Here is the complete test:</p>
+
+<pre><code class="php">declare(strict_types=1);
+
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\ORMSetup;
+use PHPUnit\Framework\TestCase;
+use Slim\Psr7\Request;
+use Slim\Psr7\Response;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use UMA\DIC\Container;
+use Webreg\Command\UpdateRotationsCommand;
+use Webreg\Repository\RotationRepository;
+use Webreg\Repository\RotationRepositoryUsingDoctrine;
+
+final class UpdateRotationsCommandTest extends TestCase
+{
+    /**
+     * @test
+     */
+    public function itUpdatesExistingRecordsCorrectly(): void
+    {
+        $req = $this-&gt;createMock(Request::class);
+        $req-&gt;expects($this-&gt;once())
+            -&gt;method('getParsedBody')
+            -&gt;willReturn([
+                'week' =&gt; 99,
+                'franchise_id' =&gt; [1],
+                'rotation' =&gt; ['Moe, Larry, Curly'],
+                'current_rotation' =&gt; [''],
+                'rotation_id' =&gt; [0],
+            ]
+        );
+
+        $response = $this-&gt;createMock(Response::class);
+        $response-&gt;expects($this-&gt;any())-&gt;method('withStatus')-&gt;will($this-&gt;returnSelf());
+        $response-&gt;expects($this-&gt;any())-&gt;method('withHeader')-&gt;will($this-&gt;returnSelf());
+
+        $container = new Container(require __DIR__ . '/../../config/settings.php');
+        $container-&gt;set(EntityManager::class, static function (Container $c): EntityManager {
+            $settings = $c-&gt;get('settings');
+
+            $cache = $settings['doctrine']['dev_mode'] ?
+                new ArrayAdapter() :
+                new FilesystemAdapter(directory: $settings['doctrine']['cache_dir']);
+
+            $config = ORMSetup::createAttributeMetadataConfiguration(
+                $settings['doctrine']['metadata_dirs'],
+                $settings['doctrine']['dev_mode'],
+                null,
+                $cache
+            );
+
+            return EntityManager::create($settings['doctrine']['connection'], $config);
+        });
+
+        $container-&gt;set(RotationRepository::class, function (Container $c): RotationRepository {
+            return new RotationRepositoryUsingDoctrine($c-&gt;get(EntityManager::class));
+        });
+
+
+        /** @var RotationRepositoryUsingDoctrine $repo */
+        $repo = $container-&gt;get(RotationRepository::class);
+
+        $command = new UpdateRotationsCommand($repo);
+        $command-&gt;__invoke($req, $response);
+
+        $rotation = $repo-&gt;getByWeekAndFranchiseId(99, 1);
+
+        $req = $this-&gt;createMock(Request::class);
+        $req-&gt;expects($this-&gt;once())
+            -&gt;method('getParsedBody')
+            -&gt;willReturn([
+                'week' =&gt; 99,
+                'franchise_id' =&gt; [1],
+                'rotation' =&gt; ['Moe, Larry, Curly Joe'],
+                'rotation_id' =&gt; [$rotation-&gt;getId()],
+                'current_rotation' =&gt; ['Moe, Larry, Curly'],
+            ]
+        );
+        $command = new UpdateRotationsCommand($container-&gt;get(RotationRepository::class));
+        $command-&gt;__invoke($req, $response);
+
+        $rotation = $repo-&gt;getByWeekAndFranchiseId(99, 1);
+
+        $this-&gt;assertEquals('Moe, Larry, Curly Joe', $rotation-&gt;getRotation());
+    }
+}
+</code></pre>
+
+<p>So now I know that manually testing things is the last option to verify
+behaviour, not my only option.</p>
+]]></content>
+        </entry>
             <entry>
             <title type="html"><![CDATA[NeoVim and Xdebug]]></title>
             <link href="https://grumpy-learning.com/blog/2023/04/03/neovim-and-xdebug/"/>
@@ -1658,32 +1981,6 @@ sound so pretentious when I say it out loud) then it clearly worked.</p>
 <p>I think my takeway from this is that gluing things together so your existing blog
 can syndicate content to a variety of platforms. If you're looking to have more control over
 the things you share online, I highly recommend looking into the IndieWeb. I hope this post helps!</p>
-]]></content>
-        </entry>
-            <entry>
-            <title type="html"><![CDATA[Federating Yourself]]></title>
-            <link href="https://grumpy-learning.com/blog/2022/11/12/federating-yourself/"/>
-            <updated>2022-11-12T00:00:00+00:00</updated>
-            <id>https://grumpy-learning.com/blog/2022/11/12/federating-yourself/</id>
-            <content type="html"><![CDATA[<p>As I write this blog post, Twitter is convulsing as it's new
-owner Elon Musk is trying to treat a huge cruise ship like
-it's a jetski. Having cut a ton of staff and literally workshopping
-ideas in public, it's not going well.</p>
-
-<p>I have ignored blogging and some other interactions as Twitter made
-it so easy to share those little thoughts and I also became reliant
-on a curated feed to find stuff I was interested in. Along the way
-I ran into the idea of the <a href="https://indieweb.org/">IndieWeb</a>.</p>
-
-<p>I have made a non-trivial amount of money off selling my <a href="https://leanpub.com/u/chartjes">books</a>
-and have dabbled in paid courses and workshops. So it made a lot of
-sense to me to check out this <a href="https://indiewebify.me">guide to joining the IndieWeb</a>
-and learn about <a href="https://microformats.org">microformats</a>, <a href="http://webmention.org/">Webmentions</a>
-and start really leaning into POSSEing (Publish on my Own Site, Syndicate Elsewhere)
-my stuff.</p>
-
-<p>This is the first blog post that (if I have set up things correctly at my end) that
-will be syndicated out to other platforms.</p>
 ]]></content>
         </entry>
     </feed>
