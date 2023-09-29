@@ -7,6 +7,12 @@
     <priority>0.8</priority>
   </url>
     <url>
+    <loc>https://grumpy-learning.com/blog/2023/09/29/reducing-friction-in-development-environments/</loc>
+    <lastmod>2023-09-29T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+    <url>
     <loc>https://grumpy-learning.com/blog/2023/05/03/deciding-how-to-test-bug-fixes/</loc>
     <lastmod>2023-05-03T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>

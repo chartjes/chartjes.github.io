@@ -3,9 +3,124 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="https://grumpy-learning.com/blog/categories/tools.xml" rel="self"/>
     <link href="https://grumpy-learning.com/"/>
-    <updated>2023-09-29T13:52:59+00:00</updated>
+    <updated>2023-09-29T16:40:42+00:00</updated>
     <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[Reducing Friction in Development Environments]]></title>
+            <link href="https://grumpy-learning.com/blog/2023/09/29/reducing-friction-in-development-environments/"/>
+            <updated>2023-09-29T00:00:00+00:00</updated>
+            <id>https://grumpy-learning.com/blog/2023/09/29/reducing-friction-in-development-environments/</id>
+            <content type="html"><![CDATA[<h1 id="reducing-friction-in-development-environments">Reducing Friction in Development Environments</h1>
+
+<p>As my 27th year of getting paid to create web applications
+starts to wind down, I reflect on how hard I work to try
+and create a development environment experience (heh, that
+sounds so pretentious when spoken out loud!) that has as
+little friction as possible.</p>
+
+<p>Late in 2023, what does that look like for me?</p>
+
+<h2 id="learn-your-editor">Learn your editor</h2>
+
+<p>I have lost count of the number of editors I have used over
+the years. Some I would never touch again. Some I felt changed
+how people built all future editors. If it was available for
+my Mac, I was at least trying it out.</p>
+
+<p>One thing that did eventually change was that I
+settled on one editor (well, sort-of) and dedicated time
+to exploring it's other features beyond just editing text.</p>
+
+<p>Just to be clear, I really don't care what editor you use.
+I just think you should pick one and learn it really well.</p>
+
+<p>I do flip back and forth between <a href="https://www.jetbrains.com/phpstorm/">PhpStorm</a>
+and <a href="https://neovim.io">NeoVim</a>, depending on the task.
+Years of using Vim and NeoVim has imprinted both modal
+editing and Vim keybindings into my muscle memory, so
+I have Vim bindings installed for PhpStorm.</p>
+
+<p>If your editor has an extensive list of keyboard shortcuts,
+take the time to learn all the common ones. While I'm
+not some kind of productivity grifter, I do feel like reducing
+the number of times your hands leave your keyboard can
+only be a good thing.</p>
+
+<p>I should probably stop grabbing my phone so much too.</p>
+
+<p>Learning how to use your editor and how easily it can integrate
+with other tools is, for me, the first step towards reducing
+friction.</p>
+
+<h2 id="repeatability">Repeatability</h2>
+
+<p>"Works on my machine" is both a joke and a reality when you do
+development work. Here are some solutions I recommend:</p>
+
+<ul>
+<li><a href="https://www.docker.com">Docker</a> to create containers that duplicate production</li>
+<li><a href="https://nixos.org/">Nix and NixOS</a> to make reproducible systems</li>
+</ul>
+
+<p>The bottom line is that you can reduce friction by adopting
+tools that allow other people to use the same dependencies
+that you are using. Yes, it can be annoying and frustrating
+to get thing "just right", along with duplicating a production
+environments that relies on a ton of services. But once you
+have it as close to production as possible, the time to get
+code out of your development environment and into production
+is greatly reduced.</p>
+
+<h2 id="standards">Standards</h2>
+
+<p>Coding standards make sure your code all looks the same. I should
+not be able to figure out who wrote some code by looking at it.
+Static code analysis applies standards in terms of how the code
+you wrote should be used by others. Testing standards ensure
+that you have confidence that the code you wrote will continue
+to behave in the way you expect it to.</p>
+
+<h2 id="automation">Automation</h2>
+
+<p>For me, this is the one that I think a lot of developers need
+to embrace more. Write small shell scripts to execute multiple
+commands that you type into your CLI. Use Makefiles. Add things
+to your <code>composer.json</code> file so you can type <code>composer test</code>
+and have the tests run.</p>
+
+<p>Everything you can do to automate repetitive tasks is one less
+thing you have to remember. I'd rather be working on solving
+a business-related problem than remembering what order I need
+to run these 10 commands to get my code from my laptop and into
+production.</p>
+
+<h2 id="willingness-to-learn">Willingness to Learn</h2>
+
+<p>I don't know how typical I am in terms of evaluating my tools
+and techniques on a regular basis, but I feel like my willingness
+to learn new things and try out new tools that solve old problems
+has really helped me reduce friction.</p>
+
+<p>Except for rebasing things in Git. That still gives me so many
+problems and I will go to my post-programming life insisting
+that version control systems do not need to be so complicated.</p>
+
+<h2 id="too-much-friction-causes-fires">Too Much Friction Causes Fires</h2>
+
+<p>I think my over-arching point is that the tools you use to
+write code every day should not cause you problems. It's entirely
+possible I have learned to ignore the rough edges my tools
+present (Vim certainly has a steep learning curve) but I truly
+work on making sure a computer does repetitive actions for me
+as much as possible. It's not going to complain about it to me.</p>
+
+<p>I hope I've gotten you to start evaluating or re-evaluating your
+chosen tools and find some new-or-different ways to reduce
+any friction you are finding in your development environments
+and processes.</p>
+]]></content>
+        </entry>
             <entry>
             <title type="html"><![CDATA[NeoVim and Xdebug]]></title>
             <link href="https://grumpy-learning.com/blog/2023/04/03/neovim-and-xdebug/"/>
