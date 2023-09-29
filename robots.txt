@@ -2,4 +2,22 @@ User-agent: *
 Disallow: /blog/tags/
 Disallow: /blog/categories/
 
+User-agent: CCBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: Omglilibot
+Disallow: /
+
+User-agent: FacebookBot
+Disallow: /
+
 Sitemap: https://grumpy-learning.com/sitemap.xml
