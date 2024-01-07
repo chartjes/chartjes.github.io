@@ -3,9 +3,123 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="https://grumpy-learning.com/blog/categories/development.xml" rel="self"/>
     <link href="https://grumpy-learning.com/"/>
-    <updated>2023-12-29T16:32:10+00:00</updated>
+    <updated>2024-01-07T23:10:22+00:00</updated>
     <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[Return on Investment on Updating Dependencies]]></title>
+            <link href="https://grumpy-learning.com/blog/2024/01/07/roi-on-updating/"/>
+            <updated>2024-01-07T00:00:00+00:00</updated>
+            <id>https://grumpy-learning.com/blog/2024/01/07/roi-on-updating/</id>
+            <content type="html"><![CDATA[<h1 id="return-on-investment-on-updating-dependencies">Return on Investment on Updating Dependencies</h1>
+
+<p>This week I came across two separate posts that seem to
+defy what a lot of terminally-online PHP developers have
+embraced as common practices:</p>
+
+<ul>
+<li><a href="https://alexcabal.com/posts/standard-ebooks-and-classic-web-tech">How Standard Ebooks serves millions of requests per month</a></li>
+<li><a href="https://github.com/freescout-helpdesk/freescout/wiki/Development-Guide#maintaining-security-and-laravel-no-upgrade-policy">Freescout's Maintaining Security and Laravel No-Upgrade Policy</a></li>
+</ul>
+
+<h2 id="building-things-with-boring-technology">Building things with boring technology</h2>
+
+<p>The Ebooks blog post is a great primer on how to build something awesome
+that serves the needs of users without relying on new web application
+frameworks that have a lot of dependencies and features that you aren't
+going to need. A lot of thought clearly went into "how can we provide
+our users with value by using the minimum amount of code and system
+resources". Definitely an approach more developers should embrace.</p>
+
+<p>It also emphasizes a point I have been trying to make to programmers: the
+people who USE your application will absolutely not care what you are building
+it with. What you use is an implementation detail, and the biggest problem
+you will face is finding people who can continue to use your chosen implementation
+details and keep the application going.</p>
+
+<p>I am going to guess that of the most common scripting languages out there,
+PHP is one of the easier ways to accomplish this task. A language born of
+the web, with a lot of web-centric functionality as part of it's standard
+library, can be used by developers who are familiar with how the web actually
+works.</p>
+
+<p>Alex Cabal talks about how when he wants to build something for the web, he
+reaches for PHP. Setting aside the obvious conclusion that people who know
+PHP well don't hesitate to use it, the only point where he seems to deviate
+from my own thoughts is on using web application frameworks.</p>
+
+<p>In his post he calls them "scaffolding that he doesn't want to ever see again"
+while I feel like they are the foundation on which you will be forced to
+build everything else on.</p>
+
+<p>Sure, you can either use the front-controller pattern implemented in a
+framework that intercepts each call and figures out what to do next...or
+you can tell Apache to do the same thing. Clearly, the Apache approach
+is the "old school" way while most frameworks supply a convention you
+need to follow.</p>
+
+<p>I also like the imaginative use of Git to replace the "M" part of the
+"LAMP stack" (Linux-Apache-MySql-PHP for those not familiar with the term)
+and furthermore the use of storing all their data in memory instead
+of the file system.</p>
+
+<p>It's very clear that the folks at Standard Ebooks clearly understand both
+the domain and the problems they are trying to solve. It's also very clear
+that they learned to write PHP code long before the current situation of
+two dominant frameworks pushing new ideas.</p>
+
+<p>Boring is good. Boring allows you to go home on time and also find solutions
+to your problems that were created a decade ago.</p>
+
+<h2 id="the-costs-of-updating">The costs of updating</h2>
+
+<p>I have two very long-running PHP applications on the web: one was built using
+<a href="https://cakephp.org">CakePHP</a> and the other is free-form PHP that I am slowly
+migrating towards having some structure using <a href="https://slimframework.com">Slim</a>.
+So I am familiar with not only updating the underlying dependencies AND with
+having to have enough actual knowledge of how the web works to write code that
+does not heavily rely on a framework (side note: I think the <a href="https://php-fig.org">PHP Standards Recommendations Project</a> is an unjustly-maligned resource for building web applications).</p>
+
+<p>The post from the Freescout folks is a slightly different. In it, they boldly
+state that they see no need to update the base framework they used to build
+the application. They have instead chosen to update "vendor packages" -- meaning
+they are patching the original code provided via Composer.</p>
+
+<p>Their reasoning is similar to what the Ebooks folks are thinking -- the constant
+reality of having to update your framework components and (possibly) support
+libraries is real. Now, I could argue that with a good test suite in place this
+does become a non-issue but I do not know the state of the test suite for either
+application.</p>
+
+<p>I do know that it certainly feels like more work to go through dependencies
+written by other developers and apply your own custom patches to them. Then
+you are stuck maintaining your own custom version of your dependencies.</p>
+
+<p>I don't know -- perhaps I am just lazy and I am more than willing to suffer
+the pain of upgrading my dependencies for security fixes or new features
+the developers of the framework want you to embrace. Good test suites are
+the key and in the absence of them, I hesitate to both do the work myself
+or trust the folks writing the application I am using that "we haven't had
+any security issues".</p>
+
+<p>Agian, much like in the case of Standard Ebooks, my thoughts on the approach
+the Freescout team is taking isn't wildly different or even disparaging.
+I just prefer to use other tools to let me know when I need to fix a problem.</p>
+
+<h2 id="takeways">Takeways</h2>
+
+<p>First, don't hesitate to build things with "boring" tools that you understand
+well. Your users will literally not care.</p>
+
+<p>Second, there are at a high level two "costs" to using a framework you will have to deal
+with. The first is how hard is it to embrace the conventions it uses. The
+second is how often are you going to have to devote time and effort to
+update both the framework and it's dependencies.</p>
+
+<p>Third, tests are a great tool you can use to find out what breaks and/or
+no longer works as expected when you update dependencies.</p>
+]]></content>
+        </entry>
             <entry>
             <title type="html"><![CDATA[Asking Companies About Testing]]></title>
             <link href="https://grumpy-learning.com/blog/2022/01/14/asking-companies-about-testing/"/>

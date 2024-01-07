@@ -3,9 +3,123 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="https://grumpy-learning.com/atom.xml" rel="self"/>
     <link href="https://grumpy-learning.com/"/>
-    <updated>2023-12-29T16:32:10+00:00</updated>
+    <updated>2024-01-07T23:10:22+00:00</updated>
     <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[Return on Investment on Updating Dependencies]]></title>
+            <link href="https://grumpy-learning.com/blog/2024/01/07/roi-on-updating/"/>
+            <updated>2024-01-07T00:00:00+00:00</updated>
+            <id>https://grumpy-learning.com/blog/2024/01/07/roi-on-updating/</id>
+            <content type="html"><![CDATA[<h1 id="return-on-investment-on-updating-dependencies">Return on Investment on Updating Dependencies</h1>
+
+<p>This week I came across two separate posts that seem to
+defy what a lot of terminally-online PHP developers have
+embraced as common practices:</p>
+
+<ul>
+<li><a href="https://alexcabal.com/posts/standard-ebooks-and-classic-web-tech">How Standard Ebooks serves millions of requests per month</a></li>
+<li><a href="https://github.com/freescout-helpdesk/freescout/wiki/Development-Guide#maintaining-security-and-laravel-no-upgrade-policy">Freescout's Maintaining Security and Laravel No-Upgrade Policy</a></li>
+</ul>
+
+<h2 id="building-things-with-boring-technology">Building things with boring technology</h2>
+
+<p>The Ebooks blog post is a great primer on how to build something awesome
+that serves the needs of users without relying on new web application
+frameworks that have a lot of dependencies and features that you aren't
+going to need. A lot of thought clearly went into "how can we provide
+our users with value by using the minimum amount of code and system
+resources". Definitely an approach more developers should embrace.</p>
+
+<p>It also emphasizes a point I have been trying to make to programmers: the
+people who USE your application will absolutely not care what you are building
+it with. What you use is an implementation detail, and the biggest problem
+you will face is finding people who can continue to use your chosen implementation
+details and keep the application going.</p>
+
+<p>I am going to guess that of the most common scripting languages out there,
+PHP is one of the easier ways to accomplish this task. A language born of
+the web, with a lot of web-centric functionality as part of it's standard
+library, can be used by developers who are familiar with how the web actually
+works.</p>
+
+<p>Alex Cabal talks about how when he wants to build something for the web, he
+reaches for PHP. Setting aside the obvious conclusion that people who know
+PHP well don't hesitate to use it, the only point where he seems to deviate
+from my own thoughts is on using web application frameworks.</p>
+
+<p>In his post he calls them "scaffolding that he doesn't want to ever see again"
+while I feel like they are the foundation on which you will be forced to
+build everything else on.</p>
+
+<p>Sure, you can either use the front-controller pattern implemented in a
+framework that intercepts each call and figures out what to do next...or
+you can tell Apache to do the same thing. Clearly, the Apache approach
+is the "old school" way while most frameworks supply a convention you
+need to follow.</p>
+
+<p>I also like the imaginative use of Git to replace the "M" part of the
+"LAMP stack" (Linux-Apache-MySql-PHP for those not familiar with the term)
+and furthermore the use of storing all their data in memory instead
+of the file system.</p>
+
+<p>It's very clear that the folks at Standard Ebooks clearly understand both
+the domain and the problems they are trying to solve. It's also very clear
+that they learned to write PHP code long before the current situation of
+two dominant frameworks pushing new ideas.</p>
+
+<p>Boring is good. Boring allows you to go home on time and also find solutions
+to your problems that were created a decade ago.</p>
+
+<h2 id="the-costs-of-updating">The costs of updating</h2>
+
+<p>I have two very long-running PHP applications on the web: one was built using
+<a href="https://cakephp.org">CakePHP</a> and the other is free-form PHP that I am slowly
+migrating towards having some structure using <a href="https://slimframework.com">Slim</a>.
+So I am familiar with not only updating the underlying dependencies AND with
+having to have enough actual knowledge of how the web works to write code that
+does not heavily rely on a framework (side note: I think the <a href="https://php-fig.org">PHP Standards Recommendations Project</a> is an unjustly-maligned resource for building web applications).</p>
+
+<p>The post from the Freescout folks is a slightly different. In it, they boldly
+state that they see no need to update the base framework they used to build
+the application. They have instead chosen to update "vendor packages" -- meaning
+they are patching the original code provided via Composer.</p>
+
+<p>Their reasoning is similar to what the Ebooks folks are thinking -- the constant
+reality of having to update your framework components and (possibly) support
+libraries is real. Now, I could argue that with a good test suite in place this
+does become a non-issue but I do not know the state of the test suite for either
+application.</p>
+
+<p>I do know that it certainly feels like more work to go through dependencies
+written by other developers and apply your own custom patches to them. Then
+you are stuck maintaining your own custom version of your dependencies.</p>
+
+<p>I don't know -- perhaps I am just lazy and I am more than willing to suffer
+the pain of upgrading my dependencies for security fixes or new features
+the developers of the framework want you to embrace. Good test suites are
+the key and in the absence of them, I hesitate to both do the work myself
+or trust the folks writing the application I am using that "we haven't had
+any security issues".</p>
+
+<p>Agian, much like in the case of Standard Ebooks, my thoughts on the approach
+the Freescout team is taking isn't wildly different or even disparaging.
+I just prefer to use other tools to let me know when I need to fix a problem.</p>
+
+<h2 id="takeways">Takeways</h2>
+
+<p>First, don't hesitate to build things with "boring" tools that you understand
+well. Your users will literally not care.</p>
+
+<p>Second, there are at a high level two "costs" to using a framework you will have to deal
+with. The first is how hard is it to embrace the conventions it uses. The
+second is how often are you going to have to devote time and effort to
+update both the framework and it's dependencies.</p>
+
+<p>Third, tests are a great tool you can use to find out what breaks and/or
+no longer works as expected when you update dependencies.</p>
+]]></content>
+        </entry>
             <entry>
             <title type="html"><![CDATA[Talks with secret topics]]></title>
             <link href="https://grumpy-learning.com/blog/2023/12/29/secret-talks/"/>
@@ -1595,282 +1709,6 @@ have also experimented with
 <p>As always, I continue to tweak my configuration as I evaluate new
 tools or discover new ways of completing old tasks. I hope you find my
 setup useful.</p>
-]]></content>
-        </entry>
-            <entry>
-            <title type="html"><![CDATA[Testing decoupled PHP code?]]></title>
-            <link href="https://grumpy-learning.com/blog/2022/12/06/testing-decoupled-code/"/>
-            <updated>2022-12-06T00:00:00+00:00</updated>
-            <id>https://grumpy-learning.com/blog/2022/12/06/testing-decoupled-code/</id>
-            <content type="html"><![CDATA[<p>One of the reasons many experienced developers encourage the concept of
-"decoupling your code" is so that it makes testing your code straightforward.
-I wanted to share an example of how I went about writing some tests for
-some code that I had refactored from being a tangled spaghetti-like mess.</p>
-
-<p>Here is the code I am looking at, written targeting PHP 8.1.</p>
-
-<pre><code class="php">&lt;?php
-declare(strict_types=1);
-
-namespace Webreg\Query;
-
-use Slim\Psr7\Response;
-use Slim\Psr7\Request;
-use Twig\Environment;
-use Webreg\Repository\GameRepository;
-use Webreg\ViewModel\Rotations;
-
-final class RotationManagementQuery
-{
-    public function __construct(
-        private Environment $twig,
-        private GameRepository $gameRepository,
-        private Rotations $rotations
-    ) {}
-
-    public function __invoke(Request $request): Response
-    {
-        $params = $request-&gt;getQueryParams();
-        $maxWeek = $this-&gt;gameRepository-&gt;getMaxWeek();
-        $week = (isset($params['week'])) ? (int) $params['week'] : $maxWeek;
-        $rotations = $this-&gt;rotations-&gt;getAllByWeek($week);
-        $response = new Response(200, null);
-        $response-&gt;getBody()-&gt;write($this-&gt;twig-&gt;render('rotations/management.twig', [
-            'current_week' =&gt; $week,
-            'rotations' =&gt; $rotations,
-        ]));
-
-        return $response;
-    }
-}
-</code></pre>
-
-<p>I am using <a href="https://www.martinfowler.com/bliki/CQRS.html">Command Query Responsibility Segregation</a> in
-this application's architecture, and this bit of code is a Query that will
-retrieve a collection of pitchers who will be starting for baseball
-teams in my simulation baseball league for a particular week.</p>
-
-<p>In following some rules for decoupling, you can see some of the
-following decisions had been made:</p>
-
-<ul>
-<li>not extending off of a base class</li>
-<li>all dependencies are injected at run time</li>
-<li>single-method for the class</li>
-</ul>
-
-<h2 id="identifying-dependencies">Identifying Dependencies</h2>
-
-<p>So what are the dependencies I will need?</p>
-
-<ul>
-<li>a <a href="https://twig.symfony.com">Twig</a> object</li>
-<li>a <a href="https://martinfowler.com/eaaCatalog/repository.html">repository</a> object for retrieving data</li>
-<li>a <a href="https://martinfowler.com/eaaDev/PresentationModel.html">view model</a> for presenting the data</li>
-<li>an object that contains the HTTP <a href="https://www.php-fig.org/psr/psr-7/">request</a></li>
-</ul>
-
-<p>In the old architecture, I was creating those dependencies deep inside the "business logic"
-and therefore it was very hard to write anything other than some kind of "check
-the HTML output" type of test. Ironically that is what the new test does as well but
-this sort of decoupled architecture leads to a much more straightforward test.</p>
-
-<h2 id="identifying-output">Identifying Output</h2>
-
-<p>In these tests, I wanted to make sure that if I had at least one rotation
-stored in the database for a particular week, when the page renders I should
-see that rotation in the output somewhere.</p>
-
-<h2 id="test-skeleton">Test Skeleton</h2>
-
-<p>As always, I break out the <a href="http://wiki.c2.com/?ArrangeActAssert">Arrange-Act-Assert</a> pattern
-to create the skeleton of the test:</p>
-
-<pre><code class="php">    /** @test */
-    public function it_returns_expected_rotation(): void
-    {
-        // Arrange
-
-        // Act
-
-        // Assert
-        self::fail();
-    }
-</code></pre>
-
-<p>Remember, you always want to start with a failing test.</p>
-
-<h2 id="arranging-our-dependencies">Arranging our dependencies</h2>
-
-<p>These days I try and use the fewest number of <a href="https://phpunit.readthedocs.io/en/9.5/test-doubles.html">test doubles</a>
-in my test scenarios. Given the dependencies I needed,
-I was going to need three "fake" dependencies, configured
-to provide only the implementation details required to make
-the scenario work.</p>
-
-<p>I don't want to get into a longer discussion on the use of
-test doubles except to say that the decoupling strategy
-I am using will minimize the chances that any doubles drift
-from how the code is actually implemented.</p>
-
-<p>Trust me, I do this for a living!</p>
-
-<pre><code class="php">    /** @test */
-    public function it_returns_expected_rotation(): void
-    {
-        // Arrange
-        $loader = new FilesystemLoader(__DIR__ . '/../../templates/');
-        $twig = new Environment($loader);
-
-        $gamesRepo = $this-&gt;createMock(GameRepository::class);
-        $gamesRepo-&gt;expects($this-&gt;once())
-            -&gt;method('getMaxWeek')
-            -&gt;willReturn(1);
-
-        $testRotation = new ArrayCollection();
-        $testRotation-&gt;add([
-            'franchise_id' =&gt; 1,
-            'ibl' =&gt; 'MAD',
-            'rotation' =&gt; 'One, Two, Three'
-        ]);
-
-        $viewModel = $this-&gt;createMock(RotationsUsingDoctrine::class);
-        $viewModel-&gt;expects($this-&gt;once())
-            -&gt;method('getAllByWeek')
-            -&gt;willReturn($testRotation);
-
-        $request = $this-&gt;createMock(Request::class);
-        $request-&gt;expects($this-&gt;once())
-            -&gt;method('getQueryParams')
-            -&gt;willReturn(['week' =&gt; 1]);
-
-        // Act
-
-        // Assert
-        self::fail();
-    }
-</code></pre>
-
-<h2 id="acting-on-the-code-under-test">Acting on the code-under-test</h2>
-
-<p>This has always struck me as a weird way to describe "executing the
-code we are testing" but I guess "Arrange-Execute-Assert" doesn't
-flow in English quite the same way.</p>
-
-<p>Now that I have all my dependencies created and configured the way
-I need, time to run the code and grab some results I can test.</p>
-
-<pre><code class="php">    /** @test */
-    public function it_returns_expected_rotation(): void
-    {
-        // Arrange
-
-        // Act
-        $query = new RotationManagementQuery($twig, $gamesRepo, $viewModel);
-        $results = $query-&gt;__invoke($request);
-
-        // Assert
-        self::fail();
-    }
-</code></pre>
-
-<h2 id="asserting-results-of-code-execution">Asserting results of code execution</h2>
-
-<p>Just like I did before, I am checking the HTML output from executing
-this Query to make sure I am seeing values that I expect</p>
-
-<pre><code class="php">    /** @test */
-    public function it_returns_expected_rotation(): void
-    {
-        // Arrange
-
-        // Act
-
-        // Assert
-        self::assertStringContainsString('One, Two, Three', $results-&gt;getBody());
-    }
-</code></pre>
-
-<p>When building my assertions, I tend to go with "what are the
-fewest number of things I need to do in order to prove the
-code is working as expected."</p>
-
-<p>In this case, I felt checking that I see an expected "pitching rotation"
-in the output is good enough.</p>
-
-<p>Here is what the whole test looks like:</p>
-
-<pre><code class="php">&lt;?php
-
-namespace Webreg\Test\Query;
-
-use Doctrine\Common\Collections\ArrayCollection;
-use Slim\Psr7\Request;
-use Twig\Environment;
-use Twig\Loader\FilesystemLoader;
-use Webreg\Query\RotationManagementQuery;
-use PHPUnit\Framework\TestCase;
-use Webreg\Repository\GameRepository;
-use Webreg\ViewModel\RotationsUsingDoctrine;
-
-class RotationManagementQueryTest extends TestCase
-{
-    /** @test */
-    public function it_returns_expected_rotation(): void
-    {
-        // Arrange
-        $loader = new FilesystemLoader(__DIR__ . '/../../templates/');
-        $twig = new Environment($loader);
-
-        $gamesRepo = $this-&gt;createMock(GameRepository::class);
-        $gamesRepo-&gt;expects($this-&gt;once())
-            -&gt;method('getMaxWeek')
-            -&gt;willReturn(1);
-
-        $testRotation = new ArrayCollection();
-        $testRotation-&gt;add([
-            'franchise_id' =&gt; 1,
-            'ibl' =&gt; 'MAD',
-            'rotation' =&gt; 'One, Two, Three'
-        ]);
-
-        $viewModel = $this-&gt;createMock(RotationsUsingDoctrine::class);
-        $viewModel-&gt;expects($this-&gt;once())
-            -&gt;method('getAllByWeek')
-            -&gt;willReturn($testRotation);
-
-        $request = $this-&gt;createMock(Request::class);
-        $request-&gt;expects($this-&gt;once())
-            -&gt;method('getQueryParams')
-            -&gt;willReturn(['week' =&gt; 1]);
-
-        // Act
-        $query = new RotationManagementQuery($twig, $gamesRepo, $viewModel);
-        $results = $query-&gt;__invoke($request);
-
-        // Assert
-        self::assertStringContainsString('One, Two, Three', $results-&gt;getBody());
-    }
-}
-
-</code></pre>
-
-<p>Some thoughts that occur to me from looking at the final test:</p>
-
-<ul>
-<li>decoupling makes your dependencies quite visible during test creation</li>
-<li>always make sure to only implement the behaviour of your test doubles that you need</li>
-<li>your Arrange step will almost always be the largest part of any test</li>
-<li>PHPUnit's built-in test double generators also act as assertions</li>
-<li>sometimes the simplest way of verifying behaviour is what you should use</li>
-</ul>
-
-<p>From my perspective, decoupling the code allows me to focus on smaller
-pieces of application behaviour, reducing the chances that a change in
-this code breaks something somewhere else.</p>
-
-<p>For more details on the approach I am using for decoupling my code, check
-out Matthias Noback's <a href="https://leanpub.com/recipes-for-decoupling">"Recipes for Decoupling"</a>.</p>
 ]]></content>
         </entry>
     </feed>
