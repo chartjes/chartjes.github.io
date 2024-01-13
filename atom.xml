@@ -3,9 +3,273 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="https://grumpy-learning.com/atom.xml" rel="self"/>
     <link href="https://grumpy-learning.com/"/>
-    <updated>2024-01-07T23:10:22+00:00</updated>
+    <updated>2024-01-13T18:50:51+00:00</updated>
     <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[How A Grumpy Programmer Uses View Models]]></title>
+            <link href="https://grumpy-learning.com/blog/2024/01/13/view-models/"/>
+            <updated>2024-01-13T00:00:00+00:00</updated>
+            <id>https://grumpy-learning.com/blog/2024/01/13/view-models/</id>
+            <content type="html"><![CDATA[<h1 id="how-a-grumpy-programmer-uses-viewmodels">How A Grumpy Programmer Uses ViewModels</h1>
+
+<p>As I've started putting together a talk about <a href="https://en.wikipedia.org/wiki/Command_Query_Responsibility_Segregation">CQRS</a> I noticed that in my own application, I am using
+ViewModels in my commands and queries to provide data to
+my views.</p>
+
+<p>The purpose of the view model is to sit between our Models
+(usually something that talks to a data source) and our views
+(usually something that displays data to the screen). As part
+of the application architecture I am trying to keep things
+separated -- some things should not know about each other.</p>
+
+<p>I discovered the concept of the ViewModel from Matthias Noback's
+book "Recipes for Decoupling" where he emphasized the concept
+that you should not be passing objects (or anything for that matter)
+into your views and templates that they don't need.</p>
+
+<p>There is a whole chapter in this book dedicated to ViewModels. I
+can't recommend his book highly enough if you are looking to
+create or refactor a project are looking for repeatable processes to keep things
+as decoupled as possible.</p>
+
+<p>I think showing how the ViewModel works is best done through
+sharing some live, in-production, code with you.</p>
+
+<p>I have a simulation baseball league management application. We
+are currently in the middle of our player draft. After some
+discussion with the person who handles tracking who was drafted,
+I made some changes to the previously-working functionality.
+Now I am splitting things into Commands and Queries.</p>
+
+<p>In this case, we have our AssignPlayersToTeamQuery class. This
+is a Query, meaning it only reads data and doesn't modify anything.
+Here is the code for that Query:</p>
+
+<pre><code class="php">declare(strict_types=1);
+
+namespace Webreg\Query;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Slim\Psr7\Request;
+use Slim\Psr7\Response;
+use Twig\Environment;
+use Webreg\ViewModel\Franchise;
+use Webreg\ViewModel\Roster;
+
+final class AssignPlayersToTeamQuery
+{
+    public function __construct(
+        private Environment $twig,
+        private Franchise $franchise,
+        private Roster $roster
+    ) {}
+
+    public function __invoke(Request $request): Response
+    {
+        $response = new Response(200, null);
+        $parsedBody = $request-&gt;getParsedBody();
+        $playersToDraft = new ArrayCollection();
+
+        foreach ($parsedBody['draft'] as $playerId =&gt; $v) {
+            $playersToDraft-&gt;add($this-&gt;roster-&gt;getPlayerById($playerId));
+        }
+
+        $params = [
+            'playersToDraft' =&gt; $playersToDraft,
+            'franchises' =&gt; $this-&gt;franchise-&gt;getAll(),
+            'round' =&gt; $parsedBody['round'],
+        ];
+        $response-&gt;getBody()
+            -&gt;write($this-&gt;twig-&gt;render(
+                'draft/assign_players.twig',
+                $params
+            )
+        );
+
+        return $response;
+    }
+}
+</code></pre>
+
+<p>In an architecture where we don't care that much about
+separating concerns, I'd either just return whatever
+entity or object my database layer returns or just
+convert things to arrays. PHP loves arrays.</p>
+
+<p>However, I don't want to use arrays. I prefer to use
+objects and collections wherever I can. So instead
+I created a View Model. It's job is to talk to the
+database layer and then give me something that my view
+layer can use with no modification.</p>
+
+<p>The reason to go with this sort of structure is that
+it does allow me to replace things behind the scenes
+if I ever change the data source or want to create
+a fake for testing purposes.</p>
+
+<p>Okay, let's look at the code for the ViewModel. I created an interface
+for any ViewModels dealing with Roster objects to use:</p>
+
+<pre><code class="php">declare(strict_types=1);
+
+namespace Webreg\ViewModel;
+
+use Doctrine\Common\Collections\ArrayCollection;
+
+interface Roster
+{
+    public function getByTeam(string $iblTeam): ArrayCollection;
+}
+</code></pre>
+
+<p>Then I implemented a version using that interface.</p>
+
+<pre><code class="php">&lt;?php
+declare(strict_types=1);
+
+namespace Webreg\ViewModel;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Pest\Support\Arr;
+use Webreg\Repository\RosterRepositoryUsingDoctrine;
+use Webreg\Repository\TransactionRepositoryUsingDoctrine;
+
+class RosterUsingDoctrine implements Roster
+{
+    public function __construct(
+        private RosterRepositoryUsingDoctrine $rosterRepository,
+        private TransactionRepositoryUsingDoctrine $transactionRepository)
+    {}
+
+    public function getByTeam(string $iblTeam): ArrayCollection
+    {
+        $roster = new ArrayCollection();
+
+        $deactivations = $this-&gt;transactionRepository-&gt;getRecentDeactivationsByTeam($iblTeam);
+        $battersFromRepo = $this-&gt;rosterRepository-&gt;getBatters($iblTeam);
+        $batters = new ArrayCollection();
+
+        /** @var \Webreg\Domain\Roster $batter */
+        foreach ($battersFromRepo as $batter) {
+            $deactivationDate = null;
+
+            foreach ($deactivations as $deactivation) {
+                if (str_contains(trim($deactivation-&gt;getLogEntry()), trim($batter-&gt;getTigName()))) {
+                    $deactivationDate = $deactivation-&gt;getTransactionDate()-&gt;format('Y-m-d');
+                }
+            }
+
+            $batters-&gt;add([
+                'id' =&gt; $batter-&gt;getId(),
+                'tigName' =&gt; $batter-&gt;getTigName(),
+                'comments' =&gt; $batter-&gt;getComments(),
+                'status' =&gt; $batter-&gt;getStatus(),
+                'deactivationDate' =&gt; $deactivationDate,
+                'uncarded' =&gt; $batter-&gt;getUncarded(),
+            ]);
+        }
+        $roster['batters'] = $batters;
+
+        $pitchersFromRepo = $this-&gt;rosterRepository-&gt;getPitchers($iblTeam); 
+        $pitchers = new ArrayCollection();
+
+        /** @var \Webreg\Domain\Roster $pitcher */
+        foreach ($pitchersFromRepo as $pitcher) {
+            $deactivationDate = null;
+
+            foreach ($deactivations as $deactivation) {
+                if (str_contains(trim($deactivation-&gt;getLogEntry()), trim($pitcher-&gt;getTigName()))) {
+                    $deactivationDate = $deactivation-&gt;getTransactionDate()-&gt;format('Y-m-d');
+                }
+            }
+
+            $pitchers-&gt;add([
+                'id' =&gt; $pitcher-&gt;getId(),
+                'tigName' =&gt; $pitcher-&gt;getTigName(),
+                'comments' =&gt; $pitcher-&gt;getComments(),
+                'status' =&gt; $pitcher-&gt;getStatus(),
+                'deactivationDate' =&gt; $deactivationDate,
+                'uncarded' =&gt; $pitcher-&gt;getUncarded(),
+            ]);
+        }
+        $roster['pitchers'] = $pitchers;
+        $roster['currentSeason'] = $this-&gt;rosterRepository-&gt;getCurrentSeason();
+        $roster['previousSeason'] = $roster['currentSeason'] - 1;
+
+        $picks = new ArrayCollection();
+
+        if ($iblTeam !== 'FA') {
+            $picksFromRepo = $this-&gt;rosterRepository-&gt;getPicks($iblTeam);
+
+            /** @var \Webreg\Domain\Roster $pick */
+            foreach ($picksFromRepo as $pick) {
+                $picks-&gt;add([
+                    'id' =&gt; $pick-&gt;getId(),
+                    'tigName' =&gt; $pick-&gt;getTigName()
+                ]);
+            }
+        }
+
+        $roster['picks'] = $picks;
+
+        return $roster;
+    }
+
+    public function getPlayerById(int $playerId): \Webreg\Domain\Roster
+    {
+        return $this-&gt;rosterRepository-&gt;getById($playerId);
+    }
+}
+</code></pre>
+
+<p>I should probably also add that <code>getPlayerById</code> method to the
+interface as that seems to be functionality I would want no
+matter what.</p>
+
+<p>So as you can see, the <code>getPlayerById</code> method returns the result
+of a call to our Repository object (which is also based off an
+interface, with a Doctrine-specific implementation) to get one
+<code>Roster</code> object that maps to our domain.</p>
+
+<p>So, now I have a collection full of the players who can be picked
+ready to be passed into my view. I am using <a href="https://twig.symfony.com">Twig</a>
+for rendering my views. Luckily for me it is smart enough to look
+at what I pass into it and figure out if I am iterating over arrays
+or objects.</p>
+
+<p>The concept of the ViewModel is not a new one -- most PHP web application
+frameworks just don't use them. They instead lean into the convention of "you
+can pass whatever the database layer gives you into your templates". Which
+is fine! I just wanted more separation.</p>
+
+<p>If I was doing something different, like writing code that returns JSON results,
+I could still use the same repository like in my example, but create a View Model
+that implements the same interface but just returns JSON instead of ArrayCollections or
+a single Domain record.</p>
+
+<p>I know it seems like a minor thing -- how often are you likely
+to change database servers or change what a template outputs?
+The reason to go down this route is that you are providing
+consistency. Rather than just bang out some code and call it
+a day, I've followed a plan and the next person who comes
+along and needs something different can look and say "oh, I
+just need to implement a new type of ViewModel and the rest
+of the code won't care".</p>
+
+<p>If you are going to be at phptek in Chicago this spring I
+will be talking about ViewModels and CQRS and decoupling
+at the event.</p>
+
+<p>I hope this blog post has done the following:</p>
+
+<ul>
+<li>helped you understand what a ViewModel is</li>
+<li>when you should consider using them</li>
+<li>what does a sample implementation of them look like</li>
+</ul>
+]]></content>
+        </entry>
             <entry>
             <title type="html"><![CDATA[Return on Investment on Updating Dependencies]]></title>
             <link href="https://grumpy-learning.com/blog/2024/01/07/roi-on-updating/"/>
@@ -1241,474 +1505,6 @@ IRC bot that:</p>
 
 <p>As always, I am happy to get some advice on better ways to refactor
 and implement solutions for this code.</p>
-]]></content>
-        </entry>
-            <entry>
-            <title type="html"><![CDATA[Current NeoVim setup]]></title>
-            <link href="https://grumpy-learning.com/blog/2022/12/13/current-neovim-setup/"/>
-            <updated>2022-12-13T00:00:00+00:00</updated>
-            <id>https://grumpy-learning.com/blog/2022/12/13/current-neovim-setup/</id>
-            <content type="html"><![CDATA[<h2 id="grumpiness-and-neovim">Grumpiness and NeoVim</h2>
-
-<p>I have been a <a href="https://vim.org">Vim</a> user since the early 2000's.
-Someone who worked in the same building as me and was also a fellow
-Linux user (this was before I had bought my first Macbook) got
-to talking with me as I struggled to figure out <a href="https://www.gnu.org/software/emacs/">Emacs</a>
-suggested I sit with him for a little bit as he showed me how to
-use Vim. Still not sure to this day why it clicked with me but I
-have been using it ever since.</p>
-
-<p>In the past few years I have changed which version of Vim I am
-using and switched to <a href="https://neovim.io/">NeoVim</a>.</p>
-
-<p>Now, to be transparent, these days I use <a href="https://www.jetbrains.com/phpstorm/">PhpStorm</a>
-as my main PHP programming tool and use NeoVim for pretty much everything
-else. I do pay for PhpStorm because I think it's important to encourage the creation
-of tools for the programming languages I use. If I was still doing a lot of
-Python work, I'd be paying for <a href="https://www.jetbrains.com/pycharm/">PyCharm</a>.
-I had really good experiences with it while at Mozilla.</p>
-
-<p>Anyway, I still like to keep up with what is going on in the NeoVim "community"
-and I am happy to see a vibrant group of people creating plugins and
-sharing their knowledge. I wanted to give things with NeoVim and PHP another
-spin so it was time to go look at my current setup.</p>
-
-<h2 id="why-do-all-this%3F">Why do all this?</h2>
-
-<p>My goal is to have a Vim experience that matches the way I currently work.
-I've been using Vim for so long that there is lots of muscle memory and
-I usually enable "Vim mode" in any tools I use. Editing things a "modal way"
-has become my default and any tools that don't support doing things that
-way slow me down immensely.</p>
-
-<p>So, what do I want out of my NeoVim setup.</p>
-
-<ul>
-<li>works well with the languages I will use</li>
-<li>allows me to quickly find files</li>
-<li>allows me to quickly find source definitions</li>
-<li>allows me to quickly find places where code is used</li>
-</ul>
-
-<p>Now, of course, PhpStorm does all this but also carries a lot of extra
-functionality around with it. Which is fine! But in an era where the tools
-we use on desktop operating systems get bigger and bigger and consume more
-and more resources, I find something appealing in using tools that take up
-as few resources as possible.</p>
-
-<p>I did an older post on my old blog from about a year ago so I will
-follow the same structure but I noticed some changes. I'll be going
-through my current NeoVim config and filling things in as we go</p>
-
-<pre><code>set nocompatible
-syntax on 
-set encoding=utf8
-filetype off
-
-" Load our plugins
-lua require('plugins')
-</code></pre>
-
-<p>I am using as much <a href="https://www.lua.org">Lua</a> as I can within NeoVim.
-The first few steps here are pretty much standard:</p>
-
-<ul>
-<li>you always turn "no compatible" off otherwise lots of things break</li>
-<li>I want syntax highlighting by default</li>
-<li>I want things to be UTF8</li>
-<li>I am going to define my own behaviour for how I want NeoVim to
-handle filetypes</li>
-</ul>
-
-<h2 id="plugins">Plugins</h2>
-
-<p>My list of plugins:</p>
-
-<pre><code class="lua">  return require('packer').startup(function()
-    use 'wbthomason/packer.nvim'
-    use 'neovim/nvim-lspconfig'
-
-    -- General plugins
-    use 'dracula/vim'
-    use 'junegunn/vim-easy-align'
-    use {
-        'nvim-treesitter/nvim-treesitter',
-        run = ':TSUpdate'
-    }
-    use 'onsails/lspkind-nvim'
-    use 'vim-vdebug/vdebug'
-
-    -- See the git status of the current line in the gutter
-    use 'airblade/vim-gitgutter'
-
-    --  PHP plugins
-    use 'tpope/vim-dispatch'
-    use 'StanAngeloff/php.vim'
-    use 'stephpy/vim-php-cs-fixer'
-    use 'jwalton512/vim-blade'
-    use 'noahfrederick/vim-laravel'
-
-    -- Help for vim-laravel
-    use 'tpope/vim-projectionist'
-    use 'noahfrederick/vim-composer'
-
-    -- Respect .editorconfig files for a project
-    use 'editorconfig/editorconfig-vim'
-
-    -- Telescope support
-    use 'nvim-lua/plenary.nvim'
-    use 'nvim-telescope/telescope.nvim'
-    use 'sharkdp/fd'
-    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-
-    -- LSP support for Typescropt
-    use 'jose-elias-alvarez/nvim-lsp-ts-utils'
-
-    -- nvim-cmp support
-    use 'hrsh7th/nvim-cmp'
-    use 'hrsh7th/cmp-nvim-lsp'
-    use 'saadparwaiz1/cmp_luasnip'
-    use 'L3MON4D3/LuaSnip'
-
-end)
-</code></pre>
-
-<p>I am using <a href="https://github.com/wbthomason/packer.nvim">Packer</a> to
-handle installing all my packages. I have commented in places where I
-felt that things were not clear, but I guess some further explanations
-couldn't hurt.</p>
-
-<ul>
-<li>I use the <a href="https://draculatheme.com/vim">Dracula</a> theme</li>
-<li>I use <a href="https://github.com/junegunn/vim-easy-align">vim-easy-align</a>
-to make it easier to line up blocks of code</li>
-<li><a href="https://github.com/airblade/vim-gitgutter">vim-gitgutter</a> shows me
-which lines have changed from Git's perspective</li>
-<li>I like to respect the
-<a href="https://github.com/editorconfig/editorconfig-vim">EditorConfig</a>
-settings for a project if they exist</li>
-<li><a href="https://github.com/nvim-telescope/telescope.nvim">Telescope</a> 
-forms the basis for a lot of fuzzy find functionality</li>
-<li>I use <a href="https://github.com/hrsh7th/nvim-cmp">nvim-cmp</a> as my
-completion engine (and it plays nicely with Intelephense)</li>
-</ul>
-
-<h2 id="more-neovim-settings">More NeoVim Settings</h2>
-
-<pre><code>" Do smart autoindenting
-set smartindent
-set autoindent
-
-" I like linenumbers, thanks
-set number
-
-" set search case to a good configuration http://vim.wikia.com/wiki/Searching
-set ignorecase
-set smartcase
-
-" I like pretty colours in my terminal
-set t_Co=256
-
-" Let's get some good colours in our terminal
-let $NVM_TUI_ENABLE_TRUE_COLOR=1
-set termguicolors
-color dracula 
-
-" We want to use ripgrep for any grep commands
-set grepprg='rg'
-
-" Basic configuration options
-set tabstop=4
-set shiftwidth=4
-set softtabstop=0
-set smarttab
-set expandtab
-set wildmenu
-set wildmode=list:longest,full
-set ttyfast
-set showmatch
-set hlsearch
-set incsearch
-set backspace=indent,eol,start
-
-" Make sure we are using the version of Python we want
-let g:python3_host_prog = "/opt/homebrew/bin/python3"
-
-" We always want to use UTF-8
-set encoding=UTF-8
-set fileencoding=UTF-8
-</code></pre>
-
-<p>A lot of what is up there is fairly straightforward when it comes to
-Vim/NeoVim, so I am not going to go over a lot of them.</p>
-
-<h2 id="lsp-configuration">LSP Configuration</h2>
-
-<p>This is the critical piece for me -- supporting different languages
-makes NeoVim so versatile.</p>
-
-<p>In my config I have these two lines:</p>
-
-<pre><code>lua require('lsp-config')
-lua require('nvm-cmp')
-</code></pre>
-
-<p>and these handle my languages and making sure autocompletion behaves
-as I expect.</p>
-
-<pre><code class="lua">--- Configuration for LSP, formatters, and linters.
-local nvim_lsp = require("lspconfig")
-
--- short cut methods.
-local t = function(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
-local opts = { noremap=true, silent=true }
-vim.api.nvim_set_keymap('n', '&lt;space&gt;e', '&lt;cmd&gt;lua vim.diagnostic.open_float()&lt;CR&gt;', opts)
-vim.api.nvim_set_keymap('n', '[d', '&lt;cmd&gt;lua vim.diagnostic.goto_prev()&lt;CR&gt;', opts)
-vim.api.nvim_set_keymap('n', ']d', '&lt;cmd&gt;lua vim.diagnostic.goto_next()&lt;CR&gt;', opts)
-vim.api.nvim_set_keymap('n', '&lt;space&gt;q', '&lt;cmd&gt;lua vim.diagnostic.setloclist()&lt;CR&gt;', opts)
-vim.api.nvim_set_keymap('n', '&lt;space&gt;f', '&lt;cmd&gt;lua vim.lsp.buf.formatting()&lt;CR&gt;', opts)
-
-local on_attach = function(client, bufnr)
-  -- Enable completion triggered by &lt;c-x&gt;&lt;c-o&gt;
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  -- Mappings.
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '&lt;cmd&gt;lua vim.lsp.buf.declaration()&lt;CR&gt;', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '&lt;cmd&gt;lua vim.lsp.buf.definition()&lt;CR&gt;', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '&lt;cmd&gt;lua vim.lsp.buf.hover()&lt;CR&gt;', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '&lt;cmd&gt;lua vim.lsp.buf.implementation()&lt;CR&gt;', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '&lt;C-k&gt;', '&lt;cmd&gt;lua vim.lsp.buf.signature_help()&lt;CR&gt;', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '&lt;space&gt;wa', '&lt;cmd&gt;lua vim.lsp.buf.add_workspace_folder()&lt;CR&gt;', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '&lt;space&gt;wr', '&lt;cmd&gt;lua vim.lsp.buf.remove_workspace_folder()&lt;CR&gt;', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '&lt;space&gt;wl', '&lt;cmd&gt;lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))&lt;CR&gt;', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '&lt;space&gt;D', '&lt;cmd&gt;lua vim.lsp.buf.type_definition()&lt;CR&gt;', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '&lt;space&gt;rn', '&lt;cmd&gt;lua vim.lsp.buf.rename()&lt;CR&gt;', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '&lt;space&gt;ca', '&lt;cmd&gt;lua vim.lsp.buf.code_action()&lt;CR&gt;', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '&lt;cmd&gt;lua vim.lsp.buf.references()&lt;CR&gt;', opts)
-end
-
--- PHP
-nvim_lsp.intelephense.setup {
-    cmd = { "intelephense", "--stdio" },
-    filetypes = { "php" },
-}
-
---- Linter setup
-local filetypes = {
-  typescript = "eslint",
-  typescriptreact = "eslint",
-  php = {"phpcs", "psalm"},
-}
-
-local linters = {
-  phpcs = {
-    command = "vendor/bin/phpcs",
-    sourceName = "phpcs",
-    debounce = 300,
-    rootPatterns = {"composer.lock", "vendor", ".git"},
-    args = {"--report=emacs", "-s", "-"},
-    offsetLine = 0,
-    offsetColumn = 0,
-    sourceName = "phpcs",
-    formatLines = 1,
-    formatPattern = {
-      "^.*:(\\d+):(\\d+):\\s+(.*)\\s+-\\s+(.*)(\\r|\\n)*$",
-      {
-        line = 1,
-        column = 2,
-        message = 4,
-        security = 3
-      }
-    },
-    securities = {
-      error = "error",
-      warning = "warning",
-    },
-    requiredFiles = {"vendor/bin/phpcs"}
-  },
-  psalm = {
-    command = "./vendor/bin/psalm",
-    sourceName = "psalm",
-    debounce = 100,
-    rootPatterns = {"composer.lock", "vendor", ".git"},
-    args = {"--output-format=emacs", "--no-progress"},
-    offsetLine = 0,
-    offsetColumn = 0,
-    sourceName = "psalm",
-    formatLines = 1,
-    formatPattern = {
-      "^[^ =]+ =(\\d+) =(\\d+) =(.*)\\s-\\s(.*)(\\r|\\n)*$",
-      {
-        line = 1,
-        column = 2,
-        message = 4,
-        security = 3
-      }
-    },
-    securities = {
-      error = "error",
-      warning = "warning"
-    },
-    requiredFiles = {"vendor/bin/psalm"}
-  }
-}
-
-nvim_lsp.diagnosticls.setup {
-  on_attach = on_attach,
-  filetypes = vim.tbl_keys(filetypes),
-  init_options = {
-    filetypes = filetypes,
-    linters = linters,
-  },
-}
-</code></pre>
-
-<p>A lot of what is in here I simple stole from other people's
-configurations but I think most of it should be straightforward to
-figure out.</p>
-
-<p>Some highlights from my perspective:</p>
-
-<ul>
-<li>you pick which language servers to care about</li>
-<li>you map functionality to existing Vim bindings so, again, it behaves
-as expected</li>
-</ul>
-
-<p>Here is what I have for getting the autocompletion engine working:</p>
-
-<pre><code class="lua">local capabilities = vim.lsp.protocol.make_client_capabilities()
-
-local lspconfig = require('lspconfig')
-
--- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'intelephense', 'tsserver' }
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    -- on_attach = my_custom_on_attach,
-    capabilities = capabilities,
-  }
-end
-
--- luasnip setup
-local luasnip = require 'luasnip'
-
--- nvim-cmp setup
-local cmp = require 'cmp'
-cmp.setup {
-  snippet = {
-    expand = function(args)
-      require('luasnip').lsp_expand(args.body)
-    end,
-  },
-  mapping = {
-    ['&lt;C-p&gt;'] = cmp.mapping.select_prev_item(),
-    ['&lt;C-n&gt;'] = cmp.mapping.select_next_item(),
-    ['&lt;C-d&gt;'] = cmp.mapping.scroll_docs(-4),
-    ['&lt;C-f&gt;'] = cmp.mapping.scroll_docs(4),
-    ['&lt;C-Space&gt;'] = cmp.mapping.complete(),
-    ['&lt;C-e&gt;'] = cmp.mapping.close(),
-    ['&lt;CR&gt;'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    },
-    ['&lt;Tab&gt;'] = function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end,
-    ['&lt;S-Tab&gt;'] = function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end,
-  },
-  sources = {
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
-  },
-}
-</code></pre>
-
-<p>Again, more mapping of existing keys to get the plugin to behave as
-expected. This sort of thing lies at the very heart of how Vim/NeoVim
-plugins do so much work -- they literally alter how the application
-behaves by overriding things. Perhaps this is actually a form of
-monkey patching? TIME IS A CIRCLE.</p>
-
-<h2 id="key-mappings">Key Mappings</h2>
-
-<pre><code class="vim">" ------------------------------------------------------------------------------
-" # Mappings
-" ------------------------------------------------------------------------------
-" # All of your mappings go in this file! Don't worry about your mappings
-" # being separate from related config. Sourcery provides mappings to
-" # easily jump between plugin definitions, mappings, and configs.
-" #
-" # More info: https://github.com/jesseleite/vim-sourcery#jumping-between-files
-
-
-" ------------------------------------------------------------------------------
-" # Example
-" ------------------------------------------------------------------------------
-
-" easily switch between vsplit windows
-map &lt;Leader&gt;j &lt;C-w&gt;j
-map &lt;Leader&gt;k &lt;C-w&gt;k
-map &lt;Leader&gt;h &lt;c-w&gt;h
-map &lt;Leader&gt;l &lt;c-w&gt;l
-
-" Remove highlighing of search terms
-nnoremap &lt;leader&gt;&lt;space&gt; :nohlsearch&lt;CR&gt;
-
-" Mappings for EasyAlign
-xmap ga &lt;Plug&gt;(EasyAlign)
-nmap ga &lt;Plug&gt;(EasyAlign)
-
-" Use &lt;Tab&gt; and &lt;S-Tab&gt; to navigate through popup menu
-inoremap &lt;expr&gt; &lt;Tab&gt;   pumvisible() ? "\&lt;C-n&gt;" : "\&lt;Tab&gt;"
-inoremap &lt;expr&gt; &lt;S-Tab&gt; pumvisible() ? "\&lt;C-p&gt;" : "\&lt;S-Tab&gt;"
-
-" Telescope Lua mappings
-nnoremap &lt;leader&gt;ff &lt;cmd&gt;lua require('telescope.builtin').find_files()&lt;cr&gt;
-nnoremap &lt;leader&gt;fg &lt;cmd&gt;lua require('telescope.builtin').live_grep()&lt;cr&gt;
-nnoremap &lt;leader&gt;fb &lt;cmd&gt;lua require('telescope.builtin').buffers()&lt;cr&gt;
-nnoremap &lt;leader&gt;fh &lt;cmd&gt;lua require('telescope.builtin').help_tags()&lt;cr&gt;
-nnoremap &lt;leader&gt;fr &lt;cmd&gt;lua require('telescope.builtin').lsp_references()&lt;cr&gt;
-nnoremap &lt;leader&gt;fd &lt;cmd&gt;lua require('telescope.builtin').lsp_definitions()&lt;cr&gt;
-nnoremap &lt;leader&gt;ft &lt;cmd&gt;lua require('telescope.builtin').lsp_type_definitions()&lt;cr&gt;
-</code></pre>
-
-<p>No Vim setup is complete without mapping and re-mapping keys in
-Vim. The list above mostly focuses on making Telescope friendlier to
-use.</p>
-
-<p>So there you have it -- this is my current NeoVim setup. It is more
-than sufficient for me to do daily PHP development work. What are some
-other things I am looking to integrate into my setup?</p>
-
-<ul>
-<li>Make it easier to use <a href="https://xdebug.org">XDebug</a></li>
-<li>More refactoring tools (I understand Intelephense can help but I
-have also experimented with
-<a href="https://github.com/phpactor/phpactor">Phpactor</a></li>
-</ul>
-
-<p>As always, I continue to tweak my configuration as I evaluate new
-tools or discover new ways of completing old tasks. I hope you find my
-setup useful.</p>
 ]]></content>
         </entry>
     </feed>

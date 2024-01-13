@@ -3,9 +3,273 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="https://grumpy-learning.com/blog/categories/development.xml" rel="self"/>
     <link href="https://grumpy-learning.com/"/>
-    <updated>2024-01-07T23:10:22+00:00</updated>
+    <updated>2024-01-13T18:50:51+00:00</updated>
     <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[How A Grumpy Programmer Uses View Models]]></title>
+            <link href="https://grumpy-learning.com/blog/2024/01/13/view-models/"/>
+            <updated>2024-01-13T00:00:00+00:00</updated>
+            <id>https://grumpy-learning.com/blog/2024/01/13/view-models/</id>
+            <content type="html"><![CDATA[<h1 id="how-a-grumpy-programmer-uses-viewmodels">How A Grumpy Programmer Uses ViewModels</h1>
+
+<p>As I've started putting together a talk about <a href="https://en.wikipedia.org/wiki/Command_Query_Responsibility_Segregation">CQRS</a> I noticed that in my own application, I am using
+ViewModels in my commands and queries to provide data to
+my views.</p>
+
+<p>The purpose of the view model is to sit between our Models
+(usually something that talks to a data source) and our views
+(usually something that displays data to the screen). As part
+of the application architecture I am trying to keep things
+separated -- some things should not know about each other.</p>
+
+<p>I discovered the concept of the ViewModel from Matthias Noback's
+book "Recipes for Decoupling" where he emphasized the concept
+that you should not be passing objects (or anything for that matter)
+into your views and templates that they don't need.</p>
+
+<p>There is a whole chapter in this book dedicated to ViewModels. I
+can't recommend his book highly enough if you are looking to
+create or refactor a project are looking for repeatable processes to keep things
+as decoupled as possible.</p>
+
+<p>I think showing how the ViewModel works is best done through
+sharing some live, in-production, code with you.</p>
+
+<p>I have a simulation baseball league management application. We
+are currently in the middle of our player draft. After some
+discussion with the person who handles tracking who was drafted,
+I made some changes to the previously-working functionality.
+Now I am splitting things into Commands and Queries.</p>
+
+<p>In this case, we have our AssignPlayersToTeamQuery class. This
+is a Query, meaning it only reads data and doesn't modify anything.
+Here is the code for that Query:</p>
+
+<pre><code class="php">declare(strict_types=1);
+
+namespace Webreg\Query;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Slim\Psr7\Request;
+use Slim\Psr7\Response;
+use Twig\Environment;
+use Webreg\ViewModel\Franchise;
+use Webreg\ViewModel\Roster;
+
+final class AssignPlayersToTeamQuery
+{
+    public function __construct(
+        private Environment $twig,
+        private Franchise $franchise,
+        private Roster $roster
+    ) {}
+
+    public function __invoke(Request $request): Response
+    {
+        $response = new Response(200, null);
+        $parsedBody = $request-&gt;getParsedBody();
+        $playersToDraft = new ArrayCollection();
+
+        foreach ($parsedBody['draft'] as $playerId =&gt; $v) {
+            $playersToDraft-&gt;add($this-&gt;roster-&gt;getPlayerById($playerId));
+        }
+
+        $params = [
+            'playersToDraft' =&gt; $playersToDraft,
+            'franchises' =&gt; $this-&gt;franchise-&gt;getAll(),
+            'round' =&gt; $parsedBody['round'],
+        ];
+        $response-&gt;getBody()
+            -&gt;write($this-&gt;twig-&gt;render(
+                'draft/assign_players.twig',
+                $params
+            )
+        );
+
+        return $response;
+    }
+}
+</code></pre>
+
+<p>In an architecture where we don't care that much about
+separating concerns, I'd either just return whatever
+entity or object my database layer returns or just
+convert things to arrays. PHP loves arrays.</p>
+
+<p>However, I don't want to use arrays. I prefer to use
+objects and collections wherever I can. So instead
+I created a View Model. It's job is to talk to the
+database layer and then give me something that my view
+layer can use with no modification.</p>
+
+<p>The reason to go with this sort of structure is that
+it does allow me to replace things behind the scenes
+if I ever change the data source or want to create
+a fake for testing purposes.</p>
+
+<p>Okay, let's look at the code for the ViewModel. I created an interface
+for any ViewModels dealing with Roster objects to use:</p>
+
+<pre><code class="php">declare(strict_types=1);
+
+namespace Webreg\ViewModel;
+
+use Doctrine\Common\Collections\ArrayCollection;
+
+interface Roster
+{
+    public function getByTeam(string $iblTeam): ArrayCollection;
+}
+</code></pre>
+
+<p>Then I implemented a version using that interface.</p>
+
+<pre><code class="php">&lt;?php
+declare(strict_types=1);
+
+namespace Webreg\ViewModel;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Pest\Support\Arr;
+use Webreg\Repository\RosterRepositoryUsingDoctrine;
+use Webreg\Repository\TransactionRepositoryUsingDoctrine;
+
+class RosterUsingDoctrine implements Roster
+{
+    public function __construct(
+        private RosterRepositoryUsingDoctrine $rosterRepository,
+        private TransactionRepositoryUsingDoctrine $transactionRepository)
+    {}
+
+    public function getByTeam(string $iblTeam): ArrayCollection
+    {
+        $roster = new ArrayCollection();
+
+        $deactivations = $this-&gt;transactionRepository-&gt;getRecentDeactivationsByTeam($iblTeam);
+        $battersFromRepo = $this-&gt;rosterRepository-&gt;getBatters($iblTeam);
+        $batters = new ArrayCollection();
+
+        /** @var \Webreg\Domain\Roster $batter */
+        foreach ($battersFromRepo as $batter) {
+            $deactivationDate = null;
+
+            foreach ($deactivations as $deactivation) {
+                if (str_contains(trim($deactivation-&gt;getLogEntry()), trim($batter-&gt;getTigName()))) {
+                    $deactivationDate = $deactivation-&gt;getTransactionDate()-&gt;format('Y-m-d');
+                }
+            }
+
+            $batters-&gt;add([
+                'id' =&gt; $batter-&gt;getId(),
+                'tigName' =&gt; $batter-&gt;getTigName(),
+                'comments' =&gt; $batter-&gt;getComments(),
+                'status' =&gt; $batter-&gt;getStatus(),
+                'deactivationDate' =&gt; $deactivationDate,
+                'uncarded' =&gt; $batter-&gt;getUncarded(),
+            ]);
+        }
+        $roster['batters'] = $batters;
+
+        $pitchersFromRepo = $this-&gt;rosterRepository-&gt;getPitchers($iblTeam); 
+        $pitchers = new ArrayCollection();
+
+        /** @var \Webreg\Domain\Roster $pitcher */
+        foreach ($pitchersFromRepo as $pitcher) {
+            $deactivationDate = null;
+
+            foreach ($deactivations as $deactivation) {
+                if (str_contains(trim($deactivation-&gt;getLogEntry()), trim($pitcher-&gt;getTigName()))) {
+                    $deactivationDate = $deactivation-&gt;getTransactionDate()-&gt;format('Y-m-d');
+                }
+            }
+
+            $pitchers-&gt;add([
+                'id' =&gt; $pitcher-&gt;getId(),
+                'tigName' =&gt; $pitcher-&gt;getTigName(),
+                'comments' =&gt; $pitcher-&gt;getComments(),
+                'status' =&gt; $pitcher-&gt;getStatus(),
+                'deactivationDate' =&gt; $deactivationDate,
+                'uncarded' =&gt; $pitcher-&gt;getUncarded(),
+            ]);
+        }
+        $roster['pitchers'] = $pitchers;
+        $roster['currentSeason'] = $this-&gt;rosterRepository-&gt;getCurrentSeason();
+        $roster['previousSeason'] = $roster['currentSeason'] - 1;
+
+        $picks = new ArrayCollection();
+
+        if ($iblTeam !== 'FA') {
+            $picksFromRepo = $this-&gt;rosterRepository-&gt;getPicks($iblTeam);
+
+            /** @var \Webreg\Domain\Roster $pick */
+            foreach ($picksFromRepo as $pick) {
+                $picks-&gt;add([
+                    'id' =&gt; $pick-&gt;getId(),
+                    'tigName' =&gt; $pick-&gt;getTigName()
+                ]);
+            }
+        }
+
+        $roster['picks'] = $picks;
+
+        return $roster;
+    }
+
+    public function getPlayerById(int $playerId): \Webreg\Domain\Roster
+    {
+        return $this-&gt;rosterRepository-&gt;getById($playerId);
+    }
+}
+</code></pre>
+
+<p>I should probably also add that <code>getPlayerById</code> method to the
+interface as that seems to be functionality I would want no
+matter what.</p>
+
+<p>So as you can see, the <code>getPlayerById</code> method returns the result
+of a call to our Repository object (which is also based off an
+interface, with a Doctrine-specific implementation) to get one
+<code>Roster</code> object that maps to our domain.</p>
+
+<p>So, now I have a collection full of the players who can be picked
+ready to be passed into my view. I am using <a href="https://twig.symfony.com">Twig</a>
+for rendering my views. Luckily for me it is smart enough to look
+at what I pass into it and figure out if I am iterating over arrays
+or objects.</p>
+
+<p>The concept of the ViewModel is not a new one -- most PHP web application
+frameworks just don't use them. They instead lean into the convention of "you
+can pass whatever the database layer gives you into your templates". Which
+is fine! I just wanted more separation.</p>
+
+<p>If I was doing something different, like writing code that returns JSON results,
+I could still use the same repository like in my example, but create a View Model
+that implements the same interface but just returns JSON instead of ArrayCollections or
+a single Domain record.</p>
+
+<p>I know it seems like a minor thing -- how often are you likely
+to change database servers or change what a template outputs?
+The reason to go down this route is that you are providing
+consistency. Rather than just bang out some code and call it
+a day, I've followed a plan and the next person who comes
+along and needs something different can look and say "oh, I
+just need to implement a new type of ViewModel and the rest
+of the code won't care".</p>
+
+<p>If you are going to be at phptek in Chicago this spring I
+will be talking about ViewModels and CQRS and decoupling
+at the event.</p>
+
+<p>I hope this blog post has done the following:</p>
+
+<ul>
+<li>helped you understand what a ViewModel is</li>
+<li>when you should consider using them</li>
+<li>what does a sample implementation of them look like</li>
+</ul>
+]]></content>
+        </entry>
             <entry>
             <title type="html"><![CDATA[Return on Investment on Updating Dependencies]]></title>
             <link href="https://grumpy-learning.com/blog/2024/01/07/roi-on-updating/"/>
