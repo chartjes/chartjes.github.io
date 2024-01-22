@@ -3,9 +3,114 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="https://grumpy-learning.com/atom.xml" rel="self"/>
     <link href="https://grumpy-learning.com/"/>
-    <updated>2024-01-13T18:50:51+00:00</updated>
+    <updated>2024-01-22T01:02:36+00:00</updated>
     <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[Wait Long Enough And Sometimes Good Things Happen]]></title>
+            <link href="https://grumpy-learning.com/blog/2024/01/21/wait-long-enough/"/>
+            <updated>2024-01-21T00:00:00+00:00</updated>
+            <id>https://grumpy-learning.com/blog/2024/01/21/wait-long-enough/</id>
+            <content type="html"><![CDATA[<h1 id="wait-long-enough-and-sometimes-good-things-happen...">Wait long enough and sometimes good things happen...</h1>
+
+<p>It can't come as a surprise to anyone that if you are in this
+industry long enough, you see trends and tools come and go.
+Sometimes you embrace them, sometimes you can dodge them. One
+of the things I managed to dodge over the years was having
+to do any front-end coding of any substance in JavaScript.</p>
+
+<h2 id="how-did-you-dodge-javascript%3F%21%3F">How did you dodge JavaScript?!?</h2>
+
+<p>If I am being honest, I think it was a combination of two
+things. The first was that I began my career helping to
+build web sites before AJAX functionality was even a thing.
+I distinctly remember the first time a co-worker showed
+me a set of interactive form drop-downs built using JavaScript.</p>
+
+<p>"Wow, we don't even have to reload the page?!?! That is cool".</p>
+
+<p>Keep in mind this was 2003.</p>
+
+<p>The second reason I think I was able to dodge JavaScript was
+because I made "shouting at people about testing their PHP
+code" my career niche at around the same time.</p>
+
+<p>So over the years I kept working as a "backend PHP developer"
+who would occasionally modify some JavaScript that I cut-and-paste
+from somewhere else. My crowning achievement was creating 
+an interface that allowed players to be traded between the
+pretend baseball teams in my long-running <a href="https://www.ibl.org">simulation baseball league</a>
+by using drag-and-drop.</p>
+
+<h2 id="i-don%27t-hate-javascript%2C-i-just-don%27t-use-it-much">I don't hate JavaScript, I just don't use it much</h2>
+
+<p>Now, this is not to say I didn't pay a little bit of attention
+to what the folks who did front-end development were doing. I
+was just skeptical that adopting a framework created by Facebook
+to solve their needs (React) was going to be a good idea.</p>
+
+<p>My own personal favourite front-end language is <a href="https://elm-lang.org">Elm</a>.
+Haskell for the web?!? Sounds awesome. Of course, I had no
+projects that needed that kind of work. So I continued to
+focus on server-side work and lean heavily on the expertise
+of others when it came time to do anything with JavaScript
+frameworks.</p>
+
+<p>I also feel like I am in the minority of people who thought
+<a href="https://coffeescript.org">CoffeeScript</a> was a great idea.</p>
+
+<p>(Maybe you're starting to see a pattern?)</p>
+
+<p>I think if I was forced to do JavaScript work, I would try
+to do it from the warm embrace of <a href="https://www.typescriptlang.org">TypeScript</a>
+because I find adding types to be incredibly useful.</p>
+
+<p>During my time doing consulting work for a large avionics
+company, their browser-driven test suite relied on
+TypeScript. Look, it's fine. JavaScript is similar enough
+in syntax to PHP that there are no problems.</p>
+
+<p>Async stuff though, that is weird and I still don't understand
+it. Maybe I can dodge that too!</p>
+
+<h2 id="what-did-i-gain-by-waiting%3F">What did I gain by waiting?</h2>
+
+<p>React and Angular have turned out to be, from this grumpy
+PHP programmer's perspective, a disaster. They dominate
+the industry but from all accounts are not allowing developers
+to build experiences that are great for anyone who is not
+running powerful devices with lots of available memory.</p>
+
+<p>So I have not done any work with either of those two behemoths.
+I'm just this PHP guy, content to work with folks who understand
+those tools the same way I understand mine.</p>
+
+<p>After looking longingly at Elm, I waited. After waiting for a
+few more years, I kept finding references and going back to
+looking at <a href="https://htmx.org">htmx</a>.</p>
+
+<p>Then, as serendipity always does, I saw a <a href="https://mastodon.social/@jakub_zalas/111778943542624692">post on Mastodon</a>
+by Jakob Zalas where he mentioned htmx and a great new 
+web site promoting some great front-end development
+strategies called <a href="https://hypermedia.systems">Hypermedia Systems</a>.</p>
+
+<p>This was a sign that I should go and take a look now. When
+a grizzled veteran of programming, who has done great work
+in multiple languages talks about a JavaScript framework,
+you should probably listen.</p>
+
+<h2 id="takeaways">Takeaways</h2>
+
+<p>After reading this blog post you should know:</p>
+
+<ul>
+<li>that I seem to like some weird JavaScript frameworks</li>
+<li>I successfully dodged entire generations of tools</li>
+<li>I like approaches that use repeatable patterns</li>
+<li>I pay attention to the recommendations of other programmers I follow and respect</li>
+</ul>
+]]></content>
+        </entry>
             <entry>
             <title type="html"><![CDATA[How A Grumpy Programmer Uses View Models]]></title>
             <link href="https://grumpy-learning.com/blog/2024/01/13/view-models/"/>
@@ -1365,146 +1470,6 @@ file, this solution will have to adapt to those needs.</p>
 
 <p>As always, everyone's testing situation is different and finding
 one that fits your need is more important than being perfect..</p>
-]]></content>
-        </entry>
-            <entry>
-            <title type="html"><![CDATA[How a grumpy programmer writes Python IRC bots]]></title>
-            <link href="https://grumpy-learning.com/blog/2022/12/31/python-irc-bot/"/>
-            <updated>2022-12-31T00:00:00+00:00</updated>
-            <id>https://grumpy-learning.com/blog/2022/12/31/python-irc-bot/</id>
-            <content type="html"><![CDATA[<h2 id="why-python-and-why-irc%3F">Why Python and why IRC?</h2>
-
-<p>My longest-running hobby is being a member of <a href="https://www.ibl.org">tabletop simulation baseball league</a>
-that uses dice and cards and charts to determine outcomes. There are a lot
-of charts so a signifcant amount of time is spent looking up results that
-players haven't memorized.</p>
-
-<p>Our league uses IRC as the way to play the games -- the players connect to
-the server we host and then play games out using a bot that rolls dice
-and communicating with each other via text. Very old school.</p>
-
-<p>Making things a little more player-friendly will help the league get
-team owners up to speed quicker, so naturally I turned to automation
-and programming as a way to do it.</p>
-
-<p>I chose Python because it had been a while since I had done <em>anything</em> with
-it, so why not sharpen the dull edge of my experience there a little. Thankfully
-there are lots of examples on how to work with IRC using just the default
-libraries that come with Python. In this case, the server the bot would be
-running on runs Python 3.8. I started off with <a href="https://pythonspot.com/building-an-irc-bot/">this blog post</a>
-and went from there.</p>
-
-<h2 id="initial-implementation">Initial implementation</h2>
-
-<p>From a high level, we are doing the following</p>
-
-<p>1) connect to the IRC server
-2) loop endlessly while grabbing any responses from the server
-3) examine those responses for my chosen chartbot trigger
-4) if triggered, then look for dice rolls
-5) display results in-channel</p>
-
-<p>Now, I am sure there are better implementations for what I am trying
-to do here involving more commonly-accepted design patterns. In fact,
-the code analysis tools I am using are already complaining that the
-<a href="https://en.wikipedia.org/wiki/Cyclomatic_complexity">cyclomatic complexity</a>
-is too high.</p>
-
-<p>So, here is an example of what I have been doing</p>
-
-<pre><code class="python">while True:
-    text = irc.get_response()
-
-    if "PRIVMSG" in text and ".c ifr" in text:
-        details = text.split(' ')
-        msgChannel = details[-4].strip()
-        batterHand[msgChannel] = details[-1].strip()
-        lookForIfrRoll[msgChannel] = "yes"
-</code></pre>
-
-<p>An example command that this would look for would be '.c ifr rsp'.
-This maps to:</p>
-
-<ul>
-<li>.c is "activate chartbot"</li>
-<li>ifr is "Infield Range"</li>
-<li>rsp is "right-spray hitter", with other options available</li>
-</ul>
-
-<p>Early on I realized that I needed to have some kind of "state"
-in here because it was a two-step process. Once it knew which
-chart it was supposed to refer to, it then needed to wait to
-get a die roll. Again, this feels like a brute-force method
-but I could not think of any other way. Maybe, again, there
-is a better pattern for keeping track of this.</p>
-
-<p>So, having figured out we want to refer to the "infield range chart"
-(commonly known as IFR in game terms), we tell the bot "the next roll
-in this channel should be checked to see if it works with the IFR chart."</p>
-
-<p>Here is a sample of the code that watches for an IFR roll:</p>
-
-<pre><code class="python">    if "rolled" in text:
-        details = text.split(' ')
-        msgChannel = details[-4].strip()
-        roll = details[-1].strip()
-
-        if (msgChannel in lookForIfrRoll and
-                batterHand[msgChannel] in validBatterHand and
-                len(roll) == 2):
-            irc.send(
-                 msgChannel, ifrChart.lookup(batterHand[msgChannel], roll)
-            )
-            del lookForIfrRoll[msgChannel]
-            del batterHand[msgChannel]
-
-</code></pre>
-
-<p>All rolls for the IFR chart will be from 00-99, so we make sure the rollbot
-returned something 2 characters in length. We also make sure that the
-batter hand type matches our expectations. If that is all good, then
-we call an object that contains our chart information, do a lookup, and
-then send the results of that lookup into the channel.</p>
-
-<p>Here is a sample of what the IFR chart object looks like:</p>
-
-<pre><code class="python">class IFRChart:
-    chart = {}
-
-    def __init__(self):
-        self.chart = {
-            'lp': {
-                "00": "Up the middle P",
-                "01": "High chopper P",
-                "02": "Line drive P",
-                "03": "Down the line 1B",
-                "04": "Down the line 1B",
-                "05": "Down the line 1B",
-                # more results snipped
-            }
-        }
-
-    def lookup(self, bats, roll):
-        return self.chart[bats][roll]
-
-</code></pre>
-
-<p>I will say that creating this chart objects helped me get my muscle
-memory for Emacs in a better place. So much cut-and-pasting-and-replacing
-of things!</p>
-
-<p>So there you have it, a small example of how I have started writing an
-IRC bot that:</p>
-
-<ul>
-<li>reads responses for a trigger</li>
-<li>figures out what chart to read</li>
-<li>waits for a die roll that matches expectations</li>
-<li>spits out the lookup result in channel</li>
-</ul>
-
-<p>As always, I am happy to get some advice on better ways to refactor
-and implement solutions for this code.</p>
 ]]></content>
         </entry>
     </feed>
