@@ -3,9 +3,98 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="https://grumpy-learning.com/atom.xml" rel="self"/>
     <link href="https://grumpy-learning.com/"/>
-    <updated>2024-01-22T01:02:36+00:00</updated>
+    <updated>2024-01-28T16:46:43+00:00</updated>
     <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[What&#039;s Grumpy Looking At - January 2024]]></title>
+            <link href="https://grumpy-learning.com/blog/2024/01/28/grumpy-tech-jan-24/"/>
+            <updated>2024-01-28T00:00:00+00:00</updated>
+            <id>https://grumpy-learning.com/blog/2024/01/28/grumpy-tech-jan-24/</id>
+            <content type="html"><![CDATA[<p>I've never been one to stop looking at new tools and figuring
+out if they can be applied to the work I do. When do I find
+interesting things, I like to talk about them a little and share.
+Here's what I've been looking at in January 2024.</p>
+
+<h2 id="laravel">Laravel</h2>
+
+<p>Yes, the artisanal elephant in the room. At my <a href="https://ziffdavis.com">current job</a>
+we are all-in on using Laravel. Which means not only learning 
+how Laravel does things but evaluating every additional choices
+through the lense of "are we going to end up fighting the framework
+if we do it this way."</p>
+
+<p>I prefer not to fight. Honestly, it's fine. People are having a
+very hard time separating how they feel about the people behind
+the tools from the tools themselves. There will always be things to
+dislike about any web application framework.</p>
+
+<h2 id="aws">AWS</h2>
+
+<p>A enterprise level company with a large web presence relies heavily
+on the cloud? THIS IS MY SHOCKED FACE.</p>
+
+<p>I don't really have to worry much about going into an AWS console
+to do something, but I am having to learn about <a href="https://aws.amazon.com/sqs/">SQS</a>
+and <a href="https://aws.amazon.com/financial-services/partner-solutions/snowflake/">Snowflake</a>.
+More importantly, I get to flex some skills behind building things
+that implement interfaces because my work projects will be dealing
+with multiple types of queues and multiple data storage back end.</p>
+
+<p>Sometimes code architecture matters instead of being a way for
+bored or self-centered-while-misinformed developers to express
+themselves.</p>
+
+<h2 id="helix">Helix</h2>
+
+<p>I am a big fan of modal editors as it is very hard to bulid a
+keyboard-centric editor without modes. After seeing some <a href="https://neovim.io">NeoVim</a>
+folks say nice things about it, I decided to take a look at <a href="https://helix-editor.com">Helix</a>
+and see if it is something I could migrate towards.</p>
+
+<p>Lots to like here! Integration with <a href="https://microsoft.github.io/language-server-protocol/">language servers</a>
+and <a href="https://tree-sitter.github.io/tree-sitter/">Tree-sitter</a> along
+with being customizable to a certain extent via configuration
+files. No plugin architecture yet though.</p>
+
+<p>The show-stopper for me was that it does not have good <a href="https://microsoft.github.io/debug-adapter-protocol/">Debug Anywhere Protocol</a> support, which means I could not get <a href="https://xdebug.org">Xdebug</a>
+working with it. Not being able to use an interactive debugger is a
+show stopper for me now. Sorry.</p>
+
+<h2 id="hypermedia">Hypermedia</h2>
+
+<p>I talked about it briefly in <a href="https://grumpy-learning.com/blog/2024/01/21/wait-long-enough/">another post here</a>
+but I feel like taking a closer look at hypermedia and
+acceptable patterns for it might yield some interesting results
+in my personal projects. Again, I highly encourage you to
+take a look at <a href="https://hypermedia.systems/">Hypermedia Systems</a>.</p>
+
+<h2 id="bootstrap-css">Bootstrap CSS</h2>
+
+<p>CSS and all the associated frameworks is something I also avoided
+over the years. My journey into <a href="https://htmx.org/">htmx</a> and hypermedia
+also made me take a look at the state of CSS frameworks. My longest-running
+project used a very old version of <a href="https://getbootstrap.com">Bootstrap</a> so
+rather than pull it all out and replace it with something like
+<a href="https://tailwindcss.com">Tailwind</a> (which my brain is having a
+hard time wrapping itself around for whatever reason) I'm just back
+to older, more stable tools.</p>
+
+<p>When it comes to tools that I do not have a lot of experience with,
+I always need a reduced number of choices. Once I've mastered things more
+then I appreciate the extensibility and flexibility some tools offer.</p>
+
+<h2 id="takeaways">Takeaways</h2>
+
+<p>After reading this post you should learn:</p>
+
+<ul>
+<li>I still like modal editors</li>
+<li>I am constantly looking at tools and languages and frameworks for suitability and ease-of-use</li>
+<li>sometimes the old ways were actually better instead of triggering nostalgia</li>
+</ul>
+]]></content>
+        </entry>
             <entry>
             <title type="html"><![CDATA[Wait Long Enough And Sometimes Good Things Happen]]></title>
             <link href="https://grumpy-learning.com/blog/2024/01/21/wait-long-enough/"/>
@@ -1367,109 +1456,6 @@ I wanted:</p>
 
 <p>So, if you have a static blog and were wondering how to make it work, I highly
 recommend giving Pagefind a try.</p>
-]]></content>
-        </entry>
-            <entry>
-            <title type="html"><![CDATA[Monkey patching in PHP]]></title>
-            <link href="https://grumpy-learning.com/blog/2023/01/19/monkeypatching-in-php/"/>
-            <updated>2023-01-19T00:00:00+00:00</updated>
-            <id>https://grumpy-learning.com/blog/2023/01/19/monkeypatching-in-php/</id>
-            <content type="html"><![CDATA[<h2 id="what-is-monkey-patching%3F">What is monkey patching?</h2>
-
-<p>I first learned about <a href="https://en.wikipedia.org/wiki/Monkey_patch">monkey patching</a> via the Ruby community. Due to how
-the language worked, Rubyists tended to override dependencies in their
-tests at run-time, rather than using <a href="https://en.wikipedia.org/wiki/Test_double">test doubles</a>.
-Personally I find the ability to redefine <em>any</em> part of the language to be interesting. It 
-certainly does make testing easier.</p>
-
-<p>Now, PHP doesn't support the sort of <a href="https://en.wikipedia.org/wiki/Metaprogramming">metaprogramming</a> that lends
-itself to making monkey patching easy. Sure, you used to be able to use the Runkit extension but
-these days, it's not being maintained. So, when we run into a situation where you need to redefine
-some functionality at run time, your options are limited.</p>
-
-<h2 id="when-to-use-it%3F">When to use it?</h2>
-
-<p>Like I said before, it can be an alternative to using test doubles. But there are also some
-interesting scenarios where, due to both PHP's behaviour and the architecture of an application,
-we can make a change at run time.</p>
-
-<p>At my <a href="https://smartours.com">current gig</a> I was adding some functionality
-to verify some objects representing the prices of objects are configured
-correctly. One of my tests was to ensure that a specific exception was
-being triggered, and that meant creating a new exception object that
-extended a "loggable" one.</p>
-
-<p>This is code that is being implemented as a <a href="https://wordpress.org/plugins/">plugin</a>
-for WordPress and the logging object I needed to use had some very
-WordPress-specific functionality in it. But I didn't want to have to use all
-the WordPress-specific stack just for this test. On top of this, the logging
-object wasn't in a namespace that my <a href="https://phpunit.de">PHPUnit</a> tests could
-even see.</p>
-
-<p>So what were my options? My first was to modify the <a href="https://getcomposer.org">Composer</a>
-autoloading configuration and add the namespace to it. I then had a way to
-"force" logging into "test mode" but I wasn't entirely happy with it. The
-tests passed, the exception was being triggered, but I had worries in the back
-of my mind about whether or not we'd have to do something to the WordPress
-side of the application in order to support this.</p>
-
-<p>A <a href="https://phpc.social/@omerida">co-worker</a> showed me how they were already overriding some things at run-time,
-so it was better to go with what was already working. Introducing uncertainty
-into our application was not the end goal. Here was their solution:</p>
-
-<p>There was an existing <code>test/bootstrap.php</code> file so it was suggested to add a run-time
-check to see if the application was attempting to instantiate our logging
-object via an autoloader and then instead tell it to use a different one.</p>
-
-<p>First, a replacement logger was created...</p>
-
-<pre><code class="php">&lt;?php
-
-namespace Smartours\Log;
-
-use Monolog\Handler\NullHandler;
-use Monolog\Logger;
-
-class Log
-{
-    public static function logger(): Logger
-    {
-        $logger = new Logger('generic');
-        $logger-&gt;pushHandler(new NullHandler());
-
-        return $logger;
-    }
-}
-
-</code></pre>
-
-<p>...and then we just included it in our bootstrap file.</p>
-
-<pre><code>require __DIR__ . '/bootstrap/SmartoursLog.php';
-</code></pre>
-
-<p>Now, my code that is calling an exception...that needs that
-base <code>Log</code> object...will use my <a href="https://en.m.wikipedia.org/wiki/Mock_object">fake</a>
-instead.</p>
-
-<p>The test passes and all is in order again.</p>
-
-<h2 id="what-are-some-alternatives%3F">What are some alternatives?</h2>
-
-<p>In a more testable world, what logging object the code is
-expecting to use could be done via a configuration file. We'd
-still be creating a fake logger, but the mechanism to load it
-would be different. Most "modern" PHP web application frameworks
-support the use of <a href="https://en.m.wikipedia.org/wiki/Service_locator_pattern">service locaters</a>
-and they can be leveraged to make sure your tests have access
-to the dependencies they need.</p>
-
-<p>In the future, if we ever needed to add tests for things like making
-sure the message the exception we throw shows up in the correct log
-file, this solution will have to adapt to those needs.</p>
-
-<p>As always, everyone's testing situation is different and finding
-one that fits your need is more important than being perfect..</p>
 ]]></content>
         </entry>
     </feed>
