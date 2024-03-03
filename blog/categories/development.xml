@@ -3,9 +3,181 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="https://grumpy-learning.com/blog/categories/development.xml" rel="self"/>
     <link href="https://grumpy-learning.com/"/>
-    <updated>2024-02-17T21:47:22+00:00</updated>
+    <updated>2024-03-03T19:05:16+00:00</updated>
     <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[A Grumpy Programmer&#039;s Thoughts On LLM]]></title>
+            <link href="https://grumpy-learning.com/blog/2024/03/03/grumpy-thoughts-llm/"/>
+            <updated>2024-03-03T00:00:00+00:00</updated>
+            <id>https://grumpy-learning.com/blog/2024/03/03/grumpy-thoughts-llm/</id>
+            <content type="html"><![CDATA[<p>I know that I have had a lot of harsh words to say about
+"AI" and LLM's lately on my Mastodon account. I thought
+I would do a longer piece here on my blog since endless
+threads on Mastodon are no substitute for longer-form
+writing. Besides, I haven't blogged in two weeks and already
+broke my promise to myself of weekly posts here.</p>
+
+<p>Anyway, onwards.</p>
+
+<h2 id="we%27re-being-bamboozled">We're Being Bamboozled</h2>
+
+<p>First off, let's get my main objection out of the way. This
+is not Artificial Intelligence in any way, shape, or form.
+It is the triumph of marketing and people desperate to grab
+dynastic wealth for themselves.</p>
+
+<p>Large Language Models are, in my opinion, very cool technology.
+Their ability to take some text written in a more natural language
+and generate some output from them is really good. Writing
+parsers and interpreters is hard. Making one where the language
+you use is not full of weird syntax is even harder.</p>
+
+<p>No, the real issue is that a bunch of people who want to get rich
+enough so they never have to interact with us are lying. This is
+not artificial intelligence. It is a stochastic parrot, stringing
+words together that sound reasonable but very often are full of
+shit and not what we asked for.</p>
+
+<p>Since our industry is full of unserious, mediocre people who
+think they are competent and serious, the full-press marketing
+effort to convince the people who make decisions at companies
+across all sorts of industry that "AI is here to make you
+easy profits!!!!" is on.</p>
+
+<p>I am not the first person to point out that while the technology
+has not gotten to the point where so many people can be replaced
+by an LLM, way too many CEO's and other senior leadership have
+been convinced that it has reached that point.</p>
+
+<p>The outcome of this is going to be disastrous for any leaders
+who have not already figured out how to ensure their compensation
+is not tied to the actual performance of their companies.</p>
+
+<h2 id="we%27re-being-told-stealing-is-okay-if-money-is-good">We're Being Told Stealing Is Okay If Money Is Good</h2>
+
+<p>I was there when Napster became a thing. It was awesome to be able
+to find all sorts of music you liked and download it to your computer.
+I also remember how the music industry freaked out and intended
+to sue people for millions of dollars for downloading one song.</p>
+
+<p>As with everything, this freakout was because they had not figured out
+a way of making money off the renting of music to people. In our streaming
+world, our fate has been sealed -- it is becoming harder and harder to
+own "physical" copies of popular items, especially film and music.</p>
+
+<p>But for this new business model of providing natural language prompts that
+take our questions and respond with useful answers to work and make monopoly
+profits for all involved, they have to read in as much information as possibly
+to train their systems. This also means they are brazenly reading in all
+sorts of material they do not have permissions to do so.</p>
+
+<p>Then, with a straight face, they tell us we must let them do it or else.</p>
+
+<p>Look, for many years I posted content for free all over the internet. My old
+blog (of which the archives are part of this one) and thousands and thousands
+of posts to Twitter and Facebook. I understood that as long as I was deliberately
+making these posts publicly, I was okay with other people slicing and dicing up
+the content.</p>
+
+<p>This is the main premise of the internet I joined and embraced in the early 2000's.</p>
+
+<p>However, I have produced content for which I have been paid. Multiple books, conference
+talks, and videos for sale. I am 99.999% sure that books and videos I have created
+were slurped up by one of these companies. I did not give them permission. But
+given how favourable the US legal system is towards corporations (plus the fact
+that I live in Canada) the chances of me getting any kind of compensation for them
+making unauthorized copies of what I created is pretty much zero.</p>
+
+<p>They are, from my perspective, thieves wearing business suits or hoodies (depending
+on your mental image of what you think an "AI" business owner looks like.</p>
+
+<p>Fuck you, pay me.</p>
+
+<h2 id="scraping-used-to-be-okay">Scraping Used To Be Okay</h2>
+
+<p>To head off some more popular arguments, yes, search engines could not exist without
+people giving permission for their content to be scanned, summarized, and categorized.
+Again, I am okay with this since by posting my things publicly I gave permission
+for this.</p>
+
+<p>It is pretty much impossible to become a programmer with a broad range of skills if
+you do not have search engines that accurately answer your prompts. We have questions.
+We do not necessarily work or are in close contact with people who have answers. So we
+go online and search for those answers.</p>
+
+<p>For a long time, search engines were useful. Then Google, flush with cash and convinced
+that having created one incredibly technology, could do anything it wanted. So it used
+their incredibly search engine and plastered it with ads to make money. But failure
+after failure caused them to lean more and more onto what was now an advertising platform
+with a side effect of providing some answers to questions.</p>
+
+<p>Someone much smarter than me has pointed out that LLM's help create the illusion that
+so many grifters and non-technical people wanted to believe: that ideas are what mattered
+instead of the ability to execute on those ideas.</p>
+
+<p>There is a reason the stereotype of the "bro with an idea who justs needs a technical
+person to implement it persists.</p>
+
+<p>Now, LLM folks believe if we will just shut the hell up and let them steal everything
+that isn't nailed down (and take a lot of stuff that is nailed down but nobody is actively
+watching) they will no longer need the implementers. Their grand ideas will finally
+see the light of day. More importantly, they won't have to share the money with anybody else.</p>
+
+<p>I will not willingly help these people. I am not some cog in their wheel of ambition.</p>
+
+<h2 id="is-there-anything-llm%27s-are-good-for%3F">Is There Anything LLM's Are Good For?</h2>
+
+<p>Of course there are.</p>
+
+<p>One of my co-workers has started using a service called Otter to take transcripts of our meetings at work
+so they have reference material. There is nothing revolutionary about taking notes for meetings to
+use later. However, it is not a replacement for not attending the meeting. Too many folks
+are presenting it as such. Come to the damn meeting and stop acting like you are too
+special to be here and discuss the issues with us.</p>
+
+<p>LLM's are providing a lot of value to people as tools to help them solve coding issues.
+I am not using them out of choice but I suspect there may come a time when search engines become
+enshittified enough that I will have to resort to an LLM to provide me with the skeleton
+of solutions to my problems. These sort of tools are nothing more than fancy autocomplete.
+There will not be a time any time soon where I can feed it a list of requirements for
+a web application and it will create one that works flawlessly and does not need
+maintenance.</p>
+
+<p>As a tool for applying a vast number of changes to a code base in a short period of time,
+they will be awesome. As a tool to replace someone who understands how to turn natural
+language requirements into code? No chance. But too many greedy business owners have
+bought the hype and believe they are. I look forward to seeing those businesses suffer
+the consequences of poor management.</p>
+
+<h2 id="takeaways">Takeaways</h2>
+
+<p>So, what can we really do?</p>
+
+<p>Well, I think people who work in this industry
+like I do can stop hyping it as a replacement for problem solving
+and critical thought. These systems do not learn from their mistakes.
+They will just keep making them over and over again.</p>
+
+<p>I also feel it is critical to not turn a blind eye to
+the fact that these companies are asking us to allow them,
+for free, to slurp up everything they find online in an attempt
+to sell it back to us.</p>
+
+<p>Given how they fought to have anyone who touched anything that
+belonged to them, do not let them off the hook now that stealing
+stuff is their best interests.  A lot of these companies have already
+been stealing wages from you. Don't let them take anything else.</p>
+
+<p>Finally, understand that being a luddite doesn't mean that you
+hate technology -- you hate the exploitation of people via the
+use of technology.</p>
+
+<p>Band together. Don't let companies treat you like garbage. Don't
+believe the AI hype. This is another bubble and the companies that
+are choosing to make the bubble their identity will fail.</p>
+]]></content>
+        </entry>
             <entry>
             <title type="html"><![CDATA[What Was It Like At Mozilla?]]></title>
             <link href="https://grumpy-learning.com/blog/2024/02/17/what-was-it-like-at-mozilla/"/>
@@ -1091,157 +1263,6 @@ be problems, it would've taken a lot longer to come to an effective solution.</p
 <p>Remember that what people call “luck” is often you having the skills to take advantage of an opportunity.</p>
 
 <p>(This was originally posted as a Twitter thread starting with <a href="https://twitter.com/grmpyprogrammer/status/1477326886766362626">https://twitter.com/grmpyprogrammer/status/1477326886766362626</a>)</p>
-]]></content>
-        </entry>
-            <entry>
-            <title type="html"><![CDATA[Repeatable Development Environments]]></title>
-            <link href="https://grumpy-learning.com/blog/2021/12/30/repeatable-dev-environments/"/>
-            <updated>2021-12-30T00:00:00+00:00</updated>
-            <id>https://grumpy-learning.com/blog/2021/12/30/repeatable-dev-environments/</id>
-            <content type="html"><![CDATA[<p>If you have used <a href="https://docker.com">Docker</a> on a Mac
-laptop, you have likely ran into the "crossing file systems"
-issue that can lead to really poor performance in your containers.
-This becomes frustrating if you are recreating a development environment 
-for applications that rely on a lot of services (micro or otherwise)
- to run. If you are a Windows or Linux user, this sort of thing is pretty much
-a non-issue.</p>
-
-<p>It seemed like I had two choices on how to potentially deal with this.
-Choice number one was to switch to a different operating system (I have been looking
-at <a href="https://frame.work">Framework</a> laptops) but I was (LOL) grumpy about
-getting a new laptop when the 2020 13" MacBook pro I have as I write this is only slightly
-more than a year old. Okay, I could sell it. But that seems like a bunch
-of busy work.</p>
-
-<p>The second choice was to see if I could create a development environment
-that was faster and still allowed me to use Docker, which is 100% a requirement
-for the client work I am currently doing.</p>
-
-<p>In the past, other people online had hinted at the possibility of doing the development
-work inside a virtual machine. Basically like connecting to another machine
-via SSH and then doing my work in there. Good thing I am already a member of the 
-Cult of Vim.</p>
-
-<p>Okay, I think I could work with this. The next issue was HOW to do this all. I've played
-around enough with <a href="https://www.vagrantup.com/">Vagrant</a>, <a href="https://vmware.com">VMWare</a> and
-Virtual Private Servers to know that the steepest part of the curve with using
-this solution is getting configured and in a state where it useful rather than
-a time-sink or a toy.</p>
-
-<p>I am always one to extol the virtues of "better lucky than good" and I happened to
-stumble across a tweet from Mitchell Hashimoto (one of the creators of Vagrant)
-where he talked about how he does all his development work inside a VM running
-on a Mac laptop. I can't find the original tweet, but I made a note about it
-and then he did another tweet about it:</p>
-
-<blockquote>
-  <p><em>My NixOS configurations for my dev VM setup are finally sanitized and open source. They work for both Intel and Apple Silicon. And I put together a video showing how I setup a new machine!</em>
-  (originally posted at <a href="https://twitter.com/mitchellh/status/1452721115009191938">https://twitter.com/mitchellh/status/1452721115009191938</a>)</p>
-</blockquote>
-
-<p>In that tweet he also shared a link to a <a href="https://www.youtube.com/watch?v=ubDMLoWz76U">YouTube video</a> and
-the <a href="https://github.com/mitchellh/nixos-config">GitHub repo</a> that he was publicly sharing
-that you could use as a template.</p>
-
-<p>Again, in a big coincidence, Mr. Hashimoto was also using <a href="https://nixos.org">NixOS</a> as his
-VM's operating system. NixOS is a Linux distribution based on <a href="https://nixos.org/manual/nix/stable/introduction.html">Nix package manager</a>.
-Which doesn't mean much if you're not a fan of their approach.</p>
-
-<p>The reason to like Nix is that it bills itself as a <em>purely functional package manager</em>.
-If you've ever come across the "functional style" of programming then you might know
-how powerful it is to have code that has no "side effects". This means that your
-code is not doing things like writing to the file system, or updating records in a database.
-In a functional world (unless the code is supposed return something random) it is easy
-to test code because the same input should always generate the same output.</p>
-
-<p>If you apply this to package management, it means your are choosing and installing dependencies
-in such a way that you can isolate them from each other. It can be difficult to have, for example,
-two different versions of PHP installed for your use unless you are relying on third party tools
-to keep track of what version should be active.</p>
-
-<p>Nix handles this by forcing you to declare any dependencies explicitly. No more
-worrying about globally-installed libraries causing incompatibility problems. 
-Want to see if your PHP project runs on 7.4, 8.0, and 8.1? You can do that easily
-with NixOS and it's tooling.</p>
-
-<p>I guess you can tell I am a fan of NixOS and look forward to using it a lot more.</p>
-
-<p>The idea from a high level is this: given a NixOS VM running in VMWare (I am using
-VMWare Fusion) it should take less than 10 minutes to create a development
-environment configured with my preferred tools installed from scratch.</p>
-
-<p>The repo he provides is definitely not ready to go as-is. You will need to modify
-a lot of the things in there -- I know I did. It took about a week of poking at it,
-creating and destroying lots of VM's, and learning how NixOS wants to do things to
-get it to the point where I could get it up and running and actually use it.</p>
-
-<p>I ended up removing a bunch of tools that are related to Mitchell's work on Docker
-and added a few things I knew I was going to need for my work with this client. It
-also took me a while to figure out how to generate a hash for the password for the 
-user account the build-and-configure process can create for you. But in the
-end I had a VM up and running (that I could also SSH into if I wanted to)</p>
-
-<p>By default, the VM uses a graphical interface with a <a href="https://i3wm.org/">tiling window manager</a>
-and you type Command-N on your Mac and it opens up a terminal session in 
-<a href="https://sw.kovidgoyal.net/kitty/">Kitty</a> and you are ready to go!.</p>
-
-<p>I also had modified the configuration to install Docker and the related
-command-line tools. Once I cloned the client repo all I had to do was
-<code>make build</code> to create the Docker containers the development environment
-needed and <code>make unit</code> to run the unit test suite in less than half the time.</p>
-
-<p>So what is the point of doing all this work? Let's go back to my original
-problem. Running a test suite that used a development environment consisting
-of multiple Docker containers was incredibly slow. Running on my Mac (and giving
-Docker half the cores and half the available memory) it takes about 80 seconds.
-Running inside a VM that has access to the same resources takes about 35 seconds.</p>
-
-<p>If you've never done a development work flow of "make a change, run a process to 
-verify the change works as expected" for a large chunk of your work day then perhaps
-you don't think this is a big deal. Every loop also has come context switching
-as you try and figure out what happened. If you do this 100 times in a day, you
-probably want this loop to run as quickly as possible.</p>
-
-<p>I don't know if there is a phrase or concept or "law" about this sort of perception-versus-reality
-issue, but I find myself wanting to get things done FASTER when the process by
-which results are determined gets SLOWER. When my test suite runs in 30 seconds,
-I feel like I have lots of time to solve the problem. When it takes a minute-and-a-half
-I get...anxious? Maybe that's the wrong emotion. I know something takes too long 
-when I start muttering to myself "this is taking too <insert preferred swear word> long.".</p>
-
-<p>With the "happens faster than before" issue solved, I find the next benefit to be 
-as I learn how to use Nix to build repeatable environments, a major mistake can be 
-solved by deleting the VM and trying again. Maybe 20 minutes tops to get back to 
-where I was. When I mess up my development environment
-on my MacBook (OS update or maybe <a href="https://brew.sh/">Homebrew</a> updates an underlying
-dependency) it can be a whole afternoon spent trying to "fix whatever I broke."</p>
-
-<p>It's not clear there will ever be any kind of solution for the "crossing file systems"
-issue that leads to Docker performing so poorly. My fellow programmers who are
-running the newer MacBooks that use Apple's new chips tell me performance is 
-quite good. Spending another CAD$3k so Docker runs faster seems like a waste of 
-money to me, but that is just a personal opinion.</p>
-
-<p>I used to be someone who lived on the bleeding edge when it came to their software.
-As I got older and grumpier I started to value stability and repeatability in my 
-software more. A development environment that can be built using <a href="https://www.gnu.org/software/make/">Make</a>
-and a VM is one I can rely on to start me off at a known point, exhibiting
-behaviour I am expecting. Almost like the benefits of a test suite!</p>
-
-<p>Doing this NixOS-in-a-VM stuff relies on you having some experience with Linux 
-environments. I did run Linux as my desktop environment for several years 
-before I started buying Apple hardware (which I've done since 2002) and 
-MacOS's "<a href="https://en.wikipedia.org/wiki/Berkeley_Software_Distribution">BSD</a> with a pretty window manager" approach also let me use those
-command-line skills.</p>
-
-<p>I highly recommend watching Mitchell's YouTube video as he explains how the
-whole process works. I found it useful because he explains the philosophy of 
-his approach. Understanding WHY someone does things can often lead you to 
-quicker insights as to what needs to change to fit your needs.</p>
-
-<p>If you do get it all set up, let me know your experiences. With some effort
-I can probably create a more generic version of my set up and create a GitHub
-repo with all the files in it.</p>
 ]]></content>
         </entry>
     </feed>
