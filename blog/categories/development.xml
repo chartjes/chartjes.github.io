@@ -3,9 +3,122 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="https://grumpy-learning.com/blog/categories/development.xml" rel="self"/>
     <link href="https://grumpy-learning.com/"/>
-    <updated>2024-03-03T21:05:41+00:00</updated>
+    <updated>2024-03-10T15:51:03+00:00</updated>
     <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[When giving talks gets boring]]></title>
+            <link href="https://grumpy-learning.com/blog/2024/03/10/when-giving-talks-gets-boring/"/>
+            <updated>2024-03-10T00:00:00+00:00</updated>
+            <id>https://grumpy-learning.com/blog/2024/03/10/when-giving-talks-gets-boring/</id>
+            <content type="html"><![CDATA[<p>Over on federated social media, my long-time programming
+friend (and former JavaScript developer meetup organizer)
+<a href="https://hachyderm.io/@dcousineau">Daniel Cousineau</a> had 
+a multi-post thread lamenting the demise of the "tech meetup"
+and was wondering what to do about it?</p>
+
+<p>Daniel's thoughts on this caused me to reflect on my years
+of doing developer advocacy via speaking at conferences and
+meetups. I've been doing it since 2016 and, well, I know this
+sounds weird but I got bored and decided to do it a lot less.</p>
+
+<p>Just before we occupied the current Fortress of Grumpitude back
+in 2017, I had been basically going full-throttle with career-related
+travl. When February 2018 rolled around, I had just finished
+a streak of getting on a plane for work or to speak at an event
+for 36 straight months. The evil Facebook reminded me that in 
+2016 I spoke in Autralia, Serbia, England, and Chicago all before
+the end of July. Not to mention travelling at least twice a year
+for Mozilla events.</p>
+
+<p>I was tired and wanted a change. I had also grown weary of talking
+about testing. Sure, it was my thing. But there were so many other
+things I was interested in talking about and sharing. So by
+conference attendance dropped to doing one talk a year basically.
+Then the pandemic started and there were a few random online
+events I participated in.</p>
+
+<p>Still didn't feel very satisfied. Still was super bored.</p>
+
+<p>Then I made the decision when I attended Longhorn PHP 2022 that
+I was not going to do any testing talks any more. I did a three
+hour talk that attempted to summarize everything I had gone
+through on my journey to becoming on of the most vocal and (for a
+time) well-known PHP testing evangelists.</p>
+
+<p>Then I went to php|tek in Chicago in 2023 not as an attendee, but
+to volunteer at the booth for <a href="https://osmihelp.org">OSMI</a> -- Open
+Sourcing Mental Illness. My good friend Ed Finkler started up
+this non-profit and it continues to do unappreciated work in
+the programming community. It was close enough that I could drive.
+Flying would've been about 6.5 hours door-to-door -- the drive
+in my MuskMobile was about 8.5 hours with stops for meals and
+charging. A lot cheaper than flying though. The weather was great,
+the miles slowly piled up, and I got to hang out with a lot of
+my friends for the first time in a long time.</p>
+
+<p>It was great to sit in a booth and not feel any pressure to deliver
+talks. Not that I had felt pressure in a long time, but it is still
+a non-trivial amount of work to come up with a talk. Deciding on
+material, creating slides, practicing the talk (although after
+many years of public speaking I can often improvise).</p>
+
+<p>I still have the desire to share, to advocate for things I find
+interesting. So I decided if I was going to do talks again on
+my once-a-year schedule, they were going to be on my terms.</p>
+
+<p>Luckily, I can still write talk proposals that get accepted. I
+will once again be speaking at php|tek 2024. I will be driving
+there again in the MuskMobile, but a long-time friend who has
+never been to Chicago is going to come with me and we'll do
+some touristy stuff and then he can wander off to do his own
+thing while I speak.</p>
+
+<p>So, what did I decide to do to keep things from being boring?
+By making my talks stealth talks.</p>
+
+<p>I'm giving two talks -- one about Command-Query Responsibility
+Segregation (CQRS) and configuring NeoVim to be a PHP IDE.</p>
+
+<p>The CQRS talk is really going to be a stealh talk about
+paying attention to design patterns. I was asked on Mastodon
+for my thoughts on what I felt self-taught programmers were
+missing out on compared to those who actually studied computer
+science. Being half self-taught (I want to college for computer
+studies but before the rise of the web) I could share I felt
+self-taught folks tended to reinvent things and to ignore
+design patterns.</p>
+
+<p>So I want to teach the audience about design patterns and
+cover the ones you are most likely to encounter in their
+work building web applications.</p>
+
+<p>The second talk about configuring NeoVim for PHP use is
+actually a stealth talk about choosing and matering tools.
+I have been a Vim (and now NeoVim user) for many years.
+In fact, pretty much every blog post here was written
+using Vim or NeoVim. I've used it a lot for PHP development.
+But getting to know how to use Vim taught me the importance
+of mastering your chosen tools to get the results you 
+want faster.</p>
+
+<p>So, I want to suggest strategies for choosing your tools
+and some deliberate approaches I have tried that seem to
+have worked. I use PhpStorm for most of my PHP work these
+days due to great third-party tool integration, but with
+Vim keybindings activated. I then use NeoVim for everything
+else.</p>
+
+<h2 id="takeaways">Takeaways</h2>
+
+<p>Even though the benefits to both me personally and my career
+were immense, I grew bored of giving conference talks. Now
+I am determined to do them a lot less but under my own terms.</p>
+
+<p>Maybe I will see some of you in Chicago the last week of
+April 2024?</p>
+]]></content>
+        </entry>
             <entry>
             <title type="html"><![CDATA[A Grumpy Programmer&#039;s Thoughts On LLM]]></title>
             <link href="https://grumpy-learning.com/blog/2024/03/03/grumpy-thoughts-llm/"/>
@@ -1243,26 +1356,6 @@ suite.</p>
 
 <p>Without the ability to profile the code to get a better idea of where there might 
 be problems, it would've taken a lot longer to come to an effective solution.</p>
-]]></content>
-        </entry>
-            <entry>
-            <title type="html"><![CDATA[Better Outcomes]]></title>
-            <link href="https://grumpy-learning.com/blog/2022/01/02/better-outcomes/"/>
-            <updated>2022-01-02T00:00:00+00:00</updated>
-            <id>https://grumpy-learning.com/blog/2022/01/02/better-outcomes/</id>
-            <content type="html"><![CDATA[<p>I’m not a New Year’s resolution type but here are some suggestions for my fellow devs of things I believe can lead to better outcomes:</p>
-
-<p>Learn your IDE/editor better: I spent a lot of 2021 refining my <a href="https://neovim.org">Vim</a> setup and I plan on adding increased use of <a href="https://vimwiki.github.io/">VimWiki</a> for making notes and linking things together.</p>
-
-<p>If your dynamic language of choice supports types, start using them and <a href="https://psalm.dev">static</a> <a href="https://phpstan.org">analysis</a> tools. It leads to much clearer intent and can catch problems at the edges.</p>
-
-<p>Focus on automation. Stop doing things manually the computer can do for you. Take the time to semi-automate manual processes first. It frees your brain up to solve different problems.</p>
-
-<p>Make continuous learning a foundation of everything you do. Even after 23 years of getting paid to program, I learn new things almost every day.</p>
-
-<p>Remember that what people call “luck” is often you having the skills to take advantage of an opportunity.</p>
-
-<p>(This was originally posted as a Twitter thread starting with <a href="https://twitter.com/grmpyprogrammer/status/1477326886766362626">https://twitter.com/grmpyprogrammer/status/1477326886766362626</a>)</p>
 ]]></content>
         </entry>
     </feed>
