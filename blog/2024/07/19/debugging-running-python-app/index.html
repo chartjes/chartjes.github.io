@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Debugging A Running Python Application &mdash; Grumpy Learning &mdash; Where even the CSS is grumpy</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://grumpy-learning.com/build/app.css">
+
+        <link rel="apple-touch-startup-image" href="https://grumpy-learning.com/build/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://grumpy-learning.com/build/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://grumpy-learning.com/build/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="https://grumpy-learning.com/build/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://grumpy-learning.com/build/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="https://grumpy-learning.com/build/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="https://grumpy-learning.com/build/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="https://grumpy-learning.com/build/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="https://grumpy-learning.com/build/jackson/2048x2048.png">
+
+        <link rel="alternate" type="application/atom+xml" href="https://grumpy-learning.com/atom.xml" title="Grumpy Learning activity feed" />
+                                <script src="/assets/js/mastodon.js"></script>
+            </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="https://grumpy-learning.com/">Grumpy Learning</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog">Posts Archive</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/categories">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/blog/tags">Tags</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/about">About</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/uses">What Chris Uses</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/atom.xml">RSS Feed</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                        <article class="h-entry">
+        <header>
+            <h2><div class="p-name">Debugging A Running Python Application</div> <small>post</small></h2>
+        </header>
+        <div class="e-content">
+            <h2 id="spoiled-by-xdebug%3F">Spoiled by Xdebug?</h2>
+
+<p>For all the insults that PHP catches, one that seems to
+never come up is how good <a href="https://xdebug.org">Xdebug</a> is
+for figuring out what might be going on in an application.</p>
+
+<p>I have been porting over a Python web app that is used to
+trigger a batch processing job that validates online purchases.
+I have been rewriting parts of it in PHP + Laravel + queue workers
+and as part of the testing, I was trying to figure out why I
+could not trigger the batch processing properly.</p>
+
+<p>I have been spoiled by being able to use Xdebug to figure out
+what is going on with my PHP applications, but had never used
+<a href="https://docs.python.org/3/library/pdb.html">Python's debugger</a>.</p>
+
+<p>Since I am a happy <a href="https://www.jetbrains.com/phpstorm">PhpStorm</a> user
+I figured I should also use <a href="https://www.jetbrains.com/pycharm">PyCharm</a>
+to do my Python dev work. I figured they were similar enough that it
+wouldn't be painful to debug.</p>
+
+<p>As an aside, learning how to use a debugger for your preferred programming
+language will give you real productivity gains. No more <code>die('here')</code> statements
+in your code.</p>
+
+<h2 id="how-does-this-work-in-python%3F">How does this work in Python?</h2>
+
+<p>So, having no experience with Python debugging I ass-u-me'd that it would
+be behaving similar to how Xdebug does things:</p>
+
+<ul>
+<li>make sure you have a version of Python with debugger support</li>
+<li>it sends messages out on a specific port</li>
+<li>tell the IDE to listen</li>
+<li>set your breakpoint</li>
+<li>wait for the nice debugger output to come up</li>
+</ul>
+
+<p>Well, dear friends, this is not how it worked at all. I was stumped and
+wondering "why doesn't it work like Xdebug?!?". Which is, of course,
+silly. It was just my assumptions that were wrong.</p>
+
+<p>I spent some time doing online searches with all sorts of variations
+on how to debug Python apps in PyCharm. Lots of interesting and
+helpful blog posts...none of which covered what I was trying to do.</p>
+
+<p>I asked on federated social media for some help -- again, some helpful
+advice but I got variations of "don't try it that way". Now, that is
+well-intentioned but not really an answer.</p>
+
+<p>I had a web app, running locally inside a Python virtual environment. This
+shouldn't be hard. I was starting to think that the issue was that I was
+not using the same terms as everyone else.</p>
+
+<p>With a running app, I kept wondering "so how do I continually restart the
+application to turn on the debugger" as that seemed to me at the time
+the only solution for the issue.</p>
+
+<p>Clearly, I was doing it wrong.</p>
+
+<p>While doing some more random searches, I finally stumbled across something
+that turned out the be the solution. In a blog post (sorry, I did not
+bookmark it) about debugging another Python web application the person
+said "...and just attach the debugger to a running process".</p>
+
+<p>Apologies to people who might not get the reference, but if you've ever
+seen an image of a person thinking about something and then a light bulb
+goes on over head? That is what it was like.</p>
+
+<h2 id="debugging-by-attaching-to-a-running-process">Debugging by attaching to a running process</h2>
+
+<p>Keep in mind that these details are while using PyCharm 2024.1.4 (Professional Edition).
+So, in my situation I had this:</p>
+
+<ul>
+<li>IDE is configured to use Python</li>
+<li>the application is running</li>
+<li>I have set a breakpoint in my Python code</li>
+</ul>
+
+<p>Inside PyCharm I went to <code>Run &gt; Attatch to Process</code> and was presented with
+some Python processes along with their PID (I'm on MacOS). I selected the
+one for my application and then made my request to the web app to turn
+start the batch processing and it worked! I could now
+debug things inside and figure out how things are working.</p>
+
+<p>Hope this helps folks who are less-familiar with Python and it's
+debugging capabilities get up to speed faster.</p>
+
+        </div>
+                    <p class="categories">
+            Categories:
+                        <a class="p-category" href="https://grumpy-learning.com/blog/categories/development">development</a>                        </p>
+                        <a href="https://brid.gy/publish/mastodon"</a>
+        <a href="https://brid.gy/publish/twitter"</a>
+                    <nav class="article">
+                <ul>
+                                                                <li>Previous: <a class="previous" href="https://grumpy-learning.com/blog/2024/03/03/grumpy-thoughts-llm/" title="A Grumpy Programmer&#039;s Thoughts On LLM"><span class="title">A Grumpy Programmer&#039;s Thoughts On LLM</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+                    <link href="/sitesearch/pagefind-ui.css" rel="stylesheet">
+                    <script src="/sitesearch/pagefind-ui.js" type="text/javascript"></script>
+                    <div id="search"></div>
+                    <script>
+                        window.addEventListener('DOMContentLoaded', (event) => {
+                            new PagefindUI({ element: "#search" });
+                        });
+                    </script>
+                </div>
+                <div class="col-sm-5 sidebar">
+                    <div class="card bg-light">
+                        <div class="card-header">Grumpy Learning</div>
+                        <div class="card-body">
+                            <small>Where even the CSS is grumpy</small>                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">How to get in touch</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">I'm <a rel="author" class="p-author h-card">Chris Hartjes</a>. I'm the guy who used to go to PHP conferences and shout at you to test your PHP code. I've calmed down a lot since then but still want to help you get better at testing. I'm currently working for <a href="https://www.ziffdavis.com/brands/shopping">Ziff Davis Shopping</a> as a Staff Software Engineer.</li>
+                                <li class="nav-item">I'm on Mastodon as <a rel="me" class="nav-link" href="https://phpc.social/@grmpyprogrammer">@grmpyprogrammer@phpc.social</a></li>
+                                <li class="nav-item">I don't do much OSS any more but you can find my stuff on <a rel="me" class="nav-link" href="https://github.com/chartjes">GitHub</a></li>
+                                <li class="nav-item">Want to ask a question? Want to hire me to do some consulting work? Interested in having me speak at your event or on your podcast? Email me at <a class="nav-link" href="mailto:chartjes@grumpy-learning.com">chartjes@grumpy-learning.com</a>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-header">Videos to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://grumpy-learning.com/testing-things-wrong">You're (Probably) Testing Things Wrong</a> is a 2 hour video looking at how to test your PHP code and ways that you might be doing it wrong.</li>
+                            </ul>
+                        </div>
+                        <div class="card-header">Books to make you less grumpy</div>
+                        <div class="card-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-guide">The Grumpy Programmer's Guide To Testing PHP Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://leanpub.com/grumpy-complements">The Complementary PHP Testing Tools Cookbook</a></li>
+                            </ul>
+                        </div>
+                </div>
+                    <div class="card bg-light sidebar-nav">
+                        <div class="card-body">
+                            <div class="tootThread" id="displayTootThread">
+                                <div class="toot" id="displayToot">
+                                    <div class="author">
+                                        <div class="avatar">
+                                            <a href="" class="authorLink" target="_blank">
+                                                <img src="" style="width: 50%; height: 50%" class="avatarImg" alt="" border="0" />
+                                            </a>
+                                        </div>
+                                        <div class="displayName">
+                                            <a href="" class="displayNameLink authorLink" target="_blank"><span class="displayNameSpan"></span></a>
+                                        </div>
+                                        <div class="userName">
+                                            <a href="" class="authorLink" target="_blank">
+                                                <span class="userNameSpan"></span><span class="instanceNameSpan"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="content"></div>
+                                <div class="createdAt">
+                                    <a href="" target="_blank" class="createdAtLink"></a>
+                                    <hr>
+                                </div>
+                            </div>
+                        <div class="tootReplies">
+                        </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </main>
+        <footer class="container">
+            <span class="text-muted">&copy; 2021 - 2024 Grumpy Learning</span>
+        </footer>
+
+        <script src="https://grumpy-learning.com/build/app.js"></script>
+                
+        
+                    </body>
+</html>

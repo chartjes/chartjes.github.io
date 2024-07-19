@@ -3,9 +3,104 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="https://grumpy-learning.com/blog/categories/development.xml" rel="self"/>
     <link href="https://grumpy-learning.com/"/>
-    <updated>2024-03-11T12:46:15+00:00</updated>
+    <updated>2024-07-19T19:33:25+00:00</updated>
     <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[Debugging A Running Python Application]]></title>
+            <link href="https://grumpy-learning.com/blog/2024/07/19/debugging-running-python-app/"/>
+            <updated>2024-07-19T00:00:00+00:00</updated>
+            <id>https://grumpy-learning.com/blog/2024/07/19/debugging-running-python-app/</id>
+            <content type="html"><![CDATA[<h2 id="spoiled-by-xdebug%3F">Spoiled by Xdebug?</h2>
+
+<p>For all the insults that PHP catches, one that seems to
+never come up is how good <a href="https://xdebug.org">Xdebug</a> is
+for figuring out what might be going on in an application.</p>
+
+<p>I have been porting over a Python web app that is used to
+trigger a batch processing job that validates online purchases.
+I have been rewriting parts of it in PHP + Laravel + queue workers
+and as part of the testing, I was trying to figure out why I
+could not trigger the batch processing properly.</p>
+
+<p>I have been spoiled by being able to use Xdebug to figure out
+what is going on with my PHP applications, but had never used
+<a href="https://docs.python.org/3/library/pdb.html">Python's debugger</a>.</p>
+
+<p>Since I am a happy <a href="https://www.jetbrains.com/phpstorm">PhpStorm</a> user
+I figured I should also use <a href="https://www.jetbrains.com/pycharm">PyCharm</a>
+to do my Python dev work. I figured they were similar enough that it
+wouldn't be painful to debug.</p>
+
+<p>As an aside, learning how to use a debugger for your preferred programming
+language will give you real productivity gains. No more <code>die('here')</code> statements
+in your code.</p>
+
+<h2 id="how-does-this-work-in-python%3F">How does this work in Python?</h2>
+
+<p>So, having no experience with Python debugging I ass-u-me'd that it would
+be behaving similar to how Xdebug does things:</p>
+
+<ul>
+<li>make sure you have a version of Python with debugger support</li>
+<li>it sends messages out on a specific port</li>
+<li>tell the IDE to listen</li>
+<li>set your breakpoint</li>
+<li>wait for the nice debugger output to come up</li>
+</ul>
+
+<p>Well, dear friends, this is not how it worked at all. I was stumped and
+wondering "why doesn't it work like Xdebug?!?". Which is, of course,
+silly. It was just my assumptions that were wrong.</p>
+
+<p>I spent some time doing online searches with all sorts of variations
+on how to debug Python apps in PyCharm. Lots of interesting and
+helpful blog posts...none of which covered what I was trying to do.</p>
+
+<p>I asked on federated social media for some help -- again, some helpful
+advice but I got variations of "don't try it that way". Now, that is
+well-intentioned but not really an answer.</p>
+
+<p>I had a web app, running locally inside a Python virtual environment. This
+shouldn't be hard. I was starting to think that the issue was that I was
+not using the same terms as everyone else.</p>
+
+<p>With a running app, I kept wondering "so how do I continually restart the
+application to turn on the debugger" as that seemed to me at the time
+the only solution for the issue.</p>
+
+<p>Clearly, I was doing it wrong.</p>
+
+<p>While doing some more random searches, I finally stumbled across something
+that turned out the be the solution. In a blog post (sorry, I did not
+bookmark it) about debugging another Python web application the person
+said "...and just attach the debugger to a running process".</p>
+
+<p>Apologies to people who might not get the reference, but if you've ever
+seen an image of a person thinking about something and then a light bulb
+goes on over head? That is what it was like.</p>
+
+<h2 id="debugging-by-attaching-to-a-running-process">Debugging by attaching to a running process</h2>
+
+<p>Keep in mind that these details are while using PyCharm 2024.1.4 (Professional Edition).
+So, in my situation I had this:</p>
+
+<ul>
+<li>IDE is configured to use Python</li>
+<li>the application is running</li>
+<li>I have set a breakpoint in my Python code</li>
+</ul>
+
+<p>Inside PyCharm I went to <code>Run &gt; Attatch to Process</code> and was presented with
+some Python processes along with their PID (I'm on MacOS). I selected the
+one for my application and then made my request to the web app to turn
+start the batch processing and it worked! I could now
+debug things inside and figure out how things are working.</p>
+
+<p>Hope this helps folks who are less-familiar with Python and it's
+debugging capabilities get up to speed faster.</p>
+]]></content>
+        </entry>
             <entry>
             <title type="html"><![CDATA[A Grumpy Programmer&#039;s Thoughts On LLM]]></title>
             <link href="https://grumpy-learning.com/blog/2024/03/03/grumpy-thoughts-llm/"/>
@@ -1243,26 +1338,6 @@ suite.</p>
 
 <p>Without the ability to profile the code to get a better idea of where there might 
 be problems, it would've taken a lot longer to come to an effective solution.</p>
-]]></content>
-        </entry>
-            <entry>
-            <title type="html"><![CDATA[Better Outcomes]]></title>
-            <link href="https://grumpy-learning.com/blog/2022/01/02/better-outcomes/"/>
-            <updated>2022-01-02T00:00:00+00:00</updated>
-            <id>https://grumpy-learning.com/blog/2022/01/02/better-outcomes/</id>
-            <content type="html"><![CDATA[<p>I’m not a New Year’s resolution type but here are some suggestions for my fellow devs of things I believe can lead to better outcomes:</p>
-
-<p>Learn your IDE/editor better: I spent a lot of 2021 refining my <a href="https://neovim.org">Vim</a> setup and I plan on adding increased use of <a href="https://vimwiki.github.io/">VimWiki</a> for making notes and linking things together.</p>
-
-<p>If your dynamic language of choice supports types, start using them and <a href="https://psalm.dev">static</a> <a href="https://phpstan.org">analysis</a> tools. It leads to much clearer intent and can catch problems at the edges.</p>
-
-<p>Focus on automation. Stop doing things manually the computer can do for you. Take the time to semi-automate manual processes first. It frees your brain up to solve different problems.</p>
-
-<p>Make continuous learning a foundation of everything you do. Even after 23 years of getting paid to program, I learn new things almost every day.</p>
-
-<p>Remember that what people call “luck” is often you having the skills to take advantage of an opportunity.</p>
-
-<p>(This was originally posted as a Twitter thread starting with <a href="https://twitter.com/grmpyprogrammer/status/1477326886766362626">https://twitter.com/grmpyprogrammer/status/1477326886766362626</a>)</p>
 ]]></content>
         </entry>
     </feed>
