@@ -3,7 +3,7 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="https://grumpy-learning.com/blog/categories/development.xml" rel="self"/>
     <link href="https://grumpy-learning.com/"/>
-    <updated>2024-07-19T19:33:25+00:00</updated>
+    <updated>2024-07-20T11:59:10+00:00</updated>
     <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
             <entry>
@@ -86,13 +86,13 @@ goes on over head? That is what it was like.</p>
 So, in my situation I had this:</p>
 
 <ul>
-<li>IDE is configured to use Python</li>
+<li>project is configured in PyCharm to use the Python interpreter in my virtual environment</li>
 <li>the application is running</li>
 <li>I have set a breakpoint in my Python code</li>
 </ul>
 
 <p>Inside PyCharm I went to <code>Run &gt; Attatch to Process</code> and was presented with
-some Python processes along with their PID (I'm on MacOS). I selected the
+some Python processes along with their process ID (I'm on MacOS). I selected the
 one for my application and then made my request to the web app to turn
 start the batch processing and it worked! I could now
 debug things inside and figure out how things are working.</p>
