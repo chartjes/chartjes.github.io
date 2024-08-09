@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title><![CDATA[Grumpy Learning]]></title>
+    <link href="https://grumpy-learning.com/blog/categories/notes.xml" rel="self"/>
+    <link href="https://grumpy-learning.com/"/>
+    <updated>2024-08-09T18:04:52+00:00</updated>
+    <id>https://grumpy-learning.com/</id>
+        <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[Weeknotes August 9, 2024]]></title>
+            <link href="https://grumpy-learning.com/blog/2024/08/08/weeknotes/"/>
+            <updated>2024-08-08T00:00:00+00:00</updated>
+            <id>https://grumpy-learning.com/blog/2024/08/08/weeknotes/</id>
+            <content type="html"><![CDATA[<p>Trying out something new to capture all the stuff giong on
+in my life with the idea of <a href="https://tracydurnell.com/2024/07/30/using-personal-weeknotes-as-a-tool-for-attention/">weeknotes</a>.
+It's not that my ego think you want to know about all aspects
+of life but I am starting to feel like I lose track of some
+of the more ephemeral parts of my life in what I discover
+online.</p>
+
+<p>Plus, I do think it is valuable for other developers with
+less experience getting paid to write code to see what it
+is actually like to be a senior developer. It's definitely
+not Magical Christmas Land but it's not "move this button
+to the left and implement this AI chatbot plugin" either.</p>
+
+<h2 id="what-i-did">What I Did</h2>
+
+<ul>
+<li>played my <a href="https://www.ibl.org">IBL</a> games both on Sunday afternoon and Monday night</li>
+<li>spent Monday afternoon checking out some different parks in London, ON with my wife (we like to do low-to-medium intensity hikes)</li>
+<li>started working on adding a series of test scenarios to my work at ZiffDavis Shopping for a transaction processing job</li>
+<li>doing reviews of PR's involving Python at work is an interesting challenge as I know just enough to have a basic understanding but not enough to catch edge cases as the moment</li>
+<li>played <a href="https://mtgcommander.net">Commander</a> as usual on Thursday night</li>
+<li>added deck lists to <a href="https://archidekt.com">Archidekt</a> for ones I am playing</li>
+<li>continue to alter my eating habits while I deal with stomach issues (hopefully not becoming <a href="https://www.mayoclinic.org/diseases-conditions/gerd/symptoms-causes/syc-20361940">GERD</a></li>
+</ul>
+
+<h2 id="longer-threads">Longer Threads</h2>
+
+<p>I keep coming back to the phrase "post-testing software development world" and are finally organizing these thoughts.
+I should probably do a series of blog posts here about it. It's clear that things have definitely shifted in terms
+of commitment to testing and with an audience mostly-receptive to the concepts, a shift in how to teach and
+advocate for testing seems reasonable.</p>
+
+<h2 id="everything-else">Everything Else</h2>
+
+<ul>
+<li>I continue to use the Reminders app on my phone to delay impulse purchase. Steamdeck? Sure, but I barely play the Switch I have</li>
+<li>While my <a href="https://www.nurasound.com">Nura</a> ear buds are still in great shape I found a Canadian company called <a href="https://soundsgood.ca">Sounds Good</a> that designs and sells their own line of audio stuff</li>
+</ul>
+]]></content>
+        </entry>
+    </feed>
