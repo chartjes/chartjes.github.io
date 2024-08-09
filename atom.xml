@@ -3,9 +3,54 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="https://grumpy-learning.com/atom.xml" rel="self"/>
     <link href="https://grumpy-learning.com/"/>
-    <updated>2024-07-20T11:59:10+00:00</updated>
+    <updated>2024-08-09T18:12:56+00:00</updated>
     <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[Weeknotes August 9, 2024]]></title>
+            <link href="https://grumpy-learning.com/blog/2024/08/08/weeknotes/"/>
+            <updated>2024-08-08T00:00:00+00:00</updated>
+            <id>https://grumpy-learning.com/blog/2024/08/08/weeknotes/</id>
+            <content type="html"><![CDATA[<p>Trying out something new to capture all the stuff giong on
+in my life with the idea of <a href="https://tracydurnell.com/2024/07/30/using-personal-weeknotes-as-a-tool-for-attention/">weeknotes</a>.
+It's not that my ego think you want to know about all aspects
+of life but I am starting to feel like I lose track of some
+of the more ephemeral parts of my life in what I discover
+online.</p>
+
+<p>Plus, I do think it is valuable for other developers with
+less experience getting paid to write code to see what it
+is actually like to be a senior developer. It's definitely
+not Magical Christmas Land but it's not "move this button
+to the left and implement this AI chatbot plugin" either.</p>
+
+<h2 id="what-i-did">What I Did</h2>
+
+<ul>
+<li>played my <a href="https://www.ibl.org">IBL</a> games both on Sunday afternoon and Monday night</li>
+<li>spent Monday afternoon checking out some different parks in London, ON with my wife (we like to do low-to-medium intensity hikes)</li>
+<li>started working on adding a series of test scenarios to my work at ZiffDavis Shopping for a transaction processing job</li>
+<li>doing reviews of PR's involving Python at work is an interesting challenge as I know just enough to have a basic understanding but not enough to catch edge cases as the moment</li>
+<li>played <a href="https://mtgcommander.net">Commander</a> as usual on Thursday night</li>
+<li>added deck lists to <a href="https://archidekt.com">Archidekt</a> for ones I am playing</li>
+<li>continue to alter my eating habits while I deal with stomach issues (hopefully not becoming <a href="https://www.mayoclinic.org/diseases-conditions/gerd/symptoms-causes/syc-20361940">GERD</a></li>
+</ul>
+
+<h2 id="longer-threads">Longer Threads</h2>
+
+<p>I keep coming back to the phrase "post-testing software development world" and are finally organizing these thoughts.
+I should probably do a series of blog posts here about it. It's clear that things have definitely shifted in terms
+of commitment to testing and with an audience mostly-receptive to the concepts, a shift in how to teach and
+advocate for testing seems reasonable.</p>
+
+<h2 id="everything-else">Everything Else</h2>
+
+<ul>
+<li>I continue to use the Reminders app on my phone to delay impulse purchase. Steamdeck? Sure, but I barely play the Switch I have</li>
+<li>While my <a href="https://www.nurasound.com">Nura</a> ear buds are still in great shape I found a Canadian company called <a href="https://soundsgood.ca">Sounds Good</a> that designs and sells their own line of audio stuff</li>
+</ul>
+]]></content>
+        </entry>
             <entry>
             <title type="html"><![CDATA[Debugging A Running Python Application]]></title>
             <link href="https://grumpy-learning.com/blog/2024/07/19/debugging-running-python-app/"/>
@@ -1205,121 +1250,6 @@ that is relevant to the topic your talk is supposed to be covering.</p>
 be true to myself.</p>
 
 <p>I hope to see you at tek2024!</p>
-]]></content>
-        </entry>
-            <entry>
-            <title type="html"><![CDATA[Reducing Friction in Development Environments]]></title>
-            <link href="https://grumpy-learning.com/blog/2023/09/29/reducing-friction-in-development-environments/"/>
-            <updated>2023-09-29T00:00:00+00:00</updated>
-            <id>https://grumpy-learning.com/blog/2023/09/29/reducing-friction-in-development-environments/</id>
-            <content type="html"><![CDATA[<h1 id="reducing-friction-in-development-environments">Reducing Friction in Development Environments</h1>
-
-<p>As my 27th year of getting paid to create web applications
-starts to wind down, I reflect on how hard I work to try
-and create a development environment experience (heh, that
-sounds so pretentious when spoken out loud!) that has as
-little friction as possible.</p>
-
-<p>Late in 2023, what does that look like for me?</p>
-
-<h2 id="learn-your-editor">Learn your editor</h2>
-
-<p>I have lost count of the number of editors I have used over
-the years. Some I would never touch again. Some I felt changed
-how people built all future editors. If it was available for
-my Mac, I was at least trying it out.</p>
-
-<p>One thing that did eventually change was that I
-settled on one editor (well, sort-of) and dedicated time
-to exploring it's other features beyond just editing text.</p>
-
-<p>Just to be clear, I really don't care what editor you use.
-I just think you should pick one and learn it really well.</p>
-
-<p>I do flip back and forth between <a href="https://www.jetbrains.com/phpstorm/">PhpStorm</a>
-and <a href="https://neovim.io">NeoVim</a>, depending on the task.
-Years of using Vim and NeoVim has imprinted both modal
-editing and Vim keybindings into my muscle memory, so
-I have Vim bindings installed for PhpStorm.</p>
-
-<p>If your editor has an extensive list of keyboard shortcuts,
-take the time to learn all the common ones. While I'm
-not some kind of productivity grifter, I do feel like reducing
-the number of times your hands leave your keyboard can
-only be a good thing.</p>
-
-<p>I should probably stop grabbing my phone so much too.</p>
-
-<p>Learning how to use your editor and how easily it can integrate
-with other tools is, for me, the first step towards reducing
-friction.</p>
-
-<h2 id="repeatability">Repeatability</h2>
-
-<p>"Works on my machine" is both a joke and a reality when you do
-development work. Here are some solutions I recommend:</p>
-
-<ul>
-<li><a href="https://www.docker.com">Docker</a> to create containers that duplicate production</li>
-<li><a href="https://nixos.org/">Nix and NixOS</a> to make reproducible systems</li>
-</ul>
-
-<p>The bottom line is that you can reduce friction by adopting
-tools that allow other people to use the same dependencies
-that you are using. Yes, it can be annoying and frustrating
-to get thing "just right", along with duplicating a production
-environments that relies on a ton of services. But once you
-have it as close to production as possible, the time to get
-code out of your development environment and into production
-is greatly reduced.</p>
-
-<h2 id="standards">Standards</h2>
-
-<p>Coding standards make sure your code all looks the same. I should
-not be able to figure out who wrote some code by looking at it.
-Static code analysis applies standards in terms of how the code
-you wrote should be used by others. Testing standards ensure
-that you have confidence that the code you wrote will continue
-to behave in the way you expect it to.</p>
-
-<h2 id="automation">Automation</h2>
-
-<p>For me, this is the one that I think a lot of developers need
-to embrace more. Write small shell scripts to execute multiple
-commands that you type into your CLI. Use Makefiles. Add things
-to your <code>composer.json</code> file so you can type <code>composer test</code>
-and have the tests run.</p>
-
-<p>Everything you can do to automate repetitive tasks is one less
-thing you have to remember. I'd rather be working on solving
-a business-related problem than remembering what order I need
-to run these 10 commands to get my code from my laptop and into
-production.</p>
-
-<h2 id="willingness-to-learn">Willingness to Learn</h2>
-
-<p>I don't know how typical I am in terms of evaluating my tools
-and techniques on a regular basis, but I feel like my willingness
-to learn new things and try out new tools that solve old problems
-has really helped me reduce friction.</p>
-
-<p>Except for rebasing things in Git. That still gives me so many
-problems and I will go to my post-programming life insisting
-that version control systems do not need to be so complicated.</p>
-
-<h2 id="too-much-friction-causes-fires">Too Much Friction Causes Fires</h2>
-
-<p>I think my over-arching point is that the tools you use to
-write code every day should not cause you problems. It's entirely
-possible I have learned to ignore the rough edges my tools
-present (Vim certainly has a steep learning curve) but I truly
-work on making sure a computer does repetitive actions for me
-as much as possible. It's not going to complain about it to me.</p>
-
-<p>I hope I've gotten you to start evaluating or re-evaluating your
-chosen tools and find some new-or-different ways to reduce
-any friction you are finding in your development environments
-and processes.</p>
 ]]></content>
         </entry>
     </feed>
