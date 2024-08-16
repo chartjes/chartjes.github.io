@@ -3,9 +3,51 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="https://grumpy-learning.com/atom.xml" rel="self"/>
     <link href="https://grumpy-learning.com/"/>
-    <updated>2024-08-09T18:12:56+00:00</updated>
+    <updated>2024-08-16T19:24:58+00:00</updated>
     <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[Weeknotes August 16, 2024]]></title>
+            <link href="https://grumpy-learning.com/blog/2024/08/16/weeknotes/"/>
+            <updated>2024-08-16T00:00:00+00:00</updated>
+            <id>https://grumpy-learning.com/blog/2024/08/16/weeknotes/</id>
+            <content type="html"><![CDATA[<h2 id="what-i-did">What I Did</h2>
+
+<ul>
+<li>played my <a href="https://www.ibl.org">IBL</a> games via instructions (team managers create documents for how they want their team to be run)</li>
+<li>finished writing all the tests for additional scenarios for the transaction processing job</li>
+<li>no Magic: The Gathering this week as Commander night was my 26th wedding anniversary</li>
+<li>stomach is feeling a little better -- I wonder if the ache I feel is because of damage all that stomach acid has done :(</li>
+</ul>
+
+<h2 id="longer-threads">Longer Threads</h2>
+
+<p>I came across a blog post from a developer about <a href="https://protesilaos.com/codelog/2019-08-11-why-emacs-switch/">why they switched to Emacs</a>
+and it make me wonder if I should try switching from Vim to Emacs. Again.</p>
+
+<p>I tried it once before but couldn't duplicate my developer work flow.
+I feel like the combination of <a href="https://www.gnu.org/software/emacs/">Emacs</a> + <a href="http://xahlee.info/emacs/misc/xah-fly-keys.html">xah-fly-keys</a> is
+a great start since it would give me a similar modal editing experience
+that I expect in my editor.</p>
+
+<p>Of course, the bigger issue is that I would have to set things up twice
+-- once on my work computer that ZiffDavis gave me and once on my own
+machine. I also pay for a license for <a href="https://www.jetbrains.com/phpstorm/">PhpStorm</a>
+and it is up for renewal soon.</p>
+
+<p>Good to keep learning things. I've been using Vim so long that navigating via H-J-K-L
+is deeply embedded in muscle memory. I have noticed over the years that I don't really
+do much "web surfing" on my laptop -- I use my iPhone for that so having Vim bindings
+for my browser doesn't make mush sense.</p>
+
+<h2 id="everything-else">Everything Else</h2>
+
+<ul>
+<li>going to be playing <a href="https://doomlings.com">Doomlings</a> this weekend as part of my monthly board gaming session</li>
+<li>if you are interested in ergonomic keyboards I would check out the Glove80 from <a href="https://www.moergo.com">moergo</a></li>
+</ul>
+]]></content>
+        </entry>
             <entry>
             <title type="html"><![CDATA[Weeknotes August 9, 2024]]></title>
             <link href="https://grumpy-learning.com/blog/2024/08/08/weeknotes/"/>
@@ -1146,110 +1188,6 @@ update both the framework and it's dependencies.</p>
 
 <p>Third, tests are a great tool you can use to find out what breaks and/or
 no longer works as expected when you update dependencies.</p>
-]]></content>
-        </entry>
-            <entry>
-            <title type="html"><![CDATA[Talks with secret topics]]></title>
-            <link href="https://grumpy-learning.com/blog/2023/12/29/secret-talks/"/>
-            <updated>2023-12-29T00:00:00+00:00</updated>
-            <id>https://grumpy-learning.com/blog/2023/12/29/secret-talks/</id>
-            <content type="html"><![CDATA[<h1 id="talks-with-secret-topics">Talks With Secret Topics</h1>
-
-<p>I've been speaking at conferences since 2005. Yes, that is
-a ridiculously long time. While these talks have mostly been
-about testing practices, I enjoy creating talks that actually
-have a secret topic in them. It's usually related to the main
-topic, but given I usually have 60 minutes to fill I feel like
-I need to give the attendees a glimpse into how my grumpy mind
-works.</p>
-
-<p>Many of my testing talks end up covering one of more "secret
-topics":</p>
-
-<ul>
-<li>defensive coding styles</li>
-<li>third party tools to apply consistency</li>
-<li>design patterns</li>
-<li>how luck is just really skill and opportunity intersecting</li>
-</ul>
-
-<p>On the one hand, I have a captive audience forced to listen to me.
-On the other hand, I do like to be entertaining and informative.
-Choosing this "secret topic" style allows me to embrace what
-I feel are the good parts of me:</p>
-
-<ul>
-<li>loves to talk</li>
-<li>has seen so so many good and bad things in his career</li>
-<li>wants to help people learn faster than I did with less suffering</li>
-</ul>
-
-<p>I will be speaking at <a href="https://tek.phparch.com">php[tek] 2024</a> in
-Chicago at the end of April. After speaking at LonghornPHP in 2022
-I had decided to no longer do testing talks. I've been doing them
-since 2005. 18 years is enough. Please. No more.</p>
-
-<p>I got selected to give two talks, none of which are testing related.
-I want to share what those talks are probably going to look like. I
-don't have them written yet but I have the outline rattling around
-inside my head and it will get turned into slides and (in a newer twist)
-some live coding to go with it.</p>
-
-<h2 id="cqrs-talk...-that-is-really-about-web-site-architectures">CQRS talk... that is really about web site architectures</h2>
-
-<p>My first talk is "Break loose from CRUD - use CQRS" where I will show
-how I refactored a legacy PHP application that was a mess using the
-Command Query Responsibility Segregation pattern.</p>
-
-<p>In order to understand why we have more options that the "traditional"
-Create Read Update Delete (or CRUD) pattern that ties our implementation
-to database-related actions, I plan on doing a brief history of architectures
-that can be used with web applications. I think a lot of folks simply
-are not aware of the different options available to them due the domination
-of modern PHP web application frameworks by a few <a href="https://laravel.com">big</a>
-<a href="https://symfony.com">players</a>.</p>
-
-<p>I chose CQRS for a project because it had been related to another topic
-(<a href="https://martinfowler.com/eaaDev/EventSourcing.html">event sourcing</a>]
-that other much-smarter programmers than me had been talking about.</p>
-
-<h2 id="neovim-as-php-ide-talk...that-is-really-about-mastering-tools">NeoVim-as-PHP-IDE talk...that is really about mastering tools</h2>
-
-<p>My second talk is about my <a href="https://neovim.io">NeoVim</a> setup for doing
-PHP work. I also use <a href="https://www.jetbrains.com/phpstorm/">PhpStorm</a> a lot
-for my PHP work, but it's good to have options.</p>
-
-<p>I learned how to use Vim almost 20 years ago but dabbled constantly with
-other editors. Some of it was tribalism, some of it was my restlessness
-with the status quo. I've used Vim/NeoVim for so long that my muscle
-memory is strong enough to ruin working inside tools that do not support
-Vim bindings or modal editing.</p>
-
-<p>NeoVim being completely customizable forces you down the road of thoughtful
-customization -- since so many things are possible, and not constrained
-by NeoVim itself, you are responsible for figuring out what you want your
-IDE experience to be like.</p>
-
-<p>So this talk will cover my own path to selecting and mastering tools.
-Understanding the limitations of something is the best way to push it
-in the direction you really want it to go.</p>
-
-<h2 id="secret-talks-require-confidence">Secret Talks Require Confidence</h2>
-
-<p>It's no secret that I carry myself with a lot of confidence -- the whole
-Grumpy Learning brand would not have worked without it. When you also
-decide to create secret talks, you need to have the ability to tell a
-story and weave different elements together to constantly reinforce
-the overall message.</p>
-
-<p>I don't think this technique is for everybody -- it requires being
-comfortable with the idea that there is a lot of background information
-that is relevant to the topic your talk is supposed to be covering.</p>
-
-<p>At this point, I don't think I could build talks any other way and still
-be true to myself.</p>
-
-<p>I hope to see you at tek2024!</p>
 ]]></content>
         </entry>
     </feed>

@@ -3,9 +3,51 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="https://grumpy-learning.com/blog/categories/notes.xml" rel="self"/>
     <link href="https://grumpy-learning.com/"/>
-    <updated>2024-08-09T18:12:56+00:00</updated>
+    <updated>2024-08-16T19:24:58+00:00</updated>
     <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[Weeknotes August 16, 2024]]></title>
+            <link href="https://grumpy-learning.com/blog/2024/08/16/weeknotes/"/>
+            <updated>2024-08-16T00:00:00+00:00</updated>
+            <id>https://grumpy-learning.com/blog/2024/08/16/weeknotes/</id>
+            <content type="html"><![CDATA[<h2 id="what-i-did">What I Did</h2>
+
+<ul>
+<li>played my <a href="https://www.ibl.org">IBL</a> games via instructions (team managers create documents for how they want their team to be run)</li>
+<li>finished writing all the tests for additional scenarios for the transaction processing job</li>
+<li>no Magic: The Gathering this week as Commander night was my 26th wedding anniversary</li>
+<li>stomach is feeling a little better -- I wonder if the ache I feel is because of damage all that stomach acid has done :(</li>
+</ul>
+
+<h2 id="longer-threads">Longer Threads</h2>
+
+<p>I came across a blog post from a developer about <a href="https://protesilaos.com/codelog/2019-08-11-why-emacs-switch/">why they switched to Emacs</a>
+and it make me wonder if I should try switching from Vim to Emacs. Again.</p>
+
+<p>I tried it once before but couldn't duplicate my developer work flow.
+I feel like the combination of <a href="https://www.gnu.org/software/emacs/">Emacs</a> + <a href="http://xahlee.info/emacs/misc/xah-fly-keys.html">xah-fly-keys</a> is
+a great start since it would give me a similar modal editing experience
+that I expect in my editor.</p>
+
+<p>Of course, the bigger issue is that I would have to set things up twice
+-- once on my work computer that ZiffDavis gave me and once on my own
+machine. I also pay for a license for <a href="https://www.jetbrains.com/phpstorm/">PhpStorm</a>
+and it is up for renewal soon.</p>
+
+<p>Good to keep learning things. I've been using Vim so long that navigating via H-J-K-L
+is deeply embedded in muscle memory. I have noticed over the years that I don't really
+do much "web surfing" on my laptop -- I use my iPhone for that so having Vim bindings
+for my browser doesn't make mush sense.</p>
+
+<h2 id="everything-else">Everything Else</h2>
+
+<ul>
+<li>going to be playing <a href="https://doomlings.com">Doomlings</a> this weekend as part of my monthly board gaming session</li>
+<li>if you are interested in ergonomic keyboards I would check out the Glove80 from <a href="https://www.moergo.com">moergo</a></li>
+</ul>
+]]></content>
+        </entry>
             <entry>
             <title type="html"><![CDATA[Weeknotes August 9, 2024]]></title>
             <link href="https://grumpy-learning.com/blog/2024/08/08/weeknotes/"/>
