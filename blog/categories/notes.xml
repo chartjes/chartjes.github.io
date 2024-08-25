@@ -3,9 +3,39 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="https://grumpy-learning.com/blog/categories/notes.xml" rel="self"/>
     <link href="https://grumpy-learning.com/"/>
-    <updated>2024-08-16T19:24:58+00:00</updated>
+    <updated>2024-08-25T14:27:49+00:00</updated>
     <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[Weeknotes August 25, 2024]]></title>
+            <link href="https://grumpy-learning.com/blog/2024/08/25/weeknotes/"/>
+            <updated>2024-08-25T00:00:00+00:00</updated>
+            <id>https://grumpy-learning.com/blog/2024/08/25/weeknotes/</id>
+            <content type="html"><![CDATA[<p>A little late this week.</p>
+
+<h2 id="what-i-did">What I Did</h2>
+
+<ul>
+<li>played my <a href="https://www.ibl.org">IBL</a> games, where we continue to hover around the .500 mark</li>
+<li>did a lot of work with <a href="https://nova.laravel.com">Nova</a> to build a dashboard for auditing transactions as they flow through our verification system</li>
+<li>a fun Thursday of Magic: The Gathering playing commander</li>
+<li>stomach still not great</li>
+<li>played Doomlings and our 6+ year <a href="http://www.apocalypse-world.com">Apocalypse World</a> game</li>
+</ul>
+
+<h2 id="longer-threads">Longer Threads</h2>
+
+<p>I tried out Emacs this week at work for a little bit each
+day and it is just different enough from what my Vim
+muscle memory wants that I have put it on hold.</p>
+
+<p>Instead, I am concentrating on building new muscle memory
+to use <a href="https://precondition.github.io/home-row-mods">home row mods</a>
+to reduce how often I have to reach for the Shift and Alt keys.
+It's jarring to actually feel the pause as I stop to use the
+home row "shift".</p>
+]]></content>
+        </entry>
             <entry>
             <title type="html"><![CDATA[Weeknotes August 16, 2024]]></title>
             <link href="https://grumpy-learning.com/blog/2024/08/16/weeknotes/"/>
