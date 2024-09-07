@@ -3,9 +3,78 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="https://grumpy-learning.com/atom.xml" rel="self"/>
     <link href="https://grumpy-learning.com/"/>
-    <updated>2024-09-01T21:38:44+00:00</updated>
+    <updated>2024-09-07T12:25:59+00:00</updated>
     <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[Weeknotes September 7th, 2024]]></title>
+            <link href="https://grumpy-learning.com/blog/2024/09/07/weeknotes/"/>
+            <updated>2024-09-07T00:00:00+00:00</updated>
+            <id>https://grumpy-learning.com/blog/2024/09/07/weeknotes/</id>
+            <content type="html"><![CDATA[<h2 id="what-i-did">What I Did</h2>
+
+<ul>
+<li>played my <a href="https://www.ibl.org">IBL</a> games</li>
+<li>has my usual Commander Night at my local gaming store</li>
+<li>the transaction audit log work is proving to be a slog</li>
+<li>discovered that you can configure PhpStorm's <a href="https://www.jetbrains.com/help/phpstorm/using-product-as-the-vim-editor.html">IdeaVim</a> plugin via a <code>.ideavimrc</code> file to make the experience a little more Vim-like. Shoutout to Eric Johnson from <a href="https://www.phparch.com">php|architect</a> for showing me how</li>
+<li>flights booked for going to <a href="https://cascadiaphp.com">CascadiaPHP</a> at the end of October</li>
+<li>a testing scenario for the transaction audit log revealed that my <a href="https://en.wikipedia.org/wiki/Chain-of-responsibility_pattern">chain-of-responsibility</a> implementation for a series of validators for a rebate offer was just wrong, so off I went fixing it by switching to using <a href="https://laravel.com/docs/11.x/helpers#pipeline">pipelines in laravel</a>. Don't worry, all the individual validators have tests</li>
+</ul>
+
+<h2 id="longer-threads">Longer Threads</h2>
+
+<p>I was going to do a longer piece on how I felt I was at
+a "crossroads" with my IDE choices. I know it sounds like
+dramatic whining.</p>
+
+<p>I have been a Vim/NeoVim user for a long time. The HJKL
+muscle memory is burned in and I expect almost everything
+I use to be modal. For everything other than PHP, I use
+NeoVim.</p>
+
+<p>But lately I am feeling...resentful about how all the tools
+I have started to rely on seem to have "becoming a subscription"
+as an aspirational goal. My renewal for my PhpStorm subscription
+is coming up and I am trying to decide if I can just not renew
+it and go back to NeoVim.</p>
+
+<p>The ONLY reason I switched to using PhpStorm was because it
+made some other aspects of development work easier:</p>
+
+<ul>
+<li>easily get Xdebug working and a slick interface for it</li>
+<li>same with doing development work with Dockerized development environments</li>
+<li>make it easy to run my tests inside that Dockerized environments</li>
+<li>"intellesense" support baked in</li>
+</ul>
+
+<p>There are other editors I have looked at -- <a href="https://helix-editor.com">Helix</a>,
+<a href="https://zed.dev">Zed</a>, and even the dreaded Emacs. Other than Emacs,
+the newer editors fall down when we get to the plugin and
+customization phage of creating a development environment.</p>
+
+<p>From a pragmatic side, sticking with NeoVim due to intimate 
+familiarity with it's modal nature and basic keybindings
+makes the most sense.</p>
+
+<p>Emacs is an interesting choice because it is basically like
+NeoVim in that it has a long, rich history and is incredibly
+configurable. But learning a whole new series of keybindings?
+Seems very daunting.</p>
+
+<p>Helix seems nice. Xdebug support appears to be very rough to
+get working. Have to have it for my PHP work, sorry. No idea
+if it can be made to support Xdebug running inside a Docker
+container. Again, need to check back later.</p>
+
+<p>Zed -- no support for Xdebug. I'll check back later when
+they maybe bake in Debug Anywhere Protocol support.</p>
+
+<p>So time to see if I can get NeoVim to give me the extra
+tooling that PhpStorm currently offers.</p>
+]]></content>
+        </entry>
             <entry>
             <title type="html"><![CDATA[Weeknotes September 1st, 2024]]></title>
             <link href="https://grumpy-learning.com/blog/2024/09/01/weeknotes/"/>
@@ -764,111 +833,6 @@ then I appreciate the extensibility and flexibility some tools offer.</p>
 <li>I still like modal editors</li>
 <li>I am constantly looking at tools and languages and frameworks for suitability and ease-of-use</li>
 <li>sometimes the old ways were actually better instead of triggering nostalgia</li>
-</ul>
-]]></content>
-        </entry>
-            <entry>
-            <title type="html"><![CDATA[Wait Long Enough And Sometimes Good Things Happen]]></title>
-            <link href="https://grumpy-learning.com/blog/2024/01/21/wait-long-enough/"/>
-            <updated>2024-01-21T00:00:00+00:00</updated>
-            <id>https://grumpy-learning.com/blog/2024/01/21/wait-long-enough/</id>
-            <content type="html"><![CDATA[<h1 id="wait-long-enough-and-sometimes-good-things-happen...">Wait long enough and sometimes good things happen...</h1>
-
-<p>It can't come as a surprise to anyone that if you are in this
-industry long enough, you see trends and tools come and go.
-Sometimes you embrace them, sometimes you can dodge them. One
-of the things I managed to dodge over the years was having
-to do any front-end coding of any substance in JavaScript.</p>
-
-<h2 id="how-did-you-dodge-javascript%3F%21%3F">How did you dodge JavaScript?!?</h2>
-
-<p>If I am being honest, I think it was a combination of two
-things. The first was that I began my career helping to
-build web sites before AJAX functionality was even a thing.
-I distinctly remember the first time a co-worker showed
-me a set of interactive form drop-downs built using JavaScript.</p>
-
-<p>"Wow, we don't even have to reload the page?!?! That is cool".</p>
-
-<p>Keep in mind this was 2003.</p>
-
-<p>The second reason I think I was able to dodge JavaScript was
-because I made "shouting at people about testing their PHP
-code" my career niche at around the same time.</p>
-
-<p>So over the years I kept working as a "backend PHP developer"
-who would occasionally modify some JavaScript that I cut-and-paste
-from somewhere else. My crowning achievement was creating 
-an interface that allowed players to be traded between the
-pretend baseball teams in my long-running <a href="https://www.ibl.org">simulation baseball league</a>
-by using drag-and-drop.</p>
-
-<h2 id="i-don%27t-hate-javascript%2C-i-just-don%27t-use-it-much">I don't hate JavaScript, I just don't use it much</h2>
-
-<p>Now, this is not to say I didn't pay a little bit of attention
-to what the folks who did front-end development were doing. I
-was just skeptical that adopting a framework created by Facebook
-to solve their needs (React) was going to be a good idea.</p>
-
-<p>My own personal favourite front-end language is <a href="https://elm-lang.org">Elm</a>.
-Haskell for the web?!? Sounds awesome. Of course, I had no
-projects that needed that kind of work. So I continued to
-focus on server-side work and lean heavily on the expertise
-of others when it came time to do anything with JavaScript
-frameworks.</p>
-
-<p>I also feel like I am in the minority of people who thought
-<a href="https://coffeescript.org">CoffeeScript</a> was a great idea.</p>
-
-<p>(Maybe you're starting to see a pattern?)</p>
-
-<p>I think if I was forced to do JavaScript work, I would try
-to do it from the warm embrace of <a href="https://www.typescriptlang.org">TypeScript</a>
-because I find adding types to be incredibly useful.</p>
-
-<p>During my time doing consulting work for a large avionics
-company, their browser-driven test suite relied on
-TypeScript. Look, it's fine. JavaScript is similar enough
-in syntax to PHP that there are no problems.</p>
-
-<p>Async stuff though, that is weird and I still don't understand
-it. Maybe I can dodge that too!</p>
-
-<h2 id="what-did-i-gain-by-waiting%3F">What did I gain by waiting?</h2>
-
-<p>React and Angular have turned out to be, from this grumpy
-PHP programmer's perspective, a disaster. They dominate
-the industry but from all accounts are not allowing developers
-to build experiences that are great for anyone who is not
-running powerful devices with lots of available memory.</p>
-
-<p>So I have not done any work with either of those two behemoths.
-I'm just this PHP guy, content to work with folks who understand
-those tools the same way I understand mine.</p>
-
-<p>After looking longingly at Elm, I waited. After waiting for a
-few more years, I kept finding references and going back to
-looking at <a href="https://htmx.org">htmx</a>.</p>
-
-<p>Then, as serendipity always does, I saw a <a href="https://mastodon.social/@jakub_zalas/111778943542624692">post on Mastodon</a>
-by Jakob Zalas where he mentioned htmx and a great new 
-web site promoting some great front-end development
-strategies called <a href="https://hypermedia.systems">Hypermedia Systems</a>.</p>
-
-<p>This was a sign that I should go and take a look now. When
-a grizzled veteran of programming, who has done great work
-in multiple languages talks about a JavaScript framework,
-you should probably listen.</p>
-
-<h2 id="takeaways">Takeaways</h2>
-
-<p>After reading this blog post you should know:</p>
-
-<ul>
-<li>that I seem to like some weird JavaScript frameworks</li>
-<li>I successfully dodged entire generations of tools</li>
-<li>I like approaches that use repeatable patterns</li>
-<li>I pay attention to the recommendations of other programmers I follow and respect</li>
 </ul>
 ]]></content>
         </entry>

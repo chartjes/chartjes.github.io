@@ -3,9 +3,78 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="https://grumpy-learning.com/blog/categories/notes.xml" rel="self"/>
     <link href="https://grumpy-learning.com/"/>
-    <updated>2024-09-01T21:38:44+00:00</updated>
+    <updated>2024-09-07T12:25:59+00:00</updated>
     <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[Weeknotes September 7th, 2024]]></title>
+            <link href="https://grumpy-learning.com/blog/2024/09/07/weeknotes/"/>
+            <updated>2024-09-07T00:00:00+00:00</updated>
+            <id>https://grumpy-learning.com/blog/2024/09/07/weeknotes/</id>
+            <content type="html"><![CDATA[<h2 id="what-i-did">What I Did</h2>
+
+<ul>
+<li>played my <a href="https://www.ibl.org">IBL</a> games</li>
+<li>has my usual Commander Night at my local gaming store</li>
+<li>the transaction audit log work is proving to be a slog</li>
+<li>discovered that you can configure PhpStorm's <a href="https://www.jetbrains.com/help/phpstorm/using-product-as-the-vim-editor.html">IdeaVim</a> plugin via a <code>.ideavimrc</code> file to make the experience a little more Vim-like. Shoutout to Eric Johnson from <a href="https://www.phparch.com">php|architect</a> for showing me how</li>
+<li>flights booked for going to <a href="https://cascadiaphp.com">CascadiaPHP</a> at the end of October</li>
+<li>a testing scenario for the transaction audit log revealed that my <a href="https://en.wikipedia.org/wiki/Chain-of-responsibility_pattern">chain-of-responsibility</a> implementation for a series of validators for a rebate offer was just wrong, so off I went fixing it by switching to using <a href="https://laravel.com/docs/11.x/helpers#pipeline">pipelines in laravel</a>. Don't worry, all the individual validators have tests</li>
+</ul>
+
+<h2 id="longer-threads">Longer Threads</h2>
+
+<p>I was going to do a longer piece on how I felt I was at
+a "crossroads" with my IDE choices. I know it sounds like
+dramatic whining.</p>
+
+<p>I have been a Vim/NeoVim user for a long time. The HJKL
+muscle memory is burned in and I expect almost everything
+I use to be modal. For everything other than PHP, I use
+NeoVim.</p>
+
+<p>But lately I am feeling...resentful about how all the tools
+I have started to rely on seem to have "becoming a subscription"
+as an aspirational goal. My renewal for my PhpStorm subscription
+is coming up and I am trying to decide if I can just not renew
+it and go back to NeoVim.</p>
+
+<p>The ONLY reason I switched to using PhpStorm was because it
+made some other aspects of development work easier:</p>
+
+<ul>
+<li>easily get Xdebug working and a slick interface for it</li>
+<li>same with doing development work with Dockerized development environments</li>
+<li>make it easy to run my tests inside that Dockerized environments</li>
+<li>"intellesense" support baked in</li>
+</ul>
+
+<p>There are other editors I have looked at -- <a href="https://helix-editor.com">Helix</a>,
+<a href="https://zed.dev">Zed</a>, and even the dreaded Emacs. Other than Emacs,
+the newer editors fall down when we get to the plugin and
+customization phage of creating a development environment.</p>
+
+<p>From a pragmatic side, sticking with NeoVim due to intimate 
+familiarity with it's modal nature and basic keybindings
+makes the most sense.</p>
+
+<p>Emacs is an interesting choice because it is basically like
+NeoVim in that it has a long, rich history and is incredibly
+configurable. But learning a whole new series of keybindings?
+Seems very daunting.</p>
+
+<p>Helix seems nice. Xdebug support appears to be very rough to
+get working. Have to have it for my PHP work, sorry. No idea
+if it can be made to support Xdebug running inside a Docker
+container. Again, need to check back later.</p>
+
+<p>Zed -- no support for Xdebug. I'll check back later when
+they maybe bake in Debug Anywhere Protocol support.</p>
+
+<p>So time to see if I can get NeoVim to give me the extra
+tooling that PhpStorm currently offers.</p>
+]]></content>
+        </entry>
             <entry>
             <title type="html"><![CDATA[Weeknotes September 1st, 2024]]></title>
             <link href="https://grumpy-learning.com/blog/2024/09/01/weeknotes/"/>
