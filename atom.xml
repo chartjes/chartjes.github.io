@@ -3,9 +3,55 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="https://grumpy-learning.com/atom.xml" rel="self"/>
     <link href="https://grumpy-learning.com/"/>
-    <updated>2024-09-07T12:25:59+00:00</updated>
+    <updated>2024-09-13T20:46:38+00:00</updated>
     <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[Weeknotes September 13th, 2024]]></title>
+            <link href="https://grumpy-learning.com/blog/2024/09/13/weeknotes/"/>
+            <updated>2024-09-13T00:00:00+00:00</updated>
+            <id>https://grumpy-learning.com/blog/2024/09/13/weeknotes/</id>
+            <content type="html"><![CDATA[<p>Shout out to <a href="https://en.m.wikipedia.org/wiki/Jason_Voorhees">Jason Voorhees</a>
+on his special day.</p>
+
+<h2 id="what-i-did">What I Did</h2>
+
+<ul>
+<li>no IBL games this week as we had a real week off -- will be playing some games this upcoming Sunday</li>
+<li>amazing turnout for Commander night -- 24 people</li>
+<li>put my favourite deck back together (<a href="https://archidekt.com/decks/9190742/grolnok_v3">Grolnok Turbo Self-Mill</a> and remembered how that deck quickly becomes the archenemy of the table as it is fast and consistent</li>
+<li>finally got my transaction audit work merged into the main branch at work</li>
+</ul>
+
+<h2 id="longer-threads">Longer Threads</h2>
+
+<p>This upcoming Monday I am going to a meeting with my mother
+at the nursing home where my father lives to go over his
+care. Some of you might know that my father is suffering 
+from dementia for about a decade now and has been in
+this home for 2-1/2 years now.</p>
+
+<p>I try and see him whenever I go back to visit my mom and
+for the most part the visits have gone okay. He seems to
+almost always remember that he has a son and the last
+few visits he always recognizes my mother. Conversations
+are hard because he doesn't remember anything and I don't
+have enough things on my phone to really distract him. My
+mother often brings an iPad with her and shows him videos
+or pictures of things.</p>
+
+<p>The whole thing is really, really sad. I have no idea if
+I will dodge the same fate as him.</p>
+
+<p>I think the thing that bothers me the most is that while
+he looks like and sounds like my Dad, it's not. He never
+remembers I have kids or that I am married. I haven't
+heard him talk about my older sister at all.</p>
+
+<p>I just wish he was able to experience that his son truly
+made it and has a nice comfortable life.</p>
+]]></content>
+        </entry>
             <entry>
             <title type="html"><![CDATA[Weeknotes September 7th, 2024]]></title>
             <link href="https://grumpy-learning.com/blog/2024/09/07/weeknotes/"/>
@@ -744,95 +790,6 @@ created a network of goodwill around yourself.</p>
 <li>I have enjoyed watching them grow into successful careers</li>
 <li>teaching is something I find enjoyable</li>
 <li>take pride in having helped people</li>
-</ul>
-]]></content>
-        </entry>
-            <entry>
-            <title type="html"><![CDATA[What&#039;s Grumpy Looking At - January 2024]]></title>
-            <link href="https://grumpy-learning.com/blog/2024/01/28/grumpy-tech-jan-24/"/>
-            <updated>2024-01-28T00:00:00+00:00</updated>
-            <id>https://grumpy-learning.com/blog/2024/01/28/grumpy-tech-jan-24/</id>
-            <content type="html"><![CDATA[<p>I've never been one to stop looking at new tools and figuring
-out if they can be applied to the work I do. When do I find
-interesting things, I like to talk about them a little and share.
-Here's what I've been looking at in January 2024.</p>
-
-<h2 id="laravel">Laravel</h2>
-
-<p>Yes, the artisanal elephant in the room. At my <a href="https://ziffdavis.com">current job</a>
-we are all-in on using Laravel. Which means not only learning 
-how Laravel does things but evaluating every additional choices
-through the lense of "are we going to end up fighting the framework
-if we do it this way."</p>
-
-<p>I prefer not to fight. Honestly, it's fine. People are having a
-very hard time separating how they feel about the people behind
-the tools from the tools themselves. There will always be things to
-dislike about any web application framework.</p>
-
-<h2 id="aws">AWS</h2>
-
-<p>A enterprise level company with a large web presence relies heavily
-on the cloud? THIS IS MY SHOCKED FACE.</p>
-
-<p>I don't really have to worry much about going into an AWS console
-to do something, but I am having to learn about <a href="https://aws.amazon.com/sqs/">SQS</a>
-and <a href="https://aws.amazon.com/financial-services/partner-solutions/snowflake/">Snowflake</a>.
-More importantly, I get to flex some skills behind building things
-that implement interfaces because my work projects will be dealing
-with multiple types of queues and multiple data storage back end.</p>
-
-<p>Sometimes code architecture matters instead of being a way for
-bored or self-centered-while-misinformed developers to express
-themselves.</p>
-
-<h2 id="helix">Helix</h2>
-
-<p>I am a big fan of modal editors as it is very hard to bulid a
-keyboard-centric editor without modes. After seeing some <a href="https://neovim.io">NeoVim</a>
-folks say nice things about it, I decided to take a look at <a href="https://helix-editor.com">Helix</a>
-and see if it is something I could migrate towards.</p>
-
-<p>Lots to like here! Integration with <a href="https://microsoft.github.io/language-server-protocol/">language servers</a>
-and <a href="https://tree-sitter.github.io/tree-sitter/">Tree-sitter</a> along
-with being customizable to a certain extent via configuration
-files. No plugin architecture yet though.</p>
-
-<p>The show-stopper for me was that it does not have good <a href="https://microsoft.github.io/debug-adapter-protocol/">Debug Anywhere Protocol</a> support, which means I could not get <a href="https://xdebug.org">Xdebug</a>
-working with it. Not being able to use an interactive debugger is a
-show stopper for me now. Sorry.</p>
-
-<h2 id="hypermedia">Hypermedia</h2>
-
-<p>I talked about it briefly in <a href="https://grumpy-learning.com/blog/2024/01/21/wait-long-enough/">another post here</a>
-but I feel like taking a closer look at hypermedia and
-acceptable patterns for it might yield some interesting results
-in my personal projects. Again, I highly encourage you to
-take a look at <a href="https://hypermedia.systems/">Hypermedia Systems</a>.</p>
-
-<h2 id="bootstrap-css">Bootstrap CSS</h2>
-
-<p>CSS and all the associated frameworks is something I also avoided
-over the years. My journey into <a href="https://htmx.org/">htmx</a> and hypermedia
-also made me take a look at the state of CSS frameworks. My longest-running
-project used a very old version of <a href="https://getbootstrap.com">Bootstrap</a> so
-rather than pull it all out and replace it with something like
-<a href="https://tailwindcss.com">Tailwind</a> (which my brain is having a
-hard time wrapping itself around for whatever reason) I'm just back
-to older, more stable tools.</p>
-
-<p>When it comes to tools that I do not have a lot of experience with,
-I always need a reduced number of choices. Once I've mastered things more
-then I appreciate the extensibility and flexibility some tools offer.</p>
-
-<h2 id="takeaways">Takeaways</h2>
-
-<p>After reading this post you should learn:</p>
-
-<ul>
-<li>I still like modal editors</li>
-<li>I am constantly looking at tools and languages and frameworks for suitability and ease-of-use</li>
-<li>sometimes the old ways were actually better instead of triggering nostalgia</li>
 </ul>
 ]]></content>
         </entry>
