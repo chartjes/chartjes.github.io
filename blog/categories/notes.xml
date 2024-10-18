@@ -3,9 +3,35 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="https://grumpy-learning.com/blog/categories/notes.xml" rel="self"/>
     <link href="https://grumpy-learning.com/"/>
-    <updated>2024-10-04T20:29:07+00:00</updated>
+    <updated>2024-10-18T21:00:09+00:00</updated>
     <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[Weeknotes October 18th, 2024]]></title>
+            <link href="https://grumpy-learning.com/blog/2024/10/18/weeknotes/"/>
+            <updated>2024-10-18T00:00:00+00:00</updated>
+            <id>https://grumpy-learning.com/blog/2024/10/18/weeknotes/</id>
+            <content type="html"><![CDATA[<h2 id="what-i-did">What I Did</h2>
+
+<ul>
+<li>work has changed to be using scrum...not a fan</li>
+<li>learned about how we need to change how we are doing <code>count()</code> queries in <a href="https://nova.laravel.com">Laravel Nova</a></li>
+<li>work swtiched from Docker Desktop to <a href="https://podman.io">Podman</a> to avoid the enterprise fees</li>
+<li>as we get closer and closer to launching my new transaction processing work, getting into the fringes of triggering events and reacting to them</li>
+<li>one talk written and one more to go for <a href="https://cascadiaphp.com">CascadiaPHP</a></li>
+</ul>
+
+<h2 id="longer-threads">Longer Threads</h2>
+
+<p>Is it possible to both be excited and filled with dread at buying a house and moving? We found
+a place in the small town where we live (literally a 5 minute drive) and buying
+it is conditional on selling our current place in a very tight window (about 5
+weeks).</p>
+
+<p>I'm pretty organized these days so the move will likely go smooth but I am going
+to spend all winter in a foul move if it falls through.</p>
+]]></content>
+        </entry>
             <entry>
             <title type="html"><![CDATA[Weeknotes October 4th, 2024]]></title>
             <link href="https://grumpy-learning.com/blog/2024/10/04/weeknotes/"/>
