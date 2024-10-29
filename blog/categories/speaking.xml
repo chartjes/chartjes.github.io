@@ -3,9 +3,127 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="https://grumpy-learning.com/blog/categories/speaking.xml" rel="self"/>
     <link href="https://grumpy-learning.com/"/>
-    <updated>2024-10-18T21:00:09+00:00</updated>
+    <updated>2024-10-29T16:25:11+00:00</updated>
     <id>https://grumpy-learning.com/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[Surviving conferences as a speaker]]></title>
+            <link href="https://grumpy-learning.com/blog/2024/10/29/surviving-as-a-speaker/"/>
+            <updated>2024-10-29T00:00:00+00:00</updated>
+            <id>https://grumpy-learning.com/blog/2024/10/29/surviving-as-a-speaker/</id>
+            <content type="html"><![CDATA[<p>I just got back from speaking at <a href="https://cascadiaphp.com">CascadiaPHP</a>
+and wanted to share some thoughts about how I approach going to conferences
+as a speaker and maybe you will find it helpful too.</p>
+
+<h3 id="you-are-playing-a-dual-role">You are playing a dual role</h3>
+
+<p>I have been going to conferences since 2003 and speaking at them since 2005.
+That is a very long time, spanning the vast majority of my professional
+career. Most of my energy and attention are devoted to making sure that
+I deliver the best talk I can at the time I give it.</p>
+
+<p>I also need to show other attendees that I still have things to learn so
+I make sure to go to other talks.</p>
+
+<p>I understand that for some folks time pressures are such that they come in,
+give a talk, and then immediately leave. I am not a fan of that approach and
+would never do it -- I would just simply decline the opportunity. But for
+many events they are marketed as an opportunity to get access to some of
+the most knowledgeable people in your programming community. So I feel
+you should give back by making sure to talk to other people, make some
+new community friends, and encourage people to continue to attend these
+events.</p>
+
+<p>So make sure to support your other speakers by attending their talks. I
+know I missed some talks at CascadiaPHP because I was not handling
+the 3-hour time difference well and I was catching up with some old friends
+during other talks. I did get to some talks of things I was interested in
+and that is really what we are here for.</p>
+
+<h3 id="know-your-material">Know your material</h3>
+
+<p>I will admit that I often don't practice my talks because I make sure I
+really know the material before I present. I think I can mostly get away
+with this because of my presentation style -- it is kind of like walking
+a tightrope.</p>
+
+<p>So even if you can't practice your talk a lot, if you understand the
+material really well then a collection of slides that act as the initial
+thoughts you want to go over, and then you fill in the rest yourself
+makes for really engaging talks.</p>
+
+<h3 id="answer-questions-and-ask-questions">Answer questions and ask questions</h3>
+
+<p>This can be hard for people who suffer from "imposter syndrome". My joke
+about this is that my ego is too large for me to think I am an imposter,
+but the truth is I am highly confident that I can figure out how to do
+just about anything. The key to pulling that off is to understand when
+you don't know something and then figure out who you can ask for help.</p>
+
+<p>In the context of a conference, I try to do talks that question the
+way some things are, present my point of view, and then ask the audience
+to consider what I've told them. You don't have to agree with everything
+I say (talks that like that are boring) but I do actually change my mind
+over time and with experience. So try and get your audience thinking
+and wanting to ask questions.</p>
+
+<p>Conversely, if you are watching someone else's talk and don't understand
+what is going on, ask them a question if you can. I generally ask people
+to save their questions for the end of my talks but feel free to go with
+whatever feels right for you.</p>
+
+<p>A great example of this is the topic of <a href="https://phpstan.org/blog/generics-by-examples">generics in PHP</a>. I have never
+used them and have not been able to figure out on my own why they might
+be useful to me. There was a talk about <a href="https://phpstan.org">PHPStan</a>
+and they mentioned generics. I didn't ask the speaker about them as
+I got to the end so instead I asked some of my fellow developers if
+they could explain to me why I should care about them. They provided
+me with some insights into when and where I might want to use them
+so next time I am building something that could benefit from Generics,
+I will give it a try.</p>
+
+<p>If I hadn't asked, a question I probably would still be thinking they were something
+I would not have to worry about.</p>
+
+<h3 id="take-care-of-yourself">Take care of yourself</h3>
+
+<p>Make sure to eat.</p>
+
+<p>Make sure to get proper amounts of rest.</p>
+
+<p>Don't treat the conference like it's an excuse to cut loose and abuse yourself.</p>
+
+<p>I don't want to say things like "be a professional" because that on it's own
+is really insulting. Instead, be respectful towards yourself.</p>
+
+<h3 id="have-your-slides-done-ahead-of-time">Have your slides done ahead of time</h3>
+
+<p>There is the trope of folks doing their slides at the last minute. In almost
+every case I have my slides all done before I come to the event, This time
+I ended up needing to devote the time I would've spent on slides for one
+of my presentations doing stuff around my house getting it ready to be sold.
+I ended up finishing the slides in my hotel room during a block of talks
+that I did not find interesting enough to attend.</p>
+
+<h3 id="sometimes-the-talk-just-doesn%27t-work">Sometimes the talk just doesn't work</h3>
+
+<p>This final one is tricky. Sometimes, a talk just doesn't resonate with the
+audience. You miscalculated how much time you had. You wanted to talk theory
+but the audience was expecting examples. You only prepared 30 minutes when
+the slot was an hour. It was the first time you gave the talk. It happens.
+I view them as teachable lessons about what the audience is expecting from
+you, which becomes even more important if you are lucky enough to have
+a long enough speaking career where there are expectations that you are
+going to be a certain way.</p>
+
+<p>We can all learn from our challenges -- failing to do so is the real issue.</p>
+
+<h3 id="you-made-it%21">You made it!</h3>
+
+<p>If you want to an event and spoke, congratulations! Now try and make the
+experience for your audience and yourself just a little bit better next time.</p>
+]]></content>
+        </entry>
             <entry>
             <title type="html"><![CDATA[Talks with secret topics]]></title>
             <link href="https://grumpy-learning.com/blog/2023/12/29/secret-talks/"/>
