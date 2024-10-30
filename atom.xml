@@ -3,13 +3,13 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="https://grumpy-learning.com/atom.xml" rel="self"/>
     <link href="https://grumpy-learning.com/"/>
-    <updated>2024-10-30T13:05:32+00:00</updated>
+    <updated>2024-10-30T13:11:33+00:00</updated>
     <id>https://grumpy-learning.com/</id>
-            <author>
-            <name><![CDATA[Chris Hartjes]]></name>                    </author>
-        <generator uri="http://sculpin.io/">Sculpin</generator>
+    <generator uri="http://sculpin.io/">Sculpin</generator>
             <entry>
-            <title type="html"><![CDATA[Surviving conferences as a speaker]]></title>
+                    <author>
+                <name><![CDATA[Chris Hartjes]]></name>                            </author>
+                    <title type="html"><![CDATA[Surviving conferences as a speaker]]></title>
             <link href="https://grumpy-learning.com/blog/2024/10/29/surviving-as-a-speaker/"/>
             <updated>2024-10-29T00:00:00+00:00</updated>
             <id>https://grumpy-learning.com/blog/2024/10/29/surviving-as-a-speaker/</id>
@@ -127,7 +127,9 @@ experience for your audience and yourself just a little bit better next time.</p
 ]]></content>
         </entry>
             <entry>
-            <title type="html"><![CDATA[Weeknotes October 18th, 2024]]></title>
+                    <author>
+                <name><![CDATA[Chris Hartjes]]></name>                            </author>
+                    <title type="html"><![CDATA[Weeknotes October 18th, 2024]]></title>
             <link href="https://grumpy-learning.com/blog/2024/10/18/weeknotes/"/>
             <updated>2024-10-18T00:00:00+00:00</updated>
             <id>https://grumpy-learning.com/blog/2024/10/18/weeknotes/</id>
@@ -153,7 +155,9 @@ to spend all winter in a foul move if it falls through.</p>
 ]]></content>
         </entry>
             <entry>
-            <title type="html"><![CDATA[Weeknotes October 4th, 2024]]></title>
+                    <author>
+                <name><![CDATA[Chris Hartjes]]></name>                            </author>
+                    <title type="html"><![CDATA[Weeknotes October 4th, 2024]]></title>
             <link href="https://grumpy-learning.com/blog/2024/10/04/weeknotes/"/>
             <updated>2024-10-04T00:00:00+00:00</updated>
             <id>https://grumpy-learning.com/blog/2024/10/04/weeknotes/</id>
@@ -183,7 +187,9 @@ visit feels like it was super long. Weird sensation for sure.</p>
 ]]></content>
         </entry>
             <entry>
-            <title type="html"><![CDATA[Weeknotes September 13th, 2024]]></title>
+                    <author>
+                <name><![CDATA[Chris Hartjes]]></name>                            </author>
+                    <title type="html"><![CDATA[Weeknotes September 13th, 2024]]></title>
             <link href="https://grumpy-learning.com/blog/2024/09/13/weeknotes/"/>
             <updated>2024-09-13T00:00:00+00:00</updated>
             <id>https://grumpy-learning.com/blog/2024/09/13/weeknotes/</id>
@@ -229,7 +235,9 @@ made it and has a nice comfortable life.</p>
 ]]></content>
         </entry>
             <entry>
-            <title type="html"><![CDATA[Weeknotes September 7th, 2024]]></title>
+                    <author>
+                <name><![CDATA[Chris Hartjes]]></name>                            </author>
+                    <title type="html"><![CDATA[Weeknotes September 7th, 2024]]></title>
             <link href="https://grumpy-learning.com/blog/2024/09/07/weeknotes/"/>
             <updated>2024-09-07T00:00:00+00:00</updated>
             <id>https://grumpy-learning.com/blog/2024/09/07/weeknotes/</id>
@@ -298,7 +306,9 @@ tooling that PhpStorm currently offers.</p>
 ]]></content>
         </entry>
             <entry>
-            <title type="html"><![CDATA[Weeknotes September 1st, 2024]]></title>
+                    <author>
+                <name><![CDATA[Chris Hartjes]]></name>                            </author>
+                    <title type="html"><![CDATA[Weeknotes September 1st, 2024]]></title>
             <link href="https://grumpy-learning.com/blog/2024/09/01/weeknotes/"/>
             <updated>2024-09-01T00:00:00+00:00</updated>
             <id>https://grumpy-learning.com/blog/2024/09/01/weeknotes/</id>
@@ -328,7 +338,9 @@ the industry and it does feel like a bubble is gonna pop.</p>
 ]]></content>
         </entry>
             <entry>
-            <title type="html"><![CDATA[Weeknotes August 25, 2024]]></title>
+                    <author>
+                <name><![CDATA[Chris Hartjes]]></name>                            </author>
+                    <title type="html"><![CDATA[Weeknotes August 25, 2024]]></title>
             <link href="https://grumpy-learning.com/blog/2024/08/25/weeknotes/"/>
             <updated>2024-08-25T00:00:00+00:00</updated>
             <id>https://grumpy-learning.com/blog/2024/08/25/weeknotes/</id>
@@ -358,7 +370,9 @@ home row "shift".</p>
 ]]></content>
         </entry>
             <entry>
-            <title type="html"><![CDATA[Weeknotes August 16, 2024]]></title>
+                    <author>
+                <name><![CDATA[Chris Hartjes]]></name>                            </author>
+                    <title type="html"><![CDATA[Weeknotes August 16, 2024]]></title>
             <link href="https://grumpy-learning.com/blog/2024/08/16/weeknotes/"/>
             <updated>2024-08-16T00:00:00+00:00</updated>
             <id>https://grumpy-learning.com/blog/2024/08/16/weeknotes/</id>
@@ -400,7 +414,9 @@ for my browser doesn't make mush sense.</p>
 ]]></content>
         </entry>
             <entry>
-            <title type="html"><![CDATA[Weeknotes August 9, 2024]]></title>
+                    <author>
+                <name><![CDATA[Chris Hartjes]]></name>                            </author>
+                    <title type="html"><![CDATA[Weeknotes August 9, 2024]]></title>
             <link href="https://grumpy-learning.com/blog/2024/08/08/weeknotes/"/>
             <updated>2024-08-08T00:00:00+00:00</updated>
             <id>https://grumpy-learning.com/blog/2024/08/08/weeknotes/</id>
@@ -445,7 +461,9 @@ advocate for testing seems reasonable.</p>
 ]]></content>
         </entry>
             <entry>
-            <title type="html"><![CDATA[Debugging A Running Python Application]]></title>
+                    <author>
+                <name><![CDATA[Chris Hartjes]]></name>                            </author>
+                    <title type="html"><![CDATA[Debugging A Running Python Application]]></title>
             <link href="https://grumpy-learning.com/blog/2024/07/19/debugging-running-python-app/"/>
             <updated>2024-07-19T00:00:00+00:00</updated>
             <id>https://grumpy-learning.com/blog/2024/07/19/debugging-running-python-app/</id>
