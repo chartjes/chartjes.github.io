@@ -3,8 +3,10 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="https://grumpy-learning.com/blog/categories/tools.xml" rel="self"/>
     <link href="https://grumpy-learning.com/"/>
-    <updated>2024-10-30T12:59:29+00:00</updated>
+    <updated>2024-10-30T13:05:32+00:00</updated>
     <id>https://grumpy-learning.com/</id>
+            <author>
+            <name><![CDATA[Chris Hartjes]]></name>                    </author>
         <generator uri="http://sculpin.io/">Sculpin</generator>
             <entry>
             <title type="html"><![CDATA[Reducing Friction in Development Environments]]></title>
