@@ -3,11 +3,40 @@
     <title><![CDATA[Grumpy Learning]]></title>
     <link href="https://grumpy-learning.com/blog/categories/notes.xml" rel="self"/>
     <link href="https://grumpy-learning.com/"/>
-    <updated>2024-11-03T18:00:37+00:00</updated>
+    <updated>2024-11-22T22:24:17+00:00</updated>
     <id>https://grumpy-learning.com/</id>
             <author>
             <name><![CDATA[Chris Hartjes]]></name>                    </author>
         <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[Weeknotes -- November 22, 2024]]></title>
+            <link href="https://grumpy-learning.com/blog/2024/11/22/weeknotes/"/>
+            <updated>2024-11-22T00:00:00+00:00</updated>
+            <id>https://grumpy-learning.com/blog/2024/11/22/weeknotes/</id>
+            <content type="html"><![CDATA[<p>Back on the notes grind...</p>
+
+<h2 id="what-i-did">What I Did</h2>
+
+<ul>
+<li>ZiffDavis Shopping is getting close to our Super Bowl -- Black Friday and Cyber Monday</li>
+<li>wrote a PHP CLI tool that will mimic an existing Python job and emit events for updating reward budgets as we pay folks out</li>
+<li>diving deeper into Laravel Nova actions and creating code for doing CSV exports of selected Eloquent models</li>
+</ul>
+
+<h2 id="longer-threads">Longer Threads</h2>
+
+<p>I got asked a question on social media about how to handle things when you
+come onto a team as Staff-level engineer and getting them
+to commit to making things more maintainable.</p>
+
+<p>I could do a whole talk about this, but let me summarize a few points.</p>
+
+<p>1) talk to the people YOU report TO and get expectations on quality and output
+2) ruthlessly enforce those expectations with your team
+3) make team understand they are building new habits while delivering what the business wants
+4) the path to maintainable code is through being able to write tests for it</p>
+]]></content>
+        </entry>
             <entry>
             <title type="html"><![CDATA[Weeknotes October 18th, 2024]]></title>
             <link href="https://grumpy-learning.com/blog/2024/10/18/weeknotes/"/>
