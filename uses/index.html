@@ -56,7 +56,7 @@
                 <div class="col-sm-7">
                     <h1 id="what-chris-uses">What Chris Uses</h1>
 
-<p><em>(Last updated December 10, 2023)</em></p>
+<p><em>(Last updated December 27, 2024)</em></p>
 
 <p>A common question a lot of developers get about almost anything
 they are doing is "what are you using?". In that spirit, here
@@ -67,65 +67,55 @@ is a list of things I am currently using.</p>
 <ul>
 <li>2021 Apple <a href="https://www.apple.com/ca/macbook-pro/">MacBookPro</a> with M1 Max chip. 64 GB RAM, 1 TB Drive</li>
 <li>Apple <a href="https://www.apple.com/ca/studio-display/">Studio Display</a> monitor</li>
-<li>Kinesis <a href="https://kinesis-ergo.com/shop/advantage2-lfq/">Advantage2 LF</a> ergonomic keyboard with an upgraded <a href="https://github.com/kinx-project/kint">open-source controller</a></li>
+<li>Dygma <a href="https://dygma.com/pages/defy">Defy</a> split ergonomic keyboard</li>
 <li>Ploopy <a href="https://ploopy.co/classic-trackball/">Classic Trackball</a></li>
-<li>Apple <a href="https://www.apple.com/ca/shop/buy-iphone/iphone-13">iPhone 13</a></li>
+<li>Apple <a href="https://www.apple.com/ca/shop/buy-iphone/iphone-15">iPhone 15 Plus</a></li>
+<li>over-the-top Ubiquiti <a href="https://grumpy-learning.com/blog/2017/09/14/how-a-grumpy-programmer-wires-their-home/">home network setup</a> that I have been running since 2017</li>
 </ul>
 
-<p>I have been an Apple user for a very long time. Whenever it is time for me to get a new computer
-I inevitably ask myself if I should switch (usually to one running Linux). Then I remember what
-a huge pain in the ass it would be to go back to Linux, even though it's suport for <a href="https://docker.com">Docker</a>
-is so great.</p>
-
-<p>So I stay in the Apple ecosystem. I still think the hardware is very nice. My Studio Display has
-been the best monitor I have ever owned. Great picture quality, really good sound from it and the built-in
-web cam is perfectly suited to the regular video meetings I have to do. For the most part, I stick to stable
-versions of everything I use and it all literally just works. Sorry h8rs, I like Apple's stuff.</p>
-
-<p>The keyboard and trackball are all part of my plan to stay ahead of any RSI problems. So far, so good,
-although it has wrecked my ability to get any real work done on the laptop when I travel.</p>
+<p>Only change is I switched from my QMK-modified Kinesis Advantage 2 LF keyboard. Still staying in the
+Apple ecosystem.</p>
 
 <h2 id="software">Software</h2>
 
 <p>This is for my day-to-day programming work</p>
 
 <ul>
-<li><a href="https://www.jetbrains.com/phpstorm/">PhpStorm</a> as my day-to-day IDE for PHP</li>
-<li><a href="https://neovim.io">NeoVim</a> for everything else that is not PHP</li>
+<li><a href="https://www.apple.com/macos/macos-sequoia/">Sequoia 15.1.1</a></li>
+<li><a href="https://www.jetbrains.com/phpstorm/">PhpStorm</a> as my day-to-day IDE for PHP via paid subscription</li>
+<li><a href="https://www.jetbraind.com/pycharm">PyCharm</a> for some Python coding at work</li>
+<li><a href="https://neovim.io">NeoVim</a> for everything else (like this document)</li>
 <li><a href="https://brew.sh">Homebrew</a> to manage OS-level dependencies</li>
-<li><a href="https://www.warp.dev">Warp</a> as my terminal</li>
+<li><a href="https://ghostty.org">Ghostty</a> as my terminal emulator</li>
 <li><a href="https://www.alfredapp.com/">Alfred</a> as my launcher/helper</li>
-<li><a href="https://developer.apple.com/safari/technology-preview/">Safari Technology Preview</a> as my browser</li>
-<li><a href="https://fishshell">Fish</a> as my shell</li>
-<li>I have been using <a href="https://www.gitkraken.com/">GitKraken</a> as a Git client</li>
-<li><a href="https://joplinapp.org">Joplin</a> to take notes for my <a href="https://zettelkasten.de">Zettelkasten</a> system</li>
+<li><a href="https://www.apple.com/ca/safari/">Safari</a> as my browser (I use Chrome at work because they only support it)</li>
+<li><a href="https://atuin.sh">Atuin</a> for shell history and searching</li>
+<li><a href="https://docker.com">Docker</a> for containerization via <a href="https://podman.io">Podman</a></li>
 <li>This blog is generated using <a href="https://sculpin.io">Sculpin</a></li>
+</ul>
+
+<p>Since the last time I updated, here are the changes:</p>
+
+<ul>
+<li>back to stock Safari</li>
+<li>went from Warp -> Kitrty -> Ghostty for terminal emulator</li>
+<li>stopped using <a href="https://precondition.github.io/home-row-mods">home row mods</a></li>
+<li>Docker Desktop to Podman</li>
 </ul>
 
 <h2 id="evaluating">Evaluating</h2>
 
 <p>Of course, I am always trying stuff out.</p>
 
-<h3 id="atuin">Atuin</h3>
+<h2 id="tiling-window-manager">Tiling window manager</h2>
 
-<p>I spend a lot of time in shells, so I am giving <a href="https://atuin.sh">Atuin</a> a trial to see how helpful it is for
-locating older shell commands.</p>
+<p>I went with <a href="https://github.com/koekeishiya/yabai">Yabai</a> and then <a href="https://nikitabobko.github.io/AeroSpace/guide">Aerospace</a>
+and then found out that I could do 99% of what I want with changes in MacOS Sequoia.</p>
 
-<h3 id="home-row-mods">Home Row Mods</h3>
+<h2 id="sketchybar">Sketchybar</h2>
 
-<p>Now that I have a keyboard controller that uses an <a href="https://qmk.fm">open source firmware</a> I can experiment
-with some keyboard layouts in a way that wasn't possible with Kinesis' proprietary controller for my
-keyboard. I have updated my keyboard layout to make use of <a href="https://precondition.github.io/home-row-mods">home row mods</a> to make my typing a little more efficient.</p>
-
-<p>The biggest change has been trying to re-map muscle memory so that I use the home row mods for
-shift and control. It will take some time but I will get there.</p>
-
-<h3 id="amaethyst">Amaethyst</h3>
-
-<p>I was finding my desktop was getting cluttered while working so to reduce distractions I decided to 
-try out a tiling window manager. The first one I evaluated was <a href="https://github.com/koekeishiya/yabai">Yabai</a>
-but after a while I was having issues getting the window layouts just the way I want. I have now switched to
-<a href="https://ianyh.com/amethyst/">Amaethyst</a>.</p>
+<p>The idea of replacing the usual MacOS status bar at the top with a custom one
+is something I find interesting and that is where <a href="https://felixkratz.github.io/SketchyBar/">Sketchybar</a> comes in</p>
                     <link href="/sitesearch/pagefind-ui.css" rel="stylesheet">
                     <script src="/sitesearch/pagefind-ui.js" type="text/javascript"></script>
                     <div id="search"></div>
